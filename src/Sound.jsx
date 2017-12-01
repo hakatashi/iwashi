@@ -34,8 +34,10 @@ module.exports = class Sound extends React.Component {
 
 	handleBeat = (beat) => {
 		if (
-			(this.props.src === 'kinmoza-clap.wav' && beat % 4 < 3) ||
-			(this.props.src === 'karateka-kick.wav' && beat % 2 === 1)
+			(this.props.src === 'kinmoza-clap.wav' && beat % 2 === 1) ||
+			(this.props.src === 'karateka-kick.wav' && beat % 2 === 1) ||
+			(this.props.src === 'killme-pyonsuke.wav' && beat % 1 === 0) ||
+			(this.props.src === 'ippon-crisp.wav' && beat % 1 === 0.5)
 		) {
 			this.clap.play();
 			this.player.seekTo(this.props.videoStart);
