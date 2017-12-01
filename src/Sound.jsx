@@ -9,6 +9,8 @@ module.exports = class Sound extends React.Component {
 		url: PropTypes.string.isRequired,
 		videoStart: PropTypes.number.isRequired,
 		videoDuration: PropTypes.number.isRequired,
+		beat: PropTypes.number.isRequired,
+		volume: PropTypes.number.isRequired,
 	}
 
 	constructor(props, state) {
@@ -16,17 +18,25 @@ module.exports = class Sound extends React.Component {
 
 		this.clap = new Howl({
 			src: [this.props.src],
+			volume: this.props.volume,
 		});
-
-		setInterval(this.handleClap, 300);
 
 		this.state = {
 			isPlaying: true,
 		};
 	}
 
-	handleClap = () => {
-		if (Math.random() < 0.5) {
+	componentWillReceiveProps(nextProps) {
+		if (this.props.beat !== nextProps.beat) {
+			this.handleBeat(nextProps.beat);
+		}
+	}
+
+	handleBeat = (beat) => {
+		if (
+			(this.props.src === 'kinmoza-clap.wav' && beat % 4 < 3) ||
+			(this.props.src === 'karateka-kick.wav' && beat % 2 === 1)
+		) {
 			this.clap.play();
 			this.player.seekTo(this.props.videoStart);
 			if (!this.state.isPlaying) {
