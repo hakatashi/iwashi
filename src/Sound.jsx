@@ -11,18 +11,21 @@ module.exports = class Sound extends React.Component {
 		videoDuration: PropTypes.number.isRequired,
 		beat: PropTypes.number.isRequired,
 		volume: PropTypes.number.isRequired,
+		isPrank: PropTypes.bool.isRequired,
 	}
 
 	constructor(props, state) {
 		super(props, state);
 
-		this.clap = new Howl({
+		this.sound = new Howl({
 			src: [process.env.NODE_ENV === 'production' ? `https://media.githubusercontent.com/media/hakatashi/iwashi/master/wav/${this.props.src}` : `wav/${this.props.src}`],
 			volume: this.props.volume,
+			loop: this.props.src === 'atsumori.wav',
 		});
 
 		this.state = {
 			isPlaying: true,
+			isReverse: false,
 		};
 	}
 
@@ -37,12 +40,28 @@ module.exports = class Sound extends React.Component {
 			(this.props.src === 'kinmoza-clap.wav' && beat % 2 === 1) ||
 			(this.props.src === 'karateka-kick.wav' && beat % 2 === 1) ||
 			(this.props.src === 'killme-pyonsuke.wav' && beat % 1 === 0) ||
-			(this.props.src === 'ippon-crisp.wav' && beat % 1 === 0.5)
+			(this.props.src === 'ippon-crisp.wav' && beat % 1 === 0.5) ||
+			(this.props.src === 'atsumori.wav')
 		) {
-			this.clap.play();
+			this.sound.stop();
+			if (this.props.src === 'atsumori.wav') {
+				const notes = [
+					4, 16, 4, 16, -1, 11, -1, 11,
+					4, 16, 4, 16, -1, 11, -1, 11,
+					4, 16, 4, 16, -1, 11, -1, 11,
+					4, 16, 4, 16, -1, 11, -1, 11,
+				];
+				this.sound.rate(2 ** (notes[(beat * 2) % notes.length] / 12));
+			}
+			this.sound.play();
 			this.player.seekTo(this.props.videoStart);
+
 			if (!this.state.isPlaying) {
 				this.setState({isPlaying: true});
+			}
+
+			if (this.props.isPrank) {
+				this.setState({isReverse: !this.state.isReverse});
 			}
 
 			const session = Symbol('videoPlaySession');
@@ -64,7 +83,12 @@ module.exports = class Sound extends React.Component {
 
 	render() {
 		return (
-			<div>
+			<div
+				style={{
+					display: 'inline-block',
+					transform: this.state.isReverse ? 'scale(-1, 1)' : 'none',
+				}}
+			>
 				<Player
 					ref={(element) => {
 						this.player = element;
