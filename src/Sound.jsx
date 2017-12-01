@@ -92,6 +92,7 @@ module.exports = class Sound extends React.Component {
 				<Player
 					ref={(element) => {
 						this.player = element;
+						this.player && this.player.player && this.player.player.player && this.player.player.player.setPlaybackQuality && this.player.player.player.setPlaybackQuality('tiny');
 					}}
 					url={this.props.url}
 					width={320}
