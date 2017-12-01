@@ -1,0 +1,9 @@
+{
+    "extends": "@hakatashi",
+    "parser": "babel-eslint",
+    "rules": {
+        "camelcase": "off",
+        "no-console": "off",
+        "max-len": "off"
+    }
+}
