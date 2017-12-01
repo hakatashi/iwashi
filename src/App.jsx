@@ -15,11 +15,13 @@ module.exports = class App extends React.Component {
 					src="kinmoza-clap.wav"
 					url="https://www.youtube.com/watch?v=STcc8H4Vr_g"
 					videoStart={5.3}
+					videoDuration={Infinity}
 				/>
 				<Sound
 					src="karateka-kick.wav"
 					url="https://www.youtube.com/watch?v=Cg6dlPZt-1g"
 					videoStart={32}
+					videoDuration={0.5}
 				/>
 			</div>
 		);

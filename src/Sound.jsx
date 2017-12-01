@@ -8,6 +8,7 @@ module.exports = class Sound extends React.Component {
 		src: PropTypes.string.isRequired,
 		url: PropTypes.string.isRequired,
 		videoStart: PropTypes.number.isRequired,
+		videoDuration: PropTypes.number.isRequired,
 	}
 
 	constructor(props, state) {
@@ -20,7 +21,7 @@ module.exports = class Sound extends React.Component {
 		setInterval(this.handleClap, 300);
 
 		this.state = {
-			isReverse: false,
+			isPlaying: true,
 		};
 	}
 
@@ -28,7 +29,24 @@ module.exports = class Sound extends React.Component {
 		if (Math.random() < 0.5) {
 			this.clap.play();
 			this.player.seekTo(this.props.videoStart);
-			this.setState({isReverse: !this.state.isReverse});
+			if (!this.state.isPlaying) {
+				this.setState({isPlaying: true});
+			}
+
+			const session = Symbol('videoPlaySession');
+			this.videoPlaySession = session;
+
+			if (Number.isFinite(this.props.videoDuration)) {
+				setTimeout(() => {
+					this.handleVideoSessionTimeout(session);
+				}, this.props.videoDuration * 1000);
+			}
+		}
+	}
+
+	handleVideoSessionTimeout = (session) => {
+		if (this.videoPlaySession === session) {
+			this.setState({isPlaying: false});
 		}
 	}
 
@@ -42,7 +60,7 @@ module.exports = class Sound extends React.Component {
 					url={this.props.url}
 					width={320}
 					height={180}
-					playing
+					playing={this.state.isPlaying}
 					controls
 					muted
 				/>
