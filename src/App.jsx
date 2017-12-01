@@ -1,19 +1,8 @@
 const React = require('react');
-const ReactDOM = require('react-dom');
 const {default: Player} = require('react-player');
 const {Howl} = require('howler');
 
-require('babel-polyfill');
-
-process.on('unhandledRejection', (error) => {
-	throw error;
-});
-
-window.addEventListener('unhandledrejection', (error) => {
-	throw error;
-});
-
-class App extends React.Component {
+module.exports = class App extends React.Component {
 	constructor() {
 		super();
 		console.log(Howl);
@@ -53,8 +42,4 @@ class App extends React.Component {
 			</div>
 		);
 	}
-}
-
-const reactRoot = document.getElementById('react');
-
-ReactDOM.render(React.createElement(App), reactRoot);
+};

@@ -1,7 +1,7 @@
 const webpack = require('webpack');
 
 module.exports = (env = {}) => ({
-	entry: './index.jsx',
+	entry: './index.babel.js',
 	output: {
 		path: __dirname,
 		filename: 'index.js',
