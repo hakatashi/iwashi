@@ -17,7 +17,7 @@ module.exports = class Sound extends React.Component {
 		super(props, state);
 
 		this.clap = new Howl({
-			src: [this.props.src],
+			src: [process.env.NODE_ENV === 'production' ? `https://media.githubusercontent.com/media/hakatashi/iwashi/master/wav/${this.props.src}` : `wav/${this.props.src}`],
 			volume: this.props.volume,
 		});
 
