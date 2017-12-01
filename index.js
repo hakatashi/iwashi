@@ -2307,7 +2307,8 @@ module.exports = class App extends React.Component {
 				videoStart: 5.3,
 				videoDuration: Infinity,
 				beat: this.state.beat,
-				volume: 1
+				volume: 1,
+				isPrank: false
 			}),
 			React.createElement(Sound, {
 				src: 'karateka-kick.wav',
@@ -2315,7 +2316,8 @@ module.exports = class App extends React.Component {
 				videoStart: 32,
 				videoDuration: 0.5,
 				beat: this.state.beat,
-				volume: 0.5
+				volume: 0.5,
+				isPrank: false
 			}),
 			React.createElement(Sound, {
 				src: 'killme-pyonsuke.wav',
@@ -2323,7 +2325,8 @@ module.exports = class App extends React.Component {
 				videoStart: 247.7,
 				videoDuration: 0.5,
 				beat: this.state.beat,
-				volume: 1
+				volume: 1,
+				isPrank: false
 			}),
 			React.createElement(Sound, {
 				src: 'ippon-crisp.wav',
@@ -2331,7 +2334,17 @@ module.exports = class App extends React.Component {
 				videoStart: 23.7,
 				videoDuration: 1,
 				beat: this.state.beat,
-				volume: 0.5
+				volume: 0.5,
+				isPrank: false
+			}),
+			React.createElement(Sound, {
+				src: 'atsumori.wav',
+				url: 'https://www.youtube.com/watch?v=uvg3I_IR9FA',
+				videoStart: 4.8,
+				videoDuration: 0.5,
+				beat: this.state.beat,
+				volume: 0.5,
+				isPrank: true
 			})
 		);
 	}
@@ -2357,11 +2370,21 @@ module.exports = (_temp = _class = class Sound extends React.Component {
 		super(props, state);
 
 		this.handleBeat = beat => {
-			if (this.props.src === 'kinmoza-clap.wav' && beat % 2 === 1 || this.props.src === 'karateka-kick.wav' && beat % 2 === 1 || this.props.src === 'killme-pyonsuke.wav' && beat % 1 === 0 || this.props.src === 'ippon-crisp.wav' && beat % 1 === 0.5) {
-				this.clap.play();
+			if (this.props.src === 'kinmoza-clap.wav' && beat % 2 === 1 || this.props.src === 'karateka-kick.wav' && beat % 2 === 1 || this.props.src === 'killme-pyonsuke.wav' && beat % 1 === 0 || this.props.src === 'ippon-crisp.wav' && beat % 1 === 0.5 || this.props.src === 'atsumori.wav') {
+				this.sound.stop();
+				if (this.props.src === 'atsumori.wav') {
+					const notes = [4, 16, 4, 16, -1, 11, -1, 11, 4, 16, 4, 16, -1, 11, -1, 11, 4, 16, 4, 16, -1, 11, -1, 11, 4, 16, 4, 16, -1, 11, -1, 11];
+					this.sound.rate(2 ** (notes[beat * 2 % notes.length] / 12));
+				}
+				this.sound.play();
 				this.player.seekTo(this.props.videoStart);
+
 				if (!this.state.isPlaying) {
 					this.setState({ isPlaying: true });
+				}
+
+				if (this.props.isPrank) {
+					this.setState({ isReverse: !this.state.isReverse });
 				}
 
 				const session = Symbol('videoPlaySession');
@@ -2381,13 +2404,15 @@ module.exports = (_temp = _class = class Sound extends React.Component {
 			}
 		};
 
-		this.clap = new Howl({
+		this.sound = new Howl({
 			src: [ true ? `https://media.githubusercontent.com/media/hakatashi/iwashi/master/wav/${this.props.src}` : `wav/${this.props.src}`],
-			volume: this.props.volume
+			volume: this.props.volume,
+			loop: this.props.src === 'atsumori.wav'
 		});
 
 		this.state = {
-			isPlaying: true
+			isPlaying: true,
+			isReverse: false
 		};
 	}
 
@@ -2400,7 +2425,12 @@ module.exports = (_temp = _class = class Sound extends React.Component {
 	render() {
 		return React.createElement(
 			'div',
-			null,
+			{
+				style: {
+					display: 'inline-block',
+					transform: this.state.isReverse ? 'scale(-1, 1)' : 'none'
+				}
+			},
 			React.createElement(Player, {
 				ref: element => {
 					this.player = element;
@@ -2420,7 +2450,8 @@ module.exports = (_temp = _class = class Sound extends React.Component {
 	videoStart: PropTypes.number.isRequired,
 	videoDuration: PropTypes.number.isRequired,
 	beat: PropTypes.number.isRequired,
-	volume: PropTypes.number.isRequired
+	volume: PropTypes.number.isRequired,
+	isPrank: PropTypes.bool.isRequired
 }, _temp);
 
 /***/ }),
