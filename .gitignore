@@ -58,3 +58,4 @@ typings/
 .env
 
 index.js
+index.js.map
