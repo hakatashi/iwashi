@@ -2287,14 +2287,14 @@ module.exports = class App extends React.Component {
 		super();
 
 		this.handleBeat = () => {
-			this.setState({ beat: this.state.beat + 1 });
+			this.setState({ beat: this.state.beat + 0.5 });
 		};
 
 		this.state = {
 			beat: 0
 		};
 
-		setInterval(this.handleBeat, 400);
+		setInterval(this.handleBeat, 222);
 	}
 
 	render() {
@@ -2314,6 +2314,22 @@ module.exports = class App extends React.Component {
 				url: 'https://www.youtube.com/watch?v=Cg6dlPZt-1g',
 				videoStart: 32,
 				videoDuration: 0.5,
+				beat: this.state.beat,
+				volume: 0.5
+			}),
+			React.createElement(Sound, {
+				src: 'killme-pyonsuke.wav',
+				url: 'https://www.youtube.com/watch?v=vXBO_W5l6uY',
+				videoStart: 247.7,
+				videoDuration: 0.5,
+				beat: this.state.beat,
+				volume: 1
+			}),
+			React.createElement(Sound, {
+				src: 'ippon-crisp.wav',
+				url: 'https://www.youtube.com/watch?v=2rc8CmeKinc',
+				videoStart: 23.7,
+				videoDuration: 1,
 				beat: this.state.beat,
 				volume: 0.5
 			})
@@ -2341,7 +2357,7 @@ module.exports = (_temp = _class = class Sound extends React.Component {
 		super(props, state);
 
 		this.handleBeat = beat => {
-			if (this.props.src === 'kinmoza-clap.wav' && beat % 4 < 3 || this.props.src === 'karateka-kick.wav' && beat % 2 === 1) {
+			if (this.props.src === 'kinmoza-clap.wav' && beat % 2 === 1 || this.props.src === 'karateka-kick.wav' && beat % 2 === 1 || this.props.src === 'killme-pyonsuke.wav' && beat % 1 === 0 || this.props.src === 'ippon-crisp.wav' && beat % 1 === 0.5) {
 				this.clap.play();
 				this.player.seekTo(this.props.videoStart);
 				if (!this.state.isPlaying) {
