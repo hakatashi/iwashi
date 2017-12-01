@@ -26,6 +26,7 @@ module.exports = class App extends React.Component {
 					videoDuration={Infinity}
 					beat={this.state.beat}
 					volume={1}
+					isPrank={false}
 				/>
 				<Sound
 					src="karateka-kick.wav"
@@ -34,6 +35,7 @@ module.exports = class App extends React.Component {
 					videoDuration={0.5}
 					beat={this.state.beat}
 					volume={0.5}
+					isPrank={false}
 				/>
 				<Sound
 					src="killme-pyonsuke.wav"
@@ -42,6 +44,7 @@ module.exports = class App extends React.Component {
 					videoDuration={0.5}
 					beat={this.state.beat}
 					volume={1}
+					isPrank={false}
 				/>
 				<Sound
 					src="ippon-crisp.wav"
@@ -50,6 +53,16 @@ module.exports = class App extends React.Component {
 					videoDuration={1}
 					beat={this.state.beat}
 					volume={0.5}
+					isPrank={false}
+				/>
+				<Sound
+					src="atsumori.wav"
+					url="https://www.youtube.com/watch?v=uvg3I_IR9FA"
+					videoStart={4.8}
+					videoDuration={0.5}
+					beat={this.state.beat}
+					volume={0.5}
+					isPrank
 				/>
 			</div>
 		);
