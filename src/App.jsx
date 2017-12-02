@@ -1,20 +1,29 @@
 const React = require('react');
+const {Howl} = require('howler');
+
 const Sound = require('./Sound.jsx');
 const {TICK} = require('./const.js');
+const {getSoundUrl} = require('./util.js');
 
 module.exports = class App extends React.Component {
 	constructor() {
 		super();
 
 		this.state = {
-			beat: 0,
+			beat: null,
 		};
 
 		this.readySounds = new Set();
+		this.vocal = new Howl({
+			src: [getSoundUrl('vocal/yufu/01')],
+		});
 	}
 
 	handleBeat = () => {
-		this.setState({beat: this.state.beat + TICK});
+		this.setState({beat: this.state.beat === null ? 0 : this.state.beat + TICK});
+		if (Math.abs(this.state.beat % (TICK * 192) - TICK * 61) < TICK / 2) {
+			this.vocal.play();
+		}
 	}
 
 	handleSoundReady = (score) => {
@@ -95,7 +104,7 @@ module.exports = class App extends React.Component {
 					videoStart={18.9}
 					videoDuration={2}
 					beat={this.state.beat}
-					volume={0.25}
+					volume={0.15}
 					sourceNote={62}
 					onReady={this.handleSoundReady}
 					isPrank={false}

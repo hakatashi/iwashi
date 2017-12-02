@@ -3,11 +3,11 @@ t135 o1 l8
 d r16 d r16 <a> d r d+4
 
 l16
-d^ r >d< d r >d^<  <a^> r a d <a> a^
-d^ r >d< d r >d^<  <a^> r a d <a> a^
+d^ r >d< d r >d^<  <a^> r a <a> r a^
+d^ r >d< d r >d^<  <a^> r a <a> r a^
 g^ r >g< g r >g^<  c^ r >c< c r >c^<
 f^ r >f< f r >f^<  f^ r >f< f r >f^<
-e^ r >e< e r >e^<  <a^> r a d <a> a^
+e^ r >e< e r >e^<  <a^> r a <a> r a^
 d^ r >d< d r >d^<  c^ r >c< c r >c^<
-<a+^> r a+ d <a+> a+^  <a^> r a d <a> a^
+<a+^> r a+ d <a+> a+^  <a^> r a <a> r a^
 o2 d^ r c+ r^ c r <b> r^^ <a^^^>

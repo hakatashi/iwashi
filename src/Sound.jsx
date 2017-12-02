@@ -5,6 +5,7 @@ const PropTypes = require('prop-types');
 
 const scores = require('./scores.js');
 const {TICK} = require('./const.js');
+const {getSoundUrl} = require('./util.js');
 
 module.exports = class Sound extends React.Component {
 	static propTypes = {
@@ -30,7 +31,7 @@ module.exports = class Sound extends React.Component {
 
 		this.sounds = Array(this.props.isPercussion ? 1 : 5).fill().map(() => (
 			new Howl({
-				src: [process.env.NODE_ENV === 'production' ? `https://media.githubusercontent.com/media/hakatashi/iwashi/master/sound/${this.props.src}.ogg` : `sound/${this.props.src}.ogg`],
+				src: [getSoundUrl(this.props.src)],
 				volume: this.props.volume,
 				loop: !this.props.isPercussion,
 			})
@@ -39,6 +40,7 @@ module.exports = class Sound extends React.Component {
 		this.state = {
 			isPlaying: true,
 			isReverse: false,
+			isShown: true,
 		};
 
 		this.currentNote = null;
@@ -53,6 +55,10 @@ module.exports = class Sound extends React.Component {
 	}
 
 	handleBeat = (beat) => {
+		if (Math.abs((beat + TICK) % (TICK * 192) - TICK) < TICK / 2) {
+			this.setState({isShown: false});
+		}
+
 		if (this.props.isPercussion) {
 			const isPlay = this.score.some((note) => Math.abs(note.time - beat % (TICK * 192)) < TICK / 2 && note.type === 'note');
 
@@ -82,6 +88,7 @@ module.exports = class Sound extends React.Component {
 		}
 
 		this.player.seekTo(this.props.videoStart);
+		this.setState({isShown: true});
 
 		if (!this.state.isPlaying) {
 			this.setState({isPlaying: true});
@@ -128,6 +135,7 @@ module.exports = class Sound extends React.Component {
 				style={{
 					display: 'inline-block',
 					transform: this.state.isReverse ? 'scale(-1, 1)' : 'none',
+					visibility: this.state.isShown ? 'visible' : 'hidden',
 				}}
 			>
 				<Player
