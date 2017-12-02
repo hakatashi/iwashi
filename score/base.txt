@@ -1,3 +1,3 @@
-t135 o2 l8
-/: d <d> d <d> a <a> a <a> :/3
-d r16 d r16 a d r d+4
+t135 o1 l8
+/: d >d< d >d< <a> a <a> a :/3
+d r16 d r16 <a> d r d+4

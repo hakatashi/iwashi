@@ -1,5 +1,6 @@
 const React = require('react');
 const Sound = require('./Sound.jsx');
+const {TICK} = require('./const.js');
 
 module.exports = class App extends React.Component {
 	constructor() {
@@ -9,11 +10,11 @@ module.exports = class App extends React.Component {
 			beat: 0,
 		};
 
-		setInterval(this.handleBeat, 222);
+		setInterval(this.handleBeat, TICK * 1000);
 	}
 
 	handleBeat = () => {
-		this.setState({beat: this.state.beat + 0.5});
+		this.setState({beat: this.state.beat + TICK});
 	}
 
 	render() {

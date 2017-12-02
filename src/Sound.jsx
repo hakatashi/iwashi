@@ -4,7 +4,7 @@ const {Howl} = require('howler');
 const PropTypes = require('prop-types');
 
 const scores = require('./scores.js');
-console.log(scores);
+const {TICK} = require('./const.js');
 
 module.exports = class Sound extends React.Component {
 	static propTypes = {
@@ -30,6 +30,8 @@ module.exports = class Sound extends React.Component {
 			isPlaying: true,
 			isReverse: false,
 		};
+
+		this.currentNote = null;
 	}
 
 	componentWillReceiveProps(nextProps) {
@@ -40,23 +42,32 @@ module.exports = class Sound extends React.Component {
 
 	handleBeat = (beat) => {
 		if (
-			(this.props.src === 'kinmoza-clap.wav' && beat % 2 === 1) ||
-			(this.props.src === 'karateka-kick.wav' && beat % 2 === 1) ||
-			(this.props.src === 'killme-pyonsuke.wav' && beat % 1 === 0) ||
-			(this.props.src === 'ippon-crisp.wav' && beat % 1 === 0.5) ||
+			(this.props.src === 'kinmoza-clap.wav' && Math.round(beat / TICK) % 8 === 4) ||
+			(this.props.src === 'karateka-kick.wav' && Math.round(beat / TICK) % 8 === 4) ||
+			(this.props.src === 'killme-pyonsuke.wav' && Math.round(beat / TICK) % 4 === 0) ||
+			(this.props.src === 'ippon-crisp.wav' && Math.round(beat / TICK) % 4 === 2) ||
 			(this.props.src === 'atsumori.wav')
 		) {
-			this.sound.stop();
 			if (this.props.src === 'atsumori.wav') {
-				const notes = [
-					4, 16, 4, 16, -1, 11, -1, 11,
-					4, 16, 4, 16, -1, 11, -1, 11,
-					4, 16, 4, 16, -1, 11, -1, 11,
-					4, 16, 4, 16, -1, 11, -1, 11,
-				];
-				this.sound.rate(2 ** (notes[(beat * 2) % notes.length] / 12));
+				const playNoteIndex = scores.base.findIndex((note) => Math.abs(note.time - beat % (TICK * 64)) < TICK / 2 && note.type === 'note');
+				const playNote = playNoteIndex === -1 ? null : scores.base[playNoteIndex];
+
+				if (playNote !== null || (scores.base[this.currentNote] && Math.abs(scores.base[this.currentNote].time + scores.base[this.currentNote].duration - beat % (TICK * 64)) < TICK / 2)) {
+					this.sound.stop();
+				}
+
+				if (playNote === null) {
+					return;
+				}
+
+				this.currentNote = playNoteIndex;
+				this.sound.rate(2 ** ((playNote.noteNumber - 21) / 12));
+			} else {
+				this.sound.stop();
 			}
+
 			this.sound.play();
+
 			this.player.seekTo(this.props.videoStart);
 
 			if (!this.state.isPlaying) {
