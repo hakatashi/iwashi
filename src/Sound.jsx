@@ -3,6 +3,9 @@ const {default: Player} = require('react-player');
 const {Howl} = require('howler');
 const PropTypes = require('prop-types');
 
+const scores = require('./scores.js');
+console.log(scores);
+
 module.exports = class Sound extends React.Component {
 	static propTypes = {
 		src: PropTypes.string.isRequired,
