@@ -10,6 +10,7 @@ module.exports = (env = {}) => ({
 	module: {
 		rules: [{
 			test: /\.jsx?$/,
+			exclude: /node_modules/,
 			use: {
 				loader: 'babel-loader',
 				options: {
@@ -30,14 +31,18 @@ module.exports = (env = {}) => ({
 					],
 				},
 			},
-			exclude: /node_modules/,
 		}, {
 			test: /\.pcss$/,
+			exclude: /node_modules/,
 			use: [
 				'style-loader',
 				{loader: 'css-loader', options: {importLoaders: 1}},
 				'postcss-loader',
 			],
+		}, {
+			test: /\.txt$/,
+			exclude: /node_modules/,
+			use: ['json-loader', './lib/mml-loader.js'],
 		}],
 	},
 	node: {
