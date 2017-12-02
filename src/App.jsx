@@ -23,47 +23,57 @@ module.exports = class App extends React.Component {
 				<Sound
 					src="kinmoza-clap.wav"
 					url="https://www.youtube.com/watch?v=STcc8H4Vr_g"
-					videoStart={5.3}
+					score="clap"
+					videoStart={5.4}
 					videoDuration={Infinity}
 					beat={this.state.beat}
 					volume={1}
 					isPrank={false}
+					isPercussion
 				/>
 				<Sound
 					src="karateka-kick.wav"
 					url="https://www.youtube.com/watch?v=Cg6dlPZt-1g"
+					score="snare"
 					videoStart={32}
 					videoDuration={0.5}
 					beat={this.state.beat}
 					volume={0.5}
 					isPrank={false}
+					isPercussion
 				/>
 				<Sound
 					src="killme-pyonsuke.wav"
 					url="https://www.youtube.com/watch?v=vXBO_W5l6uY"
+					score="bass"
 					videoStart={247.7}
 					videoDuration={0.5}
 					beat={this.state.beat}
 					volume={1}
 					isPrank={false}
+					isPercussion
 				/>
 				<Sound
 					src="ippon-crisp.wav"
 					url="https://www.youtube.com/watch?v=2rc8CmeKinc"
+					score="closed-hihat"
 					videoStart={23.7}
 					videoDuration={1}
 					beat={this.state.beat}
 					volume={0.5}
 					isPrank={false}
+					isPercussion
 				/>
 				<Sound
 					src="atsumori.wav"
 					url="https://www.youtube.com/watch?v=uvg3I_IR9FA"
+					score="base"
 					videoStart={4.8}
 					videoDuration={0.5}
 					beat={this.state.beat}
 					volume={0.5}
 					isPrank
+					isPercussion={false}
 				/>
 			</div>
 		);

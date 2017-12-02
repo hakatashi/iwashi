@@ -10,11 +10,13 @@ module.exports = class Sound extends React.Component {
 	static propTypes = {
 		src: PropTypes.string.isRequired,
 		url: PropTypes.string.isRequired,
+		score: PropTypes.string.isRequired,
 		videoStart: PropTypes.number.isRequired,
 		videoDuration: PropTypes.number.isRequired,
 		beat: PropTypes.number.isRequired,
 		volume: PropTypes.number.isRequired,
 		isPrank: PropTypes.bool.isRequired,
+		isPercussion: PropTypes.bool.isRequired,
 	}
 
 	constructor(props, state) {
@@ -27,11 +29,12 @@ module.exports = class Sound extends React.Component {
 		});
 
 		this.state = {
-			isPlaying: true,
+			isPlaying: false,
 			isReverse: false,
 		};
 
 		this.currentNote = null;
+		this.score = scores[this.props.score];
 	}
 
 	componentWillReceiveProps(nextProps) {
@@ -41,51 +44,46 @@ module.exports = class Sound extends React.Component {
 	}
 
 	handleBeat = (beat) => {
-		if (
-			(this.props.src === 'kinmoza-clap.wav' && Math.round(beat / TICK) % 8 === 4) ||
-			(this.props.src === 'karateka-kick.wav' && Math.round(beat / TICK) % 8 === 4) ||
-			(this.props.src === 'killme-pyonsuke.wav' && Math.round(beat / TICK) % 4 === 0) ||
-			(this.props.src === 'ippon-crisp.wav' && Math.round(beat / TICK) % 4 === 2) ||
-			(this.props.src === 'atsumori.wav')
-		) {
-			if (this.props.src === 'atsumori.wav') {
-				const playNoteIndex = scores.base.findIndex((note) => Math.abs(note.time - beat % (TICK * 64)) < TICK / 2 && note.type === 'note');
-				const playNote = playNoteIndex === -1 ? null : scores.base[playNoteIndex];
+		if (this.props.isPercussion) {
+			const isPlay = this.score.some((note) => Math.abs(note.time - beat % (TICK * 64)) < TICK / 2 && note.type === 'note');
+			if (!isPlay) {
+				return;
+			}
+		} else {
+			const playNoteIndex = this.score.findIndex((note) => Math.abs(note.time - beat % (TICK * 64)) < TICK / 2 && note.type === 'note');
+			const playNote = playNoteIndex === -1 ? null : this.score[playNoteIndex];
 
-				if (playNote !== null || (scores.base[this.currentNote] && Math.abs(scores.base[this.currentNote].time + scores.base[this.currentNote].duration - beat % (TICK * 64)) < TICK / 2)) {
-					this.sound.stop();
-				}
-
-				if (playNote === null) {
-					return;
-				}
-
-				this.currentNote = playNoteIndex;
-				this.sound.rate(2 ** ((playNote.noteNumber - 21) / 12));
-			} else {
+			if (playNote !== null || (this.score[this.currentNote] && Math.abs(this.score[this.currentNote].time + this.score[this.currentNote].duration - beat % (TICK * 64)) < TICK / 2)) {
 				this.sound.stop();
 			}
 
-			this.sound.play();
-
-			this.player.seekTo(this.props.videoStart);
-
-			if (!this.state.isPlaying) {
-				this.setState({isPlaying: true});
+			if (playNote === null) {
+				return;
 			}
 
-			if (this.props.isPrank) {
-				this.setState({isReverse: !this.state.isReverse});
-			}
+			this.currentNote = playNoteIndex;
+			this.sound.rate(2 ** ((playNote.noteNumber - 21) / 12));
+		}
 
-			const session = Symbol('videoPlaySession');
-			this.videoPlaySession = session;
+		this.sound.play();
 
-			if (Number.isFinite(this.props.videoDuration)) {
-				setTimeout(() => {
-					this.handleVideoSessionTimeout(session);
-				}, this.props.videoDuration * 1000);
-			}
+		this.player.seekTo(this.props.videoStart);
+
+		if (!this.state.isPlaying) {
+			this.setState({isPlaying: true});
+		}
+
+		if (this.props.isPrank) {
+			this.setState({isReverse: !this.state.isReverse});
+		}
+
+		const session = Symbol('videoPlaySession');
+		this.videoPlaySession = session;
+
+		if (Number.isFinite(this.props.videoDuration)) {
+			setTimeout(() => {
+				this.handleVideoSessionTimeout(session);
+			}, this.props.videoDuration * 1000);
 		}
 	}
 
@@ -109,6 +107,7 @@ module.exports = class Sound extends React.Component {
 						this.player && this.player.player && this.player.player.player && this.player.player.player.setPlaybackQuality && this.player.player.player.setPlaybackQuality('tiny');
 					}}
 					url={this.props.url}
+					youtubeConfig={{playerVars: {start: this.props.videoStart}}}
 					width={320}
 					height={180}
 					playing={this.state.isPlaying}
