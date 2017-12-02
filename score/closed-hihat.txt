@@ -2,3 +2,4 @@ t135 o1 l8
 r1 r1 r1 r1
 
 /: r c r c r c r c :/4
+/: r c r c r c r c :/3 r r r r r c r r

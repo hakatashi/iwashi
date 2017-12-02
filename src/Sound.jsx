@@ -16,6 +16,7 @@ module.exports = class Sound extends React.Component {
 		beat: PropTypes.number.isRequired,
 		volume: PropTypes.number.isRequired,
 		sourceNote: PropTypes.number,
+		onReady: PropTypes.func.isRequired,
 		isPrank: PropTypes.bool.isRequired,
 		isPercussion: PropTypes.bool.isRequired,
 	}
@@ -51,7 +52,7 @@ module.exports = class Sound extends React.Component {
 
 	handleBeat = (beat) => {
 		if (this.props.isPercussion) {
-			const isPlay = this.score.some((note) => Math.abs(note.time - beat % (TICK * 128)) < TICK / 2 && note.type === 'note');
+			const isPlay = this.score.some((note) => Math.abs(note.time - beat % (TICK * 192)) < TICK / 2 && note.type === 'note');
 
 			if (!isPlay) {
 				return;
@@ -59,10 +60,10 @@ module.exports = class Sound extends React.Component {
 
 			this.sounds[0].play();
 		} else {
-			const playNoteIndex = this.score.findIndex((note) => Math.abs(note.time - beat % (TICK * 128)) < TICK / 2 && note.type === 'note');
-			const playNotes = this.score.filter((note) => Math.abs(note.time - beat % (TICK * 128)) < TICK / 2 && note.type === 'note');
+			const playNoteIndex = this.score.findIndex((note) => Math.abs(note.time - beat % (TICK * 192)) < TICK / 2 && note.type === 'note');
+			const playNotes = this.score.filter((note) => Math.abs(note.time - beat % (TICK * 192)) < TICK / 2 && note.type === 'note');
 
-			if (playNotes.length !== 0 || (this.score[this.currentNote] && Math.abs(this.score[this.currentNote].time + this.score[this.currentNote].duration - beat % (TICK * 128)) < TICK / 2)) {
+			if (playNotes.length !== 0 || (this.score[this.currentNote] && Math.abs(this.score[this.currentNote].time + this.score[this.currentNote].duration - beat % (TICK * 192)) < TICK / 2)) {
 				this.sounds.forEach((sound) => sound.stop());
 			}
 
@@ -104,6 +105,10 @@ module.exports = class Sound extends React.Component {
 		}
 	}
 
+	handlePlayerReady = () => {
+		this.props.onReady(this.props.score);
+	}
+
 	render() {
 		return (
 			<div
@@ -124,6 +129,7 @@ module.exports = class Sound extends React.Component {
 					playing={this.state.isPlaying}
 					controls
 					muted
+					onReady={this.handlePlayerReady}
 				/>
 			</div>
 		);

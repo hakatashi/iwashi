@@ -10,11 +10,18 @@ module.exports = class App extends React.Component {
 			beat: 0,
 		};
 
-		setInterval(this.handleBeat, TICK * 1000);
+		this.readySounds = new Set();
 	}
 
 	handleBeat = () => {
 		this.setState({beat: this.state.beat + TICK});
+	}
+
+	handleSoundReady = (score) => {
+		this.readySounds.add(score);
+		if (this.readySounds.size === 6) {
+			setInterval(this.handleBeat, TICK * 1000);
+		}
 	}
 
 	render() {
@@ -25,9 +32,10 @@ module.exports = class App extends React.Component {
 					url="https://www.youtube.com/watch?v=STcc8H4Vr_g"
 					score="clap"
 					videoStart={5.4}
-					videoDuration={Infinity}
+					videoDuration={3}
 					beat={this.state.beat}
 					volume={1}
+					onReady={this.handleSoundReady}
 					isPrank={false}
 					isPercussion
 				/>
@@ -36,9 +44,10 @@ module.exports = class App extends React.Component {
 					url="https://www.youtube.com/watch?v=Cg6dlPZt-1g"
 					score="snare"
 					videoStart={32}
-					videoDuration={0.5}
+					videoDuration={0.3}
 					beat={this.state.beat}
 					volume={0.5}
+					onReady={this.handleSoundReady}
 					isPrank={false}
 					isPercussion
 				/>
@@ -50,6 +59,7 @@ module.exports = class App extends React.Component {
 					videoDuration={0.5}
 					beat={this.state.beat}
 					volume={1}
+					onReady={this.handleSoundReady}
 					isPrank={false}
 					isPercussion
 				/>
@@ -61,6 +71,7 @@ module.exports = class App extends React.Component {
 					videoDuration={1}
 					beat={this.state.beat}
 					volume={0.5}
+					onReady={this.handleSoundReady}
 					isPrank={false}
 					isPercussion
 				/>
@@ -73,6 +84,7 @@ module.exports = class App extends React.Component {
 					beat={this.state.beat}
 					volume={0.5}
 					sourceNote={22}
+					onReady={this.handleSoundReady}
 					isPrank
 					isPercussion={false}
 				/>
@@ -80,11 +92,12 @@ module.exports = class App extends React.Component {
 					src="aoba-zoi.wav"
 					url="https://www.youtube.com/watch?v=DmZo4rL2E7E"
 					score="chord"
-					videoStart={19}
+					videoStart={18.9}
 					videoDuration={2}
 					beat={this.state.beat}
-					volume={0.5}
+					volume={0.25}
 					sourceNote={62}
+					onReady={this.handleSoundReady}
 					isPrank={false}
 					isPercussion={false}
 				/>
