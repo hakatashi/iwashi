@@ -82,7 +82,7 @@ module.exports = class App extends React.Component {
 					videoStart={4.8}
 					videoDuration={0.5}
 					beat={this.state.beat}
-					volume={0.5}
+					volume={0.8}
 					sourceNote={22}
 					onReady={this.handleSoundReady}
 					isPrank
@@ -100,6 +100,18 @@ module.exports = class App extends React.Component {
 					onReady={this.handleSoundReady}
 					isPrank={false}
 					isPercussion={false}
+				/>
+				<Sound
+					src="zen-glass.wav"
+					url="https://www.youtube.com/watch?v=M_1UZlPBYzM"
+					score="bongo"
+					videoStart={24.5}
+					videoDuration={0.5}
+					beat={this.state.beat}
+					volume={0.75}
+					onReady={this.handleSoundReady}
+					isPrank={false}
+					isPercussion
 				/>
 			</div>
 		);
