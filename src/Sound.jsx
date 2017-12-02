@@ -15,18 +15,24 @@ module.exports = class Sound extends React.Component {
 		videoDuration: PropTypes.number.isRequired,
 		beat: PropTypes.number.isRequired,
 		volume: PropTypes.number.isRequired,
+		sourceNote: PropTypes.number,
 		isPrank: PropTypes.bool.isRequired,
 		isPercussion: PropTypes.bool.isRequired,
+	}
+
+	static defaultProps = {
+		sourceNote: 0,
 	}
 
 	constructor(props, state) {
 		super(props, state);
 
-		this.sound = new Howl({
-			src: [process.env.NODE_ENV === 'production' ? `https://media.githubusercontent.com/media/hakatashi/iwashi/master/wav/${this.props.src}` : `wav/${this.props.src}`],
-			volume: this.props.volume,
-			loop: this.props.src === 'atsumori.wav',
-		});
+		this.sounds = Array(5).fill().map(() =>
+			new Howl({
+				src: [process.env.NODE_ENV === 'production' ? `https://media.githubusercontent.com/media/hakatashi/iwashi/master/wav/${this.props.src}` : `wav/${this.props.src}`],
+				volume: this.props.volume,
+				loop: !this.props.isPercussion,
+			}));
 
 		this.state = {
 			isPlaying: false,
@@ -45,27 +51,32 @@ module.exports = class Sound extends React.Component {
 
 	handleBeat = (beat) => {
 		if (this.props.isPercussion) {
-			const isPlay = this.score.some((note) => Math.abs(note.time - beat % (TICK * 64)) < TICK / 2 && note.type === 'note');
+			const isPlay = this.score.some((note) => Math.abs(note.time - beat % (TICK * 128)) < TICK / 2 && note.type === 'note');
+
 			if (!isPlay) {
 				return;
 			}
-		} else {
-			const playNoteIndex = this.score.findIndex((note) => Math.abs(note.time - beat % (TICK * 64)) < TICK / 2 && note.type === 'note');
-			const playNote = playNoteIndex === -1 ? null : this.score[playNoteIndex];
 
-			if (playNote !== null || (this.score[this.currentNote] && Math.abs(this.score[this.currentNote].time + this.score[this.currentNote].duration - beat % (TICK * 64)) < TICK / 2)) {
-				this.sound.stop();
+			this.sounds[0].play();
+		} else {
+			const playNoteIndex = this.score.findIndex((note) => Math.abs(note.time - beat % (TICK * 128)) < TICK / 2 && note.type === 'note');
+			const playNotes = this.score.filter((note) => Math.abs(note.time - beat % (TICK * 128)) < TICK / 2 && note.type === 'note');
+
+			if (playNotes.length !== 0 || (this.score[this.currentNote] && Math.abs(this.score[this.currentNote].time + this.score[this.currentNote].duration - beat % (TICK * 128)) < TICK / 2)) {
+				this.sounds.forEach((sound) => sound.stop());
 			}
 
-			if (playNote === null) {
+			if (playNotes.length === 0) {
 				return;
 			}
 
 			this.currentNote = playNoteIndex;
-			this.sound.rate(2 ** ((playNote.noteNumber - 21) / 12));
-		}
 
-		this.sound.play();
+			playNotes.forEach((note, index) => {
+				this.sounds[index].rate(2 ** ((note.noteNumber - this.props.sourceNote) / 12));
+				this.sounds[index].play();
+			});
+		}
 
 		this.player.seekTo(this.props.videoStart);
 

@@ -57,5 +57,7 @@ typings/
 # dotenv environment variables file
 .env
 
+*.reapeaks
+
 index.js
 index.js.map

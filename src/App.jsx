@@ -72,7 +72,20 @@ module.exports = class App extends React.Component {
 					videoDuration={0.5}
 					beat={this.state.beat}
 					volume={0.5}
+					sourceNote={22}
 					isPrank
+					isPercussion={false}
+				/>
+				<Sound
+					src="aoba-zoi.wav"
+					url="https://www.youtube.com/watch?v=DmZo4rL2E7E"
+					score="chord"
+					videoStart={19}
+					videoDuration={2}
+					beat={this.state.beat}
+					volume={0.5}
+					sourceNote={62}
+					isPrank={false}
 					isPercussion={false}
 				/>
 			</div>
