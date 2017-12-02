@@ -10,4 +10,4 @@ f^ r >f< f r >f^<  f^ r >f< f r >f^<
 e^ r >e< e r >e^<  <a^> r a d <a> a^
 d^ r >d< d r >d^<  c^ r >c< c r >c^<
 <a+^> r a+ d <a+> a+^  <a^> r a d <a> a^
-d^ r c+ r^ c r <b> r^^ <a^^^>
+o2 d^ r c+ r^ c r <b> r^^ <a^^^>

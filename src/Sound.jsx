@@ -36,12 +36,13 @@ module.exports = class Sound extends React.Component {
 			}));
 
 		this.state = {
-			isPlaying: false,
+			isPlaying: true,
 			isReverse: false,
 		};
 
 		this.currentNote = null;
 		this.score = scores[this.props.score];
+		this.isReady = false;
 	}
 
 	componentWillReceiveProps(nextProps) {
@@ -106,7 +107,18 @@ module.exports = class Sound extends React.Component {
 	}
 
 	handlePlayerReady = () => {
-		this.props.onReady(this.props.score);
+		this.player.player && this.player.player.player && this.player.player.player.setPlaybackQuality && this.player.player.player.setPlaybackQuality('tiny');
+		this.player.seekTo(this.props.videoStart);
+	}
+
+	handlePlayerStart = () => {
+		if (!this.isReady) {
+			this.isReady = true;
+			this.setState({
+				isPlaying: false,
+			});
+			this.props.onReady(this.props.score);
+		}
 	}
 
 	render() {
@@ -130,6 +142,7 @@ module.exports = class Sound extends React.Component {
 					controls
 					muted
 					onReady={this.handlePlayerReady}
+					onStart={this.handlePlayerStart}
 				/>
 			</div>
 		);

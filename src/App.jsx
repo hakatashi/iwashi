@@ -82,7 +82,7 @@ module.exports = class App extends React.Component {
 					videoStart={4.8}
 					videoDuration={0.5}
 					beat={this.state.beat}
-					volume={0.8}
+					volume={1}
 					sourceNote={22}
 					onReady={this.handleSoundReady}
 					isPrank
