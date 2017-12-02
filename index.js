@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 25);
+/******/ 	return __webpack_require__(__webpack_require__.s = 26);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -71,7 +71,7 @@
 
 
 if (true) {
-  module.exports = __webpack_require__(27);
+  module.exports = __webpack_require__(28);
 } else {
   module.exports = require('./cjs/react.development.js');
 }
@@ -96,11 +96,11 @@ exports.getSDK = getSDK;
 exports.getConfig = getConfig;
 exports.omit = omit;
 
-var _loadScript = __webpack_require__(44);
+var _loadScript = __webpack_require__(45);
 
 var _loadScript2 = _interopRequireDefault(_loadScript);
 
-var _deepmerge = __webpack_require__(45);
+var _deepmerge = __webpack_require__(46);
 
 var _deepmerge2 = _interopRequireDefault(_deepmerge);
 
@@ -473,8 +473,8 @@ exports['default'] = Base;
 /***/ (function(module, exports, __webpack_require__) {
 
 var $          = __webpack_require__(7)
-  , createDesc = __webpack_require__(17);
-module.exports = __webpack_require__(58) ? function(object, key, value){
+  , createDesc = __webpack_require__(18);
+module.exports = __webpack_require__(67) ? function(object, key, value){
   return $.setDesc(object, key, createDesc(1, value));
 } : function(object, key, value){
   object[key] = value;
@@ -485,8 +485,8 @@ module.exports = __webpack_require__(58) ? function(object, key, value){
 /* 5 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var store  = __webpack_require__(70)('wks')
-  , uid    = __webpack_require__(19)
+var store  = __webpack_require__(79)('wks')
+  , uid    = __webpack_require__(20)
   , Symbol = __webpack_require__(2).Symbol;
 module.exports = function(name){
   return store[name] || (store[name] =
@@ -724,10 +724,10 @@ var DEPRECATED_CONFIG_PROPS = exports.DEPRECATED_CONFIG_PROPS = ['soundcloudConf
 /***/ (function(module, exports, __webpack_require__) {
 
 var global    = __webpack_require__(2)
-  , core      = __webpack_require__(16)
+  , core      = __webpack_require__(17)
   , hide      = __webpack_require__(4)
-  , redefine  = __webpack_require__(18)
-  , ctx       = __webpack_require__(20)
+  , redefine  = __webpack_require__(19)
+  , ctx       = __webpack_require__(21)
   , PROTOTYPE = 'prototype';
 
 var $export = function(type, name, source){
@@ -942,7 +942,7 @@ if (false) {
 } else {
   // By explicitly using `prop-types` you are opting into new production behavior.
   // http://fb.me/prop-types-in-prod
-  module.exports = __webpack_require__(41)();
+  module.exports = __webpack_require__(42)();
 }
 
 
@@ -1257,13 +1257,24 @@ exports['default'] = FilePlayer;
 
 /***/ }),
 /* 16 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+module.exports = {
+	TICK: 60 / 135 / 4
+};
+
+/***/ }),
+/* 17 */
 /***/ (function(module, exports) {
 
 var core = module.exports = {version: '1.2.6'};
 if(typeof __e == 'number')__e = core; // eslint-disable-line no-undef
 
 /***/ }),
-/* 17 */
+/* 18 */
 /***/ (function(module, exports) {
 
 module.exports = function(bitmap, value){
@@ -1276,19 +1287,19 @@ module.exports = function(bitmap, value){
 };
 
 /***/ }),
-/* 18 */
+/* 19 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // add fake Function#toString
 // for correct work wrapped methods / constructors with methods like LoDash isNative
 var global    = __webpack_require__(2)
   , hide      = __webpack_require__(4)
-  , SRC       = __webpack_require__(19)('src')
+  , SRC       = __webpack_require__(20)('src')
   , TO_STRING = 'toString'
   , $toString = Function[TO_STRING]
   , TPL       = ('' + $toString).split(TO_STRING);
 
-__webpack_require__(16).inspectSource = function(it){
+__webpack_require__(17).inspectSource = function(it){
   return $toString.call(it);
 };
 
@@ -1308,7 +1319,7 @@ __webpack_require__(16).inspectSource = function(it){
 });
 
 /***/ }),
-/* 19 */
+/* 20 */
 /***/ (function(module, exports) {
 
 var id = 0
@@ -1318,11 +1329,11 @@ module.exports = function(key){
 };
 
 /***/ }),
-/* 20 */
+/* 21 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // optional / simple context binding
-var aFunction = __webpack_require__(21);
+var aFunction = __webpack_require__(22);
 module.exports = function(fn, that, length){
   aFunction(fn);
   if(that === undefined)return fn;
@@ -1343,7 +1354,7 @@ module.exports = function(fn, that, length){
 };
 
 /***/ }),
-/* 21 */
+/* 22 */
 /***/ (function(module, exports) {
 
 module.exports = function(it){
@@ -1352,7 +1363,7 @@ module.exports = function(it){
 };
 
 /***/ }),
-/* 22 */
+/* 23 */
 /***/ (function(module, exports) {
 
 var toString = {}.toString;
@@ -1362,7 +1373,7 @@ module.exports = function(it){
 };
 
 /***/ }),
-/* 23 */
+/* 24 */
 /***/ (function(module, exports) {
 
 var hasOwnProperty = {}.hasOwnProperty;
@@ -1371,11 +1382,11 @@ module.exports = function(it, key){
 };
 
 /***/ }),
-/* 24 */
+/* 25 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var def = __webpack_require__(7).setDesc
-  , has = __webpack_require__(23)
+  , has = __webpack_require__(24)
   , TAG = __webpack_require__(5)('toStringTag');
 
 module.exports = function(it, tag, stat){
@@ -1383,21 +1394,21 @@ module.exports = function(it, tag, stat){
 };
 
 /***/ }),
-/* 25 */
+/* 26 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(process) {
 
 const React = __webpack_require__(0);
-const ReactDOM = __webpack_require__(28);
-const App = __webpack_require__(38);
+const ReactDOM = __webpack_require__(29);
+const App = __webpack_require__(39);
 
-__webpack_require__(57);
+__webpack_require__(66);
 
-__webpack_require__(62);
+__webpack_require__(71);
 
-__webpack_require__(67);
+__webpack_require__(76);
 
 process.on('unhandledRejection', error => {
 	throw error;
@@ -1410,10 +1421,10 @@ window.addEventListener('unhandledrejection', error => {
 const reactRoot = document.getElementById('react');
 
 ReactDOM.render(React.createElement(App), reactRoot);
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(26)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(27)))
 
 /***/ }),
-/* 26 */
+/* 27 */
 /***/ (function(module, exports) {
 
 // shim for using process in browser
@@ -1603,7 +1614,7 @@ process.umask = function() { return 0; };
 
 
 /***/ }),
-/* 27 */
+/* 28 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1631,7 +1642,7 @@ isValidElement:K,version:"16.2.0",__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_F
 
 
 /***/ }),
-/* 28 */
+/* 29 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1669,14 +1680,14 @@ if (true) {
   // DCE check should happen before ReactDOM bundle executes so that
   // DevTools can report bad minification during injection.
   checkDCE();
-  module.exports = __webpack_require__(29);
+  module.exports = __webpack_require__(30);
 } else {
   module.exports = require('./cjs/react-dom.development.js');
 }
 
 
 /***/ }),
-/* 29 */
+/* 30 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1692,7 +1703,7 @@ if (true) {
 /*
  Modernizr 3.0.0pre (Custom Build) | MIT
 */
-var aa=__webpack_require__(0),l=__webpack_require__(30),B=__webpack_require__(12),C=__webpack_require__(6),ba=__webpack_require__(31),da=__webpack_require__(32),ea=__webpack_require__(33),fa=__webpack_require__(34),ia=__webpack_require__(37),D=__webpack_require__(13);
+var aa=__webpack_require__(0),l=__webpack_require__(31),B=__webpack_require__(12),C=__webpack_require__(6),ba=__webpack_require__(32),da=__webpack_require__(33),ea=__webpack_require__(34),fa=__webpack_require__(35),ia=__webpack_require__(38),D=__webpack_require__(13);
 function E(a){for(var b=arguments.length-1,c="Minified React error #"+a+"; visit http://facebook.github.io/react/docs/error-decoder.html?invariant\x3d"+a,d=0;d<b;d++)c+="\x26args[]\x3d"+encodeURIComponent(arguments[d+1]);b=Error(c+" for the full message or use the non-minified dev environment for full errors and additional helpful warnings.");b.name="Invariant Violation";b.framesToPop=1;throw b;}aa?void 0:E("227");
 var oa={children:!0,dangerouslySetInnerHTML:!0,defaultValue:!0,defaultChecked:!0,innerHTML:!0,suppressContentEditableWarning:!0,suppressHydrationWarning:!0,style:!0};function pa(a,b){return(a&b)===b}
 var ta={MUST_USE_PROPERTY:1,HAS_BOOLEAN_VALUE:4,HAS_NUMERIC_VALUE:8,HAS_POSITIVE_NUMERIC_VALUE:24,HAS_OVERLOADED_BOOLEAN_VALUE:32,HAS_STRING_BOOLEAN_VALUE:64,injectDOMPropertyConfig:function(a){var b=ta,c=a.Properties||{},d=a.DOMAttributeNamespaces||{},e=a.DOMAttributeNames||{};a=a.DOMMutationMethods||{};for(var f in c){ua.hasOwnProperty(f)?E("48",f):void 0;var g=f.toLowerCase(),h=c[f];g={attributeName:g,attributeNamespace:null,propertyName:f,mutationMethod:null,mustUseProperty:pa(h,b.MUST_USE_PROPERTY),
@@ -1912,7 +1923,7 @@ Z.injectIntoDevTools({findFiberByHostInstance:pb,bundleType:0,version:"16.2.0",r
 
 
 /***/ }),
-/* 30 */
+/* 31 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1951,7 +1962,7 @@ var ExecutionEnvironment = {
 module.exports = ExecutionEnvironment;
 
 /***/ }),
-/* 31 */
+/* 32 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2031,7 +2042,7 @@ var EventListener = {
 module.exports = EventListener;
 
 /***/ }),
-/* 32 */
+/* 33 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2073,7 +2084,7 @@ function getActiveElement(doc) /*?DOMElement*/{
 module.exports = getActiveElement;
 
 /***/ }),
-/* 33 */
+/* 34 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2144,7 +2155,7 @@ function shallowEqual(objA, objB) {
 module.exports = shallowEqual;
 
 /***/ }),
-/* 34 */
+/* 35 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2159,7 +2170,7 @@ module.exports = shallowEqual;
  * 
  */
 
-var isTextNode = __webpack_require__(35);
+var isTextNode = __webpack_require__(36);
 
 /*eslint-disable no-bitwise */
 
@@ -2187,7 +2198,7 @@ function containsNode(outerNode, innerNode) {
 module.exports = containsNode;
 
 /***/ }),
-/* 35 */
+/* 36 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2202,7 +2213,7 @@ module.exports = containsNode;
  * @typechecks
  */
 
-var isNode = __webpack_require__(36);
+var isNode = __webpack_require__(37);
 
 /**
  * @param {*} object The object to check.
@@ -2215,7 +2226,7 @@ function isTextNode(object) {
 module.exports = isTextNode;
 
 /***/ }),
-/* 36 */
+/* 37 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2243,7 +2254,7 @@ function isNode(object) {
 module.exports = isNode;
 
 /***/ }),
-/* 37 */
+/* 38 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2273,28 +2284,36 @@ function focusNode(node) {
 module.exports = focusNode;
 
 /***/ }),
-/* 38 */
+/* 39 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 const React = __webpack_require__(0);
-const Sound = __webpack_require__(39);
+const Sound = __webpack_require__(40);
+const { TICK } = __webpack_require__(16);
 
 module.exports = class App extends React.Component {
 	constructor() {
 		super();
 
 		this.handleBeat = () => {
-			this.setState({ beat: this.state.beat + 0.5 });
+			this.setState({ beat: this.state.beat + TICK });
+		};
+
+		this.handleSoundReady = score => {
+			this.readySounds.add(score);
+			if (this.readySounds.size === 6) {
+				setInterval(this.handleBeat, TICK * 1000);
+			}
 		};
 
 		this.state = {
 			beat: 0
 		};
 
-		setInterval(this.handleBeat, 222);
+		this.readySounds = new Set();
 	}
 
 	render() {
@@ -2304,54 +2323,95 @@ module.exports = class App extends React.Component {
 			React.createElement(Sound, {
 				src: 'kinmoza-clap.wav',
 				url: 'https://www.youtube.com/watch?v=STcc8H4Vr_g',
-				videoStart: 5.3,
-				videoDuration: Infinity,
+				score: 'clap',
+				videoStart: 5.4,
+				videoDuration: 3,
 				beat: this.state.beat,
 				volume: 1,
-				isPrank: false
+				onReady: this.handleSoundReady,
+				isPrank: false,
+				isPercussion: true
 			}),
 			React.createElement(Sound, {
 				src: 'karateka-kick.wav',
 				url: 'https://www.youtube.com/watch?v=Cg6dlPZt-1g',
+				score: 'snare',
 				videoStart: 32,
-				videoDuration: 0.5,
+				videoDuration: 0.3,
 				beat: this.state.beat,
 				volume: 0.5,
-				isPrank: false
+				onReady: this.handleSoundReady,
+				isPrank: false,
+				isPercussion: true
 			}),
 			React.createElement(Sound, {
 				src: 'killme-pyonsuke.wav',
 				url: 'https://www.youtube.com/watch?v=vXBO_W5l6uY',
+				score: 'bass',
 				videoStart: 247.7,
 				videoDuration: 0.5,
 				beat: this.state.beat,
 				volume: 1,
-				isPrank: false
+				onReady: this.handleSoundReady,
+				isPrank: false,
+				isPercussion: true
 			}),
 			React.createElement(Sound, {
 				src: 'ippon-crisp.wav',
 				url: 'https://www.youtube.com/watch?v=2rc8CmeKinc',
+				score: 'closed-hihat',
 				videoStart: 23.7,
 				videoDuration: 1,
 				beat: this.state.beat,
 				volume: 0.5,
-				isPrank: false
+				onReady: this.handleSoundReady,
+				isPrank: false,
+				isPercussion: true
 			}),
 			React.createElement(Sound, {
 				src: 'atsumori.wav',
 				url: 'https://www.youtube.com/watch?v=uvg3I_IR9FA',
+				score: 'base',
 				videoStart: 4.8,
 				videoDuration: 0.5,
 				beat: this.state.beat,
-				volume: 0.5,
-				isPrank: true
+				volume: 1,
+				sourceNote: 22,
+				onReady: this.handleSoundReady,
+				isPrank: true,
+				isPercussion: false
+			}),
+			React.createElement(Sound, {
+				src: 'aoba-zoi.wav',
+				url: 'https://www.youtube.com/watch?v=DmZo4rL2E7E',
+				score: 'chord',
+				videoStart: 18.9,
+				videoDuration: 2,
+				beat: this.state.beat,
+				volume: 0.25,
+				sourceNote: 62,
+				onReady: this.handleSoundReady,
+				isPrank: false,
+				isPercussion: false
+			}),
+			React.createElement(Sound, {
+				src: 'zen-glass.wav',
+				url: 'https://www.youtube.com/watch?v=M_1UZlPBYzM',
+				score: 'bongo',
+				videoStart: 24.5,
+				videoDuration: 0.5,
+				beat: this.state.beat,
+				volume: 0.75,
+				onReady: this.handleSoundReady,
+				isPrank: false,
+				isPercussion: true
 			})
 		);
 	}
 };
 
 /***/ }),
-/* 39 */
+/* 40 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2360,9 +2420,12 @@ module.exports = class App extends React.Component {
 var _class, _temp;
 
 const React = __webpack_require__(0);
-const { default: Player } = __webpack_require__(40);
-const { Howl } = __webpack_require__(55);
+const { default: Player } = __webpack_require__(41);
+const { Howl } = __webpack_require__(56);
 const PropTypes = __webpack_require__(14);
+
+const scores = __webpack_require__(58);
+const { TICK } = __webpack_require__(16);
 
 module.exports = (_temp = _class = class Sound extends React.Component {
 
@@ -2370,31 +2433,51 @@ module.exports = (_temp = _class = class Sound extends React.Component {
 		super(props, state);
 
 		this.handleBeat = beat => {
-			if (this.props.src === 'kinmoza-clap.wav' && beat % 2 === 1 || this.props.src === 'karateka-kick.wav' && beat % 2 === 1 || this.props.src === 'killme-pyonsuke.wav' && beat % 1 === 0 || this.props.src === 'ippon-crisp.wav' && beat % 1 === 0.5 || this.props.src === 'atsumori.wav') {
-				this.sound.stop();
-				if (this.props.src === 'atsumori.wav') {
-					const notes = [4, 16, 4, 16, -1, 11, -1, 11, 4, 16, 4, 16, -1, 11, -1, 11, 4, 16, 4, 16, -1, 11, -1, 11, 4, 16, 4, 16, -1, 11, -1, 11];
-					this.sound.rate(2 ** (notes[beat * 2 % notes.length] / 12));
-				}
-				this.sound.play();
-				this.player.seekTo(this.props.videoStart);
+			if (this.props.isPercussion) {
+				const isPlay = this.score.some(note => Math.abs(note.time - beat % (TICK * 192)) < TICK / 2 && note.type === 'note');
 
-				if (!this.state.isPlaying) {
-					this.setState({ isPlaying: true });
+				if (!isPlay) {
+					return;
 				}
 
-				if (this.props.isPrank) {
-					this.setState({ isReverse: !this.state.isReverse });
+				this.sounds[0].play();
+			} else {
+				const playNoteIndex = this.score.findIndex(note => Math.abs(note.time - beat % (TICK * 192)) < TICK / 2 && note.type === 'note');
+				const playNotes = this.score.filter(note => Math.abs(note.time - beat % (TICK * 192)) < TICK / 2 && note.type === 'note');
+
+				if (playNotes.length !== 0 || this.score[this.currentNote] && Math.abs(this.score[this.currentNote].time + this.score[this.currentNote].duration - beat % (TICK * 192)) < TICK / 2) {
+					this.sounds.forEach(sound => sound.stop());
 				}
 
-				const session = Symbol('videoPlaySession');
-				this.videoPlaySession = session;
-
-				if (Number.isFinite(this.props.videoDuration)) {
-					setTimeout(() => {
-						this.handleVideoSessionTimeout(session);
-					}, this.props.videoDuration * 1000);
+				if (playNotes.length === 0) {
+					return;
 				}
+
+				this.currentNote = playNoteIndex;
+
+				playNotes.forEach((note, index) => {
+					this.sounds[index].rate(2 ** ((note.noteNumber - this.props.sourceNote) / 12));
+					this.sounds[index].play();
+				});
+			}
+
+			this.player.seekTo(this.props.videoStart);
+
+			if (!this.state.isPlaying) {
+				this.setState({ isPlaying: true });
+			}
+
+			if (this.props.isPrank) {
+				this.setState({ isReverse: !this.state.isReverse });
+			}
+
+			const session = Symbol('videoPlaySession');
+			this.videoPlaySession = session;
+
+			if (Number.isFinite(this.props.videoDuration)) {
+				setTimeout(() => {
+					this.handleVideoSessionTimeout(session);
+				}, this.props.videoDuration * 1000);
 			}
 		};
 
@@ -2404,16 +2487,35 @@ module.exports = (_temp = _class = class Sound extends React.Component {
 			}
 		};
 
-		this.sound = new Howl({
+		this.handlePlayerReady = () => {
+			this.player.player && this.player.player.player && this.player.player.player.setPlaybackQuality && this.player.player.player.setPlaybackQuality('tiny');
+			this.player.seekTo(this.props.videoStart);
+		};
+
+		this.handlePlayerStart = () => {
+			if (!this.isReady) {
+				this.isReady = true;
+				this.setState({
+					isPlaying: false
+				});
+				this.props.onReady(this.props.score);
+			}
+		};
+
+		this.sounds = Array(5).fill().map(() => new Howl({
 			src: [ true ? `https://media.githubusercontent.com/media/hakatashi/iwashi/master/wav/${this.props.src}` : `wav/${this.props.src}`],
 			volume: this.props.volume,
-			loop: this.props.src === 'atsumori.wav'
-		});
+			loop: !this.props.isPercussion
+		}));
 
 		this.state = {
 			isPlaying: true,
 			isReverse: false
 		};
+
+		this.currentNote = null;
+		this.score = scores[this.props.score];
+		this.isReady = false;
 	}
 
 	componentWillReceiveProps(nextProps) {
@@ -2437,26 +2539,35 @@ module.exports = (_temp = _class = class Sound extends React.Component {
 					this.player && this.player.player && this.player.player.player && this.player.player.player.setPlaybackQuality && this.player.player.player.setPlaybackQuality('tiny');
 				},
 				url: this.props.url,
+				youtubeConfig: { playerVars: { start: this.props.videoStart } },
 				width: 320,
 				height: 180,
 				playing: this.state.isPlaying,
 				controls: true,
-				muted: true
+				muted: true,
+				onReady: this.handlePlayerReady,
+				onStart: this.handlePlayerStart
 			})
 		);
 	}
 }, _class.propTypes = {
 	src: PropTypes.string.isRequired,
 	url: PropTypes.string.isRequired,
+	score: PropTypes.string.isRequired,
 	videoStart: PropTypes.number.isRequired,
 	videoDuration: PropTypes.number.isRequired,
 	beat: PropTypes.number.isRequired,
 	volume: PropTypes.number.isRequired,
-	isPrank: PropTypes.bool.isRequired
+	sourceNote: PropTypes.number,
+	onReady: PropTypes.func.isRequired,
+	isPrank: PropTypes.bool.isRequired,
+	isPercussion: PropTypes.bool.isRequired
+}, _class.defaultProps = {
+	sourceNote: 0
 }, _temp);
 
 /***/ }),
-/* 40 */
+/* 41 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2478,19 +2589,19 @@ var _props2 = __webpack_require__(8);
 
 var _utils = __webpack_require__(1);
 
-var _YouTube = __webpack_require__(46);
+var _YouTube = __webpack_require__(47);
 
 var _YouTube2 = _interopRequireDefault(_YouTube);
 
-var _SoundCloud = __webpack_require__(47);
+var _SoundCloud = __webpack_require__(48);
 
 var _SoundCloud2 = _interopRequireDefault(_SoundCloud);
 
-var _Vimeo = __webpack_require__(48);
+var _Vimeo = __webpack_require__(49);
 
 var _Vimeo2 = _interopRequireDefault(_Vimeo);
 
-var _Facebook = __webpack_require__(49);
+var _Facebook = __webpack_require__(50);
 
 var _Facebook2 = _interopRequireDefault(_Facebook);
 
@@ -2498,23 +2609,23 @@ var _FilePlayer = __webpack_require__(15);
 
 var _FilePlayer2 = _interopRequireDefault(_FilePlayer);
 
-var _Streamable = __webpack_require__(50);
+var _Streamable = __webpack_require__(51);
 
 var _Streamable2 = _interopRequireDefault(_Streamable);
 
-var _Vidme = __webpack_require__(51);
+var _Vidme = __webpack_require__(52);
 
 var _Vidme2 = _interopRequireDefault(_Vidme);
 
-var _Wistia = __webpack_require__(52);
+var _Wistia = __webpack_require__(53);
 
 var _Wistia2 = _interopRequireDefault(_Wistia);
 
-var _DailyMotion = __webpack_require__(53);
+var _DailyMotion = __webpack_require__(54);
 
 var _DailyMotion2 = _interopRequireDefault(_DailyMotion);
 
-var _Twitch = __webpack_require__(54);
+var _Twitch = __webpack_require__(55);
 
 var _Twitch2 = _interopRequireDefault(_Twitch);
 
@@ -2727,7 +2838,7 @@ ReactPlayer.canPlay = function (url) {
 exports['default'] = ReactPlayer;
 
 /***/ }),
-/* 41 */
+/* 42 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2741,8 +2852,8 @@ exports['default'] = ReactPlayer;
 
 
 var emptyFunction = __webpack_require__(6);
-var invariant = __webpack_require__(42);
-var ReactPropTypesSecret = __webpack_require__(43);
+var invariant = __webpack_require__(43);
+var ReactPropTypesSecret = __webpack_require__(44);
 
 module.exports = function() {
   function shim(props, propName, componentName, location, propFullName, secret) {
@@ -2792,7 +2903,7 @@ module.exports = function() {
 
 
 /***/ }),
-/* 42 */
+/* 43 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2851,7 +2962,7 @@ function invariant(condition, format, a, b, c, d, e, f) {
 module.exports = invariant;
 
 /***/ }),
-/* 43 */
+/* 44 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2870,7 +2981,7 @@ module.exports = ReactPropTypesSecret;
 
 
 /***/ }),
-/* 44 */
+/* 45 */
 /***/ (function(module, exports) {
 
 
@@ -2941,7 +3052,7 @@ function ieOnEnd (script, cb) {
 
 
 /***/ }),
-/* 45 */
+/* 46 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -3038,7 +3149,7 @@ var deepmerge_1 = deepmerge;
 
 
 /***/ }),
-/* 46 */
+/* 47 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3259,7 +3370,7 @@ YouTube.displayName = 'YouTube';
 exports['default'] = YouTube;
 
 /***/ }),
-/* 47 */
+/* 48 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3445,7 +3556,7 @@ SoundCloud.displayName = 'SoundCloud';
 exports['default'] = SoundCloud;
 
 /***/ }),
-/* 48 */
+/* 49 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3635,7 +3746,7 @@ Vimeo.displayName = 'Vimeo';
 exports['default'] = Vimeo;
 
 /***/ }),
-/* 49 */
+/* 50 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3804,7 +3915,7 @@ Facebook.displayName = 'Facebook';
 exports['default'] = Facebook;
 
 /***/ }),
-/* 50 */
+/* 51 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3965,7 +4076,7 @@ Streamable.displayName = 'Streamable';
 exports['default'] = Streamable;
 
 /***/ }),
-/* 51 */
+/* 52 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4066,7 +4177,7 @@ Vidme.displayName = 'Vidme';
 exports['default'] = Vidme;
 
 /***/ }),
-/* 52 */
+/* 53 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4223,7 +4334,7 @@ Wistia.displayName = 'Wistia';
 exports['default'] = Wistia;
 
 /***/ }),
-/* 53 */
+/* 54 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4444,7 +4555,7 @@ DailyMotion.displayName = 'DailyMotion';
 exports['default'] = DailyMotion;
 
 /***/ }),
-/* 54 */
+/* 55 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4616,7 +4727,7 @@ Twitch.displayName = 'Twitch';
 exports['default'] = Twitch;
 
 /***/ }),
-/* 55 */
+/* 56 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global) {var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -7467,10 +7578,10 @@ exports['default'] = Twitch;
   };
 })();
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(56)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(57)))
 
 /***/ }),
-/* 56 */
+/* 57 */
 /***/ (function(module, exports) {
 
 var g;
@@ -7497,14 +7608,81 @@ module.exports = g;
 
 
 /***/ }),
-/* 57 */
+/* 58 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+const base = __webpack_require__(59);
+const bass = __webpack_require__(60);
+const bongo = __webpack_require__(61);
+const chord = __webpack_require__(62);
+const clap = __webpack_require__(63);
+const closedHihat = __webpack_require__(64);
+const snare = __webpack_require__(65);
+
+module.exports = {
+	base,
+	bass,
+	bongo,
+	chord,
+	clap,
+	'closed-hihat': closedHihat,
+	snare
+};
+
+/***/ }),
+/* 59 */
+/***/ (function(module, exports) {
+
+module.exports = [{"type":"note","time":0,"duration":0.2222222222222222,"noteNumber":26,"velocity":100,"quantize":75},{"type":"note","time":0.2222222222222222,"duration":0.2222222222222222,"noteNumber":38,"velocity":100,"quantize":75},{"type":"note","time":0.4444444444444444,"duration":0.2222222222222222,"noteNumber":26,"velocity":100,"quantize":75},{"type":"note","time":0.6666666666666666,"duration":0.2222222222222222,"noteNumber":38,"velocity":100,"quantize":75},{"type":"note","time":0.8888888888888888,"duration":0.2222222222222222,"noteNumber":21,"velocity":100,"quantize":75},{"type":"note","time":1.1111111111111112,"duration":0.2222222222222222,"noteNumber":33,"velocity":100,"quantize":75},{"type":"note","time":1.3333333333333335,"duration":0.2222222222222222,"noteNumber":21,"velocity":100,"quantize":75},{"type":"note","time":1.5555555555555558,"duration":0.2222222222222222,"noteNumber":33,"velocity":100,"quantize":75},{"type":"note","time":1.7777777777777781,"duration":0.2222222222222222,"noteNumber":26,"velocity":100,"quantize":75},{"type":"note","time":2.0000000000000004,"duration":0.2222222222222222,"noteNumber":38,"velocity":100,"quantize":75},{"type":"note","time":2.2222222222222228,"duration":0.2222222222222222,"noteNumber":26,"velocity":100,"quantize":75},{"type":"note","time":2.444444444444445,"duration":0.2222222222222222,"noteNumber":38,"velocity":100,"quantize":75},{"type":"note","time":2.6666666666666674,"duration":0.2222222222222222,"noteNumber":21,"velocity":100,"quantize":75},{"type":"note","time":2.8888888888888897,"duration":0.2222222222222222,"noteNumber":33,"velocity":100,"quantize":75},{"type":"note","time":3.111111111111112,"duration":0.2222222222222222,"noteNumber":21,"velocity":100,"quantize":75},{"type":"note","time":3.3333333333333344,"duration":0.2222222222222222,"noteNumber":33,"velocity":100,"quantize":75},{"type":"note","time":3.5555555555555567,"duration":0.2222222222222222,"noteNumber":26,"velocity":100,"quantize":75},{"type":"note","time":3.777777777777779,"duration":0.2222222222222222,"noteNumber":38,"velocity":100,"quantize":75},{"type":"note","time":4.000000000000001,"duration":0.2222222222222222,"noteNumber":26,"velocity":100,"quantize":75},{"type":"note","time":4.222222222222223,"duration":0.2222222222222222,"noteNumber":38,"velocity":100,"quantize":75},{"type":"note","time":4.4444444444444455,"duration":0.2222222222222222,"noteNumber":21,"velocity":100,"quantize":75},{"type":"note","time":4.666666666666668,"duration":0.2222222222222222,"noteNumber":33,"velocity":100,"quantize":75},{"type":"note","time":4.88888888888889,"duration":0.2222222222222222,"noteNumber":21,"velocity":100,"quantize":75},{"type":"note","time":5.1111111111111125,"duration":0.2222222222222222,"noteNumber":33,"velocity":100,"quantize":75},{"type":"note","time":5.333333333333335,"duration":0.2222222222222222,"noteNumber":26,"velocity":100,"quantize":75},{"type":"note","time":5.666666666666668,"duration":0.2222222222222222,"noteNumber":26,"velocity":100,"quantize":75},{"type":"note","time":6.000000000000001,"duration":0.2222222222222222,"noteNumber":21,"velocity":100,"quantize":75},{"type":"note","time":6.222222222222223,"duration":0.2222222222222222,"noteNumber":26,"velocity":100,"quantize":75},{"type":"note","time":6.666666666666668,"duration":0.4444444444444444,"noteNumber":27,"velocity":100,"quantize":75},{"type":"note","time":7.1111111111111125,"duration":0.2222222222222222,"noteNumber":26,"velocity":100,"quantize":75},{"type":"note","time":7.4444444444444455,"duration":0.1111111111111111,"noteNumber":38,"velocity":100,"quantize":75},{"type":"note","time":7.555555555555556,"duration":0.1111111111111111,"noteNumber":26,"velocity":100,"quantize":75},{"type":"note","time":7.777777777777778,"duration":0.2222222222222222,"noteNumber":38,"velocity":100,"quantize":75},{"type":"note","time":8,"duration":0.2222222222222222,"noteNumber":21,"velocity":100,"quantize":75},{"type":"note","time":8.333333333333332,"duration":0.1111111111111111,"noteNumber":33,"velocity":100,"quantize":75},{"type":"note","time":8.444444444444443,"duration":0.1111111111111111,"noteNumber":26,"velocity":100,"quantize":75},{"type":"note","time":8.555555555555554,"duration":0.1111111111111111,"noteNumber":21,"velocity":100,"quantize":75},{"type":"note","time":8.666666666666664,"duration":0.2222222222222222,"noteNumber":33,"velocity":100,"quantize":75},{"type":"note","time":8.888888888888886,"duration":0.2222222222222222,"noteNumber":26,"velocity":100,"quantize":75},{"type":"note","time":9.222222222222218,"duration":0.1111111111111111,"noteNumber":38,"velocity":100,"quantize":75},{"type":"note","time":9.333333333333329,"duration":0.1111111111111111,"noteNumber":26,"velocity":100,"quantize":75},{"type":"note","time":9.55555555555555,"duration":0.2222222222222222,"noteNumber":38,"velocity":100,"quantize":75},{"type":"note","time":9.777777777777771,"duration":0.2222222222222222,"noteNumber":21,"velocity":100,"quantize":75},{"type":"note","time":10.111111111111104,"duration":0.1111111111111111,"noteNumber":33,"velocity":100,"quantize":75},{"type":"note","time":10.222222222222214,"duration":0.1111111111111111,"noteNumber":26,"velocity":100,"quantize":75},{"type":"note","time":10.333333333333325,"duration":0.1111111111111111,"noteNumber":21,"velocity":100,"quantize":75},{"type":"note","time":10.444444444444436,"duration":0.2222222222222222,"noteNumber":33,"velocity":100,"quantize":75},{"type":"note","time":10.666666666666657,"duration":0.2222222222222222,"noteNumber":31,"velocity":100,"quantize":75},{"type":"note","time":10.99999999999999,"duration":0.1111111111111111,"noteNumber":43,"velocity":100,"quantize":75},{"type":"note","time":11.1111111111111,"duration":0.1111111111111111,"noteNumber":31,"velocity":100,"quantize":75},{"type":"note","time":11.333333333333321,"duration":0.2222222222222222,"noteNumber":43,"velocity":100,"quantize":75},{"type":"note","time":11.555555555555543,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":11.888888888888875,"duration":0.1111111111111111,"noteNumber":36,"velocity":100,"quantize":75},{"type":"note","time":11.999999999999986,"duration":0.1111111111111111,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":12.222222222222207,"duration":0.2222222222222222,"noteNumber":36,"velocity":100,"quantize":75},{"type":"note","time":12.444444444444429,"duration":0.2222222222222222,"noteNumber":29,"velocity":100,"quantize":75},{"type":"note","time":12.77777777777776,"duration":0.1111111111111111,"noteNumber":41,"velocity":100,"quantize":75},{"type":"note","time":12.888888888888872,"duration":0.1111111111111111,"noteNumber":29,"velocity":100,"quantize":75},{"type":"note","time":13.111111111111093,"duration":0.2222222222222222,"noteNumber":41,"velocity":100,"quantize":75},{"type":"note","time":13.333333333333314,"duration":0.2222222222222222,"noteNumber":29,"velocity":100,"quantize":75},{"type":"note","time":13.666666666666647,"duration":0.1111111111111111,"noteNumber":41,"velocity":100,"quantize":75},{"type":"note","time":13.777777777777757,"duration":0.1111111111111111,"noteNumber":29,"velocity":100,"quantize":75},{"type":"note","time":13.999999999999979,"duration":0.2222222222222222,"noteNumber":41,"velocity":100,"quantize":75},{"type":"note","time":14.2222222222222,"duration":0.2222222222222222,"noteNumber":28,"velocity":100,"quantize":75},{"type":"note","time":14.555555555555532,"duration":0.1111111111111111,"noteNumber":40,"velocity":100,"quantize":75},{"type":"note","time":14.666666666666643,"duration":0.1111111111111111,"noteNumber":28,"velocity":100,"quantize":75},{"type":"note","time":14.888888888888864,"duration":0.2222222222222222,"noteNumber":40,"velocity":100,"quantize":75},{"type":"note","time":15.111111111111086,"duration":0.2222222222222222,"noteNumber":21,"velocity":100,"quantize":75},{"type":"note","time":15.444444444444418,"duration":0.1111111111111111,"noteNumber":33,"velocity":100,"quantize":75},{"type":"note","time":15.555555555555529,"duration":0.1111111111111111,"noteNumber":26,"velocity":100,"quantize":75},{"type":"note","time":15.66666666666664,"duration":0.1111111111111111,"noteNumber":21,"velocity":100,"quantize":75},{"type":"note","time":15.77777777777775,"duration":0.2222222222222222,"noteNumber":33,"velocity":100,"quantize":75},{"type":"note","time":15.999999999999972,"duration":0.2222222222222222,"noteNumber":26,"velocity":100,"quantize":75},{"type":"note","time":16.333333333333304,"duration":0.1111111111111111,"noteNumber":38,"velocity":100,"quantize":75},{"type":"note","time":16.444444444444414,"duration":0.1111111111111111,"noteNumber":26,"velocity":100,"quantize":75},{"type":"note","time":16.666666666666636,"duration":0.2222222222222222,"noteNumber":38,"velocity":100,"quantize":75},{"type":"note","time":16.888888888888857,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":17.22222222222219,"duration":0.1111111111111111,"noteNumber":36,"velocity":100,"quantize":75},{"type":"note","time":17.3333333333333,"duration":0.1111111111111111,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":17.55555555555552,"duration":0.2222222222222222,"noteNumber":36,"velocity":100,"quantize":75},{"type":"note","time":17.777777777777743,"duration":0.2222222222222222,"noteNumber":22,"velocity":100,"quantize":75},{"type":"note","time":18.111111111111075,"duration":0.1111111111111111,"noteNumber":34,"velocity":100,"quantize":75},{"type":"note","time":18.222222222222186,"duration":0.1111111111111111,"noteNumber":26,"velocity":100,"quantize":75},{"type":"note","time":18.333333333333297,"duration":0.1111111111111111,"noteNumber":22,"velocity":100,"quantize":75},{"type":"note","time":18.444444444444407,"duration":0.2222222222222222,"noteNumber":34,"velocity":100,"quantize":75},{"type":"note","time":18.66666666666663,"duration":0.2222222222222222,"noteNumber":21,"velocity":100,"quantize":75},{"type":"note","time":18.99999999999996,"duration":0.1111111111111111,"noteNumber":33,"velocity":100,"quantize":75},{"type":"note","time":19.11111111111107,"duration":0.1111111111111111,"noteNumber":26,"velocity":100,"quantize":75},{"type":"note","time":19.222222222222182,"duration":0.1111111111111111,"noteNumber":21,"velocity":100,"quantize":75},{"type":"note","time":19.333333333333293,"duration":0.2222222222222222,"noteNumber":33,"velocity":100,"quantize":75},{"type":"note","time":19.555555555555515,"duration":0.2222222222222222,"noteNumber":38,"velocity":100,"quantize":75},{"type":"note","time":19.888888888888847,"duration":0.1111111111111111,"noteNumber":37,"velocity":100,"quantize":75},{"type":"note","time":20.22222222222218,"duration":0.1111111111111111,"noteNumber":36,"velocity":100,"quantize":75},{"type":"note","time":20.4444444444444,"duration":0.1111111111111111,"noteNumber":35,"velocity":100,"quantize":75},{"type":"note","time":20.888888888888843,"duration":0.4444444444444444,"noteNumber":33,"velocity":100,"quantize":75},{"type":"end","time":21.333333333333286}]
+
+/***/ }),
+/* 60 */
+/***/ (function(module, exports) {
+
+module.exports = [{"type":"note","time":0,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":0.4444444444444444,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":0.8888888888888888,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":1.3333333333333333,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":1.7777777777777777,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":2.2222222222222223,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":2.666666666666667,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":3.1111111111111116,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":3.5555555555555562,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":4.000000000000001,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":4.4444444444444455,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":4.88888888888889,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":5.333333333333335,"duration":0.3333333333333333,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":5.666666666666668,"duration":0.3333333333333333,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":6.000000000000001,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":6.222222222222223,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":6.666666666666668,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":7.1111111111111125,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":7.555555555555557,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":8.000000000000002,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":8.444444444444446,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":8.888888888888891,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":9.333333333333336,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":9.77777777777778,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":10.222222222222225,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":10.66666666666667,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":11.111111111111114,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":11.555555555555559,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":12.000000000000004,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":12.444444444444448,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":12.888888888888893,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":13.333333333333337,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":13.777777777777782,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":14.222222222222227,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":14.666666666666671,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":15.111111111111116,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":15.55555555555556,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":16.000000000000004,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":16.444444444444446,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":16.88888888888889,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":17.333333333333332,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":17.777777777777775,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":18.222222222222218,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":18.66666666666666,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":19.111111111111104,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":19.555555555555546,"duration":0.3333333333333333,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":19.88888888888888,"duration":0.3333333333333333,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":20.22222222222221,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":20.444444444444432,"duration":0.8888888888888891,"noteNumber":24,"velocity":100,"quantize":75},{"type":"end","time":21.33333333333332}]
+
+/***/ }),
+/* 61 */
+/***/ (function(module, exports) {
+
+module.exports = [{"type":"note","time":5.333333333333333,"duration":0.3333333333333333,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":5.666666666666666,"duration":0.3333333333333333,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":5.999999999999999,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":6.222222222222221,"duration":0.3333333333333333,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":6.5555555555555545,"duration":0.1111111111111111,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":6.666666666666665,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":6.8888888888888875,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":7.444444444444443,"duration":0.1111111111111111,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":7.555555555555554,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":7.777777777777776,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":8.333333333333332,"duration":0.1111111111111111,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":8.444444444444443,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":8.666666666666664,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":9.22222222222222,"duration":0.1111111111111111,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":9.33333333333333,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":9.555555555555552,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":10.111111111111107,"duration":0.1111111111111111,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":10.222222222222218,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":10.44444444444444,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":10.999999999999995,"duration":0.1111111111111111,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":11.111111111111105,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":11.333333333333327,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":11.888888888888882,"duration":0.1111111111111111,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":11.999999999999993,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":12.222222222222214,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":12.77777777777777,"duration":0.1111111111111111,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":12.88888888888888,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":13.111111111111102,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":13.666666666666657,"duration":0.1111111111111111,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":13.777777777777768,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":13.99999999999999,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":14.555555555555545,"duration":0.1111111111111111,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":14.666666666666655,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":14.888888888888877,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":15.444444444444432,"duration":0.1111111111111111,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":15.555555555555543,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":15.777777777777764,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":16.333333333333318,"duration":0.1111111111111111,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":16.44444444444443,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":16.66666666666665,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":17.222222222222204,"duration":0.1111111111111111,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":17.333333333333314,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":17.555555555555536,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":18.11111111111109,"duration":0.1111111111111111,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":18.2222222222222,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":18.44444444444442,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":18.999999999999975,"duration":0.1111111111111111,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":19.111111111111086,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":19.333333333333307,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":19.55555555555553,"duration":0.3333333333333333,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":19.88888888888886,"duration":0.3333333333333333,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":20.222222222222193,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":20.444444444444414,"duration":0.3333333333333333,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":20.777777777777747,"duration":0.1111111111111111,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":20.888888888888857,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":21.11111111111108,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"end","time":21.3333333333333}]
+
+/***/ }),
+/* 62 */
+/***/ (function(module, exports) {
+
+module.exports = [{"type":"note","time":0.4444444444444444,"duration":0.4444444444444444,"noteNumber":60,"velocity":100,"quantize":75},{"type":"note","time":0.4444444444444444,"duration":0.4444444444444444,"noteNumber":62,"velocity":100,"quantize":75},{"type":"note","time":0.4444444444444444,"duration":0.4444444444444444,"noteNumber":65,"velocity":100,"quantize":75},{"type":"note","time":0.4444444444444444,"duration":0.4444444444444444,"noteNumber":69,"velocity":100,"quantize":75},{"type":"note","time":1.3333333333333333,"duration":0.4444444444444444,"noteNumber":57,"velocity":100,"quantize":75},{"type":"note","time":1.3333333333333333,"duration":0.4444444444444444,"noteNumber":60,"velocity":100,"quantize":75},{"type":"note","time":1.3333333333333333,"duration":0.4444444444444444,"noteNumber":64,"velocity":100,"quantize":75},{"type":"note","time":1.3333333333333333,"duration":0.4444444444444444,"noteNumber":67,"velocity":100,"quantize":75},{"type":"note","time":2.2222222222222223,"duration":0.4444444444444444,"noteNumber":60,"velocity":100,"quantize":75},{"type":"note","time":2.2222222222222223,"duration":0.4444444444444444,"noteNumber":62,"velocity":100,"quantize":75},{"type":"note","time":2.2222222222222223,"duration":0.4444444444444444,"noteNumber":65,"velocity":100,"quantize":75},{"type":"note","time":2.2222222222222223,"duration":0.4444444444444444,"noteNumber":69,"velocity":100,"quantize":75},{"type":"note","time":3.1111111111111116,"duration":0.4444444444444444,"noteNumber":57,"velocity":100,"quantize":75},{"type":"note","time":3.1111111111111116,"duration":0.4444444444444444,"noteNumber":60,"velocity":100,"quantize":75},{"type":"note","time":3.1111111111111116,"duration":0.4444444444444444,"noteNumber":64,"velocity":100,"quantize":75},{"type":"note","time":3.1111111111111116,"duration":0.4444444444444444,"noteNumber":67,"velocity":100,"quantize":75},{"type":"note","time":4.000000000000001,"duration":0.4444444444444444,"noteNumber":60,"velocity":100,"quantize":75},{"type":"note","time":4.000000000000001,"duration":0.4444444444444444,"noteNumber":62,"velocity":100,"quantize":75},{"type":"note","time":4.000000000000001,"duration":0.4444444444444444,"noteNumber":65,"velocity":100,"quantize":75},{"type":"note","time":4.000000000000001,"duration":0.4444444444444444,"noteNumber":69,"velocity":100,"quantize":75},{"type":"note","time":4.88888888888889,"duration":0.4444444444444444,"noteNumber":57,"velocity":100,"quantize":75},{"type":"note","time":4.88888888888889,"duration":0.4444444444444444,"noteNumber":60,"velocity":100,"quantize":75},{"type":"note","time":4.88888888888889,"duration":0.4444444444444444,"noteNumber":64,"velocity":100,"quantize":75},{"type":"note","time":4.88888888888889,"duration":0.4444444444444444,"noteNumber":67,"velocity":100,"quantize":75},{"type":"note","time":5.333333333333335,"duration":0.2222222222222222,"noteNumber":60,"velocity":100,"quantize":75},{"type":"note","time":5.333333333333335,"duration":0.2222222222222222,"noteNumber":62,"velocity":100,"quantize":75},{"type":"note","time":5.333333333333335,"duration":0.2222222222222222,"noteNumber":65,"velocity":100,"quantize":75},{"type":"note","time":5.333333333333335,"duration":0.2222222222222222,"noteNumber":69,"velocity":100,"quantize":75},{"type":"note","time":5.666666666666668,"duration":0.2222222222222222,"noteNumber":60,"velocity":100,"quantize":75},{"type":"note","time":5.666666666666668,"duration":0.2222222222222222,"noteNumber":62,"velocity":100,"quantize":75},{"type":"note","time":5.666666666666668,"duration":0.2222222222222222,"noteNumber":65,"velocity":100,"quantize":75},{"type":"note","time":5.666666666666668,"duration":0.2222222222222222,"noteNumber":69,"velocity":100,"quantize":75},{"type":"note","time":6.000000000000001,"duration":0.2222222222222222,"noteNumber":57,"velocity":100,"quantize":75},{"type":"note","time":6.000000000000001,"duration":0.2222222222222222,"noteNumber":61,"velocity":100,"quantize":75},{"type":"note","time":6.000000000000001,"duration":0.2222222222222222,"noteNumber":64,"velocity":100,"quantize":75},{"type":"note","time":6.000000000000001,"duration":0.2222222222222222,"noteNumber":67,"velocity":100,"quantize":75},{"type":"note","time":6.222222222222223,"duration":0.3333333333333333,"noteNumber":60,"velocity":100,"quantize":75},{"type":"note","time":6.222222222222223,"duration":0.3333333333333333,"noteNumber":62,"velocity":100,"quantize":75},{"type":"note","time":6.222222222222223,"duration":0.3333333333333333,"noteNumber":65,"velocity":100,"quantize":75},{"type":"note","time":6.222222222222223,"duration":0.3333333333333333,"noteNumber":69,"velocity":100,"quantize":75},{"type":"note","time":6.666666666666667,"duration":0.4444444444444444,"noteNumber":58,"velocity":100,"quantize":75},{"type":"note","time":6.666666666666667,"duration":0.4444444444444444,"noteNumber":63,"velocity":100,"quantize":75},{"type":"note","time":6.666666666666667,"duration":0.4444444444444444,"noteNumber":66,"velocity":100,"quantize":75},{"type":"note","time":6.666666666666667,"duration":0.4444444444444444,"noteNumber":70,"velocity":100,"quantize":75},{"type":"note","time":7.333333333333334,"duration":0.2222222222222222,"noteNumber":60,"velocity":100,"quantize":75},{"type":"note","time":7.333333333333334,"duration":0.2222222222222222,"noteNumber":62,"velocity":100,"quantize":75},{"type":"note","time":7.333333333333334,"duration":0.2222222222222222,"noteNumber":65,"velocity":100,"quantize":75},{"type":"note","time":7.333333333333334,"duration":0.2222222222222222,"noteNumber":69,"velocity":100,"quantize":75},{"type":"note","time":7.777777777777779,"duration":0.2222222222222222,"noteNumber":60,"velocity":100,"quantize":75},{"type":"note","time":7.777777777777779,"duration":0.2222222222222222,"noteNumber":62,"velocity":100,"quantize":75},{"type":"note","time":7.777777777777779,"duration":0.2222222222222222,"noteNumber":65,"velocity":100,"quantize":75},{"type":"note","time":7.777777777777779,"duration":0.2222222222222222,"noteNumber":69,"velocity":100,"quantize":75},{"type":"note","time":8.222222222222221,"duration":0.2222222222222222,"noteNumber":57,"velocity":100,"quantize":75},{"type":"note","time":8.222222222222221,"duration":0.2222222222222222,"noteNumber":60,"velocity":100,"quantize":75},{"type":"note","time":8.222222222222221,"duration":0.2222222222222222,"noteNumber":64,"velocity":100,"quantize":75},{"type":"note","time":8.222222222222221,"duration":0.2222222222222222,"noteNumber":67,"velocity":100,"quantize":75},{"type":"note","time":8.666666666666664,"duration":0.2222222222222222,"noteNumber":57,"velocity":100,"quantize":75},{"type":"note","time":8.666666666666664,"duration":0.2222222222222222,"noteNumber":60,"velocity":100,"quantize":75},{"type":"note","time":8.666666666666664,"duration":0.2222222222222222,"noteNumber":64,"velocity":100,"quantize":75},{"type":"note","time":8.666666666666664,"duration":0.2222222222222222,"noteNumber":67,"velocity":100,"quantize":75},{"type":"note","time":9.111111111111107,"duration":0.2222222222222222,"noteNumber":60,"velocity":100,"quantize":75},{"type":"note","time":9.111111111111107,"duration":0.2222222222222222,"noteNumber":62,"velocity":100,"quantize":75},{"type":"note","time":9.111111111111107,"duration":0.2222222222222222,"noteNumber":65,"velocity":100,"quantize":75},{"type":"note","time":9.111111111111107,"duration":0.2222222222222222,"noteNumber":69,"velocity":100,"quantize":75},{"type":"note","time":9.55555555555555,"duration":0.2222222222222222,"noteNumber":60,"velocity":100,"quantize":75},{"type":"note","time":9.55555555555555,"duration":0.2222222222222222,"noteNumber":62,"velocity":100,"quantize":75},{"type":"note","time":9.55555555555555,"duration":0.2222222222222222,"noteNumber":65,"velocity":100,"quantize":75},{"type":"note","time":9.55555555555555,"duration":0.2222222222222222,"noteNumber":69,"velocity":100,"quantize":75},{"type":"note","time":9.999999999999993,"duration":0.2222222222222222,"noteNumber":57,"velocity":100,"quantize":75},{"type":"note","time":9.999999999999993,"duration":0.2222222222222222,"noteNumber":60,"velocity":100,"quantize":75},{"type":"note","time":9.999999999999993,"duration":0.2222222222222222,"noteNumber":64,"velocity":100,"quantize":75},{"type":"note","time":9.999999999999993,"duration":0.2222222222222222,"noteNumber":67,"velocity":100,"quantize":75},{"type":"note","time":10.444444444444436,"duration":0.2222222222222222,"noteNumber":57,"velocity":100,"quantize":75},{"type":"note","time":10.444444444444436,"duration":0.2222222222222222,"noteNumber":60,"velocity":100,"quantize":75},{"type":"note","time":10.444444444444436,"duration":0.2222222222222222,"noteNumber":64,"velocity":100,"quantize":75},{"type":"note","time":10.444444444444436,"duration":0.2222222222222222,"noteNumber":67,"velocity":100,"quantize":75},{"type":"note","time":10.888888888888879,"duration":0.2222222222222222,"noteNumber":58,"velocity":100,"quantize":75},{"type":"note","time":10.888888888888879,"duration":0.2222222222222222,"noteNumber":62,"velocity":100,"quantize":75},{"type":"note","time":10.888888888888879,"duration":0.2222222222222222,"noteNumber":65,"velocity":100,"quantize":75},{"type":"note","time":10.888888888888879,"duration":0.2222222222222222,"noteNumber":67,"velocity":100,"quantize":75},{"type":"note","time":11.333333333333321,"duration":0.2222222222222222,"noteNumber":58,"velocity":100,"quantize":75},{"type":"note","time":11.333333333333321,"duration":0.2222222222222222,"noteNumber":62,"velocity":100,"quantize":75},{"type":"note","time":11.333333333333321,"duration":0.2222222222222222,"noteNumber":65,"velocity":100,"quantize":75},{"type":"note","time":11.333333333333321,"duration":0.2222222222222222,"noteNumber":67,"velocity":100,"quantize":75},{"type":"note","time":11.777777777777764,"duration":0.2222222222222222,"noteNumber":58,"velocity":100,"quantize":75},{"type":"note","time":11.777777777777764,"duration":0.2222222222222222,"noteNumber":60,"velocity":100,"quantize":75},{"type":"note","time":11.777777777777764,"duration":0.2222222222222222,"noteNumber":64,"velocity":100,"quantize":75},{"type":"note","time":11.777777777777764,"duration":0.2222222222222222,"noteNumber":67,"velocity":100,"quantize":75},{"type":"note","time":12.222222222222207,"duration":0.2222222222222222,"noteNumber":58,"velocity":100,"quantize":75},{"type":"note","time":12.222222222222207,"duration":0.2222222222222222,"noteNumber":60,"velocity":100,"quantize":75},{"type":"note","time":12.222222222222207,"duration":0.2222222222222222,"noteNumber":64,"velocity":100,"quantize":75},{"type":"note","time":12.222222222222207,"duration":0.2222222222222222,"noteNumber":67,"velocity":100,"quantize":75},{"type":"note","time":12.66666666666665,"duration":0.2222222222222222,"noteNumber":57,"velocity":100,"quantize":75},{"type":"note","time":12.66666666666665,"duration":0.2222222222222222,"noteNumber":60,"velocity":100,"quantize":75},{"type":"note","time":12.66666666666665,"duration":0.2222222222222222,"noteNumber":64,"velocity":100,"quantize":75},{"type":"note","time":12.66666666666665,"duration":0.2222222222222222,"noteNumber":65,"velocity":100,"quantize":75},{"type":"note","time":13.111111111111093,"duration":0.2222222222222222,"noteNumber":57,"velocity":100,"quantize":75},{"type":"note","time":13.111111111111093,"duration":0.2222222222222222,"noteNumber":60,"velocity":100,"quantize":75},{"type":"note","time":13.111111111111093,"duration":0.2222222222222222,"noteNumber":64,"velocity":100,"quantize":75},{"type":"note","time":13.111111111111093,"duration":0.2222222222222222,"noteNumber":65,"velocity":100,"quantize":75},{"type":"note","time":13.555555555555536,"duration":0.2222222222222222,"noteNumber":57,"velocity":100,"quantize":75},{"type":"note","time":13.555555555555536,"duration":0.2222222222222222,"noteNumber":60,"velocity":100,"quantize":75},{"type":"note","time":13.555555555555536,"duration":0.2222222222222222,"noteNumber":63,"velocity":100,"quantize":75},{"type":"note","time":13.555555555555536,"duration":0.2222222222222222,"noteNumber":65,"velocity":100,"quantize":75},{"type":"note","time":13.999999999999979,"duration":0.2222222222222222,"noteNumber":57,"velocity":100,"quantize":75},{"type":"note","time":13.999999999999979,"duration":0.2222222222222222,"noteNumber":60,"velocity":100,"quantize":75},{"type":"note","time":13.999999999999979,"duration":0.2222222222222222,"noteNumber":63,"velocity":100,"quantize":75},{"type":"note","time":13.999999999999979,"duration":0.2222222222222222,"noteNumber":65,"velocity":100,"quantize":75},{"type":"note","time":14.444444444444422,"duration":0.2222222222222222,"noteNumber":58,"velocity":100,"quantize":75},{"type":"note","time":14.444444444444422,"duration":0.2222222222222222,"noteNumber":62,"velocity":100,"quantize":75},{"type":"note","time":14.444444444444422,"duration":0.2222222222222222,"noteNumber":64,"velocity":100,"quantize":75},{"type":"note","time":14.444444444444422,"duration":0.2222222222222222,"noteNumber":67,"velocity":100,"quantize":75},{"type":"note","time":14.888888888888864,"duration":0.2222222222222222,"noteNumber":58,"velocity":100,"quantize":75},{"type":"note","time":14.888888888888864,"duration":0.2222222222222222,"noteNumber":62,"velocity":100,"quantize":75},{"type":"note","time":14.888888888888864,"duration":0.2222222222222222,"noteNumber":64,"velocity":100,"quantize":75},{"type":"note","time":14.888888888888864,"duration":0.2222222222222222,"noteNumber":67,"velocity":100,"quantize":75},{"type":"note","time":15.333333333333307,"duration":0.2222222222222222,"noteNumber":57,"velocity":100,"quantize":75},{"type":"note","time":15.333333333333307,"duration":0.2222222222222222,"noteNumber":61,"velocity":100,"quantize":75},{"type":"note","time":15.333333333333307,"duration":0.2222222222222222,"noteNumber":64,"velocity":100,"quantize":75},{"type":"note","time":15.333333333333307,"duration":0.2222222222222222,"noteNumber":67,"velocity":100,"quantize":75},{"type":"note","time":15.77777777777775,"duration":0.2222222222222222,"noteNumber":57,"velocity":100,"quantize":75},{"type":"note","time":15.77777777777775,"duration":0.2222222222222222,"noteNumber":61,"velocity":100,"quantize":75},{"type":"note","time":15.77777777777775,"duration":0.2222222222222222,"noteNumber":64,"velocity":100,"quantize":75},{"type":"note","time":15.77777777777775,"duration":0.2222222222222222,"noteNumber":67,"velocity":100,"quantize":75},{"type":"note","time":16.222222222222193,"duration":0.2222222222222222,"noteNumber":57,"velocity":100,"quantize":75},{"type":"note","time":16.222222222222193,"duration":0.2222222222222222,"noteNumber":60,"velocity":100,"quantize":75},{"type":"note","time":16.222222222222193,"duration":0.2222222222222222,"noteNumber":62,"velocity":100,"quantize":75},{"type":"note","time":16.222222222222193,"duration":0.2222222222222222,"noteNumber":65,"velocity":100,"quantize":75},{"type":"note","time":16.666666666666636,"duration":0.2222222222222222,"noteNumber":57,"velocity":100,"quantize":75},{"type":"note","time":16.666666666666636,"duration":0.2222222222222222,"noteNumber":60,"velocity":100,"quantize":75},{"type":"note","time":16.666666666666636,"duration":0.2222222222222222,"noteNumber":62,"velocity":100,"quantize":75},{"type":"note","time":16.666666666666636,"duration":0.2222222222222222,"noteNumber":65,"velocity":100,"quantize":75},{"type":"note","time":17.11111111111108,"duration":0.2222222222222222,"noteNumber":60,"velocity":100,"quantize":75},{"type":"note","time":17.11111111111108,"duration":0.2222222222222222,"noteNumber":64,"velocity":100,"quantize":75},{"type":"note","time":17.11111111111108,"duration":0.2222222222222222,"noteNumber":67,"velocity":100,"quantize":75},{"type":"note","time":17.55555555555552,"duration":0.2222222222222222,"noteNumber":60,"velocity":100,"quantize":75},{"type":"note","time":17.55555555555552,"duration":0.2222222222222222,"noteNumber":64,"velocity":100,"quantize":75},{"type":"note","time":17.55555555555552,"duration":0.2222222222222222,"noteNumber":67,"velocity":100,"quantize":75},{"type":"note","time":17.999999999999964,"duration":0.2222222222222222,"noteNumber":58,"velocity":100,"quantize":75},{"type":"note","time":17.999999999999964,"duration":0.2222222222222222,"noteNumber":62,"velocity":100,"quantize":75},{"type":"note","time":17.999999999999964,"duration":0.2222222222222222,"noteNumber":65,"velocity":100,"quantize":75},{"type":"note","time":17.999999999999964,"duration":0.2222222222222222,"noteNumber":69,"velocity":100,"quantize":75},{"type":"note","time":18.444444444444407,"duration":0.2222222222222222,"noteNumber":58,"velocity":100,"quantize":75},{"type":"note","time":18.444444444444407,"duration":0.2222222222222222,"noteNumber":62,"velocity":100,"quantize":75},{"type":"note","time":18.444444444444407,"duration":0.2222222222222222,"noteNumber":65,"velocity":100,"quantize":75},{"type":"note","time":18.444444444444407,"duration":0.2222222222222222,"noteNumber":69,"velocity":100,"quantize":75},{"type":"note","time":18.88888888888885,"duration":0.2222222222222222,"noteNumber":57,"velocity":100,"quantize":75},{"type":"note","time":18.88888888888885,"duration":0.2222222222222222,"noteNumber":60,"velocity":100,"quantize":75},{"type":"note","time":18.88888888888885,"duration":0.2222222222222222,"noteNumber":64,"velocity":100,"quantize":75},{"type":"note","time":18.88888888888885,"duration":0.2222222222222222,"noteNumber":67,"velocity":100,"quantize":75},{"type":"note","time":19.333333333333293,"duration":0.2222222222222222,"noteNumber":57,"velocity":100,"quantize":75},{"type":"note","time":19.333333333333293,"duration":0.2222222222222222,"noteNumber":60,"velocity":100,"quantize":75},{"type":"note","time":19.333333333333293,"duration":0.2222222222222222,"noteNumber":64,"velocity":100,"quantize":75},{"type":"note","time":19.333333333333293,"duration":0.2222222222222222,"noteNumber":67,"velocity":100,"quantize":75},{"type":"note","time":19.555555555555515,"duration":0.2222222222222222,"noteNumber":57,"velocity":100,"quantize":75},{"type":"note","time":19.555555555555515,"duration":0.2222222222222222,"noteNumber":60,"velocity":100,"quantize":75},{"type":"note","time":19.555555555555515,"duration":0.2222222222222222,"noteNumber":62,"velocity":100,"quantize":75},{"type":"note","time":19.555555555555515,"duration":0.2222222222222222,"noteNumber":65,"velocity":100,"quantize":75},{"type":"note","time":19.888888888888847,"duration":0.1111111111111111,"noteNumber":60,"velocity":100,"quantize":75},{"type":"note","time":19.888888888888847,"duration":0.1111111111111111,"noteNumber":61,"velocity":100,"quantize":75},{"type":"note","time":19.888888888888847,"duration":0.1111111111111111,"noteNumber":65,"velocity":100,"quantize":75},{"type":"note","time":19.888888888888847,"duration":0.1111111111111111,"noteNumber":69,"velocity":100,"quantize":75},{"type":"note","time":20.22222222222218,"duration":0.1111111111111111,"noteNumber":59,"velocity":100,"quantize":75},{"type":"note","time":20.22222222222218,"duration":0.1111111111111111,"noteNumber":60,"velocity":100,"quantize":75},{"type":"note","time":20.22222222222218,"duration":0.1111111111111111,"noteNumber":64,"velocity":100,"quantize":75},{"type":"note","time":20.22222222222218,"duration":0.1111111111111111,"noteNumber":67,"velocity":100,"quantize":75},{"type":"note","time":20.4444444444444,"duration":0.1111111111111111,"noteNumber":58,"velocity":100,"quantize":75},{"type":"note","time":20.4444444444444,"duration":0.1111111111111111,"noteNumber":59,"velocity":100,"quantize":75},{"type":"note","time":20.4444444444444,"duration":0.1111111111111111,"noteNumber":63,"velocity":100,"quantize":75},{"type":"note","time":20.4444444444444,"duration":0.1111111111111111,"noteNumber":66,"velocity":100,"quantize":75},{"type":"note","time":20.888888888888843,"duration":0.4444444444444444,"noteNumber":57,"velocity":100,"quantize":75},{"type":"note","time":20.888888888888843,"duration":0.4444444444444444,"noteNumber":61,"velocity":100,"quantize":75},{"type":"note","time":20.888888888888843,"duration":0.4444444444444444,"noteNumber":64,"velocity":100,"quantize":75},{"type":"note","time":20.888888888888843,"duration":0.4444444444444444,"noteNumber":67,"velocity":100,"quantize":75},{"type":"end","time":21.333333333333286}]
+
+/***/ }),
+/* 63 */
+/***/ (function(module, exports) {
+
+module.exports = [{"type":"note","time":7.555555555555555,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":8.444444444444445,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":9.333333333333334,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":10.222222222222223,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":11.111111111111112,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":12.000000000000002,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":12.888888888888891,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":13.77777777777778,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":14.66666666666667,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":15.555555555555559,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":16.444444444444446,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":17.333333333333332,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":18.222222222222218,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":19.111111111111104,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"end","time":21.333333333333325}]
+
+/***/ }),
+/* 64 */
+/***/ (function(module, exports) {
+
+module.exports = [{"type":"note","time":7.333333333333333,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":7.777777777777778,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":8.222222222222221,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":8.666666666666664,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":9.111111111111107,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":9.55555555555555,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":9.999999999999993,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":10.444444444444436,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":10.888888888888879,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":11.333333333333321,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":11.777777777777764,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":12.222222222222207,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":12.66666666666665,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":13.111111111111093,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":13.555555555555536,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":13.999999999999979,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":14.444444444444422,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":14.888888888888864,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":15.333333333333307,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":15.77777777777775,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":16.222222222222193,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":16.666666666666636,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":17.11111111111108,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":17.55555555555552,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":17.999999999999964,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":18.444444444444407,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":18.88888888888885,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":19.333333333333293,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":20.66666666666662,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"end","time":21.333333333333286}]
+
+/***/ }),
+/* 65 */
+/***/ (function(module, exports) {
+
+module.exports = [{"type":"note","time":6.444444444444444,"duration":0.1111111111111111,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":6.5555555555555545,"duration":0.1111111111111111,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":6.8888888888888875,"duration":0.1111111111111111,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":6.999999999999998,"duration":0.1111111111111111,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":7.555555555555554,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":8.444444444444443,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":9.333333333333332,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":10.222222222222221,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":11.11111111111111,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":12,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":12.88888888888889,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":13.777777777777779,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":14.666666666666668,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":15.555555555555557,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":16.444444444444443,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":17.33333333333333,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":18.222222222222214,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":19.1111111111111,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":20.666666666666654,"duration":0.1111111111111111,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":20.777777777777764,"duration":0.1111111111111111,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":21.111111111111097,"duration":0.1111111111111111,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":21.222222222222207,"duration":0.1111111111111111,"noteNumber":24,"velocity":100,"quantize":75},{"type":"end","time":21.333333333333318}]
+
+/***/ }),
+/* 66 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // ie9- setTimeout & setInterval additional parameters fix
 var global     = __webpack_require__(2)
   , $export    = __webpack_require__(9)
   , invoke     = __webpack_require__(10)
-  , partial    = __webpack_require__(60)
+  , partial    = __webpack_require__(69)
   , navigator  = global.navigator
   , MSIE       = !!navigator && /MSIE .\./.test(navigator.userAgent); // <- dirty ie9- check
 var wrap = function(set){
@@ -7522,16 +7700,16 @@ $export($export.G + $export.B + $export.F * MSIE, {
 });
 
 /***/ }),
-/* 58 */
+/* 67 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // Thank's IE8 for his funny defineProperty
-module.exports = !__webpack_require__(59)(function(){
+module.exports = !__webpack_require__(68)(function(){
   return Object.defineProperty({}, 'a', {get: function(){ return 7; }}).a != 7;
 });
 
 /***/ }),
-/* 59 */
+/* 68 */
 /***/ (function(module, exports) {
 
 module.exports = function(exec){
@@ -7543,14 +7721,14 @@ module.exports = function(exec){
 };
 
 /***/ }),
-/* 60 */
+/* 69 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
-var path      = __webpack_require__(61)
+var path      = __webpack_require__(70)
   , invoke    = __webpack_require__(10)
-  , aFunction = __webpack_require__(21);
+  , aFunction = __webpack_require__(22);
 module.exports = function(/* ...pargs */){
   var fn     = aFunction(this)
     , length = arguments.length
@@ -7573,30 +7751,30 @@ module.exports = function(/* ...pargs */){
 };
 
 /***/ }),
-/* 61 */
+/* 70 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__(2);
 
 /***/ }),
-/* 62 */
+/* 71 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var $export = __webpack_require__(9)
-  , $task   = __webpack_require__(63);
+  , $task   = __webpack_require__(72);
 $export($export.G + $export.B, {
   setImmediate:   $task.set,
   clearImmediate: $task.clear
 });
 
 /***/ }),
-/* 63 */
+/* 72 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var ctx                = __webpack_require__(20)
+var ctx                = __webpack_require__(21)
   , invoke             = __webpack_require__(10)
-  , html               = __webpack_require__(64)
-  , cel                = __webpack_require__(65)
+  , html               = __webpack_require__(73)
+  , cel                = __webpack_require__(74)
   , global             = __webpack_require__(2)
   , process            = global.process
   , setTask            = global.setImmediate
@@ -7632,7 +7810,7 @@ if(!setTask || !clearTask){
     delete queue[id];
   };
   // Node.js 0.8-
-  if(__webpack_require__(22)(process) == 'process'){
+  if(__webpack_require__(23)(process) == 'process'){
     defer = function(id){
       process.nextTick(ctx(run, id, 1));
     };
@@ -7670,16 +7848,16 @@ module.exports = {
 };
 
 /***/ }),
-/* 64 */
+/* 73 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__(2).document && document.documentElement;
 
 /***/ }),
-/* 65 */
+/* 74 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var isObject = __webpack_require__(66)
+var isObject = __webpack_require__(75)
   , document = __webpack_require__(2).document
   // in old IE typeof document.createElement is 'object'
   , is = isObject(document) && isObject(document.createElement);
@@ -7688,7 +7866,7 @@ module.exports = function(it){
 };
 
 /***/ }),
-/* 66 */
+/* 75 */
 /***/ (function(module, exports) {
 
 module.exports = function(it){
@@ -7696,10 +7874,10 @@ module.exports = function(it){
 };
 
 /***/ }),
-/* 67 */
+/* 76 */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(68);
+__webpack_require__(77);
 var global      = __webpack_require__(2)
   , hide        = __webpack_require__(4)
   , Iterators   = __webpack_require__(11)
@@ -7713,21 +7891,21 @@ if(NLProto && !NLProto[ITERATOR])hide(NLProto, ITERATOR, ArrayValues);
 if(HTCProto && !HTCProto[ITERATOR])hide(HTCProto, ITERATOR, ArrayValues);
 
 /***/ }),
-/* 68 */
+/* 77 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
-var addToUnscopables = __webpack_require__(69)
-  , step             = __webpack_require__(71)
+var addToUnscopables = __webpack_require__(78)
+  , step             = __webpack_require__(80)
   , Iterators        = __webpack_require__(11)
-  , toIObject        = __webpack_require__(72);
+  , toIObject        = __webpack_require__(81);
 
 // 22.1.3.4 Array.prototype.entries()
 // 22.1.3.13 Array.prototype.keys()
 // 22.1.3.29 Array.prototype.values()
 // 22.1.3.30 Array.prototype[@@iterator]()
-module.exports = __webpack_require__(75)(Array, 'Array', function(iterated, kind){
+module.exports = __webpack_require__(84)(Array, 'Array', function(iterated, kind){
   this._t = toIObject(iterated); // target
   this._i = 0;                   // next index
   this._k = kind;                // kind
@@ -7753,7 +7931,7 @@ addToUnscopables('values');
 addToUnscopables('entries');
 
 /***/ }),
-/* 69 */
+/* 78 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // 22.1.3.31 Array.prototype[@@unscopables]
@@ -7765,7 +7943,7 @@ module.exports = function(key){
 };
 
 /***/ }),
-/* 70 */
+/* 79 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var global = __webpack_require__(2)
@@ -7776,7 +7954,7 @@ module.exports = function(key){
 };
 
 /***/ }),
-/* 71 */
+/* 80 */
 /***/ (function(module, exports) {
 
 module.exports = function(done, value){
@@ -7784,28 +7962,28 @@ module.exports = function(done, value){
 };
 
 /***/ }),
-/* 72 */
+/* 81 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // to indexed object, toObject with fallback for non-array-like ES3 strings
-var IObject = __webpack_require__(73)
-  , defined = __webpack_require__(74);
+var IObject = __webpack_require__(82)
+  , defined = __webpack_require__(83);
 module.exports = function(it){
   return IObject(defined(it));
 };
 
 /***/ }),
-/* 73 */
+/* 82 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // fallback for non-array-like ES3 and non-enumerable old V8 strings
-var cof = __webpack_require__(22);
+var cof = __webpack_require__(23);
 module.exports = Object('z').propertyIsEnumerable(0) ? Object : function(it){
   return cof(it) == 'String' ? it.split('') : Object(it);
 };
 
 /***/ }),
-/* 74 */
+/* 83 */
 /***/ (function(module, exports) {
 
 // 7.2.1 RequireObjectCoercible(argument)
@@ -7815,19 +7993,19 @@ module.exports = function(it){
 };
 
 /***/ }),
-/* 75 */
+/* 84 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
-var LIBRARY        = __webpack_require__(76)
+var LIBRARY        = __webpack_require__(85)
   , $export        = __webpack_require__(9)
-  , redefine       = __webpack_require__(18)
+  , redefine       = __webpack_require__(19)
   , hide           = __webpack_require__(4)
-  , has            = __webpack_require__(23)
+  , has            = __webpack_require__(24)
   , Iterators      = __webpack_require__(11)
-  , $iterCreate    = __webpack_require__(77)
-  , setToStringTag = __webpack_require__(24)
+  , $iterCreate    = __webpack_require__(86)
+  , setToStringTag = __webpack_require__(25)
   , getProto       = __webpack_require__(7).getProto
   , ITERATOR       = __webpack_require__(5)('iterator')
   , BUGGY          = !([].keys && 'next' in [].keys()) // Safari has buggy iterators w/o `next`
@@ -7887,20 +8065,20 @@ module.exports = function(Base, NAME, Constructor, next, DEFAULT, IS_SET, FORCED
 };
 
 /***/ }),
-/* 76 */
+/* 85 */
 /***/ (function(module, exports) {
 
 module.exports = false;
 
 /***/ }),
-/* 77 */
+/* 86 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 var $              = __webpack_require__(7)
-  , descriptor     = __webpack_require__(17)
-  , setToStringTag = __webpack_require__(24)
+  , descriptor     = __webpack_require__(18)
+  , setToStringTag = __webpack_require__(25)
   , IteratorPrototype = {};
 
 // 25.1.2.1.1 %IteratorPrototype%[@@iterator]()
