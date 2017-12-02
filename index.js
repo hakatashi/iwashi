@@ -2321,7 +2321,7 @@ module.exports = class App extends React.Component {
 			'div',
 			null,
 			React.createElement(Sound, {
-				src: 'kinmoza-clap.wav',
+				src: 'kinmoza-clap',
 				url: 'https://www.youtube.com/watch?v=STcc8H4Vr_g',
 				score: 'clap',
 				videoStart: 5.4,
@@ -2333,7 +2333,7 @@ module.exports = class App extends React.Component {
 				isPercussion: true
 			}),
 			React.createElement(Sound, {
-				src: 'karateka-kick.wav',
+				src: 'karateka-kick',
 				url: 'https://www.youtube.com/watch?v=Cg6dlPZt-1g',
 				score: 'snare',
 				videoStart: 32,
@@ -2345,7 +2345,7 @@ module.exports = class App extends React.Component {
 				isPercussion: true
 			}),
 			React.createElement(Sound, {
-				src: 'killme-pyonsuke.wav',
+				src: 'killme-pyonsuke',
 				url: 'https://www.youtube.com/watch?v=vXBO_W5l6uY',
 				score: 'bass',
 				videoStart: 247.7,
@@ -2357,7 +2357,7 @@ module.exports = class App extends React.Component {
 				isPercussion: true
 			}),
 			React.createElement(Sound, {
-				src: 'ippon-crisp.wav',
+				src: 'ippon-crisp',
 				url: 'https://www.youtube.com/watch?v=2rc8CmeKinc',
 				score: 'closed-hihat',
 				videoStart: 23.7,
@@ -2369,7 +2369,7 @@ module.exports = class App extends React.Component {
 				isPercussion: true
 			}),
 			React.createElement(Sound, {
-				src: 'atsumori.wav',
+				src: 'atsumori',
 				url: 'https://www.youtube.com/watch?v=uvg3I_IR9FA',
 				score: 'base',
 				videoStart: 4.8,
@@ -2382,7 +2382,7 @@ module.exports = class App extends React.Component {
 				isPercussion: false
 			}),
 			React.createElement(Sound, {
-				src: 'aoba-zoi.wav',
+				src: 'aoba-zoi',
 				url: 'https://www.youtube.com/watch?v=DmZo4rL2E7E',
 				score: 'chord',
 				videoStart: 18.9,
@@ -2395,7 +2395,7 @@ module.exports = class App extends React.Component {
 				isPercussion: false
 			}),
 			React.createElement(Sound, {
-				src: 'zen-glass.wav',
+				src: 'zen-glass',
 				url: 'https://www.youtube.com/watch?v=M_1UZlPBYzM',
 				score: 'bongo',
 				videoStart: 24.5,
@@ -2502,8 +2502,8 @@ module.exports = (_temp = _class = class Sound extends React.Component {
 			}
 		};
 
-		this.sounds = Array(5).fill().map(() => new Howl({
-			src: [ true ? `https://media.githubusercontent.com/media/hakatashi/iwashi/master/wav/${this.props.src}` : `wav/${this.props.src}`],
+		this.sounds = Array(this.props.isPercussion ? 1 : 5).fill().map(() => new Howl({
+			src: [ true ? `https://media.githubusercontent.com/media/hakatashi/iwashi/master/sound/${this.props.src}.ogg` : `sound/${this.props.src}.ogg`],
 			volume: this.props.volume,
 			loop: !this.props.isPercussion
 		}));
