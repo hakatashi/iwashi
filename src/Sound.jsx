@@ -28,12 +28,13 @@ module.exports = class Sound extends React.Component {
 	constructor(props, state) {
 		super(props, state);
 
-		this.sounds = Array(5).fill().map(() =>
+		this.sounds = Array(this.props.isPercussion ? 1 : 5).fill().map(() => (
 			new Howl({
-				src: [process.env.NODE_ENV === 'production' ? `https://media.githubusercontent.com/media/hakatashi/iwashi/master/wav/${this.props.src}` : `wav/${this.props.src}`],
+				src: [process.env.NODE_ENV === 'production' ? `https://media.githubusercontent.com/media/hakatashi/iwashi/master/sound/${this.props.src}.ogg` : `sound/${this.props.src}.ogg`],
 				volume: this.props.volume,
 				loop: !this.props.isPercussion,
-			}));
+			})
+		));
 
 		this.state = {
 			isPlaying: true,
