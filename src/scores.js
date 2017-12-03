@@ -1,6 +1,7 @@
 const base = require('../score/base.txt');
 const bass = require('../score/bass.txt');
 const bongo = require('../score/bongo.txt');
+const chime = require('../score/chime.txt');
 const chord = require('../score/chord.txt');
 const clap = require('../score/clap.txt');
 const closedHihat = require('../score/closed-hihat.txt');
@@ -10,6 +11,7 @@ module.exports = {
 	base,
 	bass,
 	bongo,
+	chime,
 	chord,
 	clap,
 	'closed-hihat': closedHihat,

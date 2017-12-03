@@ -28,7 +28,7 @@ module.exports = class App extends React.Component {
 
 	handleSoundReady = (score) => {
 		this.readySounds.add(score);
-		if (this.readySounds.size === 6) {
+		if (this.readySounds.size === 8) {
 			setInterval(this.handleBeat, TICK * 1000);
 		}
 	}
@@ -116,6 +116,18 @@ module.exports = class App extends React.Component {
 					score="bongo"
 					videoStart={24.5}
 					videoDuration={0.5}
+					beat={this.state.beat}
+					volume={0.75}
+					onReady={this.handleSoundReady}
+					isPrank={false}
+					isPercussion
+				/>
+				<Sound
+					src="fireball-ring"
+					url="https://www.youtube.com/watch?v=6CQymHcBwWQ"
+					score="chime"
+					videoStart={477.5}
+					videoDuration={3}
 					beat={this.state.beat}
 					volume={0.75}
 					onReady={this.handleSoundReady}
