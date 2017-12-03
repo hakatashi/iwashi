@@ -104,7 +104,7 @@ module.exports = class App extends React.Component {
 					videoStart={18.9}
 					videoDuration={2}
 					beat={this.state.beat}
-					volume={0.15}
+					volume={0.2}
 					sourceNote={62}
 					onReady={this.handleSoundReady}
 					isPrank={false}
@@ -117,7 +117,7 @@ module.exports = class App extends React.Component {
 					videoStart={24.5}
 					videoDuration={0.5}
 					beat={this.state.beat}
-					volume={0.75}
+					volume={1}
 					onReady={this.handleSoundReady}
 					isPrank={false}
 					isPercussion
@@ -141,7 +141,7 @@ module.exports = class App extends React.Component {
 					videoStart={477.5}
 					videoDuration={3}
 					beat={this.state.beat}
-					volume={0.75}
+					volume={0.5}
 					onReady={this.handleSoundReady}
 					isPrank={false}
 					isPercussion
