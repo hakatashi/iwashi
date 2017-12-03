@@ -45,7 +45,6 @@ module.exports = class App extends React.Component {
 					beat={this.state.beat}
 					volume={1}
 					onReady={this.handleSoundReady}
-					isPrank={false}
 					isPercussion
 				/>
 				<Sound
@@ -57,7 +56,6 @@ module.exports = class App extends React.Component {
 					beat={this.state.beat}
 					volume={0.5}
 					onReady={this.handleSoundReady}
-					isPrank={false}
 					isPercussion
 				/>
 				<Sound
@@ -69,7 +67,6 @@ module.exports = class App extends React.Component {
 					beat={this.state.beat}
 					volume={1}
 					onReady={this.handleSoundReady}
-					isPrank={false}
 					isPercussion
 				/>
 				<Sound
@@ -81,7 +78,6 @@ module.exports = class App extends React.Component {
 					beat={this.state.beat}
 					volume={0.5}
 					onReady={this.handleSoundReady}
-					isPrank={false}
 					isPercussion
 				/>
 				<Sound
@@ -95,7 +91,6 @@ module.exports = class App extends React.Component {
 					sourceNote={22}
 					onReady={this.handleSoundReady}
 					isPrank
-					isPercussion={false}
 				/>
 				<Sound
 					src="aoba-zoi"
@@ -107,8 +102,6 @@ module.exports = class App extends React.Component {
 					volume={0.2}
 					sourceNote={62}
 					onReady={this.handleSoundReady}
-					isPrank={false}
-					isPercussion={false}
 				/>
 				<Sound
 					src="zen-glass"
@@ -119,7 +112,6 @@ module.exports = class App extends React.Component {
 					beat={this.state.beat}
 					volume={1}
 					onReady={this.handleSoundReady}
-					isPrank={false}
 					isPercussion
 				/>
 				<Sound
@@ -131,7 +123,6 @@ module.exports = class App extends React.Component {
 					beat={this.state.beat}
 					volume={0.5}
 					onReady={this.handleSoundReady}
-					isPrank={false}
 					isPercussion
 				/>
 				<Sound
@@ -143,7 +134,6 @@ module.exports = class App extends React.Component {
 					beat={this.state.beat}
 					volume={0.5}
 					onReady={this.handleSoundReady}
-					isPrank={false}
 					isPercussion
 				/>
 			</div>

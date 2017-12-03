@@ -18,12 +18,14 @@ module.exports = class Sound extends React.Component {
 		volume: PropTypes.number.isRequired,
 		sourceNote: PropTypes.number,
 		onReady: PropTypes.func.isRequired,
-		isPrank: PropTypes.bool.isRequired,
-		isPercussion: PropTypes.bool.isRequired,
+		isPrank: PropTypes.bool,
+		isPercussion: PropTypes.bool,
 	}
 
 	static defaultProps = {
 		sourceNote: 0,
+		isPrank: false,
+		isPercussion: false,
 	}
 
 	constructor(props, state) {
