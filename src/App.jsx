@@ -28,7 +28,7 @@ module.exports = class App extends React.Component {
 
 	handleSoundReady = (score) => {
 		this.readySounds.add(score);
-		if (this.readySounds.size === 8) {
+		if (this.readySounds.size === 9) {
 			setInterval(this.handleBeat, TICK * 1000);
 		}
 	}
@@ -123,9 +123,21 @@ module.exports = class App extends React.Component {
 					isPercussion
 				/>
 				<Sound
+					src="minecraft-blaze"
+					url="https://www.youtube.com/watch?v=tKt0oImbQ_Y"
+					score="chime1"
+					videoStart={500.5}
+					videoDuration={0.5}
+					beat={this.state.beat}
+					volume={0.5}
+					onReady={this.handleSoundReady}
+					isPrank={false}
+					isPercussion
+				/>
+				<Sound
 					src="fireball-ring"
 					url="https://www.youtube.com/watch?v=6CQymHcBwWQ"
-					score="chime"
+					score="chime2"
 					videoStart={477.5}
 					videoDuration={3}
 					beat={this.state.beat}
