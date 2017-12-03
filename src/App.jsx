@@ -3,7 +3,7 @@ const {Howl} = require('howler');
 
 const Sound = require('./Sound.jsx');
 const {TICK} = require('./const.js');
-const {getSoundUrl} = require('./util.js');
+const {getSoundUrls} = require('./util.js');
 
 module.exports = class App extends React.Component {
 	constructor() {
@@ -15,7 +15,7 @@ module.exports = class App extends React.Component {
 
 		this.readySounds = new Set();
 		this.vocal = new Howl({
-			src: [getSoundUrl('vocal/yufu/01')],
+			src: getSoundUrls('vocal/yufu/01'),
 		});
 	}
 
