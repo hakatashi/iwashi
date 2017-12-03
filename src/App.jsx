@@ -3,7 +3,7 @@ const {Howl} = require('howler');
 
 const Sound = require('./Sound.jsx');
 const {TICK} = require('./const.js');
-const {getSoundUrl} = require('./util.js');
+const {getSoundUrls} = require('./util.js');
 
 module.exports = class App extends React.Component {
 	constructor() {
@@ -15,7 +15,7 @@ module.exports = class App extends React.Component {
 
 		this.readySounds = new Set();
 		this.vocal = new Howl({
-			src: [getSoundUrl('vocal/yufu/01')],
+			src: getSoundUrls('vocal/yufu/01'),
 		});
 	}
 
@@ -28,7 +28,7 @@ module.exports = class App extends React.Component {
 
 	handleSoundReady = (score) => {
 		this.readySounds.add(score);
-		if (this.readySounds.size === 6) {
+		if (this.readySounds.size === 9) {
 			setInterval(this.handleBeat, TICK * 1000);
 		}
 	}
@@ -116,6 +116,30 @@ module.exports = class App extends React.Component {
 					score="bongo"
 					videoStart={24.5}
 					videoDuration={0.5}
+					beat={this.state.beat}
+					volume={0.75}
+					onReady={this.handleSoundReady}
+					isPrank={false}
+					isPercussion
+				/>
+				<Sound
+					src="minecraft-blaze"
+					url="https://www.youtube.com/watch?v=tKt0oImbQ_Y"
+					score="chime1"
+					videoStart={500.5}
+					videoDuration={0.5}
+					beat={this.state.beat}
+					volume={0.5}
+					onReady={this.handleSoundReady}
+					isPrank={false}
+					isPercussion
+				/>
+				<Sound
+					src="fireball-ring"
+					url="https://www.youtube.com/watch?v=6CQymHcBwWQ"
+					score="chime2"
+					videoStart={477.5}
+					videoDuration={3}
 					beat={this.state.beat}
 					volume={0.75}
 					onReady={this.handleSoundReady}

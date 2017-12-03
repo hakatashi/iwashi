@@ -5,7 +5,7 @@ const PropTypes = require('prop-types');
 
 const scores = require('./scores.js');
 const {TICK} = require('./const.js');
-const {getSoundUrl} = require('./util.js');
+const {getSoundUrls} = require('./util.js');
 
 module.exports = class Sound extends React.Component {
 	static propTypes = {
@@ -31,7 +31,7 @@ module.exports = class Sound extends React.Component {
 
 		this.sounds = Array(this.props.isPercussion ? 1 : 5).fill().map(() => (
 			new Howl({
-				src: [getSoundUrl(this.props.src)],
+				src: getSoundUrls(this.props.src),
 				volume: this.props.volume,
 				loop: !this.props.isPercussion,
 			})
