@@ -92,7 +92,9 @@ module.exports = class Sound extends React.Component {
 			});
 		}
 
-		this.player.seekTo(this.props.videoStart);
+		if (!this.state.isNoVideo) {
+			this.player.seekTo(this.props.videoStart);
+		}
 		this.setState({isShown: true});
 
 		if (!this.state.isPlaying) {
