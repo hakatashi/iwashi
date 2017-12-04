@@ -5169,10 +5169,10 @@ module.exports = class App extends React.Component {
 			if (Math.abs(this.state.beat % (TICK * 448) - TICK * 61) < TICK / 2) {
 				this.vocals[0].play();
 			}
-			if (Math.abs(this.state.beat % (TICK * 448) - TICK * 186) < TICK / 2) {
+			if (Math.abs(this.state.beat % (TICK * 448) - TICK * 185) < TICK / 2) {
 				this.vocals[1].play();
 			}
-			if (Math.abs(this.state.beat % (TICK * 448) - TICK * 314) < TICK / 2) {
+			if (Math.abs(this.state.beat % (TICK * 448) - TICK * 313) < TICK / 2) {
 				this.vocals[2].play();
 			}
 		};
@@ -5180,6 +5180,7 @@ module.exports = class App extends React.Component {
 		this.handleSoundReady = score => {
 			this.readySounds.add(score);
 			if (this.readySounds.size === 11) {
+				this.setState({ isReady: true });
 				setInterval(this.handleBeat, TICK * 1000);
 			}
 		};
@@ -5190,7 +5191,8 @@ module.exports = class App extends React.Component {
 
 		this.state = {
 			beat: null,
-			isNoVideo: false
+			isNoVideo: false,
+			isReady: false
 		};
 
 		this.readySounds = new Set();
@@ -5222,7 +5224,7 @@ module.exports = class App extends React.Component {
 					volume: 1,
 					onReady: this.handleSoundReady,
 					isPercussion: true,
-					isNoVideo: this.state.isNoVideo
+					isNoVideo: this.state.isReady && this.state.isNoVideo
 				}),
 				React.createElement(Sound, {
 					src: 'karateka-kick',
@@ -5234,7 +5236,7 @@ module.exports = class App extends React.Component {
 					volume: 0.5,
 					onReady: this.handleSoundReady,
 					isPercussion: true,
-					isNoVideo: this.state.isNoVideo
+					isNoVideo: this.state.isReady && this.state.isNoVideo
 				}),
 				React.createElement(Sound, {
 					src: 'killme-pyonsuke',
@@ -5246,7 +5248,7 @@ module.exports = class App extends React.Component {
 					volume: 1,
 					onReady: this.handleSoundReady,
 					isPercussion: true,
-					isNoVideo: this.state.isNoVideo
+					isNoVideo: this.state.isReady && this.state.isNoVideo
 				}),
 				React.createElement(Sound, {
 					src: 'ippon-crisp',
@@ -5258,7 +5260,7 @@ module.exports = class App extends React.Component {
 					volume: 0.5,
 					onReady: this.handleSoundReady,
 					isPercussion: true,
-					isNoVideo: this.state.isNoVideo
+					isNoVideo: this.state.isReady && this.state.isNoVideo
 				}),
 				React.createElement(Sound, {
 					src: 'atsumori',
@@ -5271,7 +5273,7 @@ module.exports = class App extends React.Component {
 					sourceNote: 22,
 					onReady: this.handleSoundReady,
 					isPrank: true,
-					isNoVideo: this.state.isNoVideo
+					isNoVideo: this.state.isReady && this.state.isNoVideo
 				}),
 				React.createElement(Sound, {
 					src: 'aoba-zoi',
@@ -5283,7 +5285,7 @@ module.exports = class App extends React.Component {
 					volume: 0.2,
 					sourceNote: 62,
 					onReady: this.handleSoundReady,
-					isNoVideo: this.state.isNoVideo
+					isNoVideo: this.state.isReady && this.state.isNoVideo
 				}),
 				React.createElement(Sound, {
 					src: 'zen-glass',
@@ -5295,7 +5297,7 @@ module.exports = class App extends React.Component {
 					volume: 1,
 					onReady: this.handleSoundReady,
 					isPercussion: true,
-					isNoVideo: this.state.isNoVideo
+					isNoVideo: this.state.isReady && this.state.isNoVideo
 				}),
 				React.createElement(Sound, {
 					src: 'minecraft-blaze',
@@ -5307,7 +5309,7 @@ module.exports = class App extends React.Component {
 					volume: 0.5,
 					onReady: this.handleSoundReady,
 					isPercussion: true,
-					isNoVideo: this.state.isNoVideo
+					isNoVideo: this.state.isReady && this.state.isNoVideo
 				}),
 				React.createElement(Sound, {
 					src: 'fireball-ring',
@@ -5319,7 +5321,7 @@ module.exports = class App extends React.Component {
 					volume: 0.5,
 					onReady: this.handleSoundReady,
 					isPercussion: true,
-					isNoVideo: this.state.isNoVideo
+					isNoVideo: this.state.isReady && this.state.isNoVideo
 				}),
 				React.createElement(Sound, {
 					src: 'ai-virus',
@@ -5331,7 +5333,7 @@ module.exports = class App extends React.Component {
 					volume: 0.1,
 					sourceNote: 53,
 					onReady: this.handleSoundReady,
-					isNoVideo: this.state.isNoVideo
+					isNoVideo: this.state.isReady && this.state.isNoVideo
 				}),
 				React.createElement(Sound, {
 					src: 'inazuma-pan',
@@ -5343,7 +5345,7 @@ module.exports = class App extends React.Component {
 					volume: 0.2,
 					sourceNote: 64,
 					onReady: this.handleSoundReady,
-					isNoVideo: this.state.isNoVideo
+					isNoVideo: this.state.isReady && this.state.isNoVideo
 				})
 			)
 		);
@@ -5434,7 +5436,9 @@ module.exports = (_temp = _class = class Sound extends React.Component {
 				});
 			}
 
-			this.player.seekTo(this.props.videoStart);
+			if (!this.state.isNoVideo) {
+				this.player.seekTo(this.props.videoStart);
+			}
 			this.setState({ isShown: true });
 
 			if (!this.state.isPlaying) {
