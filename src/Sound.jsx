@@ -59,6 +59,7 @@ module.exports = class Sound extends React.Component {
 	handleBeat = (beat) => {
 		if (Math.abs((beat + TICK) % (TICK * 448) - TICK) < TICK / 2) {
 			this.setState({isShown: false});
+			this.sounds.forEach((sound) => sound.stop());
 		}
 
 		if (this.props.isPercussion) {

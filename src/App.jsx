@@ -28,7 +28,7 @@ module.exports = class App extends React.Component {
 
 	handleSoundReady = (score) => {
 		this.readySounds.add(score);
-		if (this.readySounds.size === 9) {
+		if (this.readySounds.size === 11) {
 			setInterval(this.handleBeat, TICK * 1000);
 		}
 	}
@@ -135,6 +135,28 @@ module.exports = class App extends React.Component {
 					volume={0.5}
 					onReady={this.handleSoundReady}
 					isPercussion
+				/>
+				<Sound
+					src="ai-virus"
+					url="https://www.youtube.com/watch?v=4v3F3luBMEM"
+					score="chorus1"
+					videoStart={30.5}
+					videoDuration={3}
+					beat={this.state.beat}
+					volume={0.1}
+					sourceNote={53}
+					onReady={this.handleSoundReady}
+				/>
+				<Sound
+					src="inazuma-pan"
+					url="https://www.youtube.com/watch?v=l3JuhAwx5aY"
+					score="chorus2"
+					videoStart={18}
+					videoDuration={1}
+					beat={this.state.beat}
+					volume={0.2}
+					sourceNote={64}
+					onReady={this.handleSoundReady}
 				/>
 			</div>
 		);

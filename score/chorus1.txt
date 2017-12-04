@@ -1,0 +1,11 @@
+t135 o3 l1
+r r r r
+
+r r r r r r r l4 r r r g
+
+l2
+/:
+a g f e f g c d+
+d c a g f g | g a
+:/
+f e
