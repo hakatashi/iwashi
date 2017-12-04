@@ -20,12 +20,14 @@ module.exports = class Sound extends React.Component {
 		onReady: PropTypes.func.isRequired,
 		isPrank: PropTypes.bool,
 		isPercussion: PropTypes.bool,
+		isNoVideo: PropTypes.bool,
 	}
 
 	static defaultProps = {
 		sourceNote: 0,
 		isPrank: false,
 		isPercussion: false,
+		isNoVideo: false,
 	}
 
 	constructor(props, state) {
@@ -97,7 +99,7 @@ module.exports = class Sound extends React.Component {
 			this.setState({isPlaying: true});
 		}
 
-		if (this.props.isPrank) {
+		if (this.props.isPrank || this.props.isNoVideo) {
 			this.setState({isReverse: !this.state.isReverse});
 		}
 
@@ -150,7 +152,7 @@ module.exports = class Sound extends React.Component {
 					youtubeConfig={{playerVars: {start: this.props.videoStart}}}
 					width={320}
 					height={180}
-					playing={this.state.isPlaying}
+					playing={this.state.isPlaying && !this.props.isNoVideo}
 					controls
 					muted
 					onReady={this.handlePlayerReady}
