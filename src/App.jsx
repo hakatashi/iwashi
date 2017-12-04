@@ -14,15 +14,29 @@ module.exports = class App extends React.Component {
 		};
 
 		this.readySounds = new Set();
-		this.vocal = new Howl({
-			src: getSoundUrls('vocal/yufu/01'),
-		});
+		this.vocals = [
+			new Howl({
+				src: getSoundUrls('vocal/yufu/01'),
+			}),
+			new Howl({
+				src: getSoundUrls('vocal/yufu/02'),
+			}),
+			new Howl({
+				src: getSoundUrls('vocal/yufu/03'),
+			}),
+		];
 	}
 
 	handleBeat = () => {
-		this.setState({beat: this.state.beat === null ? 0 : this.state.beat + TICK});
+		this.setState({beat: this.state.beat === null ? TICK * 160 : this.state.beat + TICK});
 		if (Math.abs(this.state.beat % (TICK * 448) - TICK * 61) < TICK / 2) {
-			this.vocal.play();
+			this.vocals[0].play();
+		}
+		if (Math.abs(this.state.beat % (TICK * 448) - TICK * 186) < TICK / 2) {
+			this.vocals[1].play();
+		}
+		if (Math.abs(this.state.beat % (TICK * 448) - TICK * 314) < TICK / 2) {
+			this.vocals[2].play();
 		}
 	}
 
