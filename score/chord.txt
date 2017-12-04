@@ -12,3 +12,18 @@ r [<a+>deg] r [<a+>deg] r [<a>c+eg] r [<a>c+eg]
 r [<a>cdf] r [<a>cdf] r [ceg] r [ceg]
 r [<a+>dfa] r [<a+>dfa] r [<a>ceg] r [<a>ceg]
 [<a>cdf] r16 [cc+fa]16 r8 [<b>ceg]16 r16 [<a+><b>d+f+]16 r16^^ [<a>c+eg]4
+
+/:
+r [cdfa] r [cdfa] r [ceg] r [ceg]
+r [<a+>dfa] r [<a+>dfa] r [cefa] r [cefa]
+r [dfga+] r [dfga+] r [cegb] r [cegb]
+r [cefa] r [cefa] r [cd+fa] r [cd+fa]
+r [<a+>dfa] r [<a+>dfa] r [cega] r [cega]
+|
+r [cdfa] r [cdfa] r [eg>c<] r [eg>c<]
+r [dfga+] r [dfga+] r [ega+>c<] r [ega+>c<]
+r [dega+] r [dega+] r [ea>c<] r [ea>c<]
+:/
+r [cdfa] r [cdfa] r [cd+fa] r [cd+fa]
+r [dfga+] r [dfga+] r [cega+] r [cega+]
+r [fa>c<] r [fa>c<] r [ceg] r [ceg]

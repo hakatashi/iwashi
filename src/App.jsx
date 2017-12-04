@@ -21,7 +21,7 @@ module.exports = class App extends React.Component {
 
 	handleBeat = () => {
 		this.setState({beat: this.state.beat === null ? 0 : this.state.beat + TICK});
-		if (Math.abs(this.state.beat % (TICK * 192) - TICK * 61) < TICK / 2) {
+		if (Math.abs(this.state.beat % (TICK * 448) - TICK * 61) < TICK / 2) {
 			this.vocal.play();
 		}
 	}
