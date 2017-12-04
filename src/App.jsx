@@ -14,21 +14,35 @@ module.exports = class App extends React.Component {
 		};
 
 		this.readySounds = new Set();
-		this.vocal = new Howl({
-			src: getSoundUrls('vocal/yufu/01'),
-		});
+		this.vocals = [
+			new Howl({
+				src: getSoundUrls('vocal/yufu/01'),
+			}),
+			new Howl({
+				src: getSoundUrls('vocal/yufu/02'),
+			}),
+			new Howl({
+				src: getSoundUrls('vocal/yufu/03'),
+			}),
+		];
 	}
 
 	handleBeat = () => {
-		this.setState({beat: this.state.beat === null ? 0 : this.state.beat + TICK});
-		if (Math.abs(this.state.beat % (TICK * 192) - TICK * 61) < TICK / 2) {
-			this.vocal.play();
+		this.setState({beat: this.state.beat === null ? TICK * 160 : this.state.beat + TICK});
+		if (Math.abs(this.state.beat % (TICK * 448) - TICK * 61) < TICK / 2) {
+			this.vocals[0].play();
+		}
+		if (Math.abs(this.state.beat % (TICK * 448) - TICK * 186) < TICK / 2) {
+			this.vocals[1].play();
+		}
+		if (Math.abs(this.state.beat % (TICK * 448) - TICK * 314) < TICK / 2) {
+			this.vocals[2].play();
 		}
 	}
 
 	handleSoundReady = (score) => {
 		this.readySounds.add(score);
-		if (this.readySounds.size === 9) {
+		if (this.readySounds.size === 11) {
 			setInterval(this.handleBeat, TICK * 1000);
 		}
 	}
@@ -45,7 +59,6 @@ module.exports = class App extends React.Component {
 					beat={this.state.beat}
 					volume={1}
 					onReady={this.handleSoundReady}
-					isPrank={false}
 					isPercussion
 				/>
 				<Sound
@@ -57,7 +70,6 @@ module.exports = class App extends React.Component {
 					beat={this.state.beat}
 					volume={0.5}
 					onReady={this.handleSoundReady}
-					isPrank={false}
 					isPercussion
 				/>
 				<Sound
@@ -69,7 +81,6 @@ module.exports = class App extends React.Component {
 					beat={this.state.beat}
 					volume={1}
 					onReady={this.handleSoundReady}
-					isPrank={false}
 					isPercussion
 				/>
 				<Sound
@@ -81,7 +92,6 @@ module.exports = class App extends React.Component {
 					beat={this.state.beat}
 					volume={0.5}
 					onReady={this.handleSoundReady}
-					isPrank={false}
 					isPercussion
 				/>
 				<Sound
@@ -95,7 +105,6 @@ module.exports = class App extends React.Component {
 					sourceNote={22}
 					onReady={this.handleSoundReady}
 					isPrank
-					isPercussion={false}
 				/>
 				<Sound
 					src="aoba-zoi"
@@ -104,11 +113,9 @@ module.exports = class App extends React.Component {
 					videoStart={18.9}
 					videoDuration={2}
 					beat={this.state.beat}
-					volume={0.15}
+					volume={0.2}
 					sourceNote={62}
 					onReady={this.handleSoundReady}
-					isPrank={false}
-					isPercussion={false}
 				/>
 				<Sound
 					src="zen-glass"
@@ -117,9 +124,8 @@ module.exports = class App extends React.Component {
 					videoStart={24.5}
 					videoDuration={0.5}
 					beat={this.state.beat}
-					volume={0.75}
+					volume={1}
 					onReady={this.handleSoundReady}
-					isPrank={false}
 					isPercussion
 				/>
 				<Sound
@@ -131,7 +137,6 @@ module.exports = class App extends React.Component {
 					beat={this.state.beat}
 					volume={0.5}
 					onReady={this.handleSoundReady}
-					isPrank={false}
 					isPercussion
 				/>
 				<Sound
@@ -141,10 +146,31 @@ module.exports = class App extends React.Component {
 					videoStart={477.5}
 					videoDuration={3}
 					beat={this.state.beat}
-					volume={0.75}
+					volume={0.5}
 					onReady={this.handleSoundReady}
-					isPrank={false}
 					isPercussion
+				/>
+				<Sound
+					src="ai-virus"
+					url="https://www.youtube.com/watch?v=4v3F3luBMEM"
+					score="chorus1"
+					videoStart={30.5}
+					videoDuration={3}
+					beat={this.state.beat}
+					volume={0.1}
+					sourceNote={53}
+					onReady={this.handleSoundReady}
+				/>
+				<Sound
+					src="inazuma-pan"
+					url="https://www.youtube.com/watch?v=l3JuhAwx5aY"
+					score="chorus2"
+					videoStart={18}
+					videoDuration={1}
+					beat={this.state.beat}
+					volume={0.2}
+					sourceNote={64}
+					onReady={this.handleSoundReady}
 				/>
 			</div>
 		);
