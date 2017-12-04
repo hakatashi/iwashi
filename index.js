@@ -5184,8 +5184,13 @@ module.exports = class App extends React.Component {
 			}
 		};
 
+		this.handleChangeCheckbox = () => {
+			this.setState({ isNoVideo: !this.state.isNoVideo });
+		};
+
 		this.state = {
-			beat: null
+			beat: null,
+			isNoVideo: false
 		};
 
 		this.readySounds = new Set();
@@ -5202,128 +5207,145 @@ module.exports = class App extends React.Component {
 		return React.createElement(
 			'div',
 			null,
-			React.createElement(Sound, {
-				src: 'kinmoza-clap',
-				url: 'https://www.youtube.com/watch?v=STcc8H4Vr_g',
-				score: 'clap',
-				videoStart: 5.4,
-				videoDuration: 3,
-				beat: this.state.beat,
-				volume: 1,
-				onReady: this.handleSoundReady,
-				isPercussion: true
-			}),
-			React.createElement(Sound, {
-				src: 'karateka-kick',
-				url: 'https://www.youtube.com/watch?v=Cg6dlPZt-1g',
-				score: 'snare',
-				videoStart: 32,
-				videoDuration: 0.3,
-				beat: this.state.beat,
-				volume: 0.5,
-				onReady: this.handleSoundReady,
-				isPercussion: true
-			}),
-			React.createElement(Sound, {
-				src: 'killme-pyonsuke',
-				url: 'https://www.youtube.com/watch?v=vXBO_W5l6uY',
-				score: 'bass',
-				videoStart: 247.7,
-				videoDuration: 0.5,
-				beat: this.state.beat,
-				volume: 1,
-				onReady: this.handleSoundReady,
-				isPercussion: true
-			}),
-			React.createElement(Sound, {
-				src: 'ippon-crisp',
-				url: 'https://www.youtube.com/watch?v=2rc8CmeKinc',
-				score: 'closed-hihat',
-				videoStart: 23.7,
-				videoDuration: 1,
-				beat: this.state.beat,
-				volume: 0.5,
-				onReady: this.handleSoundReady,
-				isPercussion: true
-			}),
-			React.createElement(Sound, {
-				src: 'atsumori',
-				url: 'https://www.youtube.com/watch?v=uvg3I_IR9FA',
-				score: 'base',
-				videoStart: 4.8,
-				videoDuration: 0.5,
-				beat: this.state.beat,
-				volume: 1,
-				sourceNote: 22,
-				onReady: this.handleSoundReady,
-				isPrank: true
-			}),
-			React.createElement(Sound, {
-				src: 'aoba-zoi',
-				url: 'https://www.youtube.com/watch?v=DmZo4rL2E7E',
-				score: 'chord',
-				videoStart: 18.9,
-				videoDuration: 2,
-				beat: this.state.beat,
-				volume: 0.2,
-				sourceNote: 62,
-				onReady: this.handleSoundReady
-			}),
-			React.createElement(Sound, {
-				src: 'zen-glass',
-				url: 'https://www.youtube.com/watch?v=M_1UZlPBYzM',
-				score: 'bongo',
-				videoStart: 24.5,
-				videoDuration: 0.5,
-				beat: this.state.beat,
-				volume: 1,
-				onReady: this.handleSoundReady,
-				isPercussion: true
-			}),
-			React.createElement(Sound, {
-				src: 'minecraft-blaze',
-				url: 'https://www.youtube.com/watch?v=tKt0oImbQ_Y',
-				score: 'chime1',
-				videoStart: 500.5,
-				videoDuration: 0.5,
-				beat: this.state.beat,
-				volume: 0.5,
-				onReady: this.handleSoundReady,
-				isPercussion: true
-			}),
-			React.createElement(Sound, {
-				src: 'fireball-ring',
-				url: 'https://www.youtube.com/watch?v=6CQymHcBwWQ',
-				score: 'chime2',
-				videoStart: 477.5,
-				videoDuration: 3,
-				beat: this.state.beat,
-				volume: 0.5,
-				onReady: this.handleSoundReady,
-				isPercussion: true
-			}),
-			React.createElement(Sound, {
-				src: 'ai-virus',
-				url: 'https://www.youtube.com/watch?v=4v3F3luBMEM',
-				score: 'chorus1',
-				videoStart: 30.5,
-				videoDuration: 3,
-				beat: this.state.beat,
-				volume: 0.1,
-				sourceNote: 53,
-				onReady: this.handleSoundReady
-			}),
-			React.createElement(Sound, {
-				src: 'inazuma-pan',
-				url: 'https://www.youtube.com/watch?v=l3JuhAwx5aY',
-				score: 'chorus2',
-				videoStart: 18,
-				videoDuration: 1,
-				beat: this.state.beat,
-				volume: 0.2,
-				sourceNote: 64,
-				onReady: this.handleSoundReady
-			})
+			React.createElement('input', { type: 'checkbox', checked: this.state.isNoVideo, onChange: this.handleChangeCheckbox }),
+			' \u52D5\u753B\u3092\u518D\u751F\u3057\u306A\u3044',
+			React.createElement(
+				'div',
+				null,
+				React.createElement(Sound, {
+					src: 'kinmoza-clap',
+					url: 'https://www.youtube.com/watch?v=STcc8H4Vr_g',
+					score: 'clap',
+					videoStart: 5.4,
+					videoDuration: 3,
+					beat: this.state.beat,
+					volume: 1,
+					onReady: this.handleSoundReady,
+					isPercussion: true,
+					isNoVideo: this.state.isNoVideo
+				}),
+				React.createElement(Sound, {
+					src: 'karateka-kick',
+					url: 'https://www.youtube.com/watch?v=Cg6dlPZt-1g',
+					score: 'snare',
+					videoStart: 32,
+					videoDuration: 0.3,
+					beat: this.state.beat,
+					volume: 0.5,
+					onReady: this.handleSoundReady,
+					isPercussion: true,
+					isNoVideo: this.state.isNoVideo
+				}),
+				React.createElement(Sound, {
+					src: 'killme-pyonsuke',
+					url: 'https://www.youtube.com/watch?v=vXBO_W5l6uY',
+					score: 'bass',
+					videoStart: 247.7,
+					videoDuration: 0.5,
+					beat: this.state.beat,
+					volume: 1,
+					onReady: this.handleSoundReady,
+					isPercussion: true,
+					isNoVideo: this.state.isNoVideo
+				}),
+				React.createElement(Sound, {
+					src: 'ippon-crisp',
+					url: 'https://www.youtube.com/watch?v=2rc8CmeKinc',
+					score: 'closed-hihat',
+					videoStart: 23.7,
+					videoDuration: 1,
+					beat: this.state.beat,
+					volume: 0.5,
+					onReady: this.handleSoundReady,
+					isPercussion: true,
+					isNoVideo: this.state.isNoVideo
+				}),
+				React.createElement(Sound, {
+					src: 'atsumori',
+					url: 'https://www.youtube.com/watch?v=uvg3I_IR9FA',
+					score: 'base',
+					videoStart: 4.8,
+					videoDuration: 0.5,
+					beat: this.state.beat,
+					volume: 1,
+					sourceNote: 22,
+					onReady: this.handleSoundReady,
+					isPrank: true,
+					isNoVideo: this.state.isNoVideo
+				}),
+				React.createElement(Sound, {
+					src: 'aoba-zoi',
+					url: 'https://www.youtube.com/watch?v=DmZo4rL2E7E',
+					score: 'chord',
+					videoStart: 18.9,
+					videoDuration: 2,
+					beat: this.state.beat,
+					volume: 0.2,
+					sourceNote: 62,
+					onReady: this.handleSoundReady,
+					isNoVideo: this.state.isNoVideo
+				}),
+				React.createElement(Sound, {
+					src: 'zen-glass',
+					url: 'https://www.youtube.com/watch?v=M_1UZlPBYzM',
+					score: 'bongo',
+					videoStart: 24.5,
+					videoDuration: 0.5,
+					beat: this.state.beat,
+					volume: 1,
+					onReady: this.handleSoundReady,
+					isPercussion: true,
+					isNoVideo: this.state.isNoVideo
+				}),
+				React.createElement(Sound, {
+					src: 'minecraft-blaze',
+					url: 'https://www.youtube.com/watch?v=tKt0oImbQ_Y',
+					score: 'chime1',
+					videoStart: 500.5,
+					videoDuration: 0.5,
+					beat: this.state.beat,
+					volume: 0.5,
+					onReady: this.handleSoundReady,
+					isPercussion: true,
+					isNoVideo: this.state.isNoVideo
+				}),
+				React.createElement(Sound, {
+					src: 'fireball-ring',
+					url: 'https://www.youtube.com/watch?v=6CQymHcBwWQ',
+					score: 'chime2',
+					videoStart: 477.5,
+					videoDuration: 3,
+					beat: this.state.beat,
+					volume: 0.5,
+					onReady: this.handleSoundReady,
+					isPercussion: true,
+					isNoVideo: this.state.isNoVideo
+				}),
+				React.createElement(Sound, {
+					src: 'ai-virus',
+					url: 'https://www.youtube.com/watch?v=4v3F3luBMEM',
+					score: 'chorus1',
+					videoStart: 30.5,
+					videoDuration: 3,
+					beat: this.state.beat,
+					volume: 0.1,
+					sourceNote: 53,
+					onReady: this.handleSoundReady,
+					isNoVideo: this.state.isNoVideo
+				}),
+				React.createElement(Sound, {
+					src: 'inazuma-pan',
+					url: 'https://www.youtube.com/watch?v=l3JuhAwx5aY',
+					score: 'chorus2',
+					videoStart: 18,
+					videoDuration: 1,
+					beat: this.state.beat,
+					volume: 0.2,
+					sourceNote: 64,
+					onReady: this.handleSoundReady,
+					isNoVideo: this.state.isNoVideo
+				})
+			)
 		);
 	}
 };
@@ -5419,7 +5441,7 @@ module.exports = (_temp = _class = class Sound extends React.Component {
 				this.setState({ isPlaying: true });
 			}
 
-			if (this.props.isPrank) {
+			if (this.props.isPrank || this.props.isNoVideo) {
 				this.setState({ isReverse: !this.state.isReverse });
 			}
 
@@ -5496,7 +5518,7 @@ module.exports = (_temp = _class = class Sound extends React.Component {
 				youtubeConfig: { playerVars: { start: this.props.videoStart } },
 				width: 320,
 				height: 180,
-				playing: this.state.isPlaying,
+				playing: this.state.isPlaying && !this.props.isNoVideo,
 				controls: true,
 				muted: true,
 				onReady: this.handlePlayerReady,
@@ -5515,11 +5537,13 @@ module.exports = (_temp = _class = class Sound extends React.Component {
 	sourceNote: PropTypes.number,
 	onReady: PropTypes.func.isRequired,
 	isPrank: PropTypes.bool,
-	isPercussion: PropTypes.bool
+	isPercussion: PropTypes.bool,
+	isNoVideo: PropTypes.bool
 }, _class.defaultProps = {
 	sourceNote: 0,
 	isPrank: false,
-	isPercussion: false
+	isPercussion: false,
+	isNoVideo: false
 }, _temp);
 
 /***/ }),
