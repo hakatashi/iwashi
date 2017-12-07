@@ -11,7 +11,7 @@ module.exports = class App extends React.Component {
 
 		this.state = {
 			beat: null,
-			isNoVideo: false,
+			isNoVideo: true,
 			isReady: false,
 		};
 
@@ -44,7 +44,7 @@ module.exports = class App extends React.Component {
 
 	handleSoundReady = (score) => {
 		this.readySounds.add(score);
-		if (this.readySounds.size === 11) {
+		if (this.readySounds.size === 12) {
 			this.setState({isReady: true});
 			setInterval(this.handleBeat, TICK * 1000);
 		}
@@ -190,6 +190,18 @@ module.exports = class App extends React.Component {
 						volume={0.2}
 						sourceNote={64}
 						onReady={this.handleSoundReady}
+						isNoVideo={this.state.isReady && this.state.isNoVideo}
+					/>
+					<Sound
+						src="killme-cymbal"
+						url="https://www.youtube.com/watch?v=Vv-SCTaw07w"
+						score="cymbal"
+						videoStart={36.2}
+						videoDuration={5}
+						beat={this.state.beat}
+						volume={0.2}
+						onReady={this.handleSoundReady}
+						isPercussion
 						isNoVideo={this.state.isReady && this.state.isNoVideo}
 					/>
 				</div>

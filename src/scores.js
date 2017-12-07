@@ -8,6 +8,7 @@ const chorus1 = require('../score/chorus1.txt');
 const chorus2 = require('../score/chorus2.txt');
 const clap = require('../score/clap.txt');
 const closedHihat = require('../score/closed-hihat.txt');
+const cymbal = require('../score/cymbal.txt');
 const snare = require('../score/snare.txt');
 
 module.exports = {
@@ -21,5 +22,6 @@ module.exports = {
 	chorus2,
 	clap,
 	'closed-hihat': closedHihat,
+	cymbal,
 	snare,
 };

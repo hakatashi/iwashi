@@ -1,0 +1,19 @@
+t135 o1 l4
+r r r r r r r r
+r r r r r r r r
+
+l4
+c r r r r r r r
+r r r r r r r r
+r r r r r r r r
+r r r r r r r r
+
+l4
+c r r r r r r r
+r r r r r r r r
+r r r r r r r r
+r r r r r r r r
+c r r r r r r r
+r r r r r r r r
+r r r r r r r r
+r r r r r r r r
