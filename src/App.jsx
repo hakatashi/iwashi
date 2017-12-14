@@ -19,12 +19,15 @@ module.exports = class App extends React.Component {
 		this.vocals = [
 			new Howl({
 				src: getSoundUrls('vocal/yufu/01'),
+				html5: true,
 			}),
 			new Howl({
 				src: getSoundUrls('vocal/yufu/02'),
+				html5: true,
 			}),
 			new Howl({
 				src: getSoundUrls('vocal/yufu/03'),
+				html5: true,
 			}),
 		];
 	}

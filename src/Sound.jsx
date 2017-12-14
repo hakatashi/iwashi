@@ -92,10 +92,13 @@ module.exports = class Sound extends React.Component {
 			});
 		}
 
-		if (!this.state.isNoVideo) {
-			this.player.seekTo(this.props.videoStart);
+		if (!this.props.isNoVideo) {
+			this.player && this.player.seekTo(this.props.videoStart);
 		}
-		this.setState({isShown: true});
+
+		if (!this.state.isShown) {
+			this.setState({isShown: true});
+		}
 
 		if (!this.state.isPlaying) {
 			this.setState({isPlaying: true});
@@ -108,7 +111,7 @@ module.exports = class Sound extends React.Component {
 		const session = Symbol('videoPlaySession');
 		this.videoPlaySession = session;
 
-		if (Number.isFinite(this.props.videoDuration)) {
+		if (Number.isFinite(this.props.videoDuration) && !this.props.isNoVideo) {
 			setTimeout(() => {
 				this.handleVideoSessionTimeout(session);
 			}, this.props.videoDuration * 1000);
@@ -116,7 +119,7 @@ module.exports = class Sound extends React.Component {
 	}
 
 	handleVideoSessionTimeout = (session) => {
-		if (this.videoPlaySession === session) {
+		if (this.videoPlaySession === session && this.state.isPlaying) {
 			this.setState({isPlaying: false});
 		}
 	}
