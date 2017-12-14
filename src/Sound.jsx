@@ -20,12 +20,14 @@ module.exports = class Sound extends React.Component {
 		onReady: PropTypes.func.isRequired,
 		isPrank: PropTypes.bool,
 		isPercussion: PropTypes.bool,
+		isChord: PropTypes.bool,
 		isNoVideo: PropTypes.bool,
 	}
 
 	static defaultProps = {
 		sourceNote: 0,
 		isPrank: false,
+		isChord: false,
 		isPercussion: false,
 		isNoVideo: false,
 	}
@@ -33,7 +35,7 @@ module.exports = class Sound extends React.Component {
 	constructor(props, state) {
 		super(props, state);
 
-		this.sounds = Array(this.props.isPercussion ? 1 : 5).fill().map(() => (
+		this.sounds = Array((this.props.isPercussion || !this.props.isChord) ? 1 : 5).fill().map(() => (
 			new Howl({
 				src: getSoundUrls(this.props.src),
 				volume: this.props.volume,

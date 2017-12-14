@@ -53,6 +53,164 @@ module.exports = class App extends React.Component {
 		];
 
 		this.vocalSounds = new Map();
+
+		this.tracks = [
+			{
+				type: 'percussion',
+				src: 'kinmoza-clap',
+				url: 'https://www.youtube.com/watch?v=STcc8H4Vr_g',
+				score: 'clap',
+				videoStart: 5.4,
+				videoDuration: 3,
+				volume: 1,
+			},
+			{
+				type: 'percussion',
+				src: 'karateka-kick',
+				url: 'https://www.youtube.com/watch?v=Cg6dlPZt-1g',
+				score: 'snare',
+				videoStart: 32,
+				videoDuration: 0.3,
+				volume: 0.5,
+			},
+			{
+				type: 'percussion',
+				src: 'killme-pyonsuke',
+				url: 'https://www.youtube.com/watch?v=vXBO_W5l6uY',
+				score: 'bass',
+				videoStart: 247.7,
+				videoDuration: 0.5,
+				volume: 1,
+			},
+			{
+				type: 'percussion',
+				src: 'ippon-crisp',
+				url: 'https://www.youtube.com/watch?v=2rc8CmeKinc',
+				score: 'closed-hihat',
+				videoStart: 23.7,
+				videoDuration: 1,
+				volume: 0.5,
+			},
+			{
+				type: 'instrument',
+				src: 'atsumori',
+				url: 'https://www.youtube.com/watch?v=uvg3I_IR9FA',
+				score: 'base',
+				videoStart: 4.8,
+				videoDuration: 0.5,
+				volume: 1,
+				sourceNote: 22,
+				prank: true,
+			},
+			{
+				type: 'chord',
+				src: 'aoba-zoi',
+				url: 'https://www.youtube.com/watch?v=DmZo4rL2E7E',
+				score: 'chord',
+				videoStart: 18.9,
+				videoDuration: 2,
+				volume: 0.2,
+				sourceNote: 62,
+			},
+			{
+				type: 'percussion',
+				src: 'zen-glass',
+				url: 'https://www.youtube.com/watch?v=M_1UZlPBYzM',
+				score: 'bongo',
+				videoStart: 24.5,
+				videoDuration: 0.5,
+				volume: 1,
+			},
+			{
+				type: 'percussion',
+				src: 'minecraft-blaze',
+				url: 'https://www.youtube.com/watch?v=tKt0oImbQ_Y',
+				score: 'chime1',
+				videoStart: 500.5,
+				videoDuration: 0.5,
+				volume: 0.5,
+			},
+			{
+				type: 'percussion',
+				src: 'fireball-ring',
+				url: 'https://www.youtube.com/watch?v=6CQymHcBwWQ',
+				score: 'chime2',
+				videoStart: 477.5,
+				videoDuration: 3,
+				volume: 0.5,
+			},
+			{
+				type: 'instrument',
+				src: 'ai-virus',
+				url: 'https://www.youtube.com/watch?v=4v3F3luBMEM',
+				score: 'chorus1',
+				videoStart: 30.5,
+				videoDuration: 3,
+				volume: 0.1,
+				sourceNote: 53,
+			},
+			{
+				type: 'instrument',
+				src: 'inazuma-pan',
+				url: 'https://www.youtube.com/watch?v=l3JuhAwx5aY',
+				score: 'chorus2',
+				videoStart: 18,
+				videoDuration: 1,
+				volume: 0.2,
+				sourceNote: 64,
+			},
+			{
+				type: 'percussion',
+				src: 'killme-cymbal',
+				url: 'https://www.youtube.com/watch?v=Vv-SCTaw07w',
+				score: 'cymbal',
+				videoStart: 36.2,
+				videoDuration: 5,
+				volume: 0.2,
+			},
+			{
+				type: 'instrument',
+				src: 'oreo-oh',
+				url: 'https://www.youtube.com/watch?v=lnpXXafCzj8',
+				score: 'chorus3',
+				videoStart: 10.7,
+				videoDuration: 1,
+				volume: 0.3,
+				sourceNote: 62,
+			},
+			{
+				type: 'instrument',
+				src: 'zkai-eh',
+				url: 'https://www.youtube.com/watch?v=e9ohRtZcOuo',
+				score: 'chorus4',
+				videoStart: 38.3,
+				videoDuration: 1,
+				volume: 0.4,
+				sourceNote: 66,
+			},
+			{
+				type: 'instrument',
+				src: 'washing-aegi',
+				url: 'https://www.youtube.com/watch?v=w5xP4zHSQYI',
+				score: 'synth1',
+				videoStart: 10,
+				videoDuration: 1,
+				volume: 0.3,
+				sourceNote: 69,
+				prank: true,
+			},
+			{
+				type: 'instrument',
+				src: 'kemofure-toki',
+				url: 'https://www.youtube.com/watch?v=xOE6qlXqw7s',
+				score: 'synth2',
+				videoStart: 24,
+				videoDuration: 1,
+				volume: 0.2,
+				sourceNote: 97,
+				prank: true,
+			},
+		];
 	}
 
 	preloadVocal = (source) => {
@@ -107,201 +265,24 @@ module.exports = class App extends React.Component {
 			<div>
 				<input type="checkbox" checked={!this.state.isNoVideo} onChange={this.handleChangeCheckbox}/> 動画を再生する (激重)
 				<div>
-					<Sound
-						src="kinmoza-clap"
-						url="https://www.youtube.com/watch?v=STcc8H4Vr_g"
-						score="clap"
-						videoStart={5.4}
-						videoDuration={3}
-						beat={this.state.beat}
-						volume={1}
-						onReady={this.handleSoundReady}
-						isPercussion
-						isNoVideo={this.state.isReady && this.state.isNoVideo}
-					/>
-					<Sound
-						src="karateka-kick"
-						url="https://www.youtube.com/watch?v=Cg6dlPZt-1g"
-						score="snare"
-						videoStart={32}
-						videoDuration={0.3}
-						beat={this.state.beat}
-						volume={0.5}
-						onReady={this.handleSoundReady}
-						isPercussion
-						isNoVideo={this.state.isReady && this.state.isNoVideo}
-					/>
-					<Sound
-						src="killme-pyonsuke"
-						url="https://www.youtube.com/watch?v=vXBO_W5l6uY"
-						score="bass"
-						videoStart={247.7}
-						videoDuration={0.5}
-						beat={this.state.beat}
-						volume={1}
-						onReady={this.handleSoundReady}
-						isPercussion
-						isNoVideo={this.state.isReady && this.state.isNoVideo}
-					/>
-					<Sound
-						src="ippon-crisp"
-						url="https://www.youtube.com/watch?v=2rc8CmeKinc"
-						score="closed-hihat"
-						videoStart={23.7}
-						videoDuration={1}
-						beat={this.state.beat}
-						volume={0.5}
-						onReady={this.handleSoundReady}
-						isPercussion
-						isNoVideo={this.state.isReady && this.state.isNoVideo}
-					/>
-					<Sound
-						src="atsumori"
-						url="https://www.youtube.com/watch?v=uvg3I_IR9FA"
-						score="base"
-						videoStart={4.8}
-						videoDuration={0.5}
-						beat={this.state.beat}
-						volume={1}
-						sourceNote={22}
-						onReady={this.handleSoundReady}
-						isPrank
-						isNoVideo={this.state.isReady && this.state.isNoVideo}
-					/>
-					<Sound
-						src="aoba-zoi"
-						url="https://www.youtube.com/watch?v=DmZo4rL2E7E"
-						score="chord"
-						videoStart={18.9}
-						videoDuration={2}
-						beat={this.state.beat}
-						volume={0.2}
-						sourceNote={62}
-						onReady={this.handleSoundReady}
-						isNoVideo={this.state.isReady && this.state.isNoVideo}
-					/>
-					<Sound
-						src="zen-glass"
-						url="https://www.youtube.com/watch?v=M_1UZlPBYzM"
-						score="bongo"
-						videoStart={24.5}
-						videoDuration={0.5}
-						beat={this.state.beat}
-						volume={1}
-						onReady={this.handleSoundReady}
-						isPercussion
-						isNoVideo={this.state.isReady && this.state.isNoVideo}
-					/>
-					<Sound
-						src="minecraft-blaze"
-						url="https://www.youtube.com/watch?v=tKt0oImbQ_Y"
-						score="chime1"
-						videoStart={500.5}
-						videoDuration={0.5}
-						beat={this.state.beat}
-						volume={0.5}
-						onReady={this.handleSoundReady}
-						isPercussion
-						isNoVideo={this.state.isReady && this.state.isNoVideo}
-					/>
-					<Sound
-						src="fireball-ring"
-						url="https://www.youtube.com/watch?v=6CQymHcBwWQ"
-						score="chime2"
-						videoStart={477.5}
-						videoDuration={3}
-						beat={this.state.beat}
-						volume={0.5}
-						onReady={this.handleSoundReady}
-						isPercussion
-						isNoVideo={this.state.isReady && this.state.isNoVideo}
-					/>
-					<Sound
-						src="ai-virus"
-						url="https://www.youtube.com/watch?v=4v3F3luBMEM"
-						score="chorus1"
-						videoStart={30.5}
-						videoDuration={3}
-						beat={this.state.beat}
-						volume={0.1}
-						sourceNote={53}
-						onReady={this.handleSoundReady}
-						isNoVideo={this.state.isReady && this.state.isNoVideo}
-					/>
-					<Sound
-						src="inazuma-pan"
-						url="https://www.youtube.com/watch?v=l3JuhAwx5aY"
-						score="chorus2"
-						videoStart={18}
-						videoDuration={1}
-						beat={this.state.beat}
-						volume={0.2}
-						sourceNote={64}
-						onReady={this.handleSoundReady}
-						isNoVideo={this.state.isReady && this.state.isNoVideo}
-					/>
-					<Sound
-						src="killme-cymbal"
-						url="https://www.youtube.com/watch?v=Vv-SCTaw07w"
-						score="cymbal"
-						videoStart={36.2}
-						videoDuration={5}
-						beat={this.state.beat}
-						volume={0.2}
-						onReady={this.handleSoundReady}
-						isPercussion
-						isNoVideo={this.state.isReady && this.state.isNoVideo}
-					/>
-					<Sound
-						src="oreo-oh"
-						url="https://www.youtube.com/watch?v=lnpXXafCzj8"
-						score="chorus3"
-						videoStart={10.7}
-						videoDuration={1}
-						beat={this.state.beat}
-						volume={0.3}
-						sourceNote={62}
-						onReady={this.handleSoundReady}
-						isNoVideo={this.state.isReady && this.state.isNoVideo}
-					/>
-					<Sound
-						src="zkai-eh"
-						url="https://www.youtube.com/watch?v=e9ohRtZcOuo"
-						score="chorus4"
-						videoStart={38.3}
-						videoDuration={1}
-						beat={this.state.beat}
-						volume={0.4}
-						sourceNote={66}
-						onReady={this.handleSoundReady}
-						isNoVideo={this.state.isReady && this.state.isNoVideo}
-					/>
-					<Sound
-						src="washing-aegi"
-						url="https://www.youtube.com/watch?v=w5xP4zHSQYI"
-						score="synth1"
-						videoStart={10}
-						videoDuration={1}
-						beat={this.state.beat}
-						volume={0.3}
-						sourceNote={69}
-						onReady={this.handleSoundReady}
-						isNoVideo={this.state.isReady && this.state.isNoVideo}
-						isPrank
-					/>
-					<Sound
-						src="kemofure-toki"
-						url="https://www.youtube.com/watch?v=xOE6qlXqw7s"
-						score="synth2"
-						videoStart={24}
-						videoDuration={1}
-						beat={this.state.beat}
-						volume={0.2}
-						sourceNote={97}
-						onReady={this.handleSoundReady}
-						isNoVideo={this.state.isReady && this.state.isNoVideo}
-						isPrank
-					/>
+					{this.tracks.map((track) => (
+						<Sound
+							key={track.src}
+							src={track.src}
+							url={track.url}
+							score={track.score}
+							videoStart={track.videoStart}
+							videoDuration={track.videoDuration}
+							beat={this.state.beat}
+							volume={track.volume}
+							sourceNote={track.sourceNote}
+							onReady={this.handleSoundReady}
+							isNoVideo={this.state.isReady && this.state.isNoVideo}
+							isPrank={Boolean(track.isPrank)}
+							isPercussion={track.type === 'percussion'}
+							isChord={track.type === 'chord'}
+						/>
+					))}
 				</div>
 			</div>
 		);
