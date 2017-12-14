@@ -1,5 +1,6 @@
 const React = require('react');
 const {Howl} = require('howler');
+const shuffle = require('lodash/shuffle');
 
 const Sound = require('./Sound.jsx');
 const {TICK} = require('./const.js');
@@ -54,7 +55,7 @@ module.exports = class App extends React.Component {
 
 		this.vocalSounds = new Map();
 
-		this.tracks = [
+		const tracks = [
 			{
 				type: 'percussion',
 				src: 'kinmoza-clap',
@@ -211,6 +212,8 @@ module.exports = class App extends React.Component {
 				prank: true,
 			},
 		];
+
+		this.tracks = shuffle(tracks);
 	}
 
 	preloadVocal = (source) => {
