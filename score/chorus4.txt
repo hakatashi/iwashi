@@ -1,0 +1,19 @@
+t135 o4 l1
+/: r :/4
+
+/: r :/8
+
+/: r :/16
+
+l2
+f a f g
+a f a+ a
+f a f e
+a f e a
+f a f g
+a f a+ a
+f a f e
+a f e a
+
+l1
+/: r :/4

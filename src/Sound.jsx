@@ -20,12 +20,14 @@ module.exports = class Sound extends React.Component {
 		onReady: PropTypes.func.isRequired,
 		isPrank: PropTypes.bool,
 		isPercussion: PropTypes.bool,
+		isChord: PropTypes.bool,
 		isNoVideo: PropTypes.bool,
 	}
 
 	static defaultProps = {
 		sourceNote: 0,
 		isPrank: false,
+		isChord: false,
 		isPercussion: false,
 		isNoVideo: false,
 	}
@@ -33,7 +35,7 @@ module.exports = class Sound extends React.Component {
 	constructor(props, state) {
 		super(props, state);
 
-		this.sounds = Array(this.props.isPercussion ? 1 : 5).fill().map(() => (
+		this.sounds = Array((this.props.isPercussion || !this.props.isChord) ? 1 : 5).fill().map(() => (
 			new Howl({
 				src: getSoundUrls(this.props.src),
 				volume: this.props.volume,
@@ -59,13 +61,21 @@ module.exports = class Sound extends React.Component {
 	}
 
 	handleBeat = (beat) => {
-		if (Math.abs((beat + TICK) % (TICK * 448) - TICK) < TICK / 2) {
+		if (Math.abs((beat + TICK) % (TICK * 1536) - TICK) < TICK / 2) {
 			this.setState({isShown: false});
 			this.sounds.forEach((sound) => sound.stop());
 		}
 
+		if (Math.abs(beat % (TICK * 1536) - TICK * 892) < TICK / 2) {
+			this.setState({isShown: false});
+		}
+
+		if (Math.abs(beat % (TICK * 1536) - TICK * 1408) < TICK / 2) {
+			this.setState({isShown: false});
+		}
+
 		if (this.props.isPercussion) {
-			const isPlay = this.score.some((note) => Math.abs(note.time - beat % (TICK * 448)) < TICK / 2 && note.type === 'note');
+			const isPlay = this.score.some((note) => Math.abs(note.time - beat % (TICK * 1536)) < TICK / 2 && note.type === 'note');
 
 			if (!isPlay) {
 				return;
@@ -73,10 +83,10 @@ module.exports = class Sound extends React.Component {
 
 			this.sounds[0].play();
 		} else {
-			const playNoteIndex = this.score.findIndex((note) => Math.abs(note.time - beat % (TICK * 448)) < TICK / 2 && note.type === 'note');
-			const playNotes = this.score.filter((note) => Math.abs(note.time - beat % (TICK * 448)) < TICK / 2 && note.type === 'note');
+			const playNoteIndex = this.score.findIndex((note) => Math.abs(note.time - beat % (TICK * 1536)) < TICK / 2 && note.type === 'note');
+			const playNotes = this.score.filter((note) => Math.abs(note.time - beat % (TICK * 1536)) < TICK / 2 && note.type === 'note');
 
-			if (playNotes.length !== 0 || (this.score[this.currentNote] && Math.abs(this.score[this.currentNote].time + this.score[this.currentNote].duration - beat % (TICK * 448)) < TICK / 2)) {
+			if (playNotes.length !== 0 || (this.score[this.currentNote] && Math.abs(this.score[this.currentNote].time + this.score[this.currentNote].duration - beat % (TICK * 1536)) < TICK / 2)) {
 				this.sounds.forEach((sound) => sound.stop());
 			}
 
@@ -92,10 +102,13 @@ module.exports = class Sound extends React.Component {
 			});
 		}
 
-		if (!this.state.isNoVideo) {
-			this.player.seekTo(this.props.videoStart);
+		if (!this.props.isNoVideo) {
+			this.player && this.player.seekTo(this.props.videoStart);
 		}
-		this.setState({isShown: true});
+
+		if (!this.state.isShown) {
+			this.setState({isShown: true});
+		}
 
 		if (!this.state.isPlaying) {
 			this.setState({isPlaying: true});
@@ -108,7 +121,7 @@ module.exports = class Sound extends React.Component {
 		const session = Symbol('videoPlaySession');
 		this.videoPlaySession = session;
 
-		if (Number.isFinite(this.props.videoDuration)) {
+		if (Number.isFinite(this.props.videoDuration) && !this.props.isNoVideo) {
 			setTimeout(() => {
 				this.handleVideoSessionTimeout(session);
 			}, this.props.videoDuration * 1000);
@@ -116,7 +129,7 @@ module.exports = class Sound extends React.Component {
 	}
 
 	handleVideoSessionTimeout = (session) => {
-		if (this.videoPlaySession === session) {
+		if (this.videoPlaySession === session && this.state.isPlaying) {
 			this.setState({isPlaying: false});
 		}
 	}
@@ -132,6 +145,7 @@ module.exports = class Sound extends React.Component {
 			this.setState({
 				isPlaying: false,
 			});
+			this.player.seekTo(this.props.videoStart);
 			this.props.onReady(this.props.score);
 		}
 	}

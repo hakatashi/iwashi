@@ -9,3 +9,11 @@ f e d c d e c <a>
 e d e <a> c d | a e
 :/
 c g
+
+l1
+/: r :/16
+
+l4
+/: f r e r :/3
+l16
+f^rfr^e^f^r^<f+^^^>
