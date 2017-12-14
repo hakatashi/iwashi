@@ -165,7 +165,14 @@ module.exports = class Sound extends React.Component {
 						this.player && this.player.player && this.player.player.player && this.player.player.player.setPlaybackQuality && this.player.player.player.setPlaybackQuality('tiny');
 					}}
 					url={this.props.url}
-					youtubeConfig={{playerVars: {start: this.props.videoStart}}}
+					config={{
+						youtube: {
+							playerVars: {
+								start: Math.floor(this.props.videoStart),
+								end: Math.ceil(this.props.videoStart + this.props.videoDuration),
+							},
+						},
+					}}
 					width={320}
 					height={180}
 					playing={this.state.isPlaying && !this.props.isNoVideo}
