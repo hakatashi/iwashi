@@ -5,3 +5,12 @@ r1 r1 r1 r1
 /: r c r c :/3 r1
 
 /: r c r c :/16
+
+l4
+/: r r c r :/3
+r r l16 c^^c^^c^
+l4
+/: r r c r :/3
+r r l16 c^c^ l32 cccccccc
+l4
+/: r c r c :/8

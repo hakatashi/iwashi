@@ -6,3 +6,6 @@ l16
 /: r^^ c c^ c^ r^^ c c^ c^ :/3 c^^ c^^ c^ c^^ c c^ c^
 
 /: r^^ c c^ c^ r^^ c c^ c^ :/15 r^^ c c^ c^ r^^^^^^^
+
+l1
+/: r :/16

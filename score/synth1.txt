@@ -1,0 +1,20 @@
+t135 o4 l1
+/: r :/4
+
+/: r :/8
+
+/: r :/16
+
+/:
+o4 l32
+defgab>cdefga>cde^
+f^d^c^<a^g^f^^e^^
+d^<a>d<a>d<a>d<a>d<a>d<a>d<a>d
+<a^r^^^^^ ^^^^^^^^
+r^^^^^^^ <b>dfa<b>dfa
+>dfc^d^f^ g^^f^^g^
+afafafaf afafafaf
+|
+>f^<a^>f^<a^ >a^c^a^c^<
+:/4
+>f^c^f^r^ f^^c^^g^

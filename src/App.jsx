@@ -22,18 +22,18 @@ module.exports = class App extends React.Component {
 		this.vocalData = [
 			{
 				source: 'vocal/yufu/01',
-				start: 61,
-				end: 185,
+				start: 122,
+				end: 370,
 			},
 			{
 				source: 'vocal/yufu/02',
-				start: 185,
-				end: 313,
+				start: 370,
+				end: 626,
 			},
 			{
 				source: 'vocal/yufu/03',
-				start: 313,
-				end: 448,
+				start: 626,
+				end: 2808,
 			},
 		];
 
@@ -57,18 +57,18 @@ module.exports = class App extends React.Component {
 		this.setState({beat: this.state.beat === null ? 0 : this.state.beat + TICK});
 
 		for (const {source, start, end} of this.vocalData) {
-			if (Math.abs(this.state.beat % (TICK * 448) - TICK * (start - 32)) < TICK / 2) {
+			if (Math.abs(this.state.beat % (TICK * 1408) - TICK * (start - 64)) < TICK / 2) {
 				this.preloadVocal(source);
 			}
 
-			if (Math.abs(this.state.beat % (TICK * 448) - TICK * start) < TICK / 2) {
+			if (Math.abs(this.state.beat % (TICK * 1408) - TICK * start) < TICK / 2) {
 				this.vocalSounds.get(source).play();
 			}
 
-			if (Math.floor(this.state.beat / TICK) % 8 === 0 && TICK * start <= this.state.beat % (TICK * 448) && this.state.beat % (TICK * 448) <= TICK * end) {
+			if (Math.floor(this.state.beat / TICK) % 16 === 0 && TICK * start <= this.state.beat % (TICK * 1408) && this.state.beat % (TICK * 1408) <= TICK * end) {
 				const playbackTime = this.vocalSounds.get(source).seek();
-				if (Math.abs((playbackTime + TICK * start) - this.state.beat % (TICK * 448)) > TICK) {
-					this.vocalSounds.get(source).seek(this.state.beat % (TICK * 448) - TICK * start);
+				if (Math.abs((playbackTime + TICK * start) - this.state.beat % (TICK * 1408)) > TICK * 2) {
+					this.vocalSounds.get(source).seek(this.state.beat % (TICK * 1408) - TICK * start);
 				}
 			}
 		}
@@ -76,7 +76,7 @@ module.exports = class App extends React.Component {
 
 	handleSoundReady = (score) => {
 		this.readySounds.add(score);
-		if (this.readySounds.size === 12) {
+		if (this.readySounds.size === 16) {
 			this.setState({isReady: true});
 			setInterval(this.handleBeat, TICK * 1000);
 		}
@@ -235,6 +235,56 @@ module.exports = class App extends React.Component {
 						onReady={this.handleSoundReady}
 						isPercussion
 						isNoVideo={this.state.isReady && this.state.isNoVideo}
+					/>
+					<Sound
+						src="oreo-oh"
+						url="https://www.youtube.com/watch?v=lnpXXafCzj8"
+						score="chorus3"
+						videoStart={10.7}
+						videoDuration={1}
+						beat={this.state.beat}
+						volume={0.5}
+						sourceNote={62}
+						onReady={this.handleSoundReady}
+						isNoVideo={this.state.isReady && this.state.isNoVideo}
+					/>
+					<Sound
+						src="zkai-eh"
+						url="https://www.youtube.com/watch?v=e9ohRtZcOuo"
+						score="chorus4"
+						videoStart={38.3}
+						videoDuration={1}
+						beat={this.state.beat}
+						volume={0.4}
+						sourceNote={66}
+						onReady={this.handleSoundReady}
+						isNoVideo={this.state.isReady && this.state.isNoVideo}
+					/>
+					<Sound
+						src="washing-aegi"
+						url="https://www.youtube.com/watch?v=w5xP4zHSQYI"
+						score="synth1"
+						videoStart={10}
+						videoDuration={1}
+						beat={this.state.beat}
+						volume={0.8}
+						sourceNote={69}
+						onReady={this.handleSoundReady}
+						isNoVideo={this.state.isReady && this.state.isNoVideo}
+						isPrank
+					/>
+					<Sound
+						src="kemofure-toki"
+						url="https://www.youtube.com/watch?v=xOE6qlXqw7s"
+						score="synth2"
+						videoStart={24}
+						videoDuration={1}
+						beat={this.state.beat}
+						volume={0.6}
+						sourceNote={97}
+						onReady={this.handleSoundReady}
+						isNoVideo={this.state.isReady && this.state.isNoVideo}
+						isPrank
 					/>
 				</div>
 			</div>

@@ -5,3 +5,11 @@ r1 r1 r1 r1
 /: r c r c r c r c :/3 r r r r r c r r
 
 /: r c r c r c r c :/16
+
+l16
+/: r^c^^c^^ ^^^^^^^^ :/3
+rc^^c^c^ ^^^^^^^^
+/: r^c^^c^^ ^^^^^^^^ :/3
+r^c^c^^c c^^^^^^^
+l8
+/: r c r c r c r c :/8
