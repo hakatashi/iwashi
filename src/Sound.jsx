@@ -135,6 +135,7 @@ module.exports = class Sound extends React.Component {
 			this.setState({
 				isPlaying: false,
 			});
+			this.player.seekTo(this.props.videoStart);
 			this.props.onReady(this.props.score);
 		}
 	}

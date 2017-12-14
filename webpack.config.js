@@ -40,6 +40,23 @@ module.exports = (env = {}) => ({
 				'postcss-loader',
 			],
 		}, {
+			test: /\.ttf$/,
+			use: [
+				{
+					loader: 'url-loader',
+					options: {
+						limit: Infinity,
+						mimetype: 'application/font-woff',
+					},
+				},
+				{
+					loader: './lib/fontmin-loader.js',
+					options: {
+						text: '動画を再生する (激重)',
+					},
+				},
+			],
+		}, {
 			test: /\.txt$/,
 			exclude: /node_modules/,
 			use: ['json-loader', './lib/mml-loader.js'],

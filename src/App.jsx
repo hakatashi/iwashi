@@ -5,6 +5,8 @@ const Sound = require('./Sound.jsx');
 const {TICK} = require('./const.js');
 const {getSoundUrls} = require('./util.js');
 
+require('./App.pcss');
+
 module.exports = class App extends React.Component {
 	constructor() {
 		super();
@@ -36,7 +38,6 @@ module.exports = class App extends React.Component {
 		];
 
 		this.vocalSounds = new Map();
-		this.preloadVocal(this.vocalData[0].source);
 	}
 
 	preloadVocal = (source) => {
@@ -55,13 +56,20 @@ module.exports = class App extends React.Component {
 	handleBeat = () => {
 		this.setState({beat: this.state.beat === null ? 0 : this.state.beat + TICK});
 
-		for (const {source, start} of this.vocalData) {
+		for (const {source, start, end} of this.vocalData) {
 			if (Math.abs(this.state.beat % (TICK * 448) - TICK * (start - 32)) < TICK / 2) {
 				this.preloadVocal(source);
 			}
 
 			if (Math.abs(this.state.beat % (TICK * 448) - TICK * start) < TICK / 2) {
 				this.vocalSounds.get(source).play();
+			}
+
+			if (Math.floor(this.state.beat / TICK) % 8 === 0 && TICK * start <= this.state.beat % (TICK * 448) && this.state.beat % (TICK * 448) <= TICK * end) {
+				const playbackTime = this.vocalSounds.get(source).seek();
+				if (Math.abs((playbackTime + TICK * start) - this.state.beat % (TICK * 448)) > TICK) {
+					this.vocalSounds.get(source).seek(this.state.beat % (TICK * 448) - TICK * start);
+				}
 			}
 		}
 	}
@@ -81,7 +89,7 @@ module.exports = class App extends React.Component {
 	render() {
 		return (
 			<div>
-				<input type="checkbox" checked={this.state.isNoVideo} onChange={this.handleChangeCheckbox}/> 動画を再生しない
+				<input type="checkbox" checked={!this.state.isNoVideo} onChange={this.handleChangeCheckbox}/> 動画を再生する (激重)
 				<div>
 					<Sound
 						src="kinmoza-clap"
