@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 28);
+/******/ 	return __webpack_require__(__webpack_require__.s = 38);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -71,7 +71,7 @@
 
 
 if (true) {
-  module.exports = __webpack_require__(30);
+  module.exports = __webpack_require__(40);
 } else {
   module.exports = require('./cjs/react.development.js');
 }
@@ -96,15 +96,15 @@ exports.getSDK = getSDK;
 exports.getConfig = getConfig;
 exports.omit = omit;
 
-var _loadScript = __webpack_require__(48);
+var _loadScript = __webpack_require__(86);
 
 var _loadScript2 = _interopRequireDefault(_loadScript);
 
-var _deepmerge = __webpack_require__(49);
+var _deepmerge = __webpack_require__(87);
 
 var _deepmerge2 = _interopRequireDefault(_deepmerge);
 
-var _props = __webpack_require__(8);
+var _props = __webpack_require__(10);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
@@ -282,7 +282,7 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 var _react = __webpack_require__(0);
 
-var _props2 = __webpack_require__(8);
+var _props2 = __webpack_require__(10);
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -473,8 +473,8 @@ exports['default'] = Base;
 /***/ (function(module, exports, __webpack_require__) {
 
 var $          = __webpack_require__(7)
-  , createDesc = __webpack_require__(20);
-module.exports = __webpack_require__(73) ? function(object, key, value){
+  , createDesc = __webpack_require__(30);
+module.exports = __webpack_require__(121) ? function(object, key, value){
   return $.setDesc(object, key, createDesc(1, value));
 } : function(object, key, value){
   object[key] = value;
@@ -485,8 +485,8 @@ module.exports = __webpack_require__(73) ? function(object, key, value){
 /* 5 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var store  = __webpack_require__(85)('wks')
-  , uid    = __webpack_require__(22)
+var store  = __webpack_require__(133)('wks')
+  , uid    = __webpack_require__(32)
   , Symbol = __webpack_require__(2).Symbol;
 module.exports = function(name){
   return store[name] || (store[name] =
@@ -557,6 +557,75 @@ module.exports = {
 /* 8 */
 /***/ (function(module, exports, __webpack_require__) {
 
+var Symbol = __webpack_require__(19),
+    getRawTag = __webpack_require__(65),
+    objectToString = __webpack_require__(66);
+
+/** `Object#toString` result references. */
+var nullTag = '[object Null]',
+    undefinedTag = '[object Undefined]';
+
+/** Built-in value references. */
+var symToStringTag = Symbol ? Symbol.toStringTag : undefined;
+
+/**
+ * The base implementation of `getTag` without fallbacks for buggy environments.
+ *
+ * @private
+ * @param {*} value The value to query.
+ * @returns {string} Returns the `toStringTag`.
+ */
+function baseGetTag(value) {
+  if (value == null) {
+    return value === undefined ? undefinedTag : nullTag;
+  }
+  return (symToStringTag && symToStringTag in Object(value))
+    ? getRawTag(value)
+    : objectToString(value);
+}
+
+module.exports = baseGetTag;
+
+
+/***/ }),
+/* 9 */
+/***/ (function(module, exports) {
+
+/**
+ * Checks if `value` is object-like. A value is object-like if it's not `null`
+ * and has a `typeof` result of "object".
+ *
+ * @static
+ * @memberOf _
+ * @since 4.0.0
+ * @category Lang
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is object-like, else `false`.
+ * @example
+ *
+ * _.isObjectLike({});
+ * // => true
+ *
+ * _.isObjectLike([1, 2, 3]);
+ * // => true
+ *
+ * _.isObjectLike(_.noop);
+ * // => false
+ *
+ * _.isObjectLike(null);
+ * // => false
+ */
+function isObjectLike(value) {
+  return value != null && typeof value == 'object';
+}
+
+module.exports = isObjectLike;
+
+
+/***/ }),
+/* 10 */
+/***/ (function(module, exports, __webpack_require__) {
+
 "use strict";
 
 
@@ -565,7 +634,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.DEPRECATED_CONFIG_PROPS = exports.defaultProps = exports.propTypes = undefined;
 
-var _propTypes = __webpack_require__(15);
+var _propTypes = __webpack_require__(25);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
@@ -720,14 +789,14 @@ var defaultProps = exports.defaultProps = {
 var DEPRECATED_CONFIG_PROPS = exports.DEPRECATED_CONFIG_PROPS = ['soundcloudConfig', 'youtubeConfig', 'facebookConfig', 'dailymotionConfig', 'vimeoConfig', 'vidmeConfig', 'fileConfig', 'wistiaConfig'];
 
 /***/ }),
-/* 9 */
+/* 11 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var global    = __webpack_require__(2)
-  , core      = __webpack_require__(19)
+  , core      = __webpack_require__(29)
   , hide      = __webpack_require__(4)
-  , redefine  = __webpack_require__(21)
-  , ctx       = __webpack_require__(23)
+  , redefine  = __webpack_require__(31)
+  , ctx       = __webpack_require__(33)
   , PROTOTYPE = 'prototype';
 
 var $export = function(type, name, source){
@@ -766,7 +835,7 @@ $export.W = 32; // wrap
 module.exports = $export;
 
 /***/ }),
-/* 10 */
+/* 12 */
 /***/ (function(module, exports) {
 
 // fast apply, http://jsperf.lnkit.com/fast-apply/5
@@ -787,13 +856,13 @@ module.exports = function(fn, args, that){
 };
 
 /***/ }),
-/* 11 */
+/* 13 */
 /***/ (function(module, exports) {
 
 module.exports = {};
 
 /***/ }),
-/* 12 */
+/* 14 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -890,7 +959,7 @@ module.exports = shouldUseNative() ? Object.assign : function (target, source) {
 
 
 /***/ }),
-/* 13 */
+/* 15 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -913,7 +982,7 @@ if (false) {
 module.exports = emptyObject;
 
 /***/ }),
-/* 14 */
+/* 16 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global) {var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -3764,10 +3833,210 @@ module.exports = emptyObject;
   };
 })();
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(42)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(17)))
 
 /***/ }),
-/* 15 */
+/* 17 */
+/***/ (function(module, exports) {
+
+var g;
+
+// This works in non-strict mode
+g = (function() {
+	return this;
+})();
+
+try {
+	// This works if eval is allowed (see CSP)
+	g = g || Function("return this")() || (1,eval)("this");
+} catch(e) {
+	// This works if the window reference is available
+	if(typeof window === "object")
+		g = window;
+}
+
+// g can still be undefined, but nothing to do about it...
+// We return undefined, instead of nothing here, so it's
+// easier to handle this case. if(!global) { ...}
+
+module.exports = g;
+
+
+/***/ }),
+/* 18 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var baseRandom = __webpack_require__(55);
+
+/**
+ * A specialized version of `_.shuffle` which mutates and sets the size of `array`.
+ *
+ * @private
+ * @param {Array} array The array to shuffle.
+ * @param {number} [size=array.length] The size of `array`.
+ * @returns {Array} Returns `array`.
+ */
+function shuffleSelf(array, size) {
+  var index = -1,
+      length = array.length,
+      lastIndex = length - 1;
+
+  size = size === undefined ? length : size;
+  while (++index < size) {
+    var rand = baseRandom(index, lastIndex),
+        value = array[rand];
+
+    array[rand] = array[index];
+    array[index] = value;
+  }
+  array.length = size;
+  return array;
+}
+
+module.exports = shuffleSelf;
+
+
+/***/ }),
+/* 19 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var root = __webpack_require__(20);
+
+/** Built-in value references. */
+var Symbol = root.Symbol;
+
+module.exports = Symbol;
+
+
+/***/ }),
+/* 20 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var freeGlobal = __webpack_require__(21);
+
+/** Detect free variable `self`. */
+var freeSelf = typeof self == 'object' && self && self.Object === Object && self;
+
+/** Used as a reference to the global object. */
+var root = freeGlobal || freeSelf || Function('return this')();
+
+module.exports = root;
+
+
+/***/ }),
+/* 21 */
+/***/ (function(module, exports, __webpack_require__) {
+
+/* WEBPACK VAR INJECTION */(function(global) {/** Detect free variable `global` from Node.js. */
+var freeGlobal = typeof global == 'object' && global && global.Object === Object && global;
+
+module.exports = freeGlobal;
+
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(17)))
+
+/***/ }),
+/* 22 */
+/***/ (function(module, exports) {
+
+/**
+ * Checks if `value` is classified as an `Array` object.
+ *
+ * @static
+ * @memberOf _
+ * @since 0.1.0
+ * @category Lang
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is an array, else `false`.
+ * @example
+ *
+ * _.isArray([1, 2, 3]);
+ * // => true
+ *
+ * _.isArray(document.body.children);
+ * // => false
+ *
+ * _.isArray('abc');
+ * // => false
+ *
+ * _.isArray(_.noop);
+ * // => false
+ */
+var isArray = Array.isArray;
+
+module.exports = isArray;
+
+
+/***/ }),
+/* 23 */
+/***/ (function(module, exports) {
+
+module.exports = function(module) {
+	if(!module.webpackPolyfill) {
+		module.deprecate = function() {};
+		module.paths = [];
+		// module.parent = undefined by default
+		if(!module.children) module.children = [];
+		Object.defineProperty(module, "loaded", {
+			enumerable: true,
+			get: function() {
+				return module.l;
+			}
+		});
+		Object.defineProperty(module, "id", {
+			enumerable: true,
+			get: function() {
+				return module.i;
+			}
+		});
+		module.webpackPolyfill = 1;
+	}
+	return module;
+};
+
+
+/***/ }),
+/* 24 */
+/***/ (function(module, exports) {
+
+/** Used as references for various `Number` constants. */
+var MAX_SAFE_INTEGER = 9007199254740991;
+
+/**
+ * Checks if `value` is a valid array-like length.
+ *
+ * **Note:** This method is loosely based on
+ * [`ToLength`](http://ecma-international.org/ecma-262/7.0/#sec-tolength).
+ *
+ * @static
+ * @memberOf _
+ * @since 4.0.0
+ * @category Lang
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is a valid length, else `false`.
+ * @example
+ *
+ * _.isLength(3);
+ * // => true
+ *
+ * _.isLength(Number.MIN_VALUE);
+ * // => false
+ *
+ * _.isLength(Infinity);
+ * // => false
+ *
+ * _.isLength('3');
+ * // => false
+ */
+function isLength(value) {
+  return typeof value == 'number' &&
+    value > -1 && value % 1 == 0 && value <= MAX_SAFE_INTEGER;
+}
+
+module.exports = isLength;
+
+
+/***/ }),
+/* 25 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -3796,12 +4065,12 @@ if (false) {
 } else {
   // By explicitly using `prop-types` you are opting into new production behavior.
   // http://fb.me/prop-types-in-prod
-  module.exports = __webpack_require__(45)();
+  module.exports = __webpack_require__(83)();
 }
 
 
 /***/ }),
-/* 16 */
+/* 26 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4110,18 +4379,18 @@ FilePlayer.displayName = 'FilePlayer';
 exports['default'] = FilePlayer;
 
 /***/ }),
-/* 17 */
+/* 27 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 module.exports = {
-	TICK: 60 / 135 / 4
+	TICK: 60 / 135 / 8
 };
 
 /***/ }),
-/* 18 */
+/* 28 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4130,14 +4399,14 @@ module.exports = {
 module.exports.getSoundUrls = id =>  true ? [`https://media.githubusercontent.com/media/hakatashi/iwashi/master/sound/${id}.ogg`, `https://media.githubusercontent.com/media/hakatashi/iwashi/master/sound/${id}.wav`] : [`sound/${id}.ogg`, `sound/${id}.wav`];
 
 /***/ }),
-/* 19 */
+/* 29 */
 /***/ (function(module, exports) {
 
 var core = module.exports = {version: '1.2.6'};
 if(typeof __e == 'number')__e = core; // eslint-disable-line no-undef
 
 /***/ }),
-/* 20 */
+/* 30 */
 /***/ (function(module, exports) {
 
 module.exports = function(bitmap, value){
@@ -4150,19 +4419,19 @@ module.exports = function(bitmap, value){
 };
 
 /***/ }),
-/* 21 */
+/* 31 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // add fake Function#toString
 // for correct work wrapped methods / constructors with methods like LoDash isNative
 var global    = __webpack_require__(2)
   , hide      = __webpack_require__(4)
-  , SRC       = __webpack_require__(22)('src')
+  , SRC       = __webpack_require__(32)('src')
   , TO_STRING = 'toString'
   , $toString = Function[TO_STRING]
   , TPL       = ('' + $toString).split(TO_STRING);
 
-__webpack_require__(19).inspectSource = function(it){
+__webpack_require__(29).inspectSource = function(it){
   return $toString.call(it);
 };
 
@@ -4182,7 +4451,7 @@ __webpack_require__(19).inspectSource = function(it){
 });
 
 /***/ }),
-/* 22 */
+/* 32 */
 /***/ (function(module, exports) {
 
 var id = 0
@@ -4192,11 +4461,11 @@ module.exports = function(key){
 };
 
 /***/ }),
-/* 23 */
+/* 33 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // optional / simple context binding
-var aFunction = __webpack_require__(24);
+var aFunction = __webpack_require__(34);
 module.exports = function(fn, that, length){
   aFunction(fn);
   if(that === undefined)return fn;
@@ -4217,7 +4486,7 @@ module.exports = function(fn, that, length){
 };
 
 /***/ }),
-/* 24 */
+/* 34 */
 /***/ (function(module, exports) {
 
 module.exports = function(it){
@@ -4226,7 +4495,7 @@ module.exports = function(it){
 };
 
 /***/ }),
-/* 25 */
+/* 35 */
 /***/ (function(module, exports) {
 
 var toString = {}.toString;
@@ -4236,7 +4505,7 @@ module.exports = function(it){
 };
 
 /***/ }),
-/* 26 */
+/* 36 */
 /***/ (function(module, exports) {
 
 var hasOwnProperty = {}.hasOwnProperty;
@@ -4245,11 +4514,11 @@ module.exports = function(it, key){
 };
 
 /***/ }),
-/* 27 */
+/* 37 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var def = __webpack_require__(7).setDesc
-  , has = __webpack_require__(26)
+  , has = __webpack_require__(36)
   , TAG = __webpack_require__(5)('toStringTag');
 
 module.exports = function(it, tag, stat){
@@ -4257,21 +4526,21 @@ module.exports = function(it, tag, stat){
 };
 
 /***/ }),
-/* 28 */
+/* 38 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(process) {
 
 const React = __webpack_require__(0);
-const ReactDOM = __webpack_require__(31);
-const App = __webpack_require__(41);
+const ReactDOM = __webpack_require__(41);
+const App = __webpack_require__(51);
 
-__webpack_require__(72);
+__webpack_require__(120);
 
-__webpack_require__(77);
+__webpack_require__(125);
 
-__webpack_require__(82);
+__webpack_require__(130);
 
 process.on('unhandledRejection', error => {
 	throw error;
@@ -4284,10 +4553,10 @@ window.addEventListener('unhandledrejection', error => {
 const reactRoot = document.getElementById('react');
 
 ReactDOM.render(React.createElement(App), reactRoot);
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(29)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(39)))
 
 /***/ }),
-/* 29 */
+/* 39 */
 /***/ (function(module, exports) {
 
 // shim for using process in browser
@@ -4477,7 +4746,7 @@ process.umask = function() { return 0; };
 
 
 /***/ }),
-/* 30 */
+/* 40 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4490,7 +4759,7 @@ process.umask = function() { return 0; };
  * LICENSE file in the root directory of this source tree.
  */
 
-var m=__webpack_require__(12),n=__webpack_require__(13),p=__webpack_require__(6),q="function"===typeof Symbol&&Symbol["for"],r=q?Symbol["for"]("react.element"):60103,t=q?Symbol["for"]("react.call"):60104,u=q?Symbol["for"]("react.return"):60105,v=q?Symbol["for"]("react.portal"):60106,w=q?Symbol["for"]("react.fragment"):60107,x="function"===typeof Symbol&&Symbol.iterator;
+var m=__webpack_require__(14),n=__webpack_require__(15),p=__webpack_require__(6),q="function"===typeof Symbol&&Symbol["for"],r=q?Symbol["for"]("react.element"):60103,t=q?Symbol["for"]("react.call"):60104,u=q?Symbol["for"]("react.return"):60105,v=q?Symbol["for"]("react.portal"):60106,w=q?Symbol["for"]("react.fragment"):60107,x="function"===typeof Symbol&&Symbol.iterator;
 function y(a){for(var b=arguments.length-1,e="Minified React error #"+a+"; visit http://facebook.github.io/react/docs/error-decoder.html?invariant\x3d"+a,c=0;c<b;c++)e+="\x26args[]\x3d"+encodeURIComponent(arguments[c+1]);b=Error(e+" for the full message or use the non-minified dev environment for full errors and additional helpful warnings.");b.name="Invariant Violation";b.framesToPop=1;throw b;}
 var z={isMounted:function(){return!1},enqueueForceUpdate:function(){},enqueueReplaceState:function(){},enqueueSetState:function(){}};function A(a,b,e){this.props=a;this.context=b;this.refs=n;this.updater=e||z}A.prototype.isReactComponent={};A.prototype.setState=function(a,b){"object"!==typeof a&&"function"!==typeof a&&null!=a?y("85"):void 0;this.updater.enqueueSetState(this,a,b,"setState")};A.prototype.forceUpdate=function(a){this.updater.enqueueForceUpdate(this,a,"forceUpdate")};
 function B(a,b,e){this.props=a;this.context=b;this.refs=n;this.updater=e||z}function C(){}C.prototype=A.prototype;var D=B.prototype=new C;D.constructor=B;m(D,A.prototype);D.isPureReactComponent=!0;function E(a,b,e){this.props=a;this.context=b;this.refs=n;this.updater=e||z}var F=E.prototype=new C;F.constructor=E;m(F,A.prototype);F.unstable_isAsyncReactComponent=!0;F.render=function(){return this.props.children};var G={current:null},H=Object.prototype.hasOwnProperty,I={key:!0,ref:!0,__self:!0,__source:!0};
@@ -4505,7 +4774,7 @@ isValidElement:K,version:"16.2.0",__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_F
 
 
 /***/ }),
-/* 31 */
+/* 41 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4543,14 +4812,14 @@ if (true) {
   // DCE check should happen before ReactDOM bundle executes so that
   // DevTools can report bad minification during injection.
   checkDCE();
-  module.exports = __webpack_require__(32);
+  module.exports = __webpack_require__(42);
 } else {
   module.exports = require('./cjs/react-dom.development.js');
 }
 
 
 /***/ }),
-/* 32 */
+/* 42 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4566,7 +4835,7 @@ if (true) {
 /*
  Modernizr 3.0.0pre (Custom Build) | MIT
 */
-var aa=__webpack_require__(0),l=__webpack_require__(33),B=__webpack_require__(12),C=__webpack_require__(6),ba=__webpack_require__(34),da=__webpack_require__(35),ea=__webpack_require__(36),fa=__webpack_require__(37),ia=__webpack_require__(40),D=__webpack_require__(13);
+var aa=__webpack_require__(0),l=__webpack_require__(43),B=__webpack_require__(14),C=__webpack_require__(6),ba=__webpack_require__(44),da=__webpack_require__(45),ea=__webpack_require__(46),fa=__webpack_require__(47),ia=__webpack_require__(50),D=__webpack_require__(15);
 function E(a){for(var b=arguments.length-1,c="Minified React error #"+a+"; visit http://facebook.github.io/react/docs/error-decoder.html?invariant\x3d"+a,d=0;d<b;d++)c+="\x26args[]\x3d"+encodeURIComponent(arguments[d+1]);b=Error(c+" for the full message or use the non-minified dev environment for full errors and additional helpful warnings.");b.name="Invariant Violation";b.framesToPop=1;throw b;}aa?void 0:E("227");
 var oa={children:!0,dangerouslySetInnerHTML:!0,defaultValue:!0,defaultChecked:!0,innerHTML:!0,suppressContentEditableWarning:!0,suppressHydrationWarning:!0,style:!0};function pa(a,b){return(a&b)===b}
 var ta={MUST_USE_PROPERTY:1,HAS_BOOLEAN_VALUE:4,HAS_NUMERIC_VALUE:8,HAS_POSITIVE_NUMERIC_VALUE:24,HAS_OVERLOADED_BOOLEAN_VALUE:32,HAS_STRING_BOOLEAN_VALUE:64,injectDOMPropertyConfig:function(a){var b=ta,c=a.Properties||{},d=a.DOMAttributeNamespaces||{},e=a.DOMAttributeNames||{};a=a.DOMMutationMethods||{};for(var f in c){ua.hasOwnProperty(f)?E("48",f):void 0;var g=f.toLowerCase(),h=c[f];g={attributeName:g,attributeNamespace:null,propertyName:f,mutationMethod:null,mustUseProperty:pa(h,b.MUST_USE_PROPERTY),
@@ -4786,7 +5055,7 @@ Z.injectIntoDevTools({findFiberByHostInstance:pb,bundleType:0,version:"16.2.0",r
 
 
 /***/ }),
-/* 33 */
+/* 43 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4825,7 +5094,7 @@ var ExecutionEnvironment = {
 module.exports = ExecutionEnvironment;
 
 /***/ }),
-/* 34 */
+/* 44 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4905,7 +5174,7 @@ var EventListener = {
 module.exports = EventListener;
 
 /***/ }),
-/* 35 */
+/* 45 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4947,7 +5216,7 @@ function getActiveElement(doc) /*?DOMElement*/{
 module.exports = getActiveElement;
 
 /***/ }),
-/* 36 */
+/* 46 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5018,7 +5287,7 @@ function shallowEqual(objA, objB) {
 module.exports = shallowEqual;
 
 /***/ }),
-/* 37 */
+/* 47 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5033,7 +5302,7 @@ module.exports = shallowEqual;
  * 
  */
 
-var isTextNode = __webpack_require__(38);
+var isTextNode = __webpack_require__(48);
 
 /*eslint-disable no-bitwise */
 
@@ -5061,7 +5330,7 @@ function containsNode(outerNode, innerNode) {
 module.exports = containsNode;
 
 /***/ }),
-/* 38 */
+/* 48 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5076,7 +5345,7 @@ module.exports = containsNode;
  * @typechecks
  */
 
-var isNode = __webpack_require__(39);
+var isNode = __webpack_require__(49);
 
 /**
  * @param {*} object The object to check.
@@ -5089,7 +5358,7 @@ function isTextNode(object) {
 module.exports = isTextNode;
 
 /***/ }),
-/* 39 */
+/* 49 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5117,7 +5386,7 @@ function isNode(object) {
 module.exports = isNode;
 
 /***/ }),
-/* 40 */
+/* 50 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5147,39 +5416,64 @@ function focusNode(node) {
 module.exports = focusNode;
 
 /***/ }),
-/* 41 */
+/* 51 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 const React = __webpack_require__(0);
-const { Howl } = __webpack_require__(14);
+const { Howl } = __webpack_require__(16);
+const shuffle = __webpack_require__(52);
 
-const Sound = __webpack_require__(43);
-const { TICK } = __webpack_require__(17);
-const { getSoundUrls } = __webpack_require__(18);
+const Sound = __webpack_require__(81);
+const { TICK } = __webpack_require__(27);
+const { getSoundUrls } = __webpack_require__(28);
+
+__webpack_require__(114);
 
 module.exports = class App extends React.Component {
 	constructor() {
 		super();
 
+		this.preloadVocal = source => {
+			if (this.vocalSounds.has(source)) {
+				return;
+			}
+
+			const howl = new Howl({
+				src: getSoundUrls(source),
+				html5: true
+			});
+
+			this.vocalSounds.set(source, howl);
+		};
+
 		this.handleBeat = () => {
-			this.setState({ beat: this.state.beat === null ? 0 : this.state.beat + TICK });
-			if (Math.abs(this.state.beat % (TICK * 448) - TICK * 61) < TICK / 2) {
-				this.vocals[0].play();
-			}
-			if (Math.abs(this.state.beat % (TICK * 448) - TICK * 185) < TICK / 2) {
-				this.vocals[1].play();
-			}
-			if (Math.abs(this.state.beat % (TICK * 448) - TICK * 313) < TICK / 2) {
-				this.vocals[2].play();
+			this.setState({ beat: this.state.beat === null ? TICK * 0 : this.state.beat + TICK });
+
+			for (const { source, start, end } of this.vocalData) {
+				if (Math.abs(this.state.beat % (TICK * 1536) - TICK * (start - 64)) < TICK / 2) {
+					this.preloadVocal(source);
+				}
+
+				if (Math.abs(this.state.beat % (TICK * 1536) - TICK * start) < TICK / 2) {
+					this.vocalSounds.get(source).seek(0);
+					this.vocalSounds.get(source).play();
+				}
+
+				if (Math.floor(this.state.beat / TICK) % 16 === 0 && TICK * start <= this.state.beat % (TICK * 1536) && this.state.beat % (TICK * 1536) <= TICK * end) {
+					const playbackTime = this.vocalSounds.get(source).seek();
+					if (Math.abs(playbackTime + TICK * start - this.state.beat % (TICK * 1536)) > TICK * 2) {
+						this.vocalSounds.get(source).seek(this.state.beat % (TICK * 1536) - TICK * start);
+					}
+				}
 			}
 		};
 
 		this.handleSoundReady = score => {
 			this.readySounds.add(score);
-			if (this.readySounds.size === 12) {
+			if (this.readySounds.size === 16) {
 				this.setState({ isReady: true });
 				setInterval(this.handleBeat, TICK * 1000);
 			}
@@ -5196,203 +5490,1153 @@ module.exports = class App extends React.Component {
 		};
 
 		this.readySounds = new Set();
-		this.vocals = [new Howl({
-			src: getSoundUrls('vocal/yufu/01')
-		}), new Howl({
-			src: getSoundUrls('vocal/yufu/02')
-		}), new Howl({
-			src: getSoundUrls('vocal/yufu/03')
-		})];
+
+		this.vocalData = [{
+			source: 'vocal/yufu/01',
+			start: 122,
+			end: 370
+		}, {
+			source: 'vocal/yufu/02',
+			start: 370,
+			end: 626
+		}, {
+			source: 'vocal/yufu/03',
+			start: 626,
+			end: 882
+		}, {
+			source: 'vocal/yufu/04',
+			start: 882,
+			end: 1104
+		}, {
+			source: 'vocal/yufu/05',
+			start: 1106,
+			end: 1408
+		}, {
+			source: 'vocal/yufu/06',
+			start: 1410,
+			end: 1504
+		}];
+
+		this.vocalSounds = new Map();
+
+		const tracks = [{
+			type: 'percussion',
+			src: 'kinmoza-clap',
+			url: 'https://www.youtube.com/watch?v=STcc8H4Vr_g',
+			score: 'clap',
+			videoStart: 5.4,
+			videoDuration: 3,
+			volume: 1
+		}, {
+			type: 'percussion',
+			src: 'karateka-kick',
+			url: 'https://www.youtube.com/watch?v=Cg6dlPZt-1g',
+			score: 'snare',
+			videoStart: 32,
+			videoDuration: 0.3,
+			volume: 0.5
+		}, {
+			type: 'percussion',
+			src: 'killme-pyonsuke',
+			url: 'https://www.youtube.com/watch?v=vXBO_W5l6uY',
+			score: 'bass',
+			videoStart: 247.7,
+			videoDuration: 0.5,
+			volume: 1
+		}, {
+			type: 'percussion',
+			src: 'ippon-crisp',
+			url: 'https://www.youtube.com/watch?v=2rc8CmeKinc',
+			score: 'closed-hihat',
+			videoStart: 23.7,
+			videoDuration: 1,
+			volume: 0.5
+		}, {
+			type: 'instrument',
+			src: 'atsumori',
+			url: 'https://www.youtube.com/watch?v=uvg3I_IR9FA',
+			score: 'base',
+			videoStart: 4.8,
+			videoDuration: 0.5,
+			volume: 1,
+			sourceNote: 22,
+			prank: true
+		}, {
+			type: 'chord',
+			src: 'aoba-zoi',
+			url: 'https://www.youtube.com/watch?v=DmZo4rL2E7E',
+			score: 'chord',
+			videoStart: 18.9,
+			videoDuration: 2,
+			volume: 0.2,
+			sourceNote: 62
+		}, {
+			type: 'percussion',
+			src: 'zen-glass',
+			url: 'https://www.youtube.com/watch?v=M_1UZlPBYzM',
+			score: 'bongo',
+			videoStart: 24.5,
+			videoDuration: 0.5,
+			volume: 1
+		}, {
+			type: 'percussion',
+			src: 'minecraft-blaze',
+			url: 'https://www.youtube.com/watch?v=tKt0oImbQ_Y',
+			score: 'chime1',
+			videoStart: 500.5,
+			videoDuration: 0.5,
+			volume: 0.5
+		}, {
+			type: 'percussion',
+			src: 'fireball-ring',
+			url: 'https://www.youtube.com/watch?v=6CQymHcBwWQ',
+			score: 'chime2',
+			videoStart: 477.5,
+			videoDuration: 3,
+			volume: 0.5
+		}, {
+			type: 'instrument',
+			src: 'ai-virus',
+			url: 'https://www.youtube.com/watch?v=4v3F3luBMEM',
+			score: 'chorus1',
+			videoStart: 30.5,
+			videoDuration: 3,
+			volume: 0.1,
+			sourceNote: 53
+		}, {
+			type: 'instrument',
+			src: 'inazuma-pan',
+			url: 'https://www.youtube.com/watch?v=l3JuhAwx5aY',
+			score: 'chorus2',
+			videoStart: 18,
+			videoDuration: 1,
+			volume: 0.2,
+			sourceNote: 64
+		}, {
+			type: 'percussion',
+			src: 'killme-cymbal',
+			url: 'https://www.youtube.com/watch?v=Vv-SCTaw07w',
+			score: 'cymbal',
+			videoStart: 36.2,
+			videoDuration: 5,
+			volume: 0.2
+		}, {
+			type: 'instrument',
+			src: 'oreo-oh',
+			url: 'https://www.youtube.com/watch?v=lnpXXafCzj8',
+			score: 'chorus3',
+			videoStart: 10.7,
+			videoDuration: 1,
+			volume: 0.3,
+			sourceNote: 62
+		}, {
+			type: 'instrument',
+			src: 'zkai-eh',
+			url: 'https://www.youtube.com/watch?v=e9ohRtZcOuo',
+			score: 'chorus4',
+			videoStart: 38.3,
+			videoDuration: 1,
+			volume: 0.4,
+			sourceNote: 66
+		}, {
+			type: 'instrument',
+			src: 'washing-aegi',
+			url: 'https://www.youtube.com/watch?v=w5xP4zHSQYI',
+			score: 'synth1',
+			videoStart: 10,
+			videoDuration: 1,
+			volume: 0.3,
+			sourceNote: 69,
+			prank: true
+		}, {
+			type: 'instrument',
+			src: 'kemofure-toki',
+			url: 'https://www.youtube.com/watch?v=xOE6qlXqw7s',
+			score: 'synth2',
+			videoStart: 24,
+			videoDuration: 1,
+			volume: 0.2,
+			sourceNote: 97,
+			prank: true
+		}];
+
+		this.tracks = shuffle(tracks);
 	}
 
 	render() {
 		return React.createElement(
 			'div',
 			null,
-			React.createElement('input', { type: 'checkbox', checked: this.state.isNoVideo, onChange: this.handleChangeCheckbox }),
-			' \u52D5\u753B\u3092\u518D\u751F\u3057\u306A\u3044',
+			React.createElement('input', { type: 'checkbox', checked: !this.state.isNoVideo, onChange: this.handleChangeCheckbox }),
+			' \u52D5\u753B\u3092\u518D\u751F\u3059\u308B (\u6FC0\u91CD)',
 			React.createElement(
 				'div',
 				null,
-				React.createElement(Sound, {
-					src: 'kinmoza-clap',
-					url: 'https://www.youtube.com/watch?v=STcc8H4Vr_g',
-					score: 'clap',
-					videoStart: 5.4,
-					videoDuration: 3,
+				this.tracks.map(track => React.createElement(Sound, {
+					key: track.src,
+					src: track.src,
+					url: track.url,
+					score: track.score,
+					videoStart: track.videoStart,
+					videoDuration: track.videoDuration,
 					beat: this.state.beat,
-					volume: 1,
+					volume: track.volume,
+					sourceNote: track.sourceNote,
 					onReady: this.handleSoundReady,
-					isPercussion: true,
-					isNoVideo: this.state.isReady && this.state.isNoVideo
-				}),
-				React.createElement(Sound, {
-					src: 'karateka-kick',
-					url: 'https://www.youtube.com/watch?v=Cg6dlPZt-1g',
-					score: 'snare',
-					videoStart: 32,
-					videoDuration: 0.3,
-					beat: this.state.beat,
-					volume: 0.5,
-					onReady: this.handleSoundReady,
-					isPercussion: true,
-					isNoVideo: this.state.isReady && this.state.isNoVideo
-				}),
-				React.createElement(Sound, {
-					src: 'killme-pyonsuke',
-					url: 'https://www.youtube.com/watch?v=vXBO_W5l6uY',
-					score: 'bass',
-					videoStart: 247.7,
-					videoDuration: 0.5,
-					beat: this.state.beat,
-					volume: 1,
-					onReady: this.handleSoundReady,
-					isPercussion: true,
-					isNoVideo: this.state.isReady && this.state.isNoVideo
-				}),
-				React.createElement(Sound, {
-					src: 'ippon-crisp',
-					url: 'https://www.youtube.com/watch?v=2rc8CmeKinc',
-					score: 'closed-hihat',
-					videoStart: 23.7,
-					videoDuration: 1,
-					beat: this.state.beat,
-					volume: 0.5,
-					onReady: this.handleSoundReady,
-					isPercussion: true,
-					isNoVideo: this.state.isReady && this.state.isNoVideo
-				}),
-				React.createElement(Sound, {
-					src: 'atsumori',
-					url: 'https://www.youtube.com/watch?v=uvg3I_IR9FA',
-					score: 'base',
-					videoStart: 4.8,
-					videoDuration: 0.5,
-					beat: this.state.beat,
-					volume: 1,
-					sourceNote: 22,
-					onReady: this.handleSoundReady,
-					isPrank: true,
-					isNoVideo: this.state.isReady && this.state.isNoVideo
-				}),
-				React.createElement(Sound, {
-					src: 'aoba-zoi',
-					url: 'https://www.youtube.com/watch?v=DmZo4rL2E7E',
-					score: 'chord',
-					videoStart: 18.9,
-					videoDuration: 2,
-					beat: this.state.beat,
-					volume: 0.2,
-					sourceNote: 62,
-					onReady: this.handleSoundReady,
-					isNoVideo: this.state.isReady && this.state.isNoVideo
-				}),
-				React.createElement(Sound, {
-					src: 'zen-glass',
-					url: 'https://www.youtube.com/watch?v=M_1UZlPBYzM',
-					score: 'bongo',
-					videoStart: 24.5,
-					videoDuration: 0.5,
-					beat: this.state.beat,
-					volume: 1,
-					onReady: this.handleSoundReady,
-					isPercussion: true,
-					isNoVideo: this.state.isReady && this.state.isNoVideo
-				}),
-				React.createElement(Sound, {
-					src: 'minecraft-blaze',
-					url: 'https://www.youtube.com/watch?v=tKt0oImbQ_Y',
-					score: 'chime1',
-					videoStart: 500.5,
-					videoDuration: 0.5,
-					beat: this.state.beat,
-					volume: 0.5,
-					onReady: this.handleSoundReady,
-					isPercussion: true,
-					isNoVideo: this.state.isReady && this.state.isNoVideo
-				}),
-				React.createElement(Sound, {
-					src: 'fireball-ring',
-					url: 'https://www.youtube.com/watch?v=6CQymHcBwWQ',
-					score: 'chime2',
-					videoStart: 477.5,
-					videoDuration: 3,
-					beat: this.state.beat,
-					volume: 0.5,
-					onReady: this.handleSoundReady,
-					isPercussion: true,
-					isNoVideo: this.state.isReady && this.state.isNoVideo
-				}),
-				React.createElement(Sound, {
-					src: 'ai-virus',
-					url: 'https://www.youtube.com/watch?v=4v3F3luBMEM',
-					score: 'chorus1',
-					videoStart: 30.5,
-					videoDuration: 3,
-					beat: this.state.beat,
-					volume: 0.1,
-					sourceNote: 53,
-					onReady: this.handleSoundReady,
-					isNoVideo: this.state.isReady && this.state.isNoVideo
-				}),
-				React.createElement(Sound, {
-					src: 'inazuma-pan',
-					url: 'https://www.youtube.com/watch?v=l3JuhAwx5aY',
-					score: 'chorus2',
-					videoStart: 18,
-					videoDuration: 1,
-					beat: this.state.beat,
-					volume: 0.2,
-					sourceNote: 64,
-					onReady: this.handleSoundReady,
-					isNoVideo: this.state.isReady && this.state.isNoVideo
-				}),
-				React.createElement(Sound, {
-					src: 'killme-cymbal',
-					url: 'https://www.youtube.com/watch?v=Vv-SCTaw07w',
-					score: 'cymbal',
-					videoStart: 36.2,
-					videoDuration: 5,
-					beat: this.state.beat,
-					volume: 0.2,
-					onReady: this.handleSoundReady,
-					isPercussion: true,
-					isNoVideo: this.state.isReady && this.state.isNoVideo
-				})
+					isNoVideo: this.state.isReady && this.state.isNoVideo,
+					isPrank: Boolean(track.isPrank),
+					isPercussion: track.type === 'percussion',
+					isChord: track.type === 'chord'
+				}))
 			)
 		);
 	}
 };
 
 /***/ }),
-/* 42 */
-/***/ (function(module, exports) {
+/* 52 */
+/***/ (function(module, exports, __webpack_require__) {
 
-var g;
+var arrayShuffle = __webpack_require__(53),
+    baseShuffle = __webpack_require__(56),
+    isArray = __webpack_require__(22);
 
-// This works in non-strict mode
-g = (function() {
-	return this;
-})();
-
-try {
-	// This works if eval is allowed (see CSP)
-	g = g || Function("return this")() || (1,eval)("this");
-} catch(e) {
-	// This works if the window reference is available
-	if(typeof window === "object")
-		g = window;
+/**
+ * Creates an array of shuffled values, using a version of the
+ * [Fisher-Yates shuffle](https://en.wikipedia.org/wiki/Fisher-Yates_shuffle).
+ *
+ * @static
+ * @memberOf _
+ * @since 0.1.0
+ * @category Collection
+ * @param {Array|Object} collection The collection to shuffle.
+ * @returns {Array} Returns the new shuffled array.
+ * @example
+ *
+ * _.shuffle([1, 2, 3, 4]);
+ * // => [4, 1, 3, 2]
+ */
+function shuffle(collection) {
+  var func = isArray(collection) ? arrayShuffle : baseShuffle;
+  return func(collection);
 }
 
-// g can still be undefined, but nothing to do about it...
-// We return undefined, instead of nothing here, so it's
-// easier to handle this case. if(!global) { ...}
-
-module.exports = g;
+module.exports = shuffle;
 
 
 /***/ }),
-/* 43 */
+/* 53 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var copyArray = __webpack_require__(54),
+    shuffleSelf = __webpack_require__(18);
+
+/**
+ * A specialized version of `_.shuffle` for arrays.
+ *
+ * @private
+ * @param {Array} array The array to shuffle.
+ * @returns {Array} Returns the new shuffled array.
+ */
+function arrayShuffle(array) {
+  return shuffleSelf(copyArray(array));
+}
+
+module.exports = arrayShuffle;
+
+
+/***/ }),
+/* 54 */
+/***/ (function(module, exports) {
+
+/**
+ * Copies the values of `source` to `array`.
+ *
+ * @private
+ * @param {Array} source The array to copy values from.
+ * @param {Array} [array=[]] The array to copy values to.
+ * @returns {Array} Returns `array`.
+ */
+function copyArray(source, array) {
+  var index = -1,
+      length = source.length;
+
+  array || (array = Array(length));
+  while (++index < length) {
+    array[index] = source[index];
+  }
+  return array;
+}
+
+module.exports = copyArray;
+
+
+/***/ }),
+/* 55 */
+/***/ (function(module, exports) {
+
+/* Built-in method references for those with the same name as other `lodash` methods. */
+var nativeFloor = Math.floor,
+    nativeRandom = Math.random;
+
+/**
+ * The base implementation of `_.random` without support for returning
+ * floating-point numbers.
+ *
+ * @private
+ * @param {number} lower The lower bound.
+ * @param {number} upper The upper bound.
+ * @returns {number} Returns the random number.
+ */
+function baseRandom(lower, upper) {
+  return lower + nativeFloor(nativeRandom() * (upper - lower + 1));
+}
+
+module.exports = baseRandom;
+
+
+/***/ }),
+/* 56 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var shuffleSelf = __webpack_require__(18),
+    values = __webpack_require__(57);
+
+/**
+ * The base implementation of `_.shuffle`.
+ *
+ * @private
+ * @param {Array|Object} collection The collection to shuffle.
+ * @returns {Array} Returns the new shuffled array.
+ */
+function baseShuffle(collection) {
+  return shuffleSelf(values(collection));
+}
+
+module.exports = baseShuffle;
+
+
+/***/ }),
+/* 57 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var baseValues = __webpack_require__(58),
+    keys = __webpack_require__(60);
+
+/**
+ * Creates an array of the own enumerable string keyed property values of `object`.
+ *
+ * **Note:** Non-object values are coerced to objects.
+ *
+ * @static
+ * @since 0.1.0
+ * @memberOf _
+ * @category Object
+ * @param {Object} object The object to query.
+ * @returns {Array} Returns the array of property values.
+ * @example
+ *
+ * function Foo() {
+ *   this.a = 1;
+ *   this.b = 2;
+ * }
+ *
+ * Foo.prototype.c = 3;
+ *
+ * _.values(new Foo);
+ * // => [1, 2] (iteration order is not guaranteed)
+ *
+ * _.values('hi');
+ * // => ['h', 'i']
+ */
+function values(object) {
+  return object == null ? [] : baseValues(object, keys(object));
+}
+
+module.exports = values;
+
+
+/***/ }),
+/* 58 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var arrayMap = __webpack_require__(59);
+
+/**
+ * The base implementation of `_.values` and `_.valuesIn` which creates an
+ * array of `object` property values corresponding to the property names
+ * of `props`.
+ *
+ * @private
+ * @param {Object} object The object to query.
+ * @param {Array} props The property names to get values for.
+ * @returns {Object} Returns the array of property values.
+ */
+function baseValues(object, props) {
+  return arrayMap(props, function(key) {
+    return object[key];
+  });
+}
+
+module.exports = baseValues;
+
+
+/***/ }),
+/* 59 */
+/***/ (function(module, exports) {
+
+/**
+ * A specialized version of `_.map` for arrays without support for iteratee
+ * shorthands.
+ *
+ * @private
+ * @param {Array} [array] The array to iterate over.
+ * @param {Function} iteratee The function invoked per iteration.
+ * @returns {Array} Returns the new mapped array.
+ */
+function arrayMap(array, iteratee) {
+  var index = -1,
+      length = array == null ? 0 : array.length,
+      result = Array(length);
+
+  while (++index < length) {
+    result[index] = iteratee(array[index], index, array);
+  }
+  return result;
+}
+
+module.exports = arrayMap;
+
+
+/***/ }),
+/* 60 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var arrayLikeKeys = __webpack_require__(61),
+    baseKeys = __webpack_require__(74),
+    isArrayLike = __webpack_require__(78);
+
+/**
+ * Creates an array of the own enumerable property names of `object`.
+ *
+ * **Note:** Non-object values are coerced to objects. See the
+ * [ES spec](http://ecma-international.org/ecma-262/7.0/#sec-object.keys)
+ * for more details.
+ *
+ * @static
+ * @since 0.1.0
+ * @memberOf _
+ * @category Object
+ * @param {Object} object The object to query.
+ * @returns {Array} Returns the array of property names.
+ * @example
+ *
+ * function Foo() {
+ *   this.a = 1;
+ *   this.b = 2;
+ * }
+ *
+ * Foo.prototype.c = 3;
+ *
+ * _.keys(new Foo);
+ * // => ['a', 'b'] (iteration order is not guaranteed)
+ *
+ * _.keys('hi');
+ * // => ['0', '1']
+ */
+function keys(object) {
+  return isArrayLike(object) ? arrayLikeKeys(object) : baseKeys(object);
+}
+
+module.exports = keys;
+
+
+/***/ }),
+/* 61 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var baseTimes = __webpack_require__(62),
+    isArguments = __webpack_require__(63),
+    isArray = __webpack_require__(22),
+    isBuffer = __webpack_require__(67),
+    isIndex = __webpack_require__(69),
+    isTypedArray = __webpack_require__(70);
+
+/** Used for built-in method references. */
+var objectProto = Object.prototype;
+
+/** Used to check objects for own properties. */
+var hasOwnProperty = objectProto.hasOwnProperty;
+
+/**
+ * Creates an array of the enumerable property names of the array-like `value`.
+ *
+ * @private
+ * @param {*} value The value to query.
+ * @param {boolean} inherited Specify returning inherited property names.
+ * @returns {Array} Returns the array of property names.
+ */
+function arrayLikeKeys(value, inherited) {
+  var isArr = isArray(value),
+      isArg = !isArr && isArguments(value),
+      isBuff = !isArr && !isArg && isBuffer(value),
+      isType = !isArr && !isArg && !isBuff && isTypedArray(value),
+      skipIndexes = isArr || isArg || isBuff || isType,
+      result = skipIndexes ? baseTimes(value.length, String) : [],
+      length = result.length;
+
+  for (var key in value) {
+    if ((inherited || hasOwnProperty.call(value, key)) &&
+        !(skipIndexes && (
+           // Safari 9 has enumerable `arguments.length` in strict mode.
+           key == 'length' ||
+           // Node.js 0.10 has enumerable non-index properties on buffers.
+           (isBuff && (key == 'offset' || key == 'parent')) ||
+           // PhantomJS 2 has enumerable non-index properties on typed arrays.
+           (isType && (key == 'buffer' || key == 'byteLength' || key == 'byteOffset')) ||
+           // Skip index properties.
+           isIndex(key, length)
+        ))) {
+      result.push(key);
+    }
+  }
+  return result;
+}
+
+module.exports = arrayLikeKeys;
+
+
+/***/ }),
+/* 62 */
+/***/ (function(module, exports) {
+
+/**
+ * The base implementation of `_.times` without support for iteratee shorthands
+ * or max array length checks.
+ *
+ * @private
+ * @param {number} n The number of times to invoke `iteratee`.
+ * @param {Function} iteratee The function invoked per iteration.
+ * @returns {Array} Returns the array of results.
+ */
+function baseTimes(n, iteratee) {
+  var index = -1,
+      result = Array(n);
+
+  while (++index < n) {
+    result[index] = iteratee(index);
+  }
+  return result;
+}
+
+module.exports = baseTimes;
+
+
+/***/ }),
+/* 63 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var baseIsArguments = __webpack_require__(64),
+    isObjectLike = __webpack_require__(9);
+
+/** Used for built-in method references. */
+var objectProto = Object.prototype;
+
+/** Used to check objects for own properties. */
+var hasOwnProperty = objectProto.hasOwnProperty;
+
+/** Built-in value references. */
+var propertyIsEnumerable = objectProto.propertyIsEnumerable;
+
+/**
+ * Checks if `value` is likely an `arguments` object.
+ *
+ * @static
+ * @memberOf _
+ * @since 0.1.0
+ * @category Lang
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is an `arguments` object,
+ *  else `false`.
+ * @example
+ *
+ * _.isArguments(function() { return arguments; }());
+ * // => true
+ *
+ * _.isArguments([1, 2, 3]);
+ * // => false
+ */
+var isArguments = baseIsArguments(function() { return arguments; }()) ? baseIsArguments : function(value) {
+  return isObjectLike(value) && hasOwnProperty.call(value, 'callee') &&
+    !propertyIsEnumerable.call(value, 'callee');
+};
+
+module.exports = isArguments;
+
+
+/***/ }),
+/* 64 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var baseGetTag = __webpack_require__(8),
+    isObjectLike = __webpack_require__(9);
+
+/** `Object#toString` result references. */
+var argsTag = '[object Arguments]';
+
+/**
+ * The base implementation of `_.isArguments`.
+ *
+ * @private
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is an `arguments` object,
+ */
+function baseIsArguments(value) {
+  return isObjectLike(value) && baseGetTag(value) == argsTag;
+}
+
+module.exports = baseIsArguments;
+
+
+/***/ }),
+/* 65 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var Symbol = __webpack_require__(19);
+
+/** Used for built-in method references. */
+var objectProto = Object.prototype;
+
+/** Used to check objects for own properties. */
+var hasOwnProperty = objectProto.hasOwnProperty;
+
+/**
+ * Used to resolve the
+ * [`toStringTag`](http://ecma-international.org/ecma-262/7.0/#sec-object.prototype.tostring)
+ * of values.
+ */
+var nativeObjectToString = objectProto.toString;
+
+/** Built-in value references. */
+var symToStringTag = Symbol ? Symbol.toStringTag : undefined;
+
+/**
+ * A specialized version of `baseGetTag` which ignores `Symbol.toStringTag` values.
+ *
+ * @private
+ * @param {*} value The value to query.
+ * @returns {string} Returns the raw `toStringTag`.
+ */
+function getRawTag(value) {
+  var isOwn = hasOwnProperty.call(value, symToStringTag),
+      tag = value[symToStringTag];
+
+  try {
+    value[symToStringTag] = undefined;
+    var unmasked = true;
+  } catch (e) {}
+
+  var result = nativeObjectToString.call(value);
+  if (unmasked) {
+    if (isOwn) {
+      value[symToStringTag] = tag;
+    } else {
+      delete value[symToStringTag];
+    }
+  }
+  return result;
+}
+
+module.exports = getRawTag;
+
+
+/***/ }),
+/* 66 */
+/***/ (function(module, exports) {
+
+/** Used for built-in method references. */
+var objectProto = Object.prototype;
+
+/**
+ * Used to resolve the
+ * [`toStringTag`](http://ecma-international.org/ecma-262/7.0/#sec-object.prototype.tostring)
+ * of values.
+ */
+var nativeObjectToString = objectProto.toString;
+
+/**
+ * Converts `value` to a string using `Object.prototype.toString`.
+ *
+ * @private
+ * @param {*} value The value to convert.
+ * @returns {string} Returns the converted string.
+ */
+function objectToString(value) {
+  return nativeObjectToString.call(value);
+}
+
+module.exports = objectToString;
+
+
+/***/ }),
+/* 67 */
+/***/ (function(module, exports, __webpack_require__) {
+
+/* WEBPACK VAR INJECTION */(function(module) {var root = __webpack_require__(20),
+    stubFalse = __webpack_require__(68);
+
+/** Detect free variable `exports`. */
+var freeExports = typeof exports == 'object' && exports && !exports.nodeType && exports;
+
+/** Detect free variable `module`. */
+var freeModule = freeExports && typeof module == 'object' && module && !module.nodeType && module;
+
+/** Detect the popular CommonJS extension `module.exports`. */
+var moduleExports = freeModule && freeModule.exports === freeExports;
+
+/** Built-in value references. */
+var Buffer = moduleExports ? root.Buffer : undefined;
+
+/* Built-in method references for those with the same name as other `lodash` methods. */
+var nativeIsBuffer = Buffer ? Buffer.isBuffer : undefined;
+
+/**
+ * Checks if `value` is a buffer.
+ *
+ * @static
+ * @memberOf _
+ * @since 4.3.0
+ * @category Lang
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is a buffer, else `false`.
+ * @example
+ *
+ * _.isBuffer(new Buffer(2));
+ * // => true
+ *
+ * _.isBuffer(new Uint8Array(2));
+ * // => false
+ */
+var isBuffer = nativeIsBuffer || stubFalse;
+
+module.exports = isBuffer;
+
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(23)(module)))
+
+/***/ }),
+/* 68 */
+/***/ (function(module, exports) {
+
+/**
+ * This method returns `false`.
+ *
+ * @static
+ * @memberOf _
+ * @since 4.13.0
+ * @category Util
+ * @returns {boolean} Returns `false`.
+ * @example
+ *
+ * _.times(2, _.stubFalse);
+ * // => [false, false]
+ */
+function stubFalse() {
+  return false;
+}
+
+module.exports = stubFalse;
+
+
+/***/ }),
+/* 69 */
+/***/ (function(module, exports) {
+
+/** Used as references for various `Number` constants. */
+var MAX_SAFE_INTEGER = 9007199254740991;
+
+/** Used to detect unsigned integer values. */
+var reIsUint = /^(?:0|[1-9]\d*)$/;
+
+/**
+ * Checks if `value` is a valid array-like index.
+ *
+ * @private
+ * @param {*} value The value to check.
+ * @param {number} [length=MAX_SAFE_INTEGER] The upper bounds of a valid index.
+ * @returns {boolean} Returns `true` if `value` is a valid index, else `false`.
+ */
+function isIndex(value, length) {
+  length = length == null ? MAX_SAFE_INTEGER : length;
+  return !!length &&
+    (typeof value == 'number' || reIsUint.test(value)) &&
+    (value > -1 && value % 1 == 0 && value < length);
+}
+
+module.exports = isIndex;
+
+
+/***/ }),
+/* 70 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var baseIsTypedArray = __webpack_require__(71),
+    baseUnary = __webpack_require__(72),
+    nodeUtil = __webpack_require__(73);
+
+/* Node.js helper references. */
+var nodeIsTypedArray = nodeUtil && nodeUtil.isTypedArray;
+
+/**
+ * Checks if `value` is classified as a typed array.
+ *
+ * @static
+ * @memberOf _
+ * @since 3.0.0
+ * @category Lang
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is a typed array, else `false`.
+ * @example
+ *
+ * _.isTypedArray(new Uint8Array);
+ * // => true
+ *
+ * _.isTypedArray([]);
+ * // => false
+ */
+var isTypedArray = nodeIsTypedArray ? baseUnary(nodeIsTypedArray) : baseIsTypedArray;
+
+module.exports = isTypedArray;
+
+
+/***/ }),
+/* 71 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var baseGetTag = __webpack_require__(8),
+    isLength = __webpack_require__(24),
+    isObjectLike = __webpack_require__(9);
+
+/** `Object#toString` result references. */
+var argsTag = '[object Arguments]',
+    arrayTag = '[object Array]',
+    boolTag = '[object Boolean]',
+    dateTag = '[object Date]',
+    errorTag = '[object Error]',
+    funcTag = '[object Function]',
+    mapTag = '[object Map]',
+    numberTag = '[object Number]',
+    objectTag = '[object Object]',
+    regexpTag = '[object RegExp]',
+    setTag = '[object Set]',
+    stringTag = '[object String]',
+    weakMapTag = '[object WeakMap]';
+
+var arrayBufferTag = '[object ArrayBuffer]',
+    dataViewTag = '[object DataView]',
+    float32Tag = '[object Float32Array]',
+    float64Tag = '[object Float64Array]',
+    int8Tag = '[object Int8Array]',
+    int16Tag = '[object Int16Array]',
+    int32Tag = '[object Int32Array]',
+    uint8Tag = '[object Uint8Array]',
+    uint8ClampedTag = '[object Uint8ClampedArray]',
+    uint16Tag = '[object Uint16Array]',
+    uint32Tag = '[object Uint32Array]';
+
+/** Used to identify `toStringTag` values of typed arrays. */
+var typedArrayTags = {};
+typedArrayTags[float32Tag] = typedArrayTags[float64Tag] =
+typedArrayTags[int8Tag] = typedArrayTags[int16Tag] =
+typedArrayTags[int32Tag] = typedArrayTags[uint8Tag] =
+typedArrayTags[uint8ClampedTag] = typedArrayTags[uint16Tag] =
+typedArrayTags[uint32Tag] = true;
+typedArrayTags[argsTag] = typedArrayTags[arrayTag] =
+typedArrayTags[arrayBufferTag] = typedArrayTags[boolTag] =
+typedArrayTags[dataViewTag] = typedArrayTags[dateTag] =
+typedArrayTags[errorTag] = typedArrayTags[funcTag] =
+typedArrayTags[mapTag] = typedArrayTags[numberTag] =
+typedArrayTags[objectTag] = typedArrayTags[regexpTag] =
+typedArrayTags[setTag] = typedArrayTags[stringTag] =
+typedArrayTags[weakMapTag] = false;
+
+/**
+ * The base implementation of `_.isTypedArray` without Node.js optimizations.
+ *
+ * @private
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is a typed array, else `false`.
+ */
+function baseIsTypedArray(value) {
+  return isObjectLike(value) &&
+    isLength(value.length) && !!typedArrayTags[baseGetTag(value)];
+}
+
+module.exports = baseIsTypedArray;
+
+
+/***/ }),
+/* 72 */
+/***/ (function(module, exports) {
+
+/**
+ * The base implementation of `_.unary` without support for storing metadata.
+ *
+ * @private
+ * @param {Function} func The function to cap arguments for.
+ * @returns {Function} Returns the new capped function.
+ */
+function baseUnary(func) {
+  return function(value) {
+    return func(value);
+  };
+}
+
+module.exports = baseUnary;
+
+
+/***/ }),
+/* 73 */
+/***/ (function(module, exports, __webpack_require__) {
+
+/* WEBPACK VAR INJECTION */(function(module) {var freeGlobal = __webpack_require__(21);
+
+/** Detect free variable `exports`. */
+var freeExports = typeof exports == 'object' && exports && !exports.nodeType && exports;
+
+/** Detect free variable `module`. */
+var freeModule = freeExports && typeof module == 'object' && module && !module.nodeType && module;
+
+/** Detect the popular CommonJS extension `module.exports`. */
+var moduleExports = freeModule && freeModule.exports === freeExports;
+
+/** Detect free variable `process` from Node.js. */
+var freeProcess = moduleExports && freeGlobal.process;
+
+/** Used to access faster Node.js helpers. */
+var nodeUtil = (function() {
+  try {
+    return freeProcess && freeProcess.binding && freeProcess.binding('util');
+  } catch (e) {}
+}());
+
+module.exports = nodeUtil;
+
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(23)(module)))
+
+/***/ }),
+/* 74 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var isPrototype = __webpack_require__(75),
+    nativeKeys = __webpack_require__(76);
+
+/** Used for built-in method references. */
+var objectProto = Object.prototype;
+
+/** Used to check objects for own properties. */
+var hasOwnProperty = objectProto.hasOwnProperty;
+
+/**
+ * The base implementation of `_.keys` which doesn't treat sparse arrays as dense.
+ *
+ * @private
+ * @param {Object} object The object to query.
+ * @returns {Array} Returns the array of property names.
+ */
+function baseKeys(object) {
+  if (!isPrototype(object)) {
+    return nativeKeys(object);
+  }
+  var result = [];
+  for (var key in Object(object)) {
+    if (hasOwnProperty.call(object, key) && key != 'constructor') {
+      result.push(key);
+    }
+  }
+  return result;
+}
+
+module.exports = baseKeys;
+
+
+/***/ }),
+/* 75 */
+/***/ (function(module, exports) {
+
+/** Used for built-in method references. */
+var objectProto = Object.prototype;
+
+/**
+ * Checks if `value` is likely a prototype object.
+ *
+ * @private
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is a prototype, else `false`.
+ */
+function isPrototype(value) {
+  var Ctor = value && value.constructor,
+      proto = (typeof Ctor == 'function' && Ctor.prototype) || objectProto;
+
+  return value === proto;
+}
+
+module.exports = isPrototype;
+
+
+/***/ }),
+/* 76 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var overArg = __webpack_require__(77);
+
+/* Built-in method references for those with the same name as other `lodash` methods. */
+var nativeKeys = overArg(Object.keys, Object);
+
+module.exports = nativeKeys;
+
+
+/***/ }),
+/* 77 */
+/***/ (function(module, exports) {
+
+/**
+ * Creates a unary function that invokes `func` with its argument transformed.
+ *
+ * @private
+ * @param {Function} func The function to wrap.
+ * @param {Function} transform The argument transform.
+ * @returns {Function} Returns the new function.
+ */
+function overArg(func, transform) {
+  return function(arg) {
+    return func(transform(arg));
+  };
+}
+
+module.exports = overArg;
+
+
+/***/ }),
+/* 78 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var isFunction = __webpack_require__(79),
+    isLength = __webpack_require__(24);
+
+/**
+ * Checks if `value` is array-like. A value is considered array-like if it's
+ * not a function and has a `value.length` that's an integer greater than or
+ * equal to `0` and less than or equal to `Number.MAX_SAFE_INTEGER`.
+ *
+ * @static
+ * @memberOf _
+ * @since 4.0.0
+ * @category Lang
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is array-like, else `false`.
+ * @example
+ *
+ * _.isArrayLike([1, 2, 3]);
+ * // => true
+ *
+ * _.isArrayLike(document.body.children);
+ * // => true
+ *
+ * _.isArrayLike('abc');
+ * // => true
+ *
+ * _.isArrayLike(_.noop);
+ * // => false
+ */
+function isArrayLike(value) {
+  return value != null && isLength(value.length) && !isFunction(value);
+}
+
+module.exports = isArrayLike;
+
+
+/***/ }),
+/* 79 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var baseGetTag = __webpack_require__(8),
+    isObject = __webpack_require__(80);
+
+/** `Object#toString` result references. */
+var asyncTag = '[object AsyncFunction]',
+    funcTag = '[object Function]',
+    genTag = '[object GeneratorFunction]',
+    proxyTag = '[object Proxy]';
+
+/**
+ * Checks if `value` is classified as a `Function` object.
+ *
+ * @static
+ * @memberOf _
+ * @since 0.1.0
+ * @category Lang
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is a function, else `false`.
+ * @example
+ *
+ * _.isFunction(_);
+ * // => true
+ *
+ * _.isFunction(/abc/);
+ * // => false
+ */
+function isFunction(value) {
+  if (!isObject(value)) {
+    return false;
+  }
+  // The use of `Object#toString` avoids issues with the `typeof` operator
+  // in Safari 9 which returns 'object' for typed arrays and other constructors.
+  var tag = baseGetTag(value);
+  return tag == funcTag || tag == genTag || tag == asyncTag || tag == proxyTag;
+}
+
+module.exports = isFunction;
+
+
+/***/ }),
+/* 80 */
+/***/ (function(module, exports) {
+
+/**
+ * Checks if `value` is the
+ * [language type](http://www.ecma-international.org/ecma-262/7.0/#sec-ecmascript-language-types)
+ * of `Object`. (e.g. arrays, functions, objects, regexes, `new Number(0)`, and `new String('')`)
+ *
+ * @static
+ * @memberOf _
+ * @since 0.1.0
+ * @category Lang
+ * @param {*} value The value to check.
+ * @returns {boolean} Returns `true` if `value` is an object, else `false`.
+ * @example
+ *
+ * _.isObject({});
+ * // => true
+ *
+ * _.isObject([1, 2, 3]);
+ * // => true
+ *
+ * _.isObject(_.noop);
+ * // => true
+ *
+ * _.isObject(null);
+ * // => false
+ */
+function isObject(value) {
+  var type = typeof value;
+  return value != null && (type == 'object' || type == 'function');
+}
+
+module.exports = isObject;
+
+
+/***/ }),
+/* 81 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5401,13 +6645,13 @@ module.exports = g;
 var _class, _temp;
 
 const React = __webpack_require__(0);
-const { default: Player } = __webpack_require__(44);
-const { Howl } = __webpack_require__(14);
-const PropTypes = __webpack_require__(15);
+const { default: Player } = __webpack_require__(82);
+const { Howl } = __webpack_require__(16);
+const PropTypes = __webpack_require__(25);
 
-const scores = __webpack_require__(59);
-const { TICK } = __webpack_require__(17);
-const { getSoundUrls } = __webpack_require__(18);
+const scores = __webpack_require__(97);
+const { TICK } = __webpack_require__(27);
+const { getSoundUrls } = __webpack_require__(28);
 
 module.exports = (_temp = _class = class Sound extends React.Component {
 
@@ -5415,13 +6659,21 @@ module.exports = (_temp = _class = class Sound extends React.Component {
 		super(props, state);
 
 		this.handleBeat = beat => {
-			if (Math.abs((beat + TICK) % (TICK * 448) - TICK) < TICK / 2) {
+			if (Math.abs((beat + TICK) % (TICK * 1536) - TICK) < TICK / 2) {
 				this.setState({ isShown: false });
 				this.sounds.forEach(sound => sound.stop());
 			}
 
+			if (Math.abs(beat % (TICK * 1536) - TICK * 892) < TICK / 2) {
+				this.setState({ isShown: false });
+			}
+
+			if (Math.abs(beat % (TICK * 1536) - TICK * 1408) < TICK / 2) {
+				this.setState({ isShown: false });
+			}
+
 			if (this.props.isPercussion) {
-				const isPlay = this.score.some(note => Math.abs(note.time - beat % (TICK * 448)) < TICK / 2 && note.type === 'note');
+				const isPlay = this.score.some(note => Math.abs(note.time - beat % (TICK * 1536)) < TICK / 2 && note.type === 'note');
 
 				if (!isPlay) {
 					return;
@@ -5429,10 +6681,10 @@ module.exports = (_temp = _class = class Sound extends React.Component {
 
 				this.sounds[0].play();
 			} else {
-				const playNoteIndex = this.score.findIndex(note => Math.abs(note.time - beat % (TICK * 448)) < TICK / 2 && note.type === 'note');
-				const playNotes = this.score.filter(note => Math.abs(note.time - beat % (TICK * 448)) < TICK / 2 && note.type === 'note');
+				const playNoteIndex = this.score.findIndex(note => Math.abs(note.time - beat % (TICK * 1536)) < TICK / 2 && note.type === 'note');
+				const playNotes = this.score.filter(note => Math.abs(note.time - beat % (TICK * 1536)) < TICK / 2 && note.type === 'note');
 
-				if (playNotes.length !== 0 || this.score[this.currentNote] && Math.abs(this.score[this.currentNote].time + this.score[this.currentNote].duration - beat % (TICK * 448)) < TICK / 2) {
+				if (playNotes.length !== 0 || this.score[this.currentNote] && Math.abs(this.score[this.currentNote].time + this.score[this.currentNote].duration - beat % (TICK * 1536)) < TICK / 2) {
 					this.sounds.forEach(sound => sound.stop());
 				}
 
@@ -5448,10 +6700,13 @@ module.exports = (_temp = _class = class Sound extends React.Component {
 				});
 			}
 
-			if (!this.state.isNoVideo) {
-				this.player.seekTo(this.props.videoStart);
+			if (!this.props.isNoVideo) {
+				this.player && this.player.seekTo(this.props.videoStart);
 			}
-			this.setState({ isShown: true });
+
+			if (!this.state.isShown) {
+				this.setState({ isShown: true });
+			}
 
 			if (!this.state.isPlaying) {
 				this.setState({ isPlaying: true });
@@ -5464,7 +6719,7 @@ module.exports = (_temp = _class = class Sound extends React.Component {
 			const session = Symbol('videoPlaySession');
 			this.videoPlaySession = session;
 
-			if (Number.isFinite(this.props.videoDuration)) {
+			if (Number.isFinite(this.props.videoDuration) && !this.props.isNoVideo) {
 				setTimeout(() => {
 					this.handleVideoSessionTimeout(session);
 				}, this.props.videoDuration * 1000);
@@ -5472,7 +6727,7 @@ module.exports = (_temp = _class = class Sound extends React.Component {
 		};
 
 		this.handleVideoSessionTimeout = session => {
-			if (this.videoPlaySession === session) {
+			if (this.videoPlaySession === session && this.state.isPlaying) {
 				this.setState({ isPlaying: false });
 			}
 		};
@@ -5488,11 +6743,12 @@ module.exports = (_temp = _class = class Sound extends React.Component {
 				this.setState({
 					isPlaying: false
 				});
+				this.player.seekTo(this.props.videoStart);
 				this.props.onReady(this.props.score);
 			}
 		};
 
-		this.sounds = Array(this.props.isPercussion ? 1 : 5).fill().map(() => new Howl({
+		this.sounds = Array(this.props.isPercussion || !this.props.isChord ? 1 : 5).fill().map(() => new Howl({
 			src: getSoundUrls(this.props.src),
 			volume: this.props.volume,
 			loop: !this.props.isPercussion
@@ -5554,16 +6810,18 @@ module.exports = (_temp = _class = class Sound extends React.Component {
 	onReady: PropTypes.func.isRequired,
 	isPrank: PropTypes.bool,
 	isPercussion: PropTypes.bool,
+	isChord: PropTypes.bool,
 	isNoVideo: PropTypes.bool
 }, _class.defaultProps = {
 	sourceNote: 0,
 	isPrank: false,
+	isChord: false,
 	isPercussion: false,
 	isNoVideo: false
 }, _temp);
 
 /***/ }),
-/* 44 */
+/* 82 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5581,47 +6839,47 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _props2 = __webpack_require__(8);
+var _props2 = __webpack_require__(10);
 
 var _utils = __webpack_require__(1);
 
-var _YouTube = __webpack_require__(50);
+var _YouTube = __webpack_require__(88);
 
 var _YouTube2 = _interopRequireDefault(_YouTube);
 
-var _SoundCloud = __webpack_require__(51);
+var _SoundCloud = __webpack_require__(89);
 
 var _SoundCloud2 = _interopRequireDefault(_SoundCloud);
 
-var _Vimeo = __webpack_require__(52);
+var _Vimeo = __webpack_require__(90);
 
 var _Vimeo2 = _interopRequireDefault(_Vimeo);
 
-var _Facebook = __webpack_require__(53);
+var _Facebook = __webpack_require__(91);
 
 var _Facebook2 = _interopRequireDefault(_Facebook);
 
-var _FilePlayer = __webpack_require__(16);
+var _FilePlayer = __webpack_require__(26);
 
 var _FilePlayer2 = _interopRequireDefault(_FilePlayer);
 
-var _Streamable = __webpack_require__(54);
+var _Streamable = __webpack_require__(92);
 
 var _Streamable2 = _interopRequireDefault(_Streamable);
 
-var _Vidme = __webpack_require__(55);
+var _Vidme = __webpack_require__(93);
 
 var _Vidme2 = _interopRequireDefault(_Vidme);
 
-var _Wistia = __webpack_require__(56);
+var _Wistia = __webpack_require__(94);
 
 var _Wistia2 = _interopRequireDefault(_Wistia);
 
-var _DailyMotion = __webpack_require__(57);
+var _DailyMotion = __webpack_require__(95);
 
 var _DailyMotion2 = _interopRequireDefault(_DailyMotion);
 
-var _Twitch = __webpack_require__(58);
+var _Twitch = __webpack_require__(96);
 
 var _Twitch2 = _interopRequireDefault(_Twitch);
 
@@ -5834,7 +7092,7 @@ ReactPlayer.canPlay = function (url) {
 exports['default'] = ReactPlayer;
 
 /***/ }),
-/* 45 */
+/* 83 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5848,8 +7106,8 @@ exports['default'] = ReactPlayer;
 
 
 var emptyFunction = __webpack_require__(6);
-var invariant = __webpack_require__(46);
-var ReactPropTypesSecret = __webpack_require__(47);
+var invariant = __webpack_require__(84);
+var ReactPropTypesSecret = __webpack_require__(85);
 
 module.exports = function() {
   function shim(props, propName, componentName, location, propFullName, secret) {
@@ -5899,7 +7157,7 @@ module.exports = function() {
 
 
 /***/ }),
-/* 46 */
+/* 84 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5958,7 +7216,7 @@ function invariant(condition, format, a, b, c, d, e, f) {
 module.exports = invariant;
 
 /***/ }),
-/* 47 */
+/* 85 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5977,7 +7235,7 @@ module.exports = ReactPropTypesSecret;
 
 
 /***/ }),
-/* 48 */
+/* 86 */
 /***/ (function(module, exports) {
 
 
@@ -6048,7 +7306,7 @@ function ieOnEnd (script, cb) {
 
 
 /***/ }),
-/* 49 */
+/* 87 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -6145,7 +7403,7 @@ var deepmerge_1 = deepmerge;
 
 
 /***/ }),
-/* 50 */
+/* 88 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6366,7 +7624,7 @@ YouTube.displayName = 'YouTube';
 exports['default'] = YouTube;
 
 /***/ }),
-/* 51 */
+/* 89 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6552,7 +7810,7 @@ SoundCloud.displayName = 'SoundCloud';
 exports['default'] = SoundCloud;
 
 /***/ }),
-/* 52 */
+/* 90 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6742,7 +8000,7 @@ Vimeo.displayName = 'Vimeo';
 exports['default'] = Vimeo;
 
 /***/ }),
-/* 53 */
+/* 91 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6911,7 +8169,7 @@ Facebook.displayName = 'Facebook';
 exports['default'] = Facebook;
 
 /***/ }),
-/* 54 */
+/* 92 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7072,7 +8330,7 @@ Streamable.displayName = 'Streamable';
 exports['default'] = Streamable;
 
 /***/ }),
-/* 55 */
+/* 93 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7084,7 +8342,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _FilePlayer2 = __webpack_require__(16);
+var _FilePlayer2 = __webpack_require__(26);
 
 var _FilePlayer3 = _interopRequireDefault(_FilePlayer2);
 
@@ -7173,7 +8431,7 @@ Vidme.displayName = 'Vidme';
 exports['default'] = Vidme;
 
 /***/ }),
-/* 56 */
+/* 94 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7330,7 +8588,7 @@ Wistia.displayName = 'Wistia';
 exports['default'] = Wistia;
 
 /***/ }),
-/* 57 */
+/* 95 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7551,7 +8809,7 @@ DailyMotion.displayName = 'DailyMotion';
 exports['default'] = DailyMotion;
 
 /***/ }),
-/* 58 */
+/* 96 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7723,24 +8981,28 @@ Twitch.displayName = 'Twitch';
 exports['default'] = Twitch;
 
 /***/ }),
-/* 59 */
+/* 97 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-const base = __webpack_require__(60);
-const bass = __webpack_require__(61);
-const bongo = __webpack_require__(62);
-const chime1 = __webpack_require__(63);
-const chime2 = __webpack_require__(64);
-const chord = __webpack_require__(65);
-const chorus1 = __webpack_require__(66);
-const chorus2 = __webpack_require__(67);
-const clap = __webpack_require__(68);
-const closedHihat = __webpack_require__(69);
-const cymbal = __webpack_require__(70);
-const snare = __webpack_require__(71);
+const base = __webpack_require__(98);
+const bass = __webpack_require__(99);
+const bongo = __webpack_require__(100);
+const chime1 = __webpack_require__(101);
+const chime2 = __webpack_require__(102);
+const chord = __webpack_require__(103);
+const chorus1 = __webpack_require__(104);
+const chorus2 = __webpack_require__(105);
+const chorus3 = __webpack_require__(106);
+const chorus4 = __webpack_require__(107);
+const clap = __webpack_require__(108);
+const closedHihat = __webpack_require__(109);
+const cymbal = __webpack_require__(110);
+const snare = __webpack_require__(111);
+const synth1 = __webpack_require__(112);
+const synth2 = __webpack_require__(113);
 
 module.exports = {
 	base,
@@ -7751,93 +9013,721 @@ module.exports = {
 	chord,
 	chorus1,
 	chorus2,
+	chorus3,
+	chorus4,
 	clap,
 	'closed-hihat': closedHihat,
 	cymbal,
-	snare
+	snare,
+	synth1,
+	synth2
 };
 
 /***/ }),
-/* 60 */
+/* 98 */
 /***/ (function(module, exports) {
 
-module.exports = [{"type":"note","time":0,"duration":0.2222222222222222,"noteNumber":26,"velocity":100,"quantize":75},{"type":"note","time":0.2222222222222222,"duration":0.2222222222222222,"noteNumber":38,"velocity":100,"quantize":75},{"type":"note","time":0.4444444444444444,"duration":0.2222222222222222,"noteNumber":26,"velocity":100,"quantize":75},{"type":"note","time":0.6666666666666666,"duration":0.2222222222222222,"noteNumber":38,"velocity":100,"quantize":75},{"type":"note","time":0.8888888888888888,"duration":0.2222222222222222,"noteNumber":21,"velocity":100,"quantize":75},{"type":"note","time":1.1111111111111112,"duration":0.2222222222222222,"noteNumber":33,"velocity":100,"quantize":75},{"type":"note","time":1.3333333333333335,"duration":0.2222222222222222,"noteNumber":21,"velocity":100,"quantize":75},{"type":"note","time":1.5555555555555558,"duration":0.2222222222222222,"noteNumber":33,"velocity":100,"quantize":75},{"type":"note","time":1.7777777777777781,"duration":0.2222222222222222,"noteNumber":26,"velocity":100,"quantize":75},{"type":"note","time":2.0000000000000004,"duration":0.2222222222222222,"noteNumber":38,"velocity":100,"quantize":75},{"type":"note","time":2.2222222222222228,"duration":0.2222222222222222,"noteNumber":26,"velocity":100,"quantize":75},{"type":"note","time":2.444444444444445,"duration":0.2222222222222222,"noteNumber":38,"velocity":100,"quantize":75},{"type":"note","time":2.6666666666666674,"duration":0.2222222222222222,"noteNumber":21,"velocity":100,"quantize":75},{"type":"note","time":2.8888888888888897,"duration":0.2222222222222222,"noteNumber":33,"velocity":100,"quantize":75},{"type":"note","time":3.111111111111112,"duration":0.2222222222222222,"noteNumber":21,"velocity":100,"quantize":75},{"type":"note","time":3.3333333333333344,"duration":0.2222222222222222,"noteNumber":33,"velocity":100,"quantize":75},{"type":"note","time":3.5555555555555567,"duration":0.2222222222222222,"noteNumber":26,"velocity":100,"quantize":75},{"type":"note","time":3.777777777777779,"duration":0.2222222222222222,"noteNumber":38,"velocity":100,"quantize":75},{"type":"note","time":4.000000000000001,"duration":0.2222222222222222,"noteNumber":26,"velocity":100,"quantize":75},{"type":"note","time":4.222222222222223,"duration":0.2222222222222222,"noteNumber":38,"velocity":100,"quantize":75},{"type":"note","time":4.4444444444444455,"duration":0.2222222222222222,"noteNumber":21,"velocity":100,"quantize":75},{"type":"note","time":4.666666666666668,"duration":0.2222222222222222,"noteNumber":33,"velocity":100,"quantize":75},{"type":"note","time":4.88888888888889,"duration":0.2222222222222222,"noteNumber":21,"velocity":100,"quantize":75},{"type":"note","time":5.1111111111111125,"duration":0.2222222222222222,"noteNumber":33,"velocity":100,"quantize":75},{"type":"note","time":5.333333333333335,"duration":0.2222222222222222,"noteNumber":26,"velocity":100,"quantize":75},{"type":"note","time":5.666666666666668,"duration":0.2222222222222222,"noteNumber":26,"velocity":100,"quantize":75},{"type":"note","time":6.000000000000001,"duration":0.2222222222222222,"noteNumber":21,"velocity":100,"quantize":75},{"type":"note","time":6.222222222222223,"duration":0.2222222222222222,"noteNumber":26,"velocity":100,"quantize":75},{"type":"note","time":6.666666666666668,"duration":0.4444444444444444,"noteNumber":27,"velocity":100,"quantize":75},{"type":"note","time":7.1111111111111125,"duration":0.2222222222222222,"noteNumber":26,"velocity":100,"quantize":75},{"type":"note","time":7.4444444444444455,"duration":0.1111111111111111,"noteNumber":38,"velocity":100,"quantize":75},{"type":"note","time":7.555555555555556,"duration":0.1111111111111111,"noteNumber":26,"velocity":100,"quantize":75},{"type":"note","time":7.777777777777778,"duration":0.2222222222222222,"noteNumber":38,"velocity":100,"quantize":75},{"type":"note","time":8,"duration":0.2222222222222222,"noteNumber":21,"velocity":100,"quantize":75},{"type":"note","time":8.333333333333332,"duration":0.1111111111111111,"noteNumber":33,"velocity":100,"quantize":75},{"type":"note","time":8.444444444444443,"duration":0.1111111111111111,"noteNumber":21,"velocity":100,"quantize":75},{"type":"note","time":8.666666666666664,"duration":0.2222222222222222,"noteNumber":33,"velocity":100,"quantize":75},{"type":"note","time":8.888888888888886,"duration":0.2222222222222222,"noteNumber":26,"velocity":100,"quantize":75},{"type":"note","time":9.222222222222218,"duration":0.1111111111111111,"noteNumber":38,"velocity":100,"quantize":75},{"type":"note","time":9.333333333333329,"duration":0.1111111111111111,"noteNumber":26,"velocity":100,"quantize":75},{"type":"note","time":9.55555555555555,"duration":0.2222222222222222,"noteNumber":38,"velocity":100,"quantize":75},{"type":"note","time":9.777777777777771,"duration":0.2222222222222222,"noteNumber":21,"velocity":100,"quantize":75},{"type":"note","time":10.111111111111104,"duration":0.1111111111111111,"noteNumber":33,"velocity":100,"quantize":75},{"type":"note","time":10.222222222222214,"duration":0.1111111111111111,"noteNumber":21,"velocity":100,"quantize":75},{"type":"note","time":10.444444444444436,"duration":0.2222222222222222,"noteNumber":33,"velocity":100,"quantize":75},{"type":"note","time":10.666666666666657,"duration":0.2222222222222222,"noteNumber":31,"velocity":100,"quantize":75},{"type":"note","time":10.99999999999999,"duration":0.1111111111111111,"noteNumber":43,"velocity":100,"quantize":75},{"type":"note","time":11.1111111111111,"duration":0.1111111111111111,"noteNumber":31,"velocity":100,"quantize":75},{"type":"note","time":11.333333333333321,"duration":0.2222222222222222,"noteNumber":43,"velocity":100,"quantize":75},{"type":"note","time":11.555555555555543,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":11.888888888888875,"duration":0.1111111111111111,"noteNumber":36,"velocity":100,"quantize":75},{"type":"note","time":11.999999999999986,"duration":0.1111111111111111,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":12.222222222222207,"duration":0.2222222222222222,"noteNumber":36,"velocity":100,"quantize":75},{"type":"note","time":12.444444444444429,"duration":0.2222222222222222,"noteNumber":29,"velocity":100,"quantize":75},{"type":"note","time":12.77777777777776,"duration":0.1111111111111111,"noteNumber":41,"velocity":100,"quantize":75},{"type":"note","time":12.888888888888872,"duration":0.1111111111111111,"noteNumber":29,"velocity":100,"quantize":75},{"type":"note","time":13.111111111111093,"duration":0.2222222222222222,"noteNumber":41,"velocity":100,"quantize":75},{"type":"note","time":13.333333333333314,"duration":0.2222222222222222,"noteNumber":29,"velocity":100,"quantize":75},{"type":"note","time":13.666666666666647,"duration":0.1111111111111111,"noteNumber":41,"velocity":100,"quantize":75},{"type":"note","time":13.777777777777757,"duration":0.1111111111111111,"noteNumber":29,"velocity":100,"quantize":75},{"type":"note","time":13.999999999999979,"duration":0.2222222222222222,"noteNumber":41,"velocity":100,"quantize":75},{"type":"note","time":14.2222222222222,"duration":0.2222222222222222,"noteNumber":28,"velocity":100,"quantize":75},{"type":"note","time":14.555555555555532,"duration":0.1111111111111111,"noteNumber":40,"velocity":100,"quantize":75},{"type":"note","time":14.666666666666643,"duration":0.1111111111111111,"noteNumber":28,"velocity":100,"quantize":75},{"type":"note","time":14.888888888888864,"duration":0.2222222222222222,"noteNumber":40,"velocity":100,"quantize":75},{"type":"note","time":15.111111111111086,"duration":0.2222222222222222,"noteNumber":21,"velocity":100,"quantize":75},{"type":"note","time":15.444444444444418,"duration":0.1111111111111111,"noteNumber":33,"velocity":100,"quantize":75},{"type":"note","time":15.555555555555529,"duration":0.1111111111111111,"noteNumber":21,"velocity":100,"quantize":75},{"type":"note","time":15.77777777777775,"duration":0.2222222222222222,"noteNumber":33,"velocity":100,"quantize":75},{"type":"note","time":15.999999999999972,"duration":0.2222222222222222,"noteNumber":26,"velocity":100,"quantize":75},{"type":"note","time":16.333333333333304,"duration":0.1111111111111111,"noteNumber":38,"velocity":100,"quantize":75},{"type":"note","time":16.444444444444414,"duration":0.1111111111111111,"noteNumber":26,"velocity":100,"quantize":75},{"type":"note","time":16.666666666666636,"duration":0.2222222222222222,"noteNumber":38,"velocity":100,"quantize":75},{"type":"note","time":16.888888888888857,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":17.22222222222219,"duration":0.1111111111111111,"noteNumber":36,"velocity":100,"quantize":75},{"type":"note","time":17.3333333333333,"duration":0.1111111111111111,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":17.55555555555552,"duration":0.2222222222222222,"noteNumber":36,"velocity":100,"quantize":75},{"type":"note","time":17.777777777777743,"duration":0.2222222222222222,"noteNumber":22,"velocity":100,"quantize":75},{"type":"note","time":18.111111111111075,"duration":0.1111111111111111,"noteNumber":34,"velocity":100,"quantize":75},{"type":"note","time":18.222222222222186,"duration":0.1111111111111111,"noteNumber":26,"velocity":100,"quantize":75},{"type":"note","time":18.333333333333297,"duration":0.1111111111111111,"noteNumber":22,"velocity":100,"quantize":75},{"type":"note","time":18.444444444444407,"duration":0.2222222222222222,"noteNumber":34,"velocity":100,"quantize":75},{"type":"note","time":18.66666666666663,"duration":0.2222222222222222,"noteNumber":21,"velocity":100,"quantize":75},{"type":"note","time":18.99999999999996,"duration":0.1111111111111111,"noteNumber":33,"velocity":100,"quantize":75},{"type":"note","time":19.11111111111107,"duration":0.1111111111111111,"noteNumber":21,"velocity":100,"quantize":75},{"type":"note","time":19.333333333333293,"duration":0.2222222222222222,"noteNumber":33,"velocity":100,"quantize":75},{"type":"note","time":19.555555555555515,"duration":0.2222222222222222,"noteNumber":38,"velocity":100,"quantize":75},{"type":"note","time":19.888888888888847,"duration":0.1111111111111111,"noteNumber":37,"velocity":100,"quantize":75},{"type":"note","time":20.22222222222218,"duration":0.1111111111111111,"noteNumber":36,"velocity":100,"quantize":75},{"type":"note","time":20.4444444444444,"duration":0.1111111111111111,"noteNumber":35,"velocity":100,"quantize":75},{"type":"note","time":20.888888888888843,"duration":0.4444444444444444,"noteNumber":33,"velocity":100,"quantize":75},{"type":"note","time":21.333333333333286,"duration":0.2222222222222222,"noteNumber":38,"velocity":100,"quantize":75},{"type":"note","time":21.666666666666618,"duration":0.1111111111111111,"noteNumber":50,"velocity":100,"quantize":75},{"type":"note","time":21.77777777777773,"duration":0.1111111111111111,"noteNumber":38,"velocity":100,"quantize":75},{"type":"note","time":21.99999999999995,"duration":0.2222222222222222,"noteNumber":50,"velocity":100,"quantize":75},{"type":"note","time":22.22222222222217,"duration":0.2222222222222222,"noteNumber":36,"velocity":100,"quantize":75},{"type":"note","time":22.555555555555504,"duration":0.1111111111111111,"noteNumber":48,"velocity":100,"quantize":75},{"type":"note","time":22.666666666666615,"duration":0.1111111111111111,"noteNumber":36,"velocity":100,"quantize":75},{"type":"note","time":22.888888888888836,"duration":0.2222222222222222,"noteNumber":48,"velocity":100,"quantize":75},{"type":"note","time":23.111111111111057,"duration":0.2222222222222222,"noteNumber":34,"velocity":100,"quantize":75},{"type":"note","time":23.44444444444439,"duration":0.1111111111111111,"noteNumber":46,"velocity":100,"quantize":75},{"type":"note","time":23.5555555555555,"duration":0.1111111111111111,"noteNumber":38,"velocity":100,"quantize":75},{"type":"note","time":23.66666666666661,"duration":0.1111111111111111,"noteNumber":34,"velocity":100,"quantize":75},{"type":"note","time":23.77777777777772,"duration":0.2222222222222222,"noteNumber":46,"velocity":100,"quantize":75},{"type":"note","time":23.999999999999943,"duration":0.2222222222222222,"noteNumber":41,"velocity":100,"quantize":75},{"type":"note","time":24.333333333333275,"duration":0.1111111111111111,"noteNumber":53,"velocity":100,"quantize":75},{"type":"note","time":24.444444444444386,"duration":0.1111111111111111,"noteNumber":41,"velocity":100,"quantize":75},{"type":"note","time":24.666666666666607,"duration":0.2222222222222222,"noteNumber":53,"velocity":100,"quantize":75},{"type":"note","time":24.88888888888883,"duration":0.2222222222222222,"noteNumber":43,"velocity":100,"quantize":75},{"type":"note","time":25.22222222222216,"duration":0.1111111111111111,"noteNumber":55,"velocity":100,"quantize":75},{"type":"note","time":25.33333333333327,"duration":0.1111111111111111,"noteNumber":43,"velocity":100,"quantize":75},{"type":"note","time":25.555555555555493,"duration":0.2222222222222222,"noteNumber":55,"velocity":100,"quantize":75},{"type":"note","time":25.777777777777715,"duration":0.2222222222222222,"noteNumber":36,"velocity":100,"quantize":75},{"type":"note","time":26.111111111111047,"duration":0.1111111111111111,"noteNumber":48,"velocity":100,"quantize":75},{"type":"note","time":26.222222222222157,"duration":0.1111111111111111,"noteNumber":36,"velocity":100,"quantize":75},{"type":"note","time":26.44444444444438,"duration":0.2222222222222222,"noteNumber":48,"velocity":100,"quantize":75},{"type":"note","time":26.6666666666666,"duration":0.2222222222222222,"noteNumber":41,"velocity":100,"quantize":75},{"type":"note","time":26.999999999999932,"duration":0.1111111111111111,"noteNumber":53,"velocity":100,"quantize":75},{"type":"note","time":27.111111111111043,"duration":0.1111111111111111,"noteNumber":41,"velocity":100,"quantize":75},{"type":"note","time":27.333333333333265,"duration":0.2222222222222222,"noteNumber":53,"velocity":100,"quantize":75},{"type":"note","time":27.555555555555486,"duration":0.2222222222222222,"noteNumber":41,"velocity":100,"quantize":75},{"type":"note","time":27.88888888888882,"duration":0.1111111111111111,"noteNumber":53,"velocity":100,"quantize":75},{"type":"note","time":27.99999999999993,"duration":0.1111111111111111,"noteNumber":41,"velocity":100,"quantize":75},{"type":"note","time":28.22222222222215,"duration":0.2222222222222222,"noteNumber":53,"velocity":100,"quantize":75},{"type":"note","time":28.444444444444372,"duration":0.2222222222222222,"noteNumber":34,"velocity":100,"quantize":75},{"type":"note","time":28.777777777777704,"duration":0.1111111111111111,"noteNumber":46,"velocity":100,"quantize":75},{"type":"note","time":28.888888888888815,"duration":0.1111111111111111,"noteNumber":38,"velocity":100,"quantize":75},{"type":"note","time":28.999999999999925,"duration":0.1111111111111111,"noteNumber":34,"velocity":100,"quantize":75},{"type":"note","time":29.111111111111036,"duration":0.2222222222222222,"noteNumber":46,"velocity":100,"quantize":75},{"type":"note","time":29.333333333333258,"duration":0.2222222222222222,"noteNumber":33,"velocity":100,"quantize":75},{"type":"note","time":29.66666666666659,"duration":0.1111111111111111,"noteNumber":45,"velocity":100,"quantize":75},{"type":"note","time":29.7777777777777,"duration":0.1111111111111111,"noteNumber":33,"velocity":100,"quantize":75},{"type":"note","time":29.999999999999922,"duration":0.2222222222222222,"noteNumber":45,"velocity":100,"quantize":75},{"type":"note","time":30.222222222222143,"duration":0.2222222222222222,"noteNumber":38,"velocity":100,"quantize":75},{"type":"note","time":30.555555555555475,"duration":0.1111111111111111,"noteNumber":50,"velocity":100,"quantize":75},{"type":"note","time":30.666666666666586,"duration":0.1111111111111111,"noteNumber":38,"velocity":100,"quantize":75},{"type":"note","time":30.888888888888808,"duration":0.2222222222222222,"noteNumber":50,"velocity":100,"quantize":75},{"type":"note","time":31.11111111111103,"duration":0.2222222222222222,"noteNumber":36,"velocity":100,"quantize":75},{"type":"note","time":31.44444444444436,"duration":0.1111111111111111,"noteNumber":48,"velocity":100,"quantize":75},{"type":"note","time":31.555555555555472,"duration":0.1111111111111111,"noteNumber":36,"velocity":100,"quantize":75},{"type":"note","time":31.777777777777693,"duration":0.2222222222222222,"noteNumber":48,"velocity":100,"quantize":75},{"type":"note","time":31.999999999999915,"duration":0.2222222222222222,"noteNumber":31,"velocity":100,"quantize":75},{"type":"note","time":32.33333333333325,"duration":0.1111111111111111,"noteNumber":43,"velocity":100,"quantize":75},{"type":"note","time":32.444444444444365,"duration":0.1111111111111111,"noteNumber":31,"velocity":100,"quantize":75},{"type":"note","time":32.66666666666659,"duration":0.2222222222222222,"noteNumber":43,"velocity":100,"quantize":75},{"type":"note","time":32.888888888888815,"duration":0.2222222222222222,"noteNumber":36,"velocity":100,"quantize":75},{"type":"note","time":33.22222222222215,"duration":0.1111111111111111,"noteNumber":48,"velocity":100,"quantize":75},{"type":"note","time":33.333333333333265,"duration":0.1111111111111111,"noteNumber":36,"velocity":100,"quantize":75},{"type":"note","time":33.55555555555549,"duration":0.2222222222222222,"noteNumber":48,"velocity":100,"quantize":75},{"type":"note","time":33.777777777777715,"duration":0.2222222222222222,"noteNumber":40,"velocity":100,"quantize":75},{"type":"note","time":34.11111111111105,"duration":0.1111111111111111,"noteNumber":52,"velocity":100,"quantize":75},{"type":"note","time":34.222222222222165,"duration":0.1111111111111111,"noteNumber":40,"velocity":100,"quantize":75},{"type":"note","time":34.44444444444439,"duration":0.2222222222222222,"noteNumber":52,"velocity":100,"quantize":75},{"type":"note","time":34.666666666666615,"duration":0.2222222222222222,"noteNumber":33,"velocity":100,"quantize":75},{"type":"note","time":34.99999999999995,"duration":0.1111111111111111,"noteNumber":45,"velocity":100,"quantize":75},{"type":"note","time":35.111111111111065,"duration":0.1111111111111111,"noteNumber":33,"velocity":100,"quantize":75},{"type":"note","time":35.33333333333329,"duration":0.2222222222222222,"noteNumber":45,"velocity":100,"quantize":75},{"type":"note","time":35.555555555555515,"duration":0.2222222222222222,"noteNumber":38,"velocity":100,"quantize":75},{"type":"note","time":35.88888888888885,"duration":0.1111111111111111,"noteNumber":50,"velocity":100,"quantize":75},{"type":"note","time":35.999999999999964,"duration":0.1111111111111111,"noteNumber":38,"velocity":100,"quantize":75},{"type":"note","time":36.22222222222219,"duration":0.2222222222222222,"noteNumber":50,"velocity":100,"quantize":75},{"type":"note","time":36.444444444444414,"duration":0.2222222222222222,"noteNumber":36,"velocity":100,"quantize":75},{"type":"note","time":36.77777777777775,"duration":0.1111111111111111,"noteNumber":48,"velocity":100,"quantize":75},{"type":"note","time":36.888888888888864,"duration":0.1111111111111111,"noteNumber":36,"velocity":100,"quantize":75},{"type":"note","time":37.11111111111109,"duration":0.2222222222222222,"noteNumber":48,"velocity":100,"quantize":75},{"type":"note","time":37.333333333333314,"duration":0.2222222222222222,"noteNumber":34,"velocity":100,"quantize":75},{"type":"note","time":37.66666666666665,"duration":0.1111111111111111,"noteNumber":46,"velocity":100,"quantize":75},{"type":"note","time":37.777777777777764,"duration":0.1111111111111111,"noteNumber":38,"velocity":100,"quantize":75},{"type":"note","time":37.88888888888888,"duration":0.1111111111111111,"noteNumber":34,"velocity":100,"quantize":75},{"type":"note","time":37.99999999999999,"duration":0.2222222222222222,"noteNumber":46,"velocity":100,"quantize":75},{"type":"note","time":38.222222222222214,"duration":0.2222222222222222,"noteNumber":41,"velocity":100,"quantize":75},{"type":"note","time":38.55555555555555,"duration":0.1111111111111111,"noteNumber":53,"velocity":100,"quantize":75},{"type":"note","time":38.666666666666664,"duration":0.1111111111111111,"noteNumber":41,"velocity":100,"quantize":75},{"type":"note","time":38.88888888888889,"duration":0.2222222222222222,"noteNumber":53,"velocity":100,"quantize":75},{"type":"note","time":39.111111111111114,"duration":0.2222222222222222,"noteNumber":43,"velocity":100,"quantize":75},{"type":"note","time":39.44444444444445,"duration":0.1111111111111111,"noteNumber":55,"velocity":100,"quantize":75},{"type":"note","time":39.555555555555564,"duration":0.1111111111111111,"noteNumber":43,"velocity":100,"quantize":75},{"type":"note","time":39.77777777777779,"duration":0.2222222222222222,"noteNumber":55,"velocity":100,"quantize":75},{"type":"note","time":40.000000000000014,"duration":0.2222222222222222,"noteNumber":36,"velocity":100,"quantize":75},{"type":"note","time":40.33333333333335,"duration":0.1111111111111111,"noteNumber":48,"velocity":100,"quantize":75},{"type":"note","time":40.444444444444464,"duration":0.1111111111111111,"noteNumber":36,"velocity":100,"quantize":75},{"type":"note","time":40.66666666666669,"duration":0.2222222222222222,"noteNumber":48,"velocity":100,"quantize":75},{"type":"note","time":40.888888888888914,"duration":0.2222222222222222,"noteNumber":41,"velocity":100,"quantize":75},{"type":"note","time":41.22222222222225,"duration":0.1111111111111111,"noteNumber":53,"velocity":100,"quantize":75},{"type":"note","time":41.333333333333364,"duration":0.1111111111111111,"noteNumber":41,"velocity":100,"quantize":75},{"type":"note","time":41.55555555555559,"duration":0.2222222222222222,"noteNumber":53,"velocity":100,"quantize":75},{"type":"note","time":41.777777777777814,"duration":0.2222222222222222,"noteNumber":41,"velocity":100,"quantize":75},{"type":"note","time":42.11111111111115,"duration":0.1111111111111111,"noteNumber":53,"velocity":100,"quantize":75},{"type":"note","time":42.222222222222264,"duration":0.1111111111111111,"noteNumber":41,"velocity":100,"quantize":75},{"type":"note","time":42.44444444444449,"duration":0.2222222222222222,"noteNumber":53,"velocity":100,"quantize":75},{"type":"note","time":42.666666666666714,"duration":0.2222222222222222,"noteNumber":34,"velocity":100,"quantize":75},{"type":"note","time":43.00000000000005,"duration":0.1111111111111111,"noteNumber":46,"velocity":100,"quantize":75},{"type":"note","time":43.111111111111164,"duration":0.1111111111111111,"noteNumber":38,"velocity":100,"quantize":75},{"type":"note","time":43.22222222222228,"duration":0.1111111111111111,"noteNumber":34,"velocity":100,"quantize":75},{"type":"note","time":43.33333333333339,"duration":0.2222222222222222,"noteNumber":46,"velocity":100,"quantize":75},{"type":"note","time":43.555555555555614,"duration":0.2222222222222222,"noteNumber":33,"velocity":100,"quantize":75},{"type":"note","time":43.88888888888895,"duration":0.1111111111111111,"noteNumber":45,"velocity":100,"quantize":75},{"type":"note","time":44.000000000000064,"duration":0.1111111111111111,"noteNumber":33,"velocity":100,"quantize":75},{"type":"note","time":44.22222222222229,"duration":0.2222222222222222,"noteNumber":45,"velocity":100,"quantize":75},{"type":"note","time":44.444444444444514,"duration":0.2222222222222222,"noteNumber":38,"velocity":100,"quantize":75},{"type":"note","time":44.77777777777785,"duration":0.1111111111111111,"noteNumber":50,"velocity":100,"quantize":75},{"type":"note","time":44.888888888888964,"duration":0.1111111111111111,"noteNumber":38,"velocity":100,"quantize":75},{"type":"note","time":45.11111111111119,"duration":0.2222222222222222,"noteNumber":50,"velocity":100,"quantize":75},{"type":"note","time":45.333333333333414,"duration":0.2222222222222222,"noteNumber":36,"velocity":100,"quantize":75},{"type":"note","time":45.66666666666675,"duration":0.1111111111111111,"noteNumber":48,"velocity":100,"quantize":75},{"type":"note","time":45.777777777777864,"duration":0.1111111111111111,"noteNumber":36,"velocity":100,"quantize":75},{"type":"note","time":46.00000000000009,"duration":0.2222222222222222,"noteNumber":48,"velocity":100,"quantize":75},{"type":"note","time":46.222222222222314,"duration":0.2222222222222222,"noteNumber":31,"velocity":100,"quantize":75},{"type":"note","time":46.55555555555565,"duration":0.1111111111111111,"noteNumber":43,"velocity":100,"quantize":75},{"type":"note","time":46.666666666666764,"duration":0.1111111111111111,"noteNumber":31,"velocity":100,"quantize":75},{"type":"note","time":46.88888888888899,"duration":0.2222222222222222,"noteNumber":43,"velocity":100,"quantize":75},{"type":"note","time":47.111111111111214,"duration":0.2222222222222222,"noteNumber":36,"velocity":100,"quantize":75},{"type":"note","time":47.44444444444455,"duration":0.1111111111111111,"noteNumber":48,"velocity":100,"quantize":75},{"type":"note","time":47.555555555555664,"duration":0.1111111111111111,"noteNumber":36,"velocity":100,"quantize":75},{"type":"note","time":47.77777777777789,"duration":0.2222222222222222,"noteNumber":48,"velocity":100,"quantize":75},{"type":"note","time":48.000000000000114,"duration":0.2222222222222222,"noteNumber":41,"velocity":100,"quantize":75},{"type":"note","time":48.33333333333345,"duration":0.1111111111111111,"noteNumber":53,"velocity":100,"quantize":75},{"type":"note","time":48.444444444444564,"duration":0.1111111111111111,"noteNumber":41,"velocity":100,"quantize":75},{"type":"note","time":48.66666666666679,"duration":0.2222222222222222,"noteNumber":53,"velocity":100,"quantize":75},{"type":"note","time":48.888888888889014,"duration":0.2222222222222222,"noteNumber":40,"velocity":100,"quantize":75},{"type":"note","time":49.22222222222235,"duration":0.1111111111111111,"noteNumber":52,"velocity":100,"quantize":75},{"type":"note","time":49.333333333333464,"duration":0.1111111111111111,"noteNumber":40,"velocity":100,"quantize":75},{"type":"note","time":49.55555555555569,"duration":0.2222222222222222,"noteNumber":52,"velocity":100,"quantize":75},{"type":"end","time":49.777777777777914}]
+module.exports = [{"type":"note","time":0,"duration":0.2222222222222222,"noteNumber":26,"velocity":100,"quantize":75},{"type":"note","time":0.2222222222222222,"duration":0.2222222222222222,"noteNumber":38,"velocity":100,"quantize":75},{"type":"note","time":0.4444444444444444,"duration":0.2222222222222222,"noteNumber":26,"velocity":100,"quantize":75},{"type":"note","time":0.6666666666666666,"duration":0.2222222222222222,"noteNumber":38,"velocity":100,"quantize":75},{"type":"note","time":0.8888888888888888,"duration":0.2222222222222222,"noteNumber":21,"velocity":100,"quantize":75},{"type":"note","time":1.1111111111111112,"duration":0.2222222222222222,"noteNumber":33,"velocity":100,"quantize":75},{"type":"note","time":1.3333333333333335,"duration":0.2222222222222222,"noteNumber":21,"velocity":100,"quantize":75},{"type":"note","time":1.5555555555555558,"duration":0.2222222222222222,"noteNumber":33,"velocity":100,"quantize":75},{"type":"note","time":1.7777777777777781,"duration":0.2222222222222222,"noteNumber":26,"velocity":100,"quantize":75},{"type":"note","time":2.0000000000000004,"duration":0.2222222222222222,"noteNumber":38,"velocity":100,"quantize":75},{"type":"note","time":2.2222222222222228,"duration":0.2222222222222222,"noteNumber":26,"velocity":100,"quantize":75},{"type":"note","time":2.444444444444445,"duration":0.2222222222222222,"noteNumber":38,"velocity":100,"quantize":75},{"type":"note","time":2.6666666666666674,"duration":0.2222222222222222,"noteNumber":21,"velocity":100,"quantize":75},{"type":"note","time":2.8888888888888897,"duration":0.2222222222222222,"noteNumber":33,"velocity":100,"quantize":75},{"type":"note","time":3.111111111111112,"duration":0.2222222222222222,"noteNumber":21,"velocity":100,"quantize":75},{"type":"note","time":3.3333333333333344,"duration":0.2222222222222222,"noteNumber":33,"velocity":100,"quantize":75},{"type":"note","time":3.5555555555555567,"duration":0.2222222222222222,"noteNumber":26,"velocity":100,"quantize":75},{"type":"note","time":3.777777777777779,"duration":0.2222222222222222,"noteNumber":38,"velocity":100,"quantize":75},{"type":"note","time":4.000000000000001,"duration":0.2222222222222222,"noteNumber":26,"velocity":100,"quantize":75},{"type":"note","time":4.222222222222223,"duration":0.2222222222222222,"noteNumber":38,"velocity":100,"quantize":75},{"type":"note","time":4.4444444444444455,"duration":0.2222222222222222,"noteNumber":21,"velocity":100,"quantize":75},{"type":"note","time":4.666666666666668,"duration":0.2222222222222222,"noteNumber":33,"velocity":100,"quantize":75},{"type":"note","time":4.88888888888889,"duration":0.2222222222222222,"noteNumber":21,"velocity":100,"quantize":75},{"type":"note","time":5.1111111111111125,"duration":0.2222222222222222,"noteNumber":33,"velocity":100,"quantize":75},{"type":"note","time":5.333333333333335,"duration":0.2222222222222222,"noteNumber":26,"velocity":100,"quantize":75},{"type":"note","time":5.666666666666668,"duration":0.2222222222222222,"noteNumber":26,"velocity":100,"quantize":75},{"type":"note","time":6.000000000000001,"duration":0.2222222222222222,"noteNumber":21,"velocity":100,"quantize":75},{"type":"note","time":6.222222222222223,"duration":0.2222222222222222,"noteNumber":26,"velocity":100,"quantize":75},{"type":"note","time":6.666666666666668,"duration":0.4444444444444444,"noteNumber":27,"velocity":100,"quantize":75},{"type":"note","time":7.1111111111111125,"duration":0.2222222222222222,"noteNumber":26,"velocity":100,"quantize":75},{"type":"note","time":7.4444444444444455,"duration":0.1111111111111111,"noteNumber":38,"velocity":100,"quantize":75},{"type":"note","time":7.555555555555556,"duration":0.1111111111111111,"noteNumber":26,"velocity":100,"quantize":75},{"type":"note","time":7.777777777777778,"duration":0.2222222222222222,"noteNumber":38,"velocity":100,"quantize":75},{"type":"note","time":8,"duration":0.2222222222222222,"noteNumber":21,"velocity":100,"quantize":75},{"type":"note","time":8.333333333333332,"duration":0.1111111111111111,"noteNumber":33,"velocity":100,"quantize":75},{"type":"note","time":8.444444444444443,"duration":0.1111111111111111,"noteNumber":21,"velocity":100,"quantize":75},{"type":"note","time":8.666666666666664,"duration":0.2222222222222222,"noteNumber":33,"velocity":100,"quantize":75},{"type":"note","time":8.888888888888886,"duration":0.2222222222222222,"noteNumber":26,"velocity":100,"quantize":75},{"type":"note","time":9.222222222222218,"duration":0.1111111111111111,"noteNumber":38,"velocity":100,"quantize":75},{"type":"note","time":9.333333333333329,"duration":0.1111111111111111,"noteNumber":26,"velocity":100,"quantize":75},{"type":"note","time":9.55555555555555,"duration":0.2222222222222222,"noteNumber":38,"velocity":100,"quantize":75},{"type":"note","time":9.777777777777771,"duration":0.2222222222222222,"noteNumber":21,"velocity":100,"quantize":75},{"type":"note","time":10.111111111111104,"duration":0.1111111111111111,"noteNumber":33,"velocity":100,"quantize":75},{"type":"note","time":10.222222222222214,"duration":0.1111111111111111,"noteNumber":21,"velocity":100,"quantize":75},{"type":"note","time":10.444444444444436,"duration":0.2222222222222222,"noteNumber":33,"velocity":100,"quantize":75},{"type":"note","time":10.666666666666657,"duration":0.2222222222222222,"noteNumber":31,"velocity":100,"quantize":75},{"type":"note","time":10.99999999999999,"duration":0.1111111111111111,"noteNumber":43,"velocity":100,"quantize":75},{"type":"note","time":11.1111111111111,"duration":0.1111111111111111,"noteNumber":31,"velocity":100,"quantize":75},{"type":"note","time":11.333333333333321,"duration":0.2222222222222222,"noteNumber":43,"velocity":100,"quantize":75},{"type":"note","time":11.555555555555543,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":11.888888888888875,"duration":0.1111111111111111,"noteNumber":36,"velocity":100,"quantize":75},{"type":"note","time":11.999999999999986,"duration":0.1111111111111111,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":12.222222222222207,"duration":0.2222222222222222,"noteNumber":36,"velocity":100,"quantize":75},{"type":"note","time":12.444444444444429,"duration":0.2222222222222222,"noteNumber":29,"velocity":100,"quantize":75},{"type":"note","time":12.77777777777776,"duration":0.1111111111111111,"noteNumber":41,"velocity":100,"quantize":75},{"type":"note","time":12.888888888888872,"duration":0.1111111111111111,"noteNumber":29,"velocity":100,"quantize":75},{"type":"note","time":13.111111111111093,"duration":0.2222222222222222,"noteNumber":41,"velocity":100,"quantize":75},{"type":"note","time":13.333333333333314,"duration":0.2222222222222222,"noteNumber":29,"velocity":100,"quantize":75},{"type":"note","time":13.666666666666647,"duration":0.1111111111111111,"noteNumber":41,"velocity":100,"quantize":75},{"type":"note","time":13.777777777777757,"duration":0.1111111111111111,"noteNumber":29,"velocity":100,"quantize":75},{"type":"note","time":13.999999999999979,"duration":0.2222222222222222,"noteNumber":41,"velocity":100,"quantize":75},{"type":"note","time":14.2222222222222,"duration":0.2222222222222222,"noteNumber":28,"velocity":100,"quantize":75},{"type":"note","time":14.555555555555532,"duration":0.1111111111111111,"noteNumber":40,"velocity":100,"quantize":75},{"type":"note","time":14.666666666666643,"duration":0.1111111111111111,"noteNumber":28,"velocity":100,"quantize":75},{"type":"note","time":14.888888888888864,"duration":0.2222222222222222,"noteNumber":40,"velocity":100,"quantize":75},{"type":"note","time":15.111111111111086,"duration":0.2222222222222222,"noteNumber":21,"velocity":100,"quantize":75},{"type":"note","time":15.444444444444418,"duration":0.1111111111111111,"noteNumber":33,"velocity":100,"quantize":75},{"type":"note","time":15.555555555555529,"duration":0.1111111111111111,"noteNumber":21,"velocity":100,"quantize":75},{"type":"note","time":15.77777777777775,"duration":0.2222222222222222,"noteNumber":33,"velocity":100,"quantize":75},{"type":"note","time":15.999999999999972,"duration":0.2222222222222222,"noteNumber":26,"velocity":100,"quantize":75},{"type":"note","time":16.333333333333304,"duration":0.1111111111111111,"noteNumber":38,"velocity":100,"quantize":75},{"type":"note","time":16.444444444444414,"duration":0.1111111111111111,"noteNumber":26,"velocity":100,"quantize":75},{"type":"note","time":16.666666666666636,"duration":0.2222222222222222,"noteNumber":38,"velocity":100,"quantize":75},{"type":"note","time":16.888888888888857,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":17.22222222222219,"duration":0.1111111111111111,"noteNumber":36,"velocity":100,"quantize":75},{"type":"note","time":17.3333333333333,"duration":0.1111111111111111,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":17.55555555555552,"duration":0.2222222222222222,"noteNumber":36,"velocity":100,"quantize":75},{"type":"note","time":17.777777777777743,"duration":0.2222222222222222,"noteNumber":22,"velocity":100,"quantize":75},{"type":"note","time":18.111111111111075,"duration":0.1111111111111111,"noteNumber":34,"velocity":100,"quantize":75},{"type":"note","time":18.222222222222186,"duration":0.1111111111111111,"noteNumber":26,"velocity":100,"quantize":75},{"type":"note","time":18.333333333333297,"duration":0.1111111111111111,"noteNumber":22,"velocity":100,"quantize":75},{"type":"note","time":18.444444444444407,"duration":0.2222222222222222,"noteNumber":34,"velocity":100,"quantize":75},{"type":"note","time":18.66666666666663,"duration":0.2222222222222222,"noteNumber":21,"velocity":100,"quantize":75},{"type":"note","time":18.99999999999996,"duration":0.1111111111111111,"noteNumber":33,"velocity":100,"quantize":75},{"type":"note","time":19.11111111111107,"duration":0.1111111111111111,"noteNumber":21,"velocity":100,"quantize":75},{"type":"note","time":19.333333333333293,"duration":0.2222222222222222,"noteNumber":33,"velocity":100,"quantize":75},{"type":"note","time":19.555555555555515,"duration":0.2222222222222222,"noteNumber":38,"velocity":100,"quantize":75},{"type":"note","time":19.888888888888847,"duration":0.1111111111111111,"noteNumber":37,"velocity":100,"quantize":75},{"type":"note","time":20.22222222222218,"duration":0.1111111111111111,"noteNumber":36,"velocity":100,"quantize":75},{"type":"note","time":20.4444444444444,"duration":0.1111111111111111,"noteNumber":35,"velocity":100,"quantize":75},{"type":"note","time":20.888888888888843,"duration":0.4444444444444444,"noteNumber":33,"velocity":100,"quantize":75},{"type":"note","time":21.333333333333286,"duration":0.2222222222222222,"noteNumber":38,"velocity":100,"quantize":75},{"type":"note","time":21.666666666666618,"duration":0.1111111111111111,"noteNumber":50,"velocity":100,"quantize":75},{"type":"note","time":21.77777777777773,"duration":0.1111111111111111,"noteNumber":38,"velocity":100,"quantize":75},{"type":"note","time":21.99999999999995,"duration":0.2222222222222222,"noteNumber":50,"velocity":100,"quantize":75},{"type":"note","time":22.22222222222217,"duration":0.2222222222222222,"noteNumber":36,"velocity":100,"quantize":75},{"type":"note","time":22.555555555555504,"duration":0.1111111111111111,"noteNumber":48,"velocity":100,"quantize":75},{"type":"note","time":22.666666666666615,"duration":0.1111111111111111,"noteNumber":36,"velocity":100,"quantize":75},{"type":"note","time":22.888888888888836,"duration":0.2222222222222222,"noteNumber":48,"velocity":100,"quantize":75},{"type":"note","time":23.111111111111057,"duration":0.2222222222222222,"noteNumber":34,"velocity":100,"quantize":75},{"type":"note","time":23.44444444444439,"duration":0.1111111111111111,"noteNumber":46,"velocity":100,"quantize":75},{"type":"note","time":23.5555555555555,"duration":0.1111111111111111,"noteNumber":38,"velocity":100,"quantize":75},{"type":"note","time":23.66666666666661,"duration":0.1111111111111111,"noteNumber":34,"velocity":100,"quantize":75},{"type":"note","time":23.77777777777772,"duration":0.2222222222222222,"noteNumber":46,"velocity":100,"quantize":75},{"type":"note","time":23.999999999999943,"duration":0.2222222222222222,"noteNumber":41,"velocity":100,"quantize":75},{"type":"note","time":24.333333333333275,"duration":0.1111111111111111,"noteNumber":53,"velocity":100,"quantize":75},{"type":"note","time":24.444444444444386,"duration":0.1111111111111111,"noteNumber":41,"velocity":100,"quantize":75},{"type":"note","time":24.666666666666607,"duration":0.2222222222222222,"noteNumber":53,"velocity":100,"quantize":75},{"type":"note","time":24.88888888888883,"duration":0.2222222222222222,"noteNumber":43,"velocity":100,"quantize":75},{"type":"note","time":25.22222222222216,"duration":0.1111111111111111,"noteNumber":55,"velocity":100,"quantize":75},{"type":"note","time":25.33333333333327,"duration":0.1111111111111111,"noteNumber":43,"velocity":100,"quantize":75},{"type":"note","time":25.555555555555493,"duration":0.2222222222222222,"noteNumber":55,"velocity":100,"quantize":75},{"type":"note","time":25.777777777777715,"duration":0.2222222222222222,"noteNumber":36,"velocity":100,"quantize":75},{"type":"note","time":26.111111111111047,"duration":0.1111111111111111,"noteNumber":48,"velocity":100,"quantize":75},{"type":"note","time":26.222222222222157,"duration":0.1111111111111111,"noteNumber":36,"velocity":100,"quantize":75},{"type":"note","time":26.44444444444438,"duration":0.2222222222222222,"noteNumber":48,"velocity":100,"quantize":75},{"type":"note","time":26.6666666666666,"duration":0.2222222222222222,"noteNumber":41,"velocity":100,"quantize":75},{"type":"note","time":26.999999999999932,"duration":0.1111111111111111,"noteNumber":53,"velocity":100,"quantize":75},{"type":"note","time":27.111111111111043,"duration":0.1111111111111111,"noteNumber":41,"velocity":100,"quantize":75},{"type":"note","time":27.333333333333265,"duration":0.2222222222222222,"noteNumber":53,"velocity":100,"quantize":75},{"type":"note","time":27.555555555555486,"duration":0.2222222222222222,"noteNumber":41,"velocity":100,"quantize":75},{"type":"note","time":27.88888888888882,"duration":0.1111111111111111,"noteNumber":53,"velocity":100,"quantize":75},{"type":"note","time":27.99999999999993,"duration":0.1111111111111111,"noteNumber":41,"velocity":100,"quantize":75},{"type":"note","time":28.22222222222215,"duration":0.2222222222222222,"noteNumber":53,"velocity":100,"quantize":75},{"type":"note","time":28.444444444444372,"duration":0.2222222222222222,"noteNumber":34,"velocity":100,"quantize":75},{"type":"note","time":28.777777777777704,"duration":0.1111111111111111,"noteNumber":46,"velocity":100,"quantize":75},{"type":"note","time":28.888888888888815,"duration":0.1111111111111111,"noteNumber":38,"velocity":100,"quantize":75},{"type":"note","time":28.999999999999925,"duration":0.1111111111111111,"noteNumber":34,"velocity":100,"quantize":75},{"type":"note","time":29.111111111111036,"duration":0.2222222222222222,"noteNumber":46,"velocity":100,"quantize":75},{"type":"note","time":29.333333333333258,"duration":0.2222222222222222,"noteNumber":33,"velocity":100,"quantize":75},{"type":"note","time":29.66666666666659,"duration":0.1111111111111111,"noteNumber":45,"velocity":100,"quantize":75},{"type":"note","time":29.7777777777777,"duration":0.1111111111111111,"noteNumber":33,"velocity":100,"quantize":75},{"type":"note","time":29.999999999999922,"duration":0.2222222222222222,"noteNumber":45,"velocity":100,"quantize":75},{"type":"note","time":30.222222222222143,"duration":0.2222222222222222,"noteNumber":38,"velocity":100,"quantize":75},{"type":"note","time":30.555555555555475,"duration":0.1111111111111111,"noteNumber":50,"velocity":100,"quantize":75},{"type":"note","time":30.666666666666586,"duration":0.1111111111111111,"noteNumber":38,"velocity":100,"quantize":75},{"type":"note","time":30.888888888888808,"duration":0.2222222222222222,"noteNumber":50,"velocity":100,"quantize":75},{"type":"note","time":31.11111111111103,"duration":0.2222222222222222,"noteNumber":36,"velocity":100,"quantize":75},{"type":"note","time":31.44444444444436,"duration":0.1111111111111111,"noteNumber":48,"velocity":100,"quantize":75},{"type":"note","time":31.555555555555472,"duration":0.1111111111111111,"noteNumber":36,"velocity":100,"quantize":75},{"type":"note","time":31.777777777777693,"duration":0.2222222222222222,"noteNumber":48,"velocity":100,"quantize":75},{"type":"note","time":31.999999999999915,"duration":0.2222222222222222,"noteNumber":31,"velocity":100,"quantize":75},{"type":"note","time":32.33333333333325,"duration":0.1111111111111111,"noteNumber":43,"velocity":100,"quantize":75},{"type":"note","time":32.444444444444365,"duration":0.1111111111111111,"noteNumber":31,"velocity":100,"quantize":75},{"type":"note","time":32.66666666666659,"duration":0.2222222222222222,"noteNumber":43,"velocity":100,"quantize":75},{"type":"note","time":32.888888888888815,"duration":0.2222222222222222,"noteNumber":36,"velocity":100,"quantize":75},{"type":"note","time":33.22222222222215,"duration":0.1111111111111111,"noteNumber":48,"velocity":100,"quantize":75},{"type":"note","time":33.333333333333265,"duration":0.1111111111111111,"noteNumber":36,"velocity":100,"quantize":75},{"type":"note","time":33.55555555555549,"duration":0.2222222222222222,"noteNumber":48,"velocity":100,"quantize":75},{"type":"note","time":33.777777777777715,"duration":0.2222222222222222,"noteNumber":40,"velocity":100,"quantize":75},{"type":"note","time":34.11111111111105,"duration":0.1111111111111111,"noteNumber":52,"velocity":100,"quantize":75},{"type":"note","time":34.222222222222165,"duration":0.1111111111111111,"noteNumber":40,"velocity":100,"quantize":75},{"type":"note","time":34.44444444444439,"duration":0.2222222222222222,"noteNumber":52,"velocity":100,"quantize":75},{"type":"note","time":34.666666666666615,"duration":0.2222222222222222,"noteNumber":33,"velocity":100,"quantize":75},{"type":"note","time":34.99999999999995,"duration":0.1111111111111111,"noteNumber":45,"velocity":100,"quantize":75},{"type":"note","time":35.111111111111065,"duration":0.1111111111111111,"noteNumber":33,"velocity":100,"quantize":75},{"type":"note","time":35.33333333333329,"duration":0.2222222222222222,"noteNumber":45,"velocity":100,"quantize":75},{"type":"note","time":35.555555555555515,"duration":0.2222222222222222,"noteNumber":38,"velocity":100,"quantize":75},{"type":"note","time":35.88888888888885,"duration":0.1111111111111111,"noteNumber":50,"velocity":100,"quantize":75},{"type":"note","time":35.999999999999964,"duration":0.1111111111111111,"noteNumber":38,"velocity":100,"quantize":75},{"type":"note","time":36.22222222222219,"duration":0.2222222222222222,"noteNumber":50,"velocity":100,"quantize":75},{"type":"note","time":36.444444444444414,"duration":0.2222222222222222,"noteNumber":36,"velocity":100,"quantize":75},{"type":"note","time":36.77777777777775,"duration":0.1111111111111111,"noteNumber":48,"velocity":100,"quantize":75},{"type":"note","time":36.888888888888864,"duration":0.1111111111111111,"noteNumber":36,"velocity":100,"quantize":75},{"type":"note","time":37.11111111111109,"duration":0.2222222222222222,"noteNumber":48,"velocity":100,"quantize":75},{"type":"note","time":37.333333333333314,"duration":0.2222222222222222,"noteNumber":34,"velocity":100,"quantize":75},{"type":"note","time":37.66666666666665,"duration":0.1111111111111111,"noteNumber":46,"velocity":100,"quantize":75},{"type":"note","time":37.777777777777764,"duration":0.1111111111111111,"noteNumber":38,"velocity":100,"quantize":75},{"type":"note","time":37.88888888888888,"duration":0.1111111111111111,"noteNumber":34,"velocity":100,"quantize":75},{"type":"note","time":37.99999999999999,"duration":0.2222222222222222,"noteNumber":46,"velocity":100,"quantize":75},{"type":"note","time":38.222222222222214,"duration":0.2222222222222222,"noteNumber":41,"velocity":100,"quantize":75},{"type":"note","time":38.55555555555555,"duration":0.1111111111111111,"noteNumber":53,"velocity":100,"quantize":75},{"type":"note","time":38.666666666666664,"duration":0.1111111111111111,"noteNumber":41,"velocity":100,"quantize":75},{"type":"note","time":38.88888888888889,"duration":0.2222222222222222,"noteNumber":53,"velocity":100,"quantize":75},{"type":"note","time":39.111111111111114,"duration":0.2222222222222222,"noteNumber":43,"velocity":100,"quantize":75},{"type":"note","time":39.44444444444445,"duration":0.1111111111111111,"noteNumber":55,"velocity":100,"quantize":75},{"type":"note","time":39.555555555555564,"duration":0.1111111111111111,"noteNumber":43,"velocity":100,"quantize":75},{"type":"note","time":39.77777777777779,"duration":0.2222222222222222,"noteNumber":55,"velocity":100,"quantize":75},{"type":"note","time":40.000000000000014,"duration":0.2222222222222222,"noteNumber":36,"velocity":100,"quantize":75},{"type":"note","time":40.33333333333335,"duration":0.1111111111111111,"noteNumber":48,"velocity":100,"quantize":75},{"type":"note","time":40.444444444444464,"duration":0.1111111111111111,"noteNumber":36,"velocity":100,"quantize":75},{"type":"note","time":40.66666666666669,"duration":0.2222222222222222,"noteNumber":48,"velocity":100,"quantize":75},{"type":"note","time":40.888888888888914,"duration":0.2222222222222222,"noteNumber":41,"velocity":100,"quantize":75},{"type":"note","time":41.22222222222225,"duration":0.1111111111111111,"noteNumber":53,"velocity":100,"quantize":75},{"type":"note","time":41.333333333333364,"duration":0.1111111111111111,"noteNumber":41,"velocity":100,"quantize":75},{"type":"note","time":41.55555555555559,"duration":0.2222222222222222,"noteNumber":53,"velocity":100,"quantize":75},{"type":"note","time":41.777777777777814,"duration":0.2222222222222222,"noteNumber":41,"velocity":100,"quantize":75},{"type":"note","time":42.11111111111115,"duration":0.1111111111111111,"noteNumber":53,"velocity":100,"quantize":75},{"type":"note","time":42.222222222222264,"duration":0.1111111111111111,"noteNumber":41,"velocity":100,"quantize":75},{"type":"note","time":42.44444444444449,"duration":0.2222222222222222,"noteNumber":53,"velocity":100,"quantize":75},{"type":"note","time":42.666666666666714,"duration":0.2222222222222222,"noteNumber":34,"velocity":100,"quantize":75},{"type":"note","time":43.00000000000005,"duration":0.1111111111111111,"noteNumber":46,"velocity":100,"quantize":75},{"type":"note","time":43.111111111111164,"duration":0.1111111111111111,"noteNumber":38,"velocity":100,"quantize":75},{"type":"note","time":43.22222222222228,"duration":0.1111111111111111,"noteNumber":34,"velocity":100,"quantize":75},{"type":"note","time":43.33333333333339,"duration":0.2222222222222222,"noteNumber":46,"velocity":100,"quantize":75},{"type":"note","time":43.555555555555614,"duration":0.2222222222222222,"noteNumber":33,"velocity":100,"quantize":75},{"type":"note","time":43.88888888888895,"duration":0.1111111111111111,"noteNumber":45,"velocity":100,"quantize":75},{"type":"note","time":44.000000000000064,"duration":0.1111111111111111,"noteNumber":33,"velocity":100,"quantize":75},{"type":"note","time":44.22222222222229,"duration":0.2222222222222222,"noteNumber":45,"velocity":100,"quantize":75},{"type":"note","time":44.444444444444514,"duration":0.2222222222222222,"noteNumber":38,"velocity":100,"quantize":75},{"type":"note","time":44.77777777777785,"duration":0.1111111111111111,"noteNumber":50,"velocity":100,"quantize":75},{"type":"note","time":44.888888888888964,"duration":0.1111111111111111,"noteNumber":38,"velocity":100,"quantize":75},{"type":"note","time":45.11111111111119,"duration":0.2222222222222222,"noteNumber":50,"velocity":100,"quantize":75},{"type":"note","time":45.333333333333414,"duration":0.2222222222222222,"noteNumber":36,"velocity":100,"quantize":75},{"type":"note","time":45.66666666666675,"duration":0.1111111111111111,"noteNumber":48,"velocity":100,"quantize":75},{"type":"note","time":45.777777777777864,"duration":0.1111111111111111,"noteNumber":36,"velocity":100,"quantize":75},{"type":"note","time":46.00000000000009,"duration":0.2222222222222222,"noteNumber":48,"velocity":100,"quantize":75},{"type":"note","time":46.222222222222314,"duration":0.2222222222222222,"noteNumber":31,"velocity":100,"quantize":75},{"type":"note","time":46.55555555555565,"duration":0.1111111111111111,"noteNumber":43,"velocity":100,"quantize":75},{"type":"note","time":46.666666666666764,"duration":0.1111111111111111,"noteNumber":31,"velocity":100,"quantize":75},{"type":"note","time":46.88888888888899,"duration":0.2222222222222222,"noteNumber":43,"velocity":100,"quantize":75},{"type":"note","time":47.111111111111214,"duration":0.2222222222222222,"noteNumber":36,"velocity":100,"quantize":75},{"type":"note","time":47.44444444444455,"duration":0.1111111111111111,"noteNumber":48,"velocity":100,"quantize":75},{"type":"note","time":47.555555555555664,"duration":0.1111111111111111,"noteNumber":36,"velocity":100,"quantize":75},{"type":"note","time":47.77777777777789,"duration":0.2222222222222222,"noteNumber":48,"velocity":100,"quantize":75},{"type":"note","time":48.000000000000114,"duration":0.2222222222222222,"noteNumber":41,"velocity":100,"quantize":75},{"type":"note","time":48.33333333333345,"duration":0.1111111111111111,"noteNumber":53,"velocity":100,"quantize":75},{"type":"note","time":48.444444444444564,"duration":0.1111111111111111,"noteNumber":41,"velocity":100,"quantize":75},{"type":"note","time":48.66666666666679,"duration":0.2222222222222222,"noteNumber":53,"velocity":100,"quantize":75},{"type":"note","time":48.888888888889014,"duration":0.2222222222222222,"noteNumber":40,"velocity":100,"quantize":75},{"type":"note","time":49.22222222222235,"duration":0.1111111111111111,"noteNumber":52,"velocity":100,"quantize":75},{"type":"note","time":49.333333333333464,"duration":0.1111111111111111,"noteNumber":40,"velocity":100,"quantize":75},{"type":"note","time":49.55555555555569,"duration":0.2222222222222222,"noteNumber":52,"velocity":100,"quantize":75},{"type":"note","time":49.777777777777914,"duration":1.3333333333333333,"noteNumber":34,"velocity":100,"quantize":75},{"type":"note","time":51.55555555555569,"duration":0.8888888888888888,"noteNumber":34,"velocity":100,"quantize":75},{"type":"note","time":52.44444444444458,"duration":0.8888888888888888,"noteNumber":36,"velocity":100,"quantize":75},{"type":"note","time":53.333333333333464,"duration":1.3333333333333333,"noteNumber":38,"velocity":100,"quantize":75},{"type":"note","time":55.11111111111124,"duration":0.8888888888888888,"noteNumber":36,"velocity":100,"quantize":75},{"type":"note","time":56.00000000000013,"duration":0.8888888888888888,"noteNumber":41,"velocity":100,"quantize":75},{"type":"note","time":56.888888888889014,"duration":1.3333333333333333,"noteNumber":34,"velocity":100,"quantize":75},{"type":"note","time":58.66666666666679,"duration":0.8888888888888888,"noteNumber":34,"velocity":100,"quantize":75},{"type":"note","time":59.55555555555568,"duration":0.8888888888888888,"noteNumber":33,"velocity":100,"quantize":75},{"type":"note","time":60.444444444444564,"duration":1.3333333333333333,"noteNumber":38,"velocity":100,"quantize":75},{"type":"note","time":62.22222222222234,"duration":0.8888888888888888,"noteNumber":36,"velocity":100,"quantize":75},{"type":"note","time":63.11111111111123,"duration":0.8888888888888888,"noteNumber":41,"velocity":100,"quantize":75},{"type":"note","time":64.00000000000011,"duration":0.2222222222222222,"noteNumber":34,"velocity":100,"quantize":75},{"type":"note","time":64.22222222222234,"duration":0.2222222222222222,"noteNumber":46,"velocity":100,"quantize":75},{"type":"note","time":64.44444444444457,"duration":0.2222222222222222,"noteNumber":34,"velocity":100,"quantize":75},{"type":"note","time":64.6666666666668,"duration":0.2222222222222222,"noteNumber":46,"velocity":100,"quantize":75},{"type":"note","time":64.88888888888903,"duration":0.2222222222222222,"noteNumber":34,"velocity":100,"quantize":75},{"type":"note","time":65.11111111111126,"duration":0.2222222222222222,"noteNumber":46,"velocity":100,"quantize":75},{"type":"note","time":65.33333333333348,"duration":0.2222222222222222,"noteNumber":34,"velocity":100,"quantize":75},{"type":"note","time":65.55555555555571,"duration":0.2222222222222222,"noteNumber":46,"velocity":100,"quantize":75},{"type":"note","time":65.77777777777794,"duration":0.2222222222222222,"noteNumber":34,"velocity":100,"quantize":75},{"type":"note","time":66.00000000000017,"duration":0.2222222222222222,"noteNumber":46,"velocity":100,"quantize":75},{"type":"note","time":66.2222222222224,"duration":0.2222222222222222,"noteNumber":34,"velocity":100,"quantize":75},{"type":"note","time":66.44444444444463,"duration":0.2222222222222222,"noteNumber":46,"velocity":100,"quantize":75},{"type":"note","time":66.66666666666686,"duration":0.2222222222222222,"noteNumber":36,"velocity":100,"quantize":75},{"type":"note","time":66.88888888888908,"duration":0.2222222222222222,"noteNumber":48,"velocity":100,"quantize":75},{"type":"note","time":67.11111111111131,"duration":0.2222222222222222,"noteNumber":36,"velocity":100,"quantize":75},{"type":"note","time":67.33333333333354,"duration":0.2222222222222222,"noteNumber":48,"velocity":100,"quantize":75},{"type":"note","time":67.55555555555577,"duration":0.2222222222222222,"noteNumber":38,"velocity":100,"quantize":75},{"type":"note","time":67.777777777778,"duration":0.2222222222222222,"noteNumber":50,"velocity":100,"quantize":75},{"type":"note","time":68.00000000000023,"duration":0.2222222222222222,"noteNumber":38,"velocity":100,"quantize":75},{"type":"note","time":68.22222222222246,"duration":0.2222222222222222,"noteNumber":50,"velocity":100,"quantize":75},{"type":"note","time":68.44444444444468,"duration":0.2222222222222222,"noteNumber":38,"velocity":100,"quantize":75},{"type":"note","time":68.66666666666691,"duration":0.2222222222222222,"noteNumber":50,"velocity":100,"quantize":75},{"type":"note","time":68.88888888888914,"duration":0.2222222222222222,"noteNumber":38,"velocity":100,"quantize":75},{"type":"note","time":69.11111111111137,"duration":0.2222222222222222,"noteNumber":50,"velocity":100,"quantize":75},{"type":"note","time":69.3333333333336,"duration":0.2222222222222222,"noteNumber":36,"velocity":100,"quantize":75},{"type":"note","time":69.55555555555583,"duration":0.2222222222222222,"noteNumber":48,"velocity":100,"quantize":75},{"type":"note","time":69.77777777777806,"duration":0.2222222222222222,"noteNumber":36,"velocity":100,"quantize":75},{"type":"note","time":70.00000000000028,"duration":0.2222222222222222,"noteNumber":48,"velocity":100,"quantize":75},{"type":"note","time":70.22222222222251,"duration":0.2222222222222222,"noteNumber":41,"velocity":100,"quantize":75},{"type":"note","time":70.44444444444474,"duration":0.2222222222222222,"noteNumber":53,"velocity":100,"quantize":75},{"type":"note","time":70.66666666666697,"duration":0.2222222222222222,"noteNumber":41,"velocity":100,"quantize":75},{"type":"note","time":70.8888888888892,"duration":0.2222222222222222,"noteNumber":53,"velocity":100,"quantize":75},{"type":"note","time":71.11111111111143,"duration":0.2222222222222222,"noteNumber":34,"velocity":100,"quantize":75},{"type":"note","time":71.33333333333366,"duration":0.2222222222222222,"noteNumber":46,"velocity":100,"quantize":75},{"type":"note","time":71.55555555555588,"duration":0.2222222222222222,"noteNumber":34,"velocity":100,"quantize":75},{"type":"note","time":71.77777777777811,"duration":0.2222222222222222,"noteNumber":46,"velocity":100,"quantize":75},{"type":"note","time":72.00000000000034,"duration":0.2222222222222222,"noteNumber":34,"velocity":100,"quantize":75},{"type":"note","time":72.22222222222257,"duration":0.2222222222222222,"noteNumber":46,"velocity":100,"quantize":75},{"type":"note","time":72.4444444444448,"duration":0.2222222222222222,"noteNumber":34,"velocity":100,"quantize":75},{"type":"note","time":72.66666666666703,"duration":0.2222222222222222,"noteNumber":46,"velocity":100,"quantize":75},{"type":"note","time":72.88888888888926,"duration":0.2222222222222222,"noteNumber":34,"velocity":100,"quantize":75},{"type":"note","time":73.11111111111148,"duration":0.2222222222222222,"noteNumber":46,"velocity":100,"quantize":75},{"type":"note","time":73.33333333333371,"duration":0.2222222222222222,"noteNumber":34,"velocity":100,"quantize":75},{"type":"note","time":73.55555555555594,"duration":0.2222222222222222,"noteNumber":46,"velocity":100,"quantize":75},{"type":"note","time":73.77777777777817,"duration":0.2222222222222222,"noteNumber":36,"velocity":100,"quantize":75},{"type":"note","time":74.0000000000004,"duration":0.2222222222222222,"noteNumber":48,"velocity":100,"quantize":75},{"type":"note","time":74.22222222222263,"duration":0.2222222222222222,"noteNumber":36,"velocity":100,"quantize":75},{"type":"note","time":74.44444444444485,"duration":0.2222222222222222,"noteNumber":48,"velocity":100,"quantize":75},{"type":"note","time":74.66666666666708,"duration":0.2222222222222222,"noteNumber":38,"velocity":100,"quantize":75},{"type":"note","time":74.88888888888931,"duration":0.2222222222222222,"noteNumber":50,"velocity":100,"quantize":75},{"type":"note","time":75.11111111111154,"duration":0.2222222222222222,"noteNumber":38,"velocity":100,"quantize":75},{"type":"note","time":75.33333333333377,"duration":0.2222222222222222,"noteNumber":50,"velocity":100,"quantize":75},{"type":"note","time":75.555555555556,"duration":0.2222222222222222,"noteNumber":38,"velocity":100,"quantize":75},{"type":"note","time":75.77777777777823,"duration":0.2222222222222222,"noteNumber":50,"velocity":100,"quantize":75},{"type":"note","time":76.00000000000045,"duration":0.2222222222222222,"noteNumber":38,"velocity":100,"quantize":75},{"type":"note","time":76.22222222222268,"duration":0.2222222222222222,"noteNumber":50,"velocity":100,"quantize":75},{"type":"note","time":76.44444444444491,"duration":0.2222222222222222,"noteNumber":36,"velocity":100,"quantize":75},{"type":"note","time":76.66666666666714,"duration":0.2222222222222222,"noteNumber":48,"velocity":100,"quantize":75},{"type":"note","time":76.88888888888937,"duration":0.2222222222222222,"noteNumber":36,"velocity":100,"quantize":75},{"type":"note","time":77.1111111111116,"duration":0.2222222222222222,"noteNumber":48,"velocity":100,"quantize":75},{"type":"note","time":77.33333333333383,"duration":0.2222222222222222,"noteNumber":41,"velocity":100,"quantize":75},{"type":"note","time":77.55555555555605,"duration":0.2222222222222222,"noteNumber":53,"velocity":100,"quantize":75},{"type":"note","time":77.77777777777828,"duration":0.2222222222222222,"noteNumber":41,"velocity":100,"quantize":75},{"type":"note","time":78.00000000000051,"duration":0.2222222222222222,"noteNumber":53,"velocity":100,"quantize":75},{"type":"note","time":78.22222222222274,"duration":0.2222222222222222,"noteNumber":38,"velocity":100,"quantize":75},{"type":"note","time":78.44444444444497,"duration":0.2222222222222222,"noteNumber":50,"velocity":100,"quantize":75},{"type":"note","time":78.6666666666672,"duration":0.2222222222222222,"noteNumber":38,"velocity":100,"quantize":75},{"type":"note","time":78.88888888888943,"duration":0.2222222222222222,"noteNumber":50,"velocity":100,"quantize":75},{"type":"note","time":79.11111111111165,"duration":0.2222222222222222,"noteNumber":33,"velocity":100,"quantize":75},{"type":"note","time":79.33333333333388,"duration":0.2222222222222222,"noteNumber":45,"velocity":100,"quantize":75},{"type":"note","time":79.55555555555611,"duration":0.2222222222222222,"noteNumber":33,"velocity":100,"quantize":75},{"type":"note","time":79.77777777777834,"duration":0.2222222222222222,"noteNumber":45,"velocity":100,"quantize":75},{"type":"note","time":80.00000000000057,"duration":0.2222222222222222,"noteNumber":38,"velocity":100,"quantize":75},{"type":"note","time":80.2222222222228,"duration":0.2222222222222222,"noteNumber":50,"velocity":100,"quantize":75},{"type":"note","time":80.44444444444503,"duration":0.2222222222222222,"noteNumber":38,"velocity":100,"quantize":75},{"type":"note","time":80.66666666666725,"duration":0.2222222222222222,"noteNumber":50,"velocity":100,"quantize":75},{"type":"note","time":80.88888888888948,"duration":0.2222222222222222,"noteNumber":33,"velocity":100,"quantize":75},{"type":"note","time":81.11111111111171,"duration":0.2222222222222222,"noteNumber":45,"velocity":100,"quantize":75},{"type":"note","time":81.33333333333394,"duration":0.2222222222222222,"noteNumber":33,"velocity":100,"quantize":75},{"type":"note","time":81.55555555555617,"duration":0.2222222222222222,"noteNumber":45,"velocity":100,"quantize":75},{"type":"note","time":81.7777777777784,"duration":0.2222222222222222,"noteNumber":38,"velocity":100,"quantize":75},{"type":"note","time":82.00000000000063,"duration":0.2222222222222222,"noteNumber":50,"velocity":100,"quantize":75},{"type":"note","time":82.22222222222285,"duration":0.2222222222222222,"noteNumber":38,"velocity":100,"quantize":75},{"type":"note","time":82.44444444444508,"duration":0.2222222222222222,"noteNumber":50,"velocity":100,"quantize":75},{"type":"note","time":82.66666666666731,"duration":0.2222222222222222,"noteNumber":33,"velocity":100,"quantize":75},{"type":"note","time":82.88888888888954,"duration":0.2222222222222222,"noteNumber":45,"velocity":100,"quantize":75},{"type":"note","time":83.11111111111177,"duration":0.2222222222222222,"noteNumber":33,"velocity":100,"quantize":75},{"type":"note","time":83.333333333334,"duration":0.2222222222222222,"noteNumber":45,"velocity":100,"quantize":75},{"type":"note","time":83.55555555555623,"duration":0.2222222222222222,"noteNumber":38,"velocity":100,"quantize":75},{"type":"note","time":83.88888888888957,"duration":0.2222222222222222,"noteNumber":38,"velocity":100,"quantize":75},{"type":"note","time":84.22222222222291,"duration":0.2222222222222222,"noteNumber":33,"velocity":100,"quantize":75},{"type":"note","time":84.44444444444514,"duration":0.2222222222222222,"noteNumber":38,"velocity":100,"quantize":75},{"type":"note","time":84.8888888888896,"duration":0.4444444444444444,"noteNumber":39,"velocity":100,"quantize":75},{"type":"end","time":85.33333333333404}]
 
 /***/ }),
-/* 61 */
+/* 99 */
 /***/ (function(module, exports) {
 
-module.exports = [{"type":"note","time":0,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":0.4444444444444444,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":0.8888888888888888,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":1.3333333333333333,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":1.7777777777777777,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":2.2222222222222223,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":2.666666666666667,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":3.1111111111111116,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":3.5555555555555562,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":4.000000000000001,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":4.4444444444444455,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":4.88888888888889,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":5.333333333333335,"duration":0.3333333333333333,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":5.666666666666668,"duration":0.3333333333333333,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":6.000000000000001,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":6.222222222222223,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":6.666666666666668,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":7.1111111111111125,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":7.555555555555557,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":8.000000000000002,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":8.444444444444446,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":8.888888888888891,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":9.333333333333336,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":9.77777777777778,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":10.222222222222225,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":10.66666666666667,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":11.111111111111114,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":11.555555555555559,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":12.000000000000004,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":12.444444444444448,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":12.888888888888893,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":13.333333333333337,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":13.777777777777782,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":14.222222222222227,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":14.666666666666671,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":15.111111111111116,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":15.55555555555556,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":16.000000000000004,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":16.444444444444446,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":16.88888888888889,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":17.333333333333332,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":17.777777777777775,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":18.222222222222218,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":18.66666666666666,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":19.111111111111104,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":19.555555555555546,"duration":0.3333333333333333,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":19.88888888888888,"duration":0.3333333333333333,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":20.22222222222221,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":20.444444444444432,"duration":0.8888888888888891,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":21.33333333333332,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":21.777777777777764,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":22.222222222222207,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":22.66666666666665,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":23.111111111111093,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":23.555555555555536,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":23.99999999999998,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":24.44444444444442,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":24.888888888888864,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":25.333333333333307,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":25.77777777777775,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":26.222222222222193,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":26.666666666666636,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":27.11111111111108,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":27.55555555555552,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":27.999999999999964,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":28.444444444444407,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":28.88888888888885,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":29.333333333333293,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":29.777777777777736,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":30.22222222222218,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":30.66666666666662,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":31.111111111111065,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":31.555555555555507,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":31.99999999999995,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":32.44444444444439,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":32.888888888888836,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":33.33333333333328,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":33.77777777777772,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":34.222222222222165,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":34.66666666666661,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":35.11111111111105,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":35.55555555555549,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":35.999999999999936,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":36.44444444444438,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":36.88888888888882,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":37.333333333333265,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":37.77777777777771,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":38.22222222222215,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":38.66666666666659,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":39.111111111111036,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":39.55555555555548,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":39.99999999999992,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":40.444444444444365,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":40.88888888888881,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":41.33333333333325,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":41.77777777777769,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":42.222222222222136,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":42.66666666666658,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":43.11111111111102,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":43.555555555555465,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":43.99999999999991,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":44.44444444444435,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":44.88888888888879,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":45.333333333333236,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":45.77777777777768,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":46.22222222222212,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":46.666666666666565,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":47.11111111111101,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":47.55555555555545,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":47.99999999999989,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":48.444444444444336,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":48.88888888888878,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":49.33333333333322,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"end","time":49.777777777777665}]
+module.exports = [{"type":"note","time":0,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":0.4444444444444444,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":0.8888888888888888,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":1.3333333333333333,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":1.7777777777777777,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":2.2222222222222223,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":2.666666666666667,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":3.1111111111111116,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":3.5555555555555562,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":4.000000000000001,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":4.4444444444444455,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":4.88888888888889,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":5.333333333333335,"duration":0.3333333333333333,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":5.666666666666668,"duration":0.3333333333333333,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":6.000000000000001,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":6.222222222222223,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":6.666666666666668,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":7.1111111111111125,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":7.555555555555557,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":8.000000000000002,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":8.444444444444446,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":8.888888888888891,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":9.333333333333336,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":9.77777777777778,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":10.222222222222225,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":10.66666666666667,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":11.111111111111114,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":11.555555555555559,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":12.000000000000004,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":12.444444444444448,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":12.888888888888893,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":13.333333333333337,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":13.777777777777782,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":14.222222222222227,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":14.666666666666671,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":15.111111111111116,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":15.55555555555556,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":16.000000000000004,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":16.444444444444446,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":16.88888888888889,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":17.333333333333332,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":17.777777777777775,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":18.222222222222218,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":18.66666666666666,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":19.111111111111104,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":19.555555555555546,"duration":0.3333333333333333,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":19.88888888888888,"duration":0.3333333333333333,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":20.22222222222221,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":20.444444444444432,"duration":0.8888888888888891,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":21.33333333333332,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":21.777777777777764,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":22.222222222222207,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":22.66666666666665,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":23.111111111111093,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":23.555555555555536,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":23.99999999999998,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":24.44444444444442,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":24.888888888888864,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":25.333333333333307,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":25.77777777777775,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":26.222222222222193,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":26.666666666666636,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":27.11111111111108,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":27.55555555555552,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":27.999999999999964,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":28.444444444444407,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":28.88888888888885,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":29.333333333333293,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":29.777777777777736,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":30.22222222222218,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":30.66666666666662,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":31.111111111111065,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":31.555555555555507,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":31.99999999999995,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":32.44444444444439,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":32.888888888888836,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":33.33333333333328,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":33.77777777777772,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":34.222222222222165,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":34.66666666666661,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":35.11111111111105,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":35.55555555555549,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":35.999999999999936,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":36.44444444444438,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":36.88888888888882,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":37.333333333333265,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":37.77777777777771,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":38.22222222222215,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":38.66666666666659,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":39.111111111111036,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":39.55555555555548,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":39.99999999999992,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":40.444444444444365,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":40.88888888888881,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":41.33333333333325,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":41.77777777777769,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":42.222222222222136,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":42.66666666666658,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":43.11111111111102,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":43.555555555555465,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":43.99999999999991,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":44.44444444444435,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":44.88888888888879,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":45.333333333333236,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":45.77777777777768,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":46.22222222222212,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":46.666666666666565,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":47.11111111111101,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":47.55555555555545,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":47.99999999999989,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":48.444444444444336,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":48.88888888888878,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":49.33333333333322,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":49.777777777777665,"duration":0.3333333333333333,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":50.111111111111,"duration":0.3333333333333333,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":50.444444444444336,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":50.66666666666656,"duration":0.8888888888888891,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":51.55555555555544,"duration":0.5555555555555556,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":52.111111111111,"duration":0.1111111111111111,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":52.222222222222115,"duration":0.8888888888888891,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":53.111111111111,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":53.33333333333322,"duration":0.6666666666666667,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":53.999999999999886,"duration":1.1111111111111114,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":55.111111111111,"duration":0.5555555555555556,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":55.66666666666656,"duration":0.1111111111111111,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":55.77777777777767,"duration":1.1111111111111114,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":56.888888888888786,"duration":0.3333333333333333,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":57.22222222222212,"duration":0.3333333333333333,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":57.55555555555546,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":57.77777777777768,"duration":0.8888888888888891,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":58.666666666666565,"duration":0.5555555555555556,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":59.22222222222212,"duration":0.1111111111111111,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":59.333333333333236,"duration":0.8888888888888891,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":60.22222222222212,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":60.44444444444434,"duration":0.6666666666666667,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":61.11111111111101,"duration":1.1111111111111114,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":62.22222222222212,"duration":0.5555555555555556,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":62.77777777777768,"duration":0.1111111111111111,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":62.88888888888879,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":63.111111111111015,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":63.333333333333236,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":63.55555555555546,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":63.77777777777768,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":63.9999999999999,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":64.44444444444434,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":64.88888888888879,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":65.33333333333323,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":65.77777777777767,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":66.22222222222211,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":66.66666666666656,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":67.111111111111,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":67.55555555555544,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":67.99999999999989,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":68.44444444444433,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":68.88888888888877,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":69.33333333333321,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":69.77777777777766,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":70.2222222222221,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":70.66666666666654,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":71.11111111111099,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":71.55555555555543,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":71.99999999999987,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":72.44444444444431,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":72.88888888888876,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":73.3333333333332,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":73.77777777777764,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":74.22222222222209,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":74.66666666666653,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":75.11111111111097,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":75.55555555555542,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":75.99999999999986,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":76.4444444444443,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":76.88888888888874,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":77.33333333333319,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":77.77777777777763,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":78.22222222222207,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":78.66666666666652,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":79.11111111111096,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":79.5555555555554,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":79.99999999999984,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":80.44444444444429,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":80.88888888888873,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":81.33333333333317,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":81.77777777777762,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":82.22222222222206,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":82.6666666666665,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":83.11111111111094,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":83.55555555555539,"duration":0.3333333333333333,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":83.88888888888872,"duration":0.3333333333333333,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":84.22222222222204,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":84.44444444444427,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":84.88888888888872,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"end","time":85.33333333333316}]
 
 /***/ }),
-/* 62 */
+/* 100 */
 /***/ (function(module, exports) {
 
-module.exports = [{"type":"note","time":5.333333333333333,"duration":0.3333333333333333,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":5.666666666666666,"duration":0.3333333333333333,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":5.999999999999999,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":6.222222222222221,"duration":0.3333333333333333,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":6.5555555555555545,"duration":0.1111111111111111,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":6.666666666666665,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":6.8888888888888875,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":7.444444444444443,"duration":0.1111111111111111,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":7.555555555555554,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":7.777777777777776,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":8.333333333333332,"duration":0.1111111111111111,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":8.444444444444443,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":8.666666666666664,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":9.22222222222222,"duration":0.1111111111111111,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":9.33333333333333,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":9.555555555555552,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":10.111111111111107,"duration":0.1111111111111111,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":10.222222222222218,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":10.44444444444444,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":10.999999999999995,"duration":0.1111111111111111,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":11.111111111111105,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":11.333333333333327,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":11.888888888888882,"duration":0.1111111111111111,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":11.999999999999993,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":12.222222222222214,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":12.77777777777777,"duration":0.1111111111111111,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":12.88888888888888,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":13.111111111111102,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":13.666666666666657,"duration":0.1111111111111111,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":13.777777777777768,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":13.99999999999999,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":14.555555555555545,"duration":0.1111111111111111,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":14.666666666666655,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":14.888888888888877,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":15.444444444444432,"duration":0.1111111111111111,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":15.555555555555543,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":15.777777777777764,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":16.333333333333318,"duration":0.1111111111111111,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":16.44444444444443,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":16.66666666666665,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":17.222222222222204,"duration":0.1111111111111111,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":17.333333333333314,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":17.555555555555536,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":18.11111111111109,"duration":0.1111111111111111,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":18.2222222222222,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":18.44444444444442,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":18.999999999999975,"duration":0.1111111111111111,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":19.111111111111086,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":19.333333333333307,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":19.55555555555553,"duration":0.3333333333333333,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":19.88888888888886,"duration":0.3333333333333333,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":20.222222222222193,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":20.444444444444414,"duration":0.3333333333333333,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":20.777777777777747,"duration":0.1111111111111111,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":20.888888888888857,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":21.11111111111108,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":21.666666666666632,"duration":0.1111111111111111,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":21.777777777777743,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":21.999999999999964,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":22.555555555555518,"duration":0.1111111111111111,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":22.66666666666663,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":22.88888888888885,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":23.444444444444404,"duration":0.1111111111111111,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":23.555555555555515,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":23.777777777777736,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":24.33333333333329,"duration":0.1111111111111111,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":24.4444444444444,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":24.66666666666662,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":25.222222222222175,"duration":0.1111111111111111,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":25.333333333333286,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":25.555555555555507,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":26.11111111111106,"duration":0.1111111111111111,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":26.22222222222217,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":26.444444444444393,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":26.999999999999947,"duration":0.1111111111111111,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":27.111111111111057,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":27.33333333333328,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":27.888888888888832,"duration":0.1111111111111111,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":27.999999999999943,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":28.222222222222165,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":28.777777777777718,"duration":0.1111111111111111,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":28.88888888888883,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":29.11111111111105,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":29.666666666666604,"duration":0.1111111111111111,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":29.777777777777715,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":29.999999999999936,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":30.55555555555549,"duration":0.1111111111111111,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":30.6666666666666,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":30.888888888888822,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":31.444444444444375,"duration":0.1111111111111111,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":31.555555555555486,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":31.777777777777708,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":32.333333333333265,"duration":0.1111111111111111,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":32.44444444444438,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":32.6666666666666,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":33.22222222222216,"duration":0.1111111111111111,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":33.33333333333327,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":33.55555555555549,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":34.11111111111105,"duration":0.1111111111111111,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":34.222222222222165,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":34.444444444444386,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":34.99999999999994,"duration":0.1111111111111111,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":35.11111111111106,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":35.33333333333328,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":35.888888888888836,"duration":0.1111111111111111,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":35.99999999999995,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":36.22222222222217,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":36.77777777777773,"duration":0.1111111111111111,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":36.88888888888884,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":37.111111111111065,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":37.66666666666662,"duration":0.1111111111111111,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":37.777777777777736,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":37.99999999999996,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":38.555555555555515,"duration":0.1111111111111111,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":38.66666666666663,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":38.88888888888885,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":39.44444444444441,"duration":0.1111111111111111,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":39.55555555555552,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":39.77777777777774,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":40.3333333333333,"duration":0.1111111111111111,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":40.444444444444414,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":40.666666666666636,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":41.22222222222219,"duration":0.1111111111111111,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":41.33333333333331,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":41.55555555555553,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":42.111111111111086,"duration":0.1111111111111111,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":42.2222222222222,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":42.44444444444442,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":42.99999999999998,"duration":0.1111111111111111,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":43.11111111111109,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":43.333333333333314,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":43.88888888888887,"duration":0.1111111111111111,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":43.999999999999986,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":44.22222222222221,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":44.777777777777764,"duration":0.1111111111111111,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":44.88888888888888,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":45.1111111111111,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":45.66666666666666,"duration":0.1111111111111111,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":45.77777777777777,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":45.99999999999999,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":46.55555555555555,"duration":0.1111111111111111,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":46.666666666666664,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":46.888888888888886,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":47.44444444444444,"duration":0.1111111111111111,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":47.55555555555556,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":47.77777777777778,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":48.333333333333336,"duration":0.1111111111111111,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":48.44444444444445,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":48.66666666666667,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"end","time":49.77777777777778}]
+module.exports = [{"type":"note","time":5.333333333333333,"duration":0.3333333333333333,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":5.666666666666666,"duration":0.3333333333333333,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":5.999999999999999,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":6.222222222222221,"duration":0.3333333333333333,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":6.5555555555555545,"duration":0.1111111111111111,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":6.666666666666665,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":6.8888888888888875,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":7.444444444444443,"duration":0.1111111111111111,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":7.555555555555554,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":7.777777777777776,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":8.333333333333332,"duration":0.1111111111111111,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":8.444444444444443,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":8.666666666666664,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":9.22222222222222,"duration":0.1111111111111111,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":9.33333333333333,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":9.555555555555552,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":10.111111111111107,"duration":0.1111111111111111,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":10.222222222222218,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":10.44444444444444,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":10.999999999999995,"duration":0.1111111111111111,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":11.111111111111105,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":11.333333333333327,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":11.888888888888882,"duration":0.1111111111111111,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":11.999999999999993,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":12.222222222222214,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":12.77777777777777,"duration":0.1111111111111111,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":12.88888888888888,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":13.111111111111102,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":13.666666666666657,"duration":0.1111111111111111,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":13.777777777777768,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":13.99999999999999,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":14.555555555555545,"duration":0.1111111111111111,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":14.666666666666655,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":14.888888888888877,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":15.444444444444432,"duration":0.1111111111111111,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":15.555555555555543,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":15.777777777777764,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":16.333333333333318,"duration":0.1111111111111111,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":16.44444444444443,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":16.66666666666665,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":17.222222222222204,"duration":0.1111111111111111,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":17.333333333333314,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":17.555555555555536,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":18.11111111111109,"duration":0.1111111111111111,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":18.2222222222222,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":18.44444444444442,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":18.999999999999975,"duration":0.1111111111111111,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":19.111111111111086,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":19.333333333333307,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":19.55555555555553,"duration":0.3333333333333333,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":19.88888888888886,"duration":0.3333333333333333,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":20.222222222222193,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":20.444444444444414,"duration":0.3333333333333333,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":20.777777777777747,"duration":0.1111111111111111,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":20.888888888888857,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":21.11111111111108,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":21.666666666666632,"duration":0.1111111111111111,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":21.777777777777743,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":21.999999999999964,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":22.555555555555518,"duration":0.1111111111111111,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":22.66666666666663,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":22.88888888888885,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":23.444444444444404,"duration":0.1111111111111111,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":23.555555555555515,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":23.777777777777736,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":24.33333333333329,"duration":0.1111111111111111,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":24.4444444444444,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":24.66666666666662,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":25.222222222222175,"duration":0.1111111111111111,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":25.333333333333286,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":25.555555555555507,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":26.11111111111106,"duration":0.1111111111111111,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":26.22222222222217,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":26.444444444444393,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":26.999999999999947,"duration":0.1111111111111111,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":27.111111111111057,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":27.33333333333328,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":27.888888888888832,"duration":0.1111111111111111,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":27.999999999999943,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":28.222222222222165,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":28.777777777777718,"duration":0.1111111111111111,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":28.88888888888883,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":29.11111111111105,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":29.666666666666604,"duration":0.1111111111111111,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":29.777777777777715,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":29.999999999999936,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":30.55555555555549,"duration":0.1111111111111111,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":30.6666666666666,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":30.888888888888822,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":31.444444444444375,"duration":0.1111111111111111,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":31.555555555555486,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":31.777777777777708,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":32.333333333333265,"duration":0.1111111111111111,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":32.44444444444438,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":32.6666666666666,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":33.22222222222216,"duration":0.1111111111111111,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":33.33333333333327,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":33.55555555555549,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":34.11111111111105,"duration":0.1111111111111111,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":34.222222222222165,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":34.444444444444386,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":34.99999999999994,"duration":0.1111111111111111,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":35.11111111111106,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":35.33333333333328,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":35.888888888888836,"duration":0.1111111111111111,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":35.99999999999995,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":36.22222222222217,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":36.77777777777773,"duration":0.1111111111111111,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":36.88888888888884,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":37.111111111111065,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":37.66666666666662,"duration":0.1111111111111111,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":37.777777777777736,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":37.99999999999996,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":38.555555555555515,"duration":0.1111111111111111,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":38.66666666666663,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":38.88888888888885,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":39.44444444444441,"duration":0.1111111111111111,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":39.55555555555552,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":39.77777777777774,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":40.3333333333333,"duration":0.1111111111111111,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":40.444444444444414,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":40.666666666666636,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":41.22222222222219,"duration":0.1111111111111111,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":41.33333333333331,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":41.55555555555553,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":42.111111111111086,"duration":0.1111111111111111,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":42.2222222222222,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":42.44444444444442,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":42.99999999999998,"duration":0.1111111111111111,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":43.11111111111109,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":43.333333333333314,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":43.88888888888887,"duration":0.1111111111111111,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":43.999999999999986,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":44.22222222222221,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":44.777777777777764,"duration":0.1111111111111111,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":44.88888888888888,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":45.1111111111111,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":45.66666666666666,"duration":0.1111111111111111,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":45.77777777777777,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":45.99999999999999,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":46.55555555555555,"duration":0.1111111111111111,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":46.666666666666664,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":46.888888888888886,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":47.44444444444444,"duration":0.1111111111111111,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":47.55555555555556,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":47.77777777777778,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":48.333333333333336,"duration":0.1111111111111111,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":48.44444444444445,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":48.66666666666667,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":78.5555555555555,"duration":0.1111111111111111,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":78.66666666666661,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":78.88888888888884,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":79.4444444444444,"duration":0.1111111111111111,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":79.55555555555551,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":79.77777777777774,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":80.3333333333333,"duration":0.1111111111111111,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":80.44444444444441,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":80.66666666666664,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":81.2222222222222,"duration":0.1111111111111111,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":81.33333333333331,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":81.55555555555554,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":82.1111111111111,"duration":0.1111111111111111,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":82.22222222222221,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":82.44444444444444,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":83,"duration":0.1111111111111111,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":83.11111111111111,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":83.33333333333334,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":83.55555555555557,"duration":0.3333333333333333,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":83.8888888888889,"duration":0.3333333333333333,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":84.22222222222223,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":84.44444444444446,"duration":0.3333333333333333,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":84.77777777777779,"duration":0.1111111111111111,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":84.8888888888889,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":85.11111111111113,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"end","time":85.33333333333336}]
 
 /***/ }),
-/* 63 */
+/* 101 */
 /***/ (function(module, exports) {
 
-module.exports = [{"type":"note","time":5.333333333333333,"duration":0.3333333333333333,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":5.666666666666666,"duration":0.3333333333333333,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":5.999999999999999,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":7.111111111111111,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":7.555555555555555,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":8.88888888888889,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":9.333333333333334,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":10.666666666666668,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":11.111111111111112,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":12.444444444444446,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":12.888888888888891,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":14.222222222222225,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":14.66666666666667,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":16.000000000000004,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":16.444444444444446,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":17.777777777777775,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":18.222222222222218,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":19.555555555555546,"duration":0.3333333333333333,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":19.88888888888888,"duration":0.3333333333333333,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":20.22222222222221,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":21.33333333333332,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":21.777777777777764,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":23.111111111111093,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":23.555555555555536,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":24.888888888888864,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":25.333333333333307,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":26.666666666666636,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":27.11111111111108,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":28.444444444444407,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":28.88888888888885,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":30.22222222222218,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":30.66666666666662,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":31.99999999999995,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":32.44444444444439,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":33.77777777777772,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":34.222222222222165,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":35.55555555555549,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":35.999999999999936,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":37.333333333333265,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":37.77777777777771,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":39.111111111111036,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":39.55555555555548,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":40.88888888888881,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":41.33333333333325,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":42.66666666666658,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":43.11111111111102,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":44.44444444444435,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":44.88888888888879,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":46.22222222222212,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":46.666666666666565,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":47.99999999999989,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":48.444444444444336,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"end","time":49.777777777777665}]
+module.exports = [{"type":"note","time":5.333333333333333,"duration":0.3333333333333333,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":5.666666666666666,"duration":0.3333333333333333,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":5.999999999999999,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":7.111111111111111,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":7.555555555555555,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":8.88888888888889,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":9.333333333333334,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":10.666666666666668,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":11.111111111111112,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":12.444444444444446,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":12.888888888888891,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":14.222222222222225,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":14.66666666666667,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":16.000000000000004,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":16.444444444444446,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":17.777777777777775,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":18.222222222222218,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":19.555555555555546,"duration":0.3333333333333333,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":19.88888888888888,"duration":0.3333333333333333,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":20.22222222222221,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":21.33333333333332,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":21.777777777777764,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":23.111111111111093,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":23.555555555555536,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":24.888888888888864,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":25.333333333333307,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":26.666666666666636,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":27.11111111111108,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":28.444444444444407,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":28.88888888888885,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":30.22222222222218,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":30.66666666666662,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":31.99999999999995,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":32.44444444444439,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":33.77777777777772,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":34.222222222222165,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":35.55555555555549,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":35.999999999999936,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":37.333333333333265,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":37.77777777777771,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":39.111111111111036,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":39.55555555555548,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":40.88888888888881,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":41.33333333333325,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":42.66666666666658,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":43.11111111111102,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":44.44444444444435,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":44.88888888888879,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":46.22222222222212,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":46.666666666666565,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":47.99999999999989,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":48.444444444444336,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":78.22222222222207,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":78.66666666666652,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":79.99999999999984,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":80.44444444444429,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":81.77777777777762,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":82.22222222222206,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":83.55555555555539,"duration":0.3333333333333333,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":83.88888888888872,"duration":0.3333333333333333,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":84.22222222222204,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"end","time":85.33333333333316}]
 
 /***/ }),
-/* 64 */
+/* 102 */
 /***/ (function(module, exports) {
 
-module.exports = [{"type":"note","time":6.222222222222222,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":6.666666666666667,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":8,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":8.444444444444445,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":9.777777777777779,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":10.222222222222223,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":11.555555555555557,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":12.000000000000002,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":13.333333333333336,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":13.77777777777778,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":15.111111111111114,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":15.555555555555559,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":16.88888888888889,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":17.333333333333332,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":18.66666666666666,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":19.111111111111104,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":20.444444444444432,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":20.888888888888875,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":22.222222222222204,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":22.666666666666647,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":23.999999999999975,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":24.444444444444418,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":25.777777777777747,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":26.22222222222219,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":27.555555555555518,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":27.99999999999996,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":29.33333333333329,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":29.777777777777732,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":31.11111111111106,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":31.555555555555504,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":32.888888888888836,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":33.33333333333328,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":34.66666666666661,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":35.11111111111105,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":36.44444444444438,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":36.88888888888882,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":38.22222222222215,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":38.66666666666659,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":39.99999999999992,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":40.444444444444365,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":41.77777777777769,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":42.222222222222136,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":43.555555555555465,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":43.99999999999991,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":45.333333333333236,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":45.77777777777768,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":47.11111111111101,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":47.55555555555545,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":48.88888888888878,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":49.33333333333322,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"end","time":49.777777777777665}]
+module.exports = [{"type":"note","time":6.222222222222222,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":6.666666666666667,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":8,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":8.444444444444445,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":9.777777777777779,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":10.222222222222223,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":11.555555555555557,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":12.000000000000002,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":13.333333333333336,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":13.77777777777778,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":15.111111111111114,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":15.555555555555559,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":16.88888888888889,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":17.333333333333332,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":18.66666666666666,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":19.111111111111104,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":20.444444444444432,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":20.888888888888875,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":22.222222222222204,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":22.666666666666647,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":23.999999999999975,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":24.444444444444418,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":25.777777777777747,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":26.22222222222219,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":27.555555555555518,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":27.99999999999996,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":29.33333333333329,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":29.777777777777732,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":31.11111111111106,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":31.555555555555504,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":32.888888888888836,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":33.33333333333328,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":34.66666666666661,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":35.11111111111105,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":36.44444444444438,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":36.88888888888882,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":38.22222222222215,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":38.66666666666659,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":39.99999999999992,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":40.444444444444365,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":41.77777777777769,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":42.222222222222136,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":43.555555555555465,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":43.99999999999991,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":45.333333333333236,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":45.77777777777768,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":47.11111111111101,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":47.55555555555545,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":48.88888888888878,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":49.33333333333322,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":79.11111111111096,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":79.5555555555554,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":80.88888888888873,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":81.33333333333317,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":82.6666666666665,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":83.11111111111094,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":84.44444444444427,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":84.88888888888872,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"end","time":85.33333333333316}]
 
 /***/ }),
-/* 65 */
+/* 103 */
 /***/ (function(module, exports) {
 
-module.exports = [{"type":"note","time":0.4444444444444444,"duration":0.4444444444444444,"noteNumber":60,"velocity":100,"quantize":75},{"type":"note","time":0.4444444444444444,"duration":0.4444444444444444,"noteNumber":62,"velocity":100,"quantize":75},{"type":"note","time":0.4444444444444444,"duration":0.4444444444444444,"noteNumber":65,"velocity":100,"quantize":75},{"type":"note","time":0.4444444444444444,"duration":0.4444444444444444,"noteNumber":69,"velocity":100,"quantize":75},{"type":"note","time":1.3333333333333333,"duration":0.4444444444444444,"noteNumber":57,"velocity":100,"quantize":75},{"type":"note","time":1.3333333333333333,"duration":0.4444444444444444,"noteNumber":60,"velocity":100,"quantize":75},{"type":"note","time":1.3333333333333333,"duration":0.4444444444444444,"noteNumber":64,"velocity":100,"quantize":75},{"type":"note","time":1.3333333333333333,"duration":0.4444444444444444,"noteNumber":67,"velocity":100,"quantize":75},{"type":"note","time":2.2222222222222223,"duration":0.4444444444444444,"noteNumber":60,"velocity":100,"quantize":75},{"type":"note","time":2.2222222222222223,"duration":0.4444444444444444,"noteNumber":62,"velocity":100,"quantize":75},{"type":"note","time":2.2222222222222223,"duration":0.4444444444444444,"noteNumber":65,"velocity":100,"quantize":75},{"type":"note","time":2.2222222222222223,"duration":0.4444444444444444,"noteNumber":69,"velocity":100,"quantize":75},{"type":"note","time":3.1111111111111116,"duration":0.4444444444444444,"noteNumber":57,"velocity":100,"quantize":75},{"type":"note","time":3.1111111111111116,"duration":0.4444444444444444,"noteNumber":60,"velocity":100,"quantize":75},{"type":"note","time":3.1111111111111116,"duration":0.4444444444444444,"noteNumber":64,"velocity":100,"quantize":75},{"type":"note","time":3.1111111111111116,"duration":0.4444444444444444,"noteNumber":67,"velocity":100,"quantize":75},{"type":"note","time":4.000000000000001,"duration":0.4444444444444444,"noteNumber":60,"velocity":100,"quantize":75},{"type":"note","time":4.000000000000001,"duration":0.4444444444444444,"noteNumber":62,"velocity":100,"quantize":75},{"type":"note","time":4.000000000000001,"duration":0.4444444444444444,"noteNumber":65,"velocity":100,"quantize":75},{"type":"note","time":4.000000000000001,"duration":0.4444444444444444,"noteNumber":69,"velocity":100,"quantize":75},{"type":"note","time":4.88888888888889,"duration":0.4444444444444444,"noteNumber":57,"velocity":100,"quantize":75},{"type":"note","time":4.88888888888889,"duration":0.4444444444444444,"noteNumber":60,"velocity":100,"quantize":75},{"type":"note","time":4.88888888888889,"duration":0.4444444444444444,"noteNumber":64,"velocity":100,"quantize":75},{"type":"note","time":4.88888888888889,"duration":0.4444444444444444,"noteNumber":67,"velocity":100,"quantize":75},{"type":"note","time":5.333333333333335,"duration":0.2222222222222222,"noteNumber":60,"velocity":100,"quantize":75},{"type":"note","time":5.333333333333335,"duration":0.2222222222222222,"noteNumber":62,"velocity":100,"quantize":75},{"type":"note","time":5.333333333333335,"duration":0.2222222222222222,"noteNumber":65,"velocity":100,"quantize":75},{"type":"note","time":5.333333333333335,"duration":0.2222222222222222,"noteNumber":69,"velocity":100,"quantize":75},{"type":"note","time":5.666666666666668,"duration":0.2222222222222222,"noteNumber":60,"velocity":100,"quantize":75},{"type":"note","time":5.666666666666668,"duration":0.2222222222222222,"noteNumber":62,"velocity":100,"quantize":75},{"type":"note","time":5.666666666666668,"duration":0.2222222222222222,"noteNumber":65,"velocity":100,"quantize":75},{"type":"note","time":5.666666666666668,"duration":0.2222222222222222,"noteNumber":69,"velocity":100,"quantize":75},{"type":"note","time":6.000000000000001,"duration":0.2222222222222222,"noteNumber":57,"velocity":100,"quantize":75},{"type":"note","time":6.000000000000001,"duration":0.2222222222222222,"noteNumber":61,"velocity":100,"quantize":75},{"type":"note","time":6.000000000000001,"duration":0.2222222222222222,"noteNumber":64,"velocity":100,"quantize":75},{"type":"note","time":6.000000000000001,"duration":0.2222222222222222,"noteNumber":67,"velocity":100,"quantize":75},{"type":"note","time":6.222222222222223,"duration":0.3333333333333333,"noteNumber":60,"velocity":100,"quantize":75},{"type":"note","time":6.222222222222223,"duration":0.3333333333333333,"noteNumber":62,"velocity":100,"quantize":75},{"type":"note","time":6.222222222222223,"duration":0.3333333333333333,"noteNumber":65,"velocity":100,"quantize":75},{"type":"note","time":6.222222222222223,"duration":0.3333333333333333,"noteNumber":69,"velocity":100,"quantize":75},{"type":"note","time":6.666666666666667,"duration":0.4444444444444444,"noteNumber":58,"velocity":100,"quantize":75},{"type":"note","time":6.666666666666667,"duration":0.4444444444444444,"noteNumber":63,"velocity":100,"quantize":75},{"type":"note","time":6.666666666666667,"duration":0.4444444444444444,"noteNumber":66,"velocity":100,"quantize":75},{"type":"note","time":6.666666666666667,"duration":0.4444444444444444,"noteNumber":70,"velocity":100,"quantize":75},{"type":"note","time":7.333333333333334,"duration":0.2222222222222222,"noteNumber":60,"velocity":100,"quantize":75},{"type":"note","time":7.333333333333334,"duration":0.2222222222222222,"noteNumber":62,"velocity":100,"quantize":75},{"type":"note","time":7.333333333333334,"duration":0.2222222222222222,"noteNumber":65,"velocity":100,"quantize":75},{"type":"note","time":7.333333333333334,"duration":0.2222222222222222,"noteNumber":69,"velocity":100,"quantize":75},{"type":"note","time":7.777777777777779,"duration":0.2222222222222222,"noteNumber":60,"velocity":100,"quantize":75},{"type":"note","time":7.777777777777779,"duration":0.2222222222222222,"noteNumber":62,"velocity":100,"quantize":75},{"type":"note","time":7.777777777777779,"duration":0.2222222222222222,"noteNumber":65,"velocity":100,"quantize":75},{"type":"note","time":7.777777777777779,"duration":0.2222222222222222,"noteNumber":69,"velocity":100,"quantize":75},{"type":"note","time":8.222222222222221,"duration":0.2222222222222222,"noteNumber":57,"velocity":100,"quantize":75},{"type":"note","time":8.222222222222221,"duration":0.2222222222222222,"noteNumber":60,"velocity":100,"quantize":75},{"type":"note","time":8.222222222222221,"duration":0.2222222222222222,"noteNumber":64,"velocity":100,"quantize":75},{"type":"note","time":8.222222222222221,"duration":0.2222222222222222,"noteNumber":67,"velocity":100,"quantize":75},{"type":"note","time":8.666666666666664,"duration":0.2222222222222222,"noteNumber":57,"velocity":100,"quantize":75},{"type":"note","time":8.666666666666664,"duration":0.2222222222222222,"noteNumber":60,"velocity":100,"quantize":75},{"type":"note","time":8.666666666666664,"duration":0.2222222222222222,"noteNumber":64,"velocity":100,"quantize":75},{"type":"note","time":8.666666666666664,"duration":0.2222222222222222,"noteNumber":67,"velocity":100,"quantize":75},{"type":"note","time":9.111111111111107,"duration":0.2222222222222222,"noteNumber":60,"velocity":100,"quantize":75},{"type":"note","time":9.111111111111107,"duration":0.2222222222222222,"noteNumber":62,"velocity":100,"quantize":75},{"type":"note","time":9.111111111111107,"duration":0.2222222222222222,"noteNumber":65,"velocity":100,"quantize":75},{"type":"note","time":9.111111111111107,"duration":0.2222222222222222,"noteNumber":69,"velocity":100,"quantize":75},{"type":"note","time":9.55555555555555,"duration":0.2222222222222222,"noteNumber":60,"velocity":100,"quantize":75},{"type":"note","time":9.55555555555555,"duration":0.2222222222222222,"noteNumber":62,"velocity":100,"quantize":75},{"type":"note","time":9.55555555555555,"duration":0.2222222222222222,"noteNumber":65,"velocity":100,"quantize":75},{"type":"note","time":9.55555555555555,"duration":0.2222222222222222,"noteNumber":69,"velocity":100,"quantize":75},{"type":"note","time":9.999999999999993,"duration":0.2222222222222222,"noteNumber":57,"velocity":100,"quantize":75},{"type":"note","time":9.999999999999993,"duration":0.2222222222222222,"noteNumber":60,"velocity":100,"quantize":75},{"type":"note","time":9.999999999999993,"duration":0.2222222222222222,"noteNumber":64,"velocity":100,"quantize":75},{"type":"note","time":9.999999999999993,"duration":0.2222222222222222,"noteNumber":67,"velocity":100,"quantize":75},{"type":"note","time":10.444444444444436,"duration":0.2222222222222222,"noteNumber":57,"velocity":100,"quantize":75},{"type":"note","time":10.444444444444436,"duration":0.2222222222222222,"noteNumber":60,"velocity":100,"quantize":75},{"type":"note","time":10.444444444444436,"duration":0.2222222222222222,"noteNumber":64,"velocity":100,"quantize":75},{"type":"note","time":10.444444444444436,"duration":0.2222222222222222,"noteNumber":67,"velocity":100,"quantize":75},{"type":"note","time":10.888888888888879,"duration":0.2222222222222222,"noteNumber":58,"velocity":100,"quantize":75},{"type":"note","time":10.888888888888879,"duration":0.2222222222222222,"noteNumber":62,"velocity":100,"quantize":75},{"type":"note","time":10.888888888888879,"duration":0.2222222222222222,"noteNumber":65,"velocity":100,"quantize":75},{"type":"note","time":10.888888888888879,"duration":0.2222222222222222,"noteNumber":67,"velocity":100,"quantize":75},{"type":"note","time":11.333333333333321,"duration":0.2222222222222222,"noteNumber":58,"velocity":100,"quantize":75},{"type":"note","time":11.333333333333321,"duration":0.2222222222222222,"noteNumber":62,"velocity":100,"quantize":75},{"type":"note","time":11.333333333333321,"duration":0.2222222222222222,"noteNumber":65,"velocity":100,"quantize":75},{"type":"note","time":11.333333333333321,"duration":0.2222222222222222,"noteNumber":67,"velocity":100,"quantize":75},{"type":"note","time":11.777777777777764,"duration":0.2222222222222222,"noteNumber":58,"velocity":100,"quantize":75},{"type":"note","time":11.777777777777764,"duration":0.2222222222222222,"noteNumber":60,"velocity":100,"quantize":75},{"type":"note","time":11.777777777777764,"duration":0.2222222222222222,"noteNumber":64,"velocity":100,"quantize":75},{"type":"note","time":11.777777777777764,"duration":0.2222222222222222,"noteNumber":67,"velocity":100,"quantize":75},{"type":"note","time":12.222222222222207,"duration":0.2222222222222222,"noteNumber":58,"velocity":100,"quantize":75},{"type":"note","time":12.222222222222207,"duration":0.2222222222222222,"noteNumber":60,"velocity":100,"quantize":75},{"type":"note","time":12.222222222222207,"duration":0.2222222222222222,"noteNumber":64,"velocity":100,"quantize":75},{"type":"note","time":12.222222222222207,"duration":0.2222222222222222,"noteNumber":67,"velocity":100,"quantize":75},{"type":"note","time":12.66666666666665,"duration":0.2222222222222222,"noteNumber":57,"velocity":100,"quantize":75},{"type":"note","time":12.66666666666665,"duration":0.2222222222222222,"noteNumber":60,"velocity":100,"quantize":75},{"type":"note","time":12.66666666666665,"duration":0.2222222222222222,"noteNumber":64,"velocity":100,"quantize":75},{"type":"note","time":12.66666666666665,"duration":0.2222222222222222,"noteNumber":65,"velocity":100,"quantize":75},{"type":"note","time":13.111111111111093,"duration":0.2222222222222222,"noteNumber":57,"velocity":100,"quantize":75},{"type":"note","time":13.111111111111093,"duration":0.2222222222222222,"noteNumber":60,"velocity":100,"quantize":75},{"type":"note","time":13.111111111111093,"duration":0.2222222222222222,"noteNumber":64,"velocity":100,"quantize":75},{"type":"note","time":13.111111111111093,"duration":0.2222222222222222,"noteNumber":65,"velocity":100,"quantize":75},{"type":"note","time":13.555555555555536,"duration":0.2222222222222222,"noteNumber":57,"velocity":100,"quantize":75},{"type":"note","time":13.555555555555536,"duration":0.2222222222222222,"noteNumber":60,"velocity":100,"quantize":75},{"type":"note","time":13.555555555555536,"duration":0.2222222222222222,"noteNumber":63,"velocity":100,"quantize":75},{"type":"note","time":13.555555555555536,"duration":0.2222222222222222,"noteNumber":65,"velocity":100,"quantize":75},{"type":"note","time":13.999999999999979,"duration":0.2222222222222222,"noteNumber":57,"velocity":100,"quantize":75},{"type":"note","time":13.999999999999979,"duration":0.2222222222222222,"noteNumber":60,"velocity":100,"quantize":75},{"type":"note","time":13.999999999999979,"duration":0.2222222222222222,"noteNumber":63,"velocity":100,"quantize":75},{"type":"note","time":13.999999999999979,"duration":0.2222222222222222,"noteNumber":65,"velocity":100,"quantize":75},{"type":"note","time":14.444444444444422,"duration":0.2222222222222222,"noteNumber":58,"velocity":100,"quantize":75},{"type":"note","time":14.444444444444422,"duration":0.2222222222222222,"noteNumber":62,"velocity":100,"quantize":75},{"type":"note","time":14.444444444444422,"duration":0.2222222222222222,"noteNumber":64,"velocity":100,"quantize":75},{"type":"note","time":14.444444444444422,"duration":0.2222222222222222,"noteNumber":67,"velocity":100,"quantize":75},{"type":"note","time":14.888888888888864,"duration":0.2222222222222222,"noteNumber":58,"velocity":100,"quantize":75},{"type":"note","time":14.888888888888864,"duration":0.2222222222222222,"noteNumber":62,"velocity":100,"quantize":75},{"type":"note","time":14.888888888888864,"duration":0.2222222222222222,"noteNumber":64,"velocity":100,"quantize":75},{"type":"note","time":14.888888888888864,"duration":0.2222222222222222,"noteNumber":67,"velocity":100,"quantize":75},{"type":"note","time":15.333333333333307,"duration":0.2222222222222222,"noteNumber":57,"velocity":100,"quantize":75},{"type":"note","time":15.333333333333307,"duration":0.2222222222222222,"noteNumber":61,"velocity":100,"quantize":75},{"type":"note","time":15.333333333333307,"duration":0.2222222222222222,"noteNumber":64,"velocity":100,"quantize":75},{"type":"note","time":15.333333333333307,"duration":0.2222222222222222,"noteNumber":67,"velocity":100,"quantize":75},{"type":"note","time":15.77777777777775,"duration":0.2222222222222222,"noteNumber":57,"velocity":100,"quantize":75},{"type":"note","time":15.77777777777775,"duration":0.2222222222222222,"noteNumber":61,"velocity":100,"quantize":75},{"type":"note","time":15.77777777777775,"duration":0.2222222222222222,"noteNumber":64,"velocity":100,"quantize":75},{"type":"note","time":15.77777777777775,"duration":0.2222222222222222,"noteNumber":67,"velocity":100,"quantize":75},{"type":"note","time":16.222222222222193,"duration":0.2222222222222222,"noteNumber":57,"velocity":100,"quantize":75},{"type":"note","time":16.222222222222193,"duration":0.2222222222222222,"noteNumber":60,"velocity":100,"quantize":75},{"type":"note","time":16.222222222222193,"duration":0.2222222222222222,"noteNumber":62,"velocity":100,"quantize":75},{"type":"note","time":16.222222222222193,"duration":0.2222222222222222,"noteNumber":65,"velocity":100,"quantize":75},{"type":"note","time":16.666666666666636,"duration":0.2222222222222222,"noteNumber":57,"velocity":100,"quantize":75},{"type":"note","time":16.666666666666636,"duration":0.2222222222222222,"noteNumber":60,"velocity":100,"quantize":75},{"type":"note","time":16.666666666666636,"duration":0.2222222222222222,"noteNumber":62,"velocity":100,"quantize":75},{"type":"note","time":16.666666666666636,"duration":0.2222222222222222,"noteNumber":65,"velocity":100,"quantize":75},{"type":"note","time":17.11111111111108,"duration":0.2222222222222222,"noteNumber":60,"velocity":100,"quantize":75},{"type":"note","time":17.11111111111108,"duration":0.2222222222222222,"noteNumber":64,"velocity":100,"quantize":75},{"type":"note","time":17.11111111111108,"duration":0.2222222222222222,"noteNumber":67,"velocity":100,"quantize":75},{"type":"note","time":17.55555555555552,"duration":0.2222222222222222,"noteNumber":60,"velocity":100,"quantize":75},{"type":"note","time":17.55555555555552,"duration":0.2222222222222222,"noteNumber":64,"velocity":100,"quantize":75},{"type":"note","time":17.55555555555552,"duration":0.2222222222222222,"noteNumber":67,"velocity":100,"quantize":75},{"type":"note","time":17.999999999999964,"duration":0.2222222222222222,"noteNumber":58,"velocity":100,"quantize":75},{"type":"note","time":17.999999999999964,"duration":0.2222222222222222,"noteNumber":62,"velocity":100,"quantize":75},{"type":"note","time":17.999999999999964,"duration":0.2222222222222222,"noteNumber":65,"velocity":100,"quantize":75},{"type":"note","time":17.999999999999964,"duration":0.2222222222222222,"noteNumber":69,"velocity":100,"quantize":75},{"type":"note","time":18.444444444444407,"duration":0.2222222222222222,"noteNumber":58,"velocity":100,"quantize":75},{"type":"note","time":18.444444444444407,"duration":0.2222222222222222,"noteNumber":62,"velocity":100,"quantize":75},{"type":"note","time":18.444444444444407,"duration":0.2222222222222222,"noteNumber":65,"velocity":100,"quantize":75},{"type":"note","time":18.444444444444407,"duration":0.2222222222222222,"noteNumber":69,"velocity":100,"quantize":75},{"type":"note","time":18.88888888888885,"duration":0.2222222222222222,"noteNumber":57,"velocity":100,"quantize":75},{"type":"note","time":18.88888888888885,"duration":0.2222222222222222,"noteNumber":60,"velocity":100,"quantize":75},{"type":"note","time":18.88888888888885,"duration":0.2222222222222222,"noteNumber":64,"velocity":100,"quantize":75},{"type":"note","time":18.88888888888885,"duration":0.2222222222222222,"noteNumber":67,"velocity":100,"quantize":75},{"type":"note","time":19.333333333333293,"duration":0.2222222222222222,"noteNumber":57,"velocity":100,"quantize":75},{"type":"note","time":19.333333333333293,"duration":0.2222222222222222,"noteNumber":60,"velocity":100,"quantize":75},{"type":"note","time":19.333333333333293,"duration":0.2222222222222222,"noteNumber":64,"velocity":100,"quantize":75},{"type":"note","time":19.333333333333293,"duration":0.2222222222222222,"noteNumber":67,"velocity":100,"quantize":75},{"type":"note","time":19.555555555555515,"duration":0.2222222222222222,"noteNumber":57,"velocity":100,"quantize":75},{"type":"note","time":19.555555555555515,"duration":0.2222222222222222,"noteNumber":60,"velocity":100,"quantize":75},{"type":"note","time":19.555555555555515,"duration":0.2222222222222222,"noteNumber":62,"velocity":100,"quantize":75},{"type":"note","time":19.555555555555515,"duration":0.2222222222222222,"noteNumber":65,"velocity":100,"quantize":75},{"type":"note","time":19.888888888888847,"duration":0.1111111111111111,"noteNumber":60,"velocity":100,"quantize":75},{"type":"note","time":19.888888888888847,"duration":0.1111111111111111,"noteNumber":61,"velocity":100,"quantize":75},{"type":"note","time":19.888888888888847,"duration":0.1111111111111111,"noteNumber":65,"velocity":100,"quantize":75},{"type":"note","time":19.888888888888847,"duration":0.1111111111111111,"noteNumber":69,"velocity":100,"quantize":75},{"type":"note","time":20.22222222222218,"duration":0.1111111111111111,"noteNumber":59,"velocity":100,"quantize":75},{"type":"note","time":20.22222222222218,"duration":0.1111111111111111,"noteNumber":60,"velocity":100,"quantize":75},{"type":"note","time":20.22222222222218,"duration":0.1111111111111111,"noteNumber":64,"velocity":100,"quantize":75},{"type":"note","time":20.22222222222218,"duration":0.1111111111111111,"noteNumber":67,"velocity":100,"quantize":75},{"type":"note","time":20.4444444444444,"duration":0.1111111111111111,"noteNumber":58,"velocity":100,"quantize":75},{"type":"note","time":20.4444444444444,"duration":0.1111111111111111,"noteNumber":59,"velocity":100,"quantize":75},{"type":"note","time":20.4444444444444,"duration":0.1111111111111111,"noteNumber":63,"velocity":100,"quantize":75},{"type":"note","time":20.4444444444444,"duration":0.1111111111111111,"noteNumber":66,"velocity":100,"quantize":75},{"type":"note","time":20.888888888888843,"duration":0.4444444444444444,"noteNumber":57,"velocity":100,"quantize":75},{"type":"note","time":20.888888888888843,"duration":0.4444444444444444,"noteNumber":61,"velocity":100,"quantize":75},{"type":"note","time":20.888888888888843,"duration":0.4444444444444444,"noteNumber":64,"velocity":100,"quantize":75},{"type":"note","time":20.888888888888843,"duration":0.4444444444444444,"noteNumber":67,"velocity":100,"quantize":75},{"type":"note","time":21.555555555555507,"duration":0.2222222222222222,"noteNumber":60,"velocity":100,"quantize":75},{"type":"note","time":21.555555555555507,"duration":0.2222222222222222,"noteNumber":62,"velocity":100,"quantize":75},{"type":"note","time":21.555555555555507,"duration":0.2222222222222222,"noteNumber":65,"velocity":100,"quantize":75},{"type":"note","time":21.555555555555507,"duration":0.2222222222222222,"noteNumber":69,"velocity":100,"quantize":75},{"type":"note","time":21.99999999999995,"duration":0.2222222222222222,"noteNumber":60,"velocity":100,"quantize":75},{"type":"note","time":21.99999999999995,"duration":0.2222222222222222,"noteNumber":62,"velocity":100,"quantize":75},{"type":"note","time":21.99999999999995,"duration":0.2222222222222222,"noteNumber":65,"velocity":100,"quantize":75},{"type":"note","time":21.99999999999995,"duration":0.2222222222222222,"noteNumber":69,"velocity":100,"quantize":75},{"type":"note","time":22.444444444444393,"duration":0.2222222222222222,"noteNumber":60,"velocity":100,"quantize":75},{"type":"note","time":22.444444444444393,"duration":0.2222222222222222,"noteNumber":64,"velocity":100,"quantize":75},{"type":"note","time":22.444444444444393,"duration":0.2222222222222222,"noteNumber":67,"velocity":100,"quantize":75},{"type":"note","time":22.888888888888836,"duration":0.2222222222222222,"noteNumber":60,"velocity":100,"quantize":75},{"type":"note","time":22.888888888888836,"duration":0.2222222222222222,"noteNumber":64,"velocity":100,"quantize":75},{"type":"note","time":22.888888888888836,"duration":0.2222222222222222,"noteNumber":67,"velocity":100,"quantize":75},{"type":"note","time":23.33333333333328,"duration":0.2222222222222222,"noteNumber":58,"velocity":100,"quantize":75},{"type":"note","time":23.33333333333328,"duration":0.2222222222222222,"noteNumber":62,"velocity":100,"quantize":75},{"type":"note","time":23.33333333333328,"duration":0.2222222222222222,"noteNumber":65,"velocity":100,"quantize":75},{"type":"note","time":23.33333333333328,"duration":0.2222222222222222,"noteNumber":69,"velocity":100,"quantize":75},{"type":"note","time":23.77777777777772,"duration":0.2222222222222222,"noteNumber":58,"velocity":100,"quantize":75},{"type":"note","time":23.77777777777772,"duration":0.2222222222222222,"noteNumber":62,"velocity":100,"quantize":75},{"type":"note","time":23.77777777777772,"duration":0.2222222222222222,"noteNumber":65,"velocity":100,"quantize":75},{"type":"note","time":23.77777777777772,"duration":0.2222222222222222,"noteNumber":69,"velocity":100,"quantize":75},{"type":"note","time":24.222222222222165,"duration":0.2222222222222222,"noteNumber":60,"velocity":100,"quantize":75},{"type":"note","time":24.222222222222165,"duration":0.2222222222222222,"noteNumber":64,"velocity":100,"quantize":75},{"type":"note","time":24.222222222222165,"duration":0.2222222222222222,"noteNumber":65,"velocity":100,"quantize":75},{"type":"note","time":24.222222222222165,"duration":0.2222222222222222,"noteNumber":69,"velocity":100,"quantize":75},{"type":"note","time":24.666666666666607,"duration":0.2222222222222222,"noteNumber":60,"velocity":100,"quantize":75},{"type":"note","time":24.666666666666607,"duration":0.2222222222222222,"noteNumber":64,"velocity":100,"quantize":75},{"type":"note","time":24.666666666666607,"duration":0.2222222222222222,"noteNumber":65,"velocity":100,"quantize":75},{"type":"note","time":24.666666666666607,"duration":0.2222222222222222,"noteNumber":69,"velocity":100,"quantize":75},{"type":"note","time":25.11111111111105,"duration":0.2222222222222222,"noteNumber":62,"velocity":100,"quantize":75},{"type":"note","time":25.11111111111105,"duration":0.2222222222222222,"noteNumber":65,"velocity":100,"quantize":75},{"type":"note","time":25.11111111111105,"duration":0.2222222222222222,"noteNumber":67,"velocity":100,"quantize":75},{"type":"note","time":25.11111111111105,"duration":0.2222222222222222,"noteNumber":70,"velocity":100,"quantize":75},{"type":"note","time":25.555555555555493,"duration":0.2222222222222222,"noteNumber":62,"velocity":100,"quantize":75},{"type":"note","time":25.555555555555493,"duration":0.2222222222222222,"noteNumber":65,"velocity":100,"quantize":75},{"type":"note","time":25.555555555555493,"duration":0.2222222222222222,"noteNumber":67,"velocity":100,"quantize":75},{"type":"note","time":25.555555555555493,"duration":0.2222222222222222,"noteNumber":70,"velocity":100,"quantize":75},{"type":"note","time":25.999999999999936,"duration":0.2222222222222222,"noteNumber":60,"velocity":100,"quantize":75},{"type":"note","time":25.999999999999936,"duration":0.2222222222222222,"noteNumber":64,"velocity":100,"quantize":75},{"type":"note","time":25.999999999999936,"duration":0.2222222222222222,"noteNumber":67,"velocity":100,"quantize":75},{"type":"note","time":25.999999999999936,"duration":0.2222222222222222,"noteNumber":71,"velocity":100,"quantize":75},{"type":"note","time":26.44444444444438,"duration":0.2222222222222222,"noteNumber":60,"velocity":100,"quantize":75},{"type":"note","time":26.44444444444438,"duration":0.2222222222222222,"noteNumber":64,"velocity":100,"quantize":75},{"type":"note","time":26.44444444444438,"duration":0.2222222222222222,"noteNumber":67,"velocity":100,"quantize":75},{"type":"note","time":26.44444444444438,"duration":0.2222222222222222,"noteNumber":71,"velocity":100,"quantize":75},{"type":"note","time":26.888888888888822,"duration":0.2222222222222222,"noteNumber":60,"velocity":100,"quantize":75},{"type":"note","time":26.888888888888822,"duration":0.2222222222222222,"noteNumber":64,"velocity":100,"quantize":75},{"type":"note","time":26.888888888888822,"duration":0.2222222222222222,"noteNumber":65,"velocity":100,"quantize":75},{"type":"note","time":26.888888888888822,"duration":0.2222222222222222,"noteNumber":69,"velocity":100,"quantize":75},{"type":"note","time":27.333333333333265,"duration":0.2222222222222222,"noteNumber":60,"velocity":100,"quantize":75},{"type":"note","time":27.333333333333265,"duration":0.2222222222222222,"noteNumber":64,"velocity":100,"quantize":75},{"type":"note","time":27.333333333333265,"duration":0.2222222222222222,"noteNumber":65,"velocity":100,"quantize":75},{"type":"note","time":27.333333333333265,"duration":0.2222222222222222,"noteNumber":69,"velocity":100,"quantize":75},{"type":"note","time":27.777777777777708,"duration":0.2222222222222222,"noteNumber":60,"velocity":100,"quantize":75},{"type":"note","time":27.777777777777708,"duration":0.2222222222222222,"noteNumber":63,"velocity":100,"quantize":75},{"type":"note","time":27.777777777777708,"duration":0.2222222222222222,"noteNumber":65,"velocity":100,"quantize":75},{"type":"note","time":27.777777777777708,"duration":0.2222222222222222,"noteNumber":69,"velocity":100,"quantize":75},{"type":"note","time":28.22222222222215,"duration":0.2222222222222222,"noteNumber":60,"velocity":100,"quantize":75},{"type":"note","time":28.22222222222215,"duration":0.2222222222222222,"noteNumber":63,"velocity":100,"quantize":75},{"type":"note","time":28.22222222222215,"duration":0.2222222222222222,"noteNumber":65,"velocity":100,"quantize":75},{"type":"note","time":28.22222222222215,"duration":0.2222222222222222,"noteNumber":69,"velocity":100,"quantize":75},{"type":"note","time":28.666666666666593,"duration":0.2222222222222222,"noteNumber":58,"velocity":100,"quantize":75},{"type":"note","time":28.666666666666593,"duration":0.2222222222222222,"noteNumber":62,"velocity":100,"quantize":75},{"type":"note","time":28.666666666666593,"duration":0.2222222222222222,"noteNumber":65,"velocity":100,"quantize":75},{"type":"note","time":28.666666666666593,"duration":0.2222222222222222,"noteNumber":69,"velocity":100,"quantize":75},{"type":"note","time":29.111111111111036,"duration":0.2222222222222222,"noteNumber":58,"velocity":100,"quantize":75},{"type":"note","time":29.111111111111036,"duration":0.2222222222222222,"noteNumber":62,"velocity":100,"quantize":75},{"type":"note","time":29.111111111111036,"duration":0.2222222222222222,"noteNumber":65,"velocity":100,"quantize":75},{"type":"note","time":29.111111111111036,"duration":0.2222222222222222,"noteNumber":69,"velocity":100,"quantize":75},{"type":"note","time":29.55555555555548,"duration":0.2222222222222222,"noteNumber":60,"velocity":100,"quantize":75},{"type":"note","time":29.55555555555548,"duration":0.2222222222222222,"noteNumber":64,"velocity":100,"quantize":75},{"type":"note","time":29.55555555555548,"duration":0.2222222222222222,"noteNumber":67,"velocity":100,"quantize":75},{"type":"note","time":29.55555555555548,"duration":0.2222222222222222,"noteNumber":69,"velocity":100,"quantize":75},{"type":"note","time":29.999999999999922,"duration":0.2222222222222222,"noteNumber":60,"velocity":100,"quantize":75},{"type":"note","time":29.999999999999922,"duration":0.2222222222222222,"noteNumber":64,"velocity":100,"quantize":75},{"type":"note","time":29.999999999999922,"duration":0.2222222222222222,"noteNumber":67,"velocity":100,"quantize":75},{"type":"note","time":29.999999999999922,"duration":0.2222222222222222,"noteNumber":69,"velocity":100,"quantize":75},{"type":"note","time":30.444444444444365,"duration":0.2222222222222222,"noteNumber":60,"velocity":100,"quantize":75},{"type":"note","time":30.444444444444365,"duration":0.2222222222222222,"noteNumber":62,"velocity":100,"quantize":75},{"type":"note","time":30.444444444444365,"duration":0.2222222222222222,"noteNumber":65,"velocity":100,"quantize":75},{"type":"note","time":30.444444444444365,"duration":0.2222222222222222,"noteNumber":69,"velocity":100,"quantize":75},{"type":"note","time":30.888888888888808,"duration":0.2222222222222222,"noteNumber":60,"velocity":100,"quantize":75},{"type":"note","time":30.888888888888808,"duration":0.2222222222222222,"noteNumber":62,"velocity":100,"quantize":75},{"type":"note","time":30.888888888888808,"duration":0.2222222222222222,"noteNumber":65,"velocity":100,"quantize":75},{"type":"note","time":30.888888888888808,"duration":0.2222222222222222,"noteNumber":69,"velocity":100,"quantize":75},{"type":"note","time":31.33333333333325,"duration":0.2222222222222222,"noteNumber":64,"velocity":100,"quantize":75},{"type":"note","time":31.33333333333325,"duration":0.2222222222222222,"noteNumber":67,"velocity":100,"quantize":75},{"type":"note","time":31.33333333333325,"duration":0.2222222222222222,"noteNumber":72,"velocity":100,"quantize":75},{"type":"note","time":31.777777777777693,"duration":0.2222222222222222,"noteNumber":64,"velocity":100,"quantize":75},{"type":"note","time":31.777777777777693,"duration":0.2222222222222222,"noteNumber":67,"velocity":100,"quantize":75},{"type":"note","time":31.777777777777693,"duration":0.2222222222222222,"noteNumber":72,"velocity":100,"quantize":75},{"type":"note","time":32.222222222222136,"duration":0.2222222222222222,"noteNumber":62,"velocity":100,"quantize":75},{"type":"note","time":32.222222222222136,"duration":0.2222222222222222,"noteNumber":65,"velocity":100,"quantize":75},{"type":"note","time":32.222222222222136,"duration":0.2222222222222222,"noteNumber":67,"velocity":100,"quantize":75},{"type":"note","time":32.222222222222136,"duration":0.2222222222222222,"noteNumber":70,"velocity":100,"quantize":75},{"type":"note","time":32.66666666666658,"duration":0.2222222222222222,"noteNumber":62,"velocity":100,"quantize":75},{"type":"note","time":32.66666666666658,"duration":0.2222222222222222,"noteNumber":65,"velocity":100,"quantize":75},{"type":"note","time":32.66666666666658,"duration":0.2222222222222222,"noteNumber":67,"velocity":100,"quantize":75},{"type":"note","time":32.66666666666658,"duration":0.2222222222222222,"noteNumber":70,"velocity":100,"quantize":75},{"type":"note","time":33.11111111111102,"duration":0.2222222222222222,"noteNumber":64,"velocity":100,"quantize":75},{"type":"note","time":33.11111111111102,"duration":0.2222222222222222,"noteNumber":67,"velocity":100,"quantize":75},{"type":"note","time":33.11111111111102,"duration":0.2222222222222222,"noteNumber":70,"velocity":100,"quantize":75},{"type":"note","time":33.11111111111102,"duration":0.2222222222222222,"noteNumber":72,"velocity":100,"quantize":75},{"type":"note","time":33.555555555555465,"duration":0.2222222222222222,"noteNumber":64,"velocity":100,"quantize":75},{"type":"note","time":33.555555555555465,"duration":0.2222222222222222,"noteNumber":67,"velocity":100,"quantize":75},{"type":"note","time":33.555555555555465,"duration":0.2222222222222222,"noteNumber":70,"velocity":100,"quantize":75},{"type":"note","time":33.555555555555465,"duration":0.2222222222222222,"noteNumber":72,"velocity":100,"quantize":75},{"type":"note","time":33.99999999999991,"duration":0.2222222222222222,"noteNumber":62,"velocity":100,"quantize":75},{"type":"note","time":33.99999999999991,"duration":0.2222222222222222,"noteNumber":64,"velocity":100,"quantize":75},{"type":"note","time":33.99999999999991,"duration":0.2222222222222222,"noteNumber":67,"velocity":100,"quantize":75},{"type":"note","time":33.99999999999991,"duration":0.2222222222222222,"noteNumber":70,"velocity":100,"quantize":75},{"type":"note","time":34.44444444444435,"duration":0.2222222222222222,"noteNumber":62,"velocity":100,"quantize":75},{"type":"note","time":34.44444444444435,"duration":0.2222222222222222,"noteNumber":64,"velocity":100,"quantize":75},{"type":"note","time":34.44444444444435,"duration":0.2222222222222222,"noteNumber":67,"velocity":100,"quantize":75},{"type":"note","time":34.44444444444435,"duration":0.2222222222222222,"noteNumber":70,"velocity":100,"quantize":75},{"type":"note","time":34.88888888888879,"duration":0.2222222222222222,"noteNumber":64,"velocity":100,"quantize":75},{"type":"note","time":34.88888888888879,"duration":0.2222222222222222,"noteNumber":69,"velocity":100,"quantize":75},{"type":"note","time":34.88888888888879,"duration":0.2222222222222222,"noteNumber":72,"velocity":100,"quantize":75},{"type":"note","time":35.333333333333236,"duration":0.2222222222222222,"noteNumber":64,"velocity":100,"quantize":75},{"type":"note","time":35.333333333333236,"duration":0.2222222222222222,"noteNumber":69,"velocity":100,"quantize":75},{"type":"note","time":35.333333333333236,"duration":0.2222222222222222,"noteNumber":72,"velocity":100,"quantize":75},{"type":"note","time":35.77777777777768,"duration":0.2222222222222222,"noteNumber":60,"velocity":100,"quantize":75},{"type":"note","time":35.77777777777768,"duration":0.2222222222222222,"noteNumber":62,"velocity":100,"quantize":75},{"type":"note","time":35.77777777777768,"duration":0.2222222222222222,"noteNumber":65,"velocity":100,"quantize":75},{"type":"note","time":35.77777777777768,"duration":0.2222222222222222,"noteNumber":69,"velocity":100,"quantize":75},{"type":"note","time":36.22222222222212,"duration":0.2222222222222222,"noteNumber":60,"velocity":100,"quantize":75},{"type":"note","time":36.22222222222212,"duration":0.2222222222222222,"noteNumber":62,"velocity":100,"quantize":75},{"type":"note","time":36.22222222222212,"duration":0.2222222222222222,"noteNumber":65,"velocity":100,"quantize":75},{"type":"note","time":36.22222222222212,"duration":0.2222222222222222,"noteNumber":69,"velocity":100,"quantize":75},{"type":"note","time":36.666666666666565,"duration":0.2222222222222222,"noteNumber":60,"velocity":100,"quantize":75},{"type":"note","time":36.666666666666565,"duration":0.2222222222222222,"noteNumber":64,"velocity":100,"quantize":75},{"type":"note","time":36.666666666666565,"duration":0.2222222222222222,"noteNumber":67,"velocity":100,"quantize":75},{"type":"note","time":37.11111111111101,"duration":0.2222222222222222,"noteNumber":60,"velocity":100,"quantize":75},{"type":"note","time":37.11111111111101,"duration":0.2222222222222222,"noteNumber":64,"velocity":100,"quantize":75},{"type":"note","time":37.11111111111101,"duration":0.2222222222222222,"noteNumber":67,"velocity":100,"quantize":75},{"type":"note","time":37.55555555555545,"duration":0.2222222222222222,"noteNumber":58,"velocity":100,"quantize":75},{"type":"note","time":37.55555555555545,"duration":0.2222222222222222,"noteNumber":62,"velocity":100,"quantize":75},{"type":"note","time":37.55555555555545,"duration":0.2222222222222222,"noteNumber":65,"velocity":100,"quantize":75},{"type":"note","time":37.55555555555545,"duration":0.2222222222222222,"noteNumber":69,"velocity":100,"quantize":75},{"type":"note","time":37.99999999999989,"duration":0.2222222222222222,"noteNumber":58,"velocity":100,"quantize":75},{"type":"note","time":37.99999999999989,"duration":0.2222222222222222,"noteNumber":62,"velocity":100,"quantize":75},{"type":"note","time":37.99999999999989,"duration":0.2222222222222222,"noteNumber":65,"velocity":100,"quantize":75},{"type":"note","time":37.99999999999989,"duration":0.2222222222222222,"noteNumber":69,"velocity":100,"quantize":75},{"type":"note","time":38.444444444444336,"duration":0.2222222222222222,"noteNumber":60,"velocity":100,"quantize":75},{"type":"note","time":38.444444444444336,"duration":0.2222222222222222,"noteNumber":64,"velocity":100,"quantize":75},{"type":"note","time":38.444444444444336,"duration":0.2222222222222222,"noteNumber":65,"velocity":100,"quantize":75},{"type":"note","time":38.444444444444336,"duration":0.2222222222222222,"noteNumber":69,"velocity":100,"quantize":75},{"type":"note","time":38.88888888888878,"duration":0.2222222222222222,"noteNumber":60,"velocity":100,"quantize":75},{"type":"note","time":38.88888888888878,"duration":0.2222222222222222,"noteNumber":64,"velocity":100,"quantize":75},{"type":"note","time":38.88888888888878,"duration":0.2222222222222222,"noteNumber":65,"velocity":100,"quantize":75},{"type":"note","time":38.88888888888878,"duration":0.2222222222222222,"noteNumber":69,"velocity":100,"quantize":75},{"type":"note","time":39.33333333333322,"duration":0.2222222222222222,"noteNumber":62,"velocity":100,"quantize":75},{"type":"note","time":39.33333333333322,"duration":0.2222222222222222,"noteNumber":65,"velocity":100,"quantize":75},{"type":"note","time":39.33333333333322,"duration":0.2222222222222222,"noteNumber":67,"velocity":100,"quantize":75},{"type":"note","time":39.33333333333322,"duration":0.2222222222222222,"noteNumber":70,"velocity":100,"quantize":75},{"type":"note","time":39.777777777777665,"duration":0.2222222222222222,"noteNumber":62,"velocity":100,"quantize":75},{"type":"note","time":39.777777777777665,"duration":0.2222222222222222,"noteNumber":65,"velocity":100,"quantize":75},{"type":"note","time":39.777777777777665,"duration":0.2222222222222222,"noteNumber":67,"velocity":100,"quantize":75},{"type":"note","time":39.777777777777665,"duration":0.2222222222222222,"noteNumber":70,"velocity":100,"quantize":75},{"type":"note","time":40.22222222222211,"duration":0.2222222222222222,"noteNumber":60,"velocity":100,"quantize":75},{"type":"note","time":40.22222222222211,"duration":0.2222222222222222,"noteNumber":64,"velocity":100,"quantize":75},{"type":"note","time":40.22222222222211,"duration":0.2222222222222222,"noteNumber":67,"velocity":100,"quantize":75},{"type":"note","time":40.22222222222211,"duration":0.2222222222222222,"noteNumber":71,"velocity":100,"quantize":75},{"type":"note","time":40.66666666666655,"duration":0.2222222222222222,"noteNumber":60,"velocity":100,"quantize":75},{"type":"note","time":40.66666666666655,"duration":0.2222222222222222,"noteNumber":64,"velocity":100,"quantize":75},{"type":"note","time":40.66666666666655,"duration":0.2222222222222222,"noteNumber":67,"velocity":100,"quantize":75},{"type":"note","time":40.66666666666655,"duration":0.2222222222222222,"noteNumber":71,"velocity":100,"quantize":75},{"type":"note","time":41.11111111111099,"duration":0.2222222222222222,"noteNumber":60,"velocity":100,"quantize":75},{"type":"note","time":41.11111111111099,"duration":0.2222222222222222,"noteNumber":64,"velocity":100,"quantize":75},{"type":"note","time":41.11111111111099,"duration":0.2222222222222222,"noteNumber":65,"velocity":100,"quantize":75},{"type":"note","time":41.11111111111099,"duration":0.2222222222222222,"noteNumber":69,"velocity":100,"quantize":75},{"type":"note","time":41.555555555555436,"duration":0.2222222222222222,"noteNumber":60,"velocity":100,"quantize":75},{"type":"note","time":41.555555555555436,"duration":0.2222222222222222,"noteNumber":64,"velocity":100,"quantize":75},{"type":"note","time":41.555555555555436,"duration":0.2222222222222222,"noteNumber":65,"velocity":100,"quantize":75},{"type":"note","time":41.555555555555436,"duration":0.2222222222222222,"noteNumber":69,"velocity":100,"quantize":75},{"type":"note","time":41.99999999999988,"duration":0.2222222222222222,"noteNumber":60,"velocity":100,"quantize":75},{"type":"note","time":41.99999999999988,"duration":0.2222222222222222,"noteNumber":63,"velocity":100,"quantize":75},{"type":"note","time":41.99999999999988,"duration":0.2222222222222222,"noteNumber":65,"velocity":100,"quantize":75},{"type":"note","time":41.99999999999988,"duration":0.2222222222222222,"noteNumber":69,"velocity":100,"quantize":75},{"type":"note","time":42.44444444444432,"duration":0.2222222222222222,"noteNumber":60,"velocity":100,"quantize":75},{"type":"note","time":42.44444444444432,"duration":0.2222222222222222,"noteNumber":63,"velocity":100,"quantize":75},{"type":"note","time":42.44444444444432,"duration":0.2222222222222222,"noteNumber":65,"velocity":100,"quantize":75},{"type":"note","time":42.44444444444432,"duration":0.2222222222222222,"noteNumber":69,"velocity":100,"quantize":75},{"type":"note","time":42.888888888888765,"duration":0.2222222222222222,"noteNumber":58,"velocity":100,"quantize":75},{"type":"note","time":42.888888888888765,"duration":0.2222222222222222,"noteNumber":62,"velocity":100,"quantize":75},{"type":"note","time":42.888888888888765,"duration":0.2222222222222222,"noteNumber":65,"velocity":100,"quantize":75},{"type":"note","time":42.888888888888765,"duration":0.2222222222222222,"noteNumber":69,"velocity":100,"quantize":75},{"type":"note","time":43.33333333333321,"duration":0.2222222222222222,"noteNumber":58,"velocity":100,"quantize":75},{"type":"note","time":43.33333333333321,"duration":0.2222222222222222,"noteNumber":62,"velocity":100,"quantize":75},{"type":"note","time":43.33333333333321,"duration":0.2222222222222222,"noteNumber":65,"velocity":100,"quantize":75},{"type":"note","time":43.33333333333321,"duration":0.2222222222222222,"noteNumber":69,"velocity":100,"quantize":75},{"type":"note","time":43.77777777777765,"duration":0.2222222222222222,"noteNumber":60,"velocity":100,"quantize":75},{"type":"note","time":43.77777777777765,"duration":0.2222222222222222,"noteNumber":64,"velocity":100,"quantize":75},{"type":"note","time":43.77777777777765,"duration":0.2222222222222222,"noteNumber":67,"velocity":100,"quantize":75},{"type":"note","time":43.77777777777765,"duration":0.2222222222222222,"noteNumber":69,"velocity":100,"quantize":75},{"type":"note","time":44.22222222222209,"duration":0.2222222222222222,"noteNumber":60,"velocity":100,"quantize":75},{"type":"note","time":44.22222222222209,"duration":0.2222222222222222,"noteNumber":64,"velocity":100,"quantize":75},{"type":"note","time":44.22222222222209,"duration":0.2222222222222222,"noteNumber":67,"velocity":100,"quantize":75},{"type":"note","time":44.22222222222209,"duration":0.2222222222222222,"noteNumber":69,"velocity":100,"quantize":75},{"type":"note","time":44.666666666666536,"duration":0.2222222222222222,"noteNumber":60,"velocity":100,"quantize":75},{"type":"note","time":44.666666666666536,"duration":0.2222222222222222,"noteNumber":62,"velocity":100,"quantize":75},{"type":"note","time":44.666666666666536,"duration":0.2222222222222222,"noteNumber":65,"velocity":100,"quantize":75},{"type":"note","time":44.666666666666536,"duration":0.2222222222222222,"noteNumber":69,"velocity":100,"quantize":75},{"type":"note","time":45.11111111111098,"duration":0.2222222222222222,"noteNumber":60,"velocity":100,"quantize":75},{"type":"note","time":45.11111111111098,"duration":0.2222222222222222,"noteNumber":62,"velocity":100,"quantize":75},{"type":"note","time":45.11111111111098,"duration":0.2222222222222222,"noteNumber":65,"velocity":100,"quantize":75},{"type":"note","time":45.11111111111098,"duration":0.2222222222222222,"noteNumber":69,"velocity":100,"quantize":75},{"type":"note","time":45.55555555555542,"duration":0.2222222222222222,"noteNumber":60,"velocity":100,"quantize":75},{"type":"note","time":45.55555555555542,"duration":0.2222222222222222,"noteNumber":63,"velocity":100,"quantize":75},{"type":"note","time":45.55555555555542,"duration":0.2222222222222222,"noteNumber":65,"velocity":100,"quantize":75},{"type":"note","time":45.55555555555542,"duration":0.2222222222222222,"noteNumber":69,"velocity":100,"quantize":75},{"type":"note","time":45.999999999999865,"duration":0.2222222222222222,"noteNumber":60,"velocity":100,"quantize":75},{"type":"note","time":45.999999999999865,"duration":0.2222222222222222,"noteNumber":63,"velocity":100,"quantize":75},{"type":"note","time":45.999999999999865,"duration":0.2222222222222222,"noteNumber":65,"velocity":100,"quantize":75},{"type":"note","time":45.999999999999865,"duration":0.2222222222222222,"noteNumber":69,"velocity":100,"quantize":75},{"type":"note","time":46.44444444444431,"duration":0.2222222222222222,"noteNumber":62,"velocity":100,"quantize":75},{"type":"note","time":46.44444444444431,"duration":0.2222222222222222,"noteNumber":65,"velocity":100,"quantize":75},{"type":"note","time":46.44444444444431,"duration":0.2222222222222222,"noteNumber":67,"velocity":100,"quantize":75},{"type":"note","time":46.44444444444431,"duration":0.2222222222222222,"noteNumber":70,"velocity":100,"quantize":75},{"type":"note","time":46.88888888888875,"duration":0.2222222222222222,"noteNumber":62,"velocity":100,"quantize":75},{"type":"note","time":46.88888888888875,"duration":0.2222222222222222,"noteNumber":65,"velocity":100,"quantize":75},{"type":"note","time":46.88888888888875,"duration":0.2222222222222222,"noteNumber":67,"velocity":100,"quantize":75},{"type":"note","time":46.88888888888875,"duration":0.2222222222222222,"noteNumber":70,"velocity":100,"quantize":75},{"type":"note","time":47.333333333333194,"duration":0.2222222222222222,"noteNumber":60,"velocity":100,"quantize":75},{"type":"note","time":47.333333333333194,"duration":0.2222222222222222,"noteNumber":64,"velocity":100,"quantize":75},{"type":"note","time":47.333333333333194,"duration":0.2222222222222222,"noteNumber":67,"velocity":100,"quantize":75},{"type":"note","time":47.333333333333194,"duration":0.2222222222222222,"noteNumber":70,"velocity":100,"quantize":75},{"type":"note","time":47.77777777777764,"duration":0.2222222222222222,"noteNumber":60,"velocity":100,"quantize":75},{"type":"note","time":47.77777777777764,"duration":0.2222222222222222,"noteNumber":64,"velocity":100,"quantize":75},{"type":"note","time":47.77777777777764,"duration":0.2222222222222222,"noteNumber":67,"velocity":100,"quantize":75},{"type":"note","time":47.77777777777764,"duration":0.2222222222222222,"noteNumber":70,"velocity":100,"quantize":75},{"type":"note","time":48.22222222222208,"duration":0.2222222222222222,"noteNumber":65,"velocity":100,"quantize":75},{"type":"note","time":48.22222222222208,"duration":0.2222222222222222,"noteNumber":69,"velocity":100,"quantize":75},{"type":"note","time":48.22222222222208,"duration":0.2222222222222222,"noteNumber":72,"velocity":100,"quantize":75},{"type":"note","time":48.66666666666652,"duration":0.2222222222222222,"noteNumber":65,"velocity":100,"quantize":75},{"type":"note","time":48.66666666666652,"duration":0.2222222222222222,"noteNumber":69,"velocity":100,"quantize":75},{"type":"note","time":48.66666666666652,"duration":0.2222222222222222,"noteNumber":72,"velocity":100,"quantize":75},{"type":"note","time":49.111111111110965,"duration":0.2222222222222222,"noteNumber":60,"velocity":100,"quantize":75},{"type":"note","time":49.111111111110965,"duration":0.2222222222222222,"noteNumber":64,"velocity":100,"quantize":75},{"type":"note","time":49.111111111110965,"duration":0.2222222222222222,"noteNumber":67,"velocity":100,"quantize":75},{"type":"note","time":49.55555555555541,"duration":0.2222222222222222,"noteNumber":60,"velocity":100,"quantize":75},{"type":"note","time":49.55555555555541,"duration":0.2222222222222222,"noteNumber":64,"velocity":100,"quantize":75},{"type":"note","time":49.55555555555541,"duration":0.2222222222222222,"noteNumber":67,"velocity":100,"quantize":75},{"type":"end","time":49.77777777777763}]
+module.exports = [{"type":"note","time":0.4444444444444444,"duration":0.4444444444444444,"noteNumber":60,"velocity":100,"quantize":75},{"type":"note","time":0.4444444444444444,"duration":0.4444444444444444,"noteNumber":62,"velocity":100,"quantize":75},{"type":"note","time":0.4444444444444444,"duration":0.4444444444444444,"noteNumber":65,"velocity":100,"quantize":75},{"type":"note","time":0.4444444444444444,"duration":0.4444444444444444,"noteNumber":69,"velocity":100,"quantize":75},{"type":"note","time":1.3333333333333333,"duration":0.4444444444444444,"noteNumber":57,"velocity":100,"quantize":75},{"type":"note","time":1.3333333333333333,"duration":0.4444444444444444,"noteNumber":60,"velocity":100,"quantize":75},{"type":"note","time":1.3333333333333333,"duration":0.4444444444444444,"noteNumber":64,"velocity":100,"quantize":75},{"type":"note","time":1.3333333333333333,"duration":0.4444444444444444,"noteNumber":67,"velocity":100,"quantize":75},{"type":"note","time":2.2222222222222223,"duration":0.4444444444444444,"noteNumber":60,"velocity":100,"quantize":75},{"type":"note","time":2.2222222222222223,"duration":0.4444444444444444,"noteNumber":62,"velocity":100,"quantize":75},{"type":"note","time":2.2222222222222223,"duration":0.4444444444444444,"noteNumber":65,"velocity":100,"quantize":75},{"type":"note","time":2.2222222222222223,"duration":0.4444444444444444,"noteNumber":69,"velocity":100,"quantize":75},{"type":"note","time":3.1111111111111116,"duration":0.4444444444444444,"noteNumber":57,"velocity":100,"quantize":75},{"type":"note","time":3.1111111111111116,"duration":0.4444444444444444,"noteNumber":60,"velocity":100,"quantize":75},{"type":"note","time":3.1111111111111116,"duration":0.4444444444444444,"noteNumber":64,"velocity":100,"quantize":75},{"type":"note","time":3.1111111111111116,"duration":0.4444444444444444,"noteNumber":67,"velocity":100,"quantize":75},{"type":"note","time":4.000000000000001,"duration":0.4444444444444444,"noteNumber":60,"velocity":100,"quantize":75},{"type":"note","time":4.000000000000001,"duration":0.4444444444444444,"noteNumber":62,"velocity":100,"quantize":75},{"type":"note","time":4.000000000000001,"duration":0.4444444444444444,"noteNumber":65,"velocity":100,"quantize":75},{"type":"note","time":4.000000000000001,"duration":0.4444444444444444,"noteNumber":69,"velocity":100,"quantize":75},{"type":"note","time":4.88888888888889,"duration":0.4444444444444444,"noteNumber":57,"velocity":100,"quantize":75},{"type":"note","time":4.88888888888889,"duration":0.4444444444444444,"noteNumber":60,"velocity":100,"quantize":75},{"type":"note","time":4.88888888888889,"duration":0.4444444444444444,"noteNumber":64,"velocity":100,"quantize":75},{"type":"note","time":4.88888888888889,"duration":0.4444444444444444,"noteNumber":67,"velocity":100,"quantize":75},{"type":"note","time":5.333333333333335,"duration":0.2222222222222222,"noteNumber":60,"velocity":100,"quantize":75},{"type":"note","time":5.333333333333335,"duration":0.2222222222222222,"noteNumber":62,"velocity":100,"quantize":75},{"type":"note","time":5.333333333333335,"duration":0.2222222222222222,"noteNumber":65,"velocity":100,"quantize":75},{"type":"note","time":5.333333333333335,"duration":0.2222222222222222,"noteNumber":69,"velocity":100,"quantize":75},{"type":"note","time":5.666666666666668,"duration":0.2222222222222222,"noteNumber":60,"velocity":100,"quantize":75},{"type":"note","time":5.666666666666668,"duration":0.2222222222222222,"noteNumber":62,"velocity":100,"quantize":75},{"type":"note","time":5.666666666666668,"duration":0.2222222222222222,"noteNumber":65,"velocity":100,"quantize":75},{"type":"note","time":5.666666666666668,"duration":0.2222222222222222,"noteNumber":69,"velocity":100,"quantize":75},{"type":"note","time":6.000000000000001,"duration":0.2222222222222222,"noteNumber":57,"velocity":100,"quantize":75},{"type":"note","time":6.000000000000001,"duration":0.2222222222222222,"noteNumber":61,"velocity":100,"quantize":75},{"type":"note","time":6.000000000000001,"duration":0.2222222222222222,"noteNumber":64,"velocity":100,"quantize":75},{"type":"note","time":6.000000000000001,"duration":0.2222222222222222,"noteNumber":67,"velocity":100,"quantize":75},{"type":"note","time":6.222222222222223,"duration":0.3333333333333333,"noteNumber":60,"velocity":100,"quantize":75},{"type":"note","time":6.222222222222223,"duration":0.3333333333333333,"noteNumber":62,"velocity":100,"quantize":75},{"type":"note","time":6.222222222222223,"duration":0.3333333333333333,"noteNumber":65,"velocity":100,"quantize":75},{"type":"note","time":6.222222222222223,"duration":0.3333333333333333,"noteNumber":69,"velocity":100,"quantize":75},{"type":"note","time":6.666666666666667,"duration":0.4444444444444444,"noteNumber":58,"velocity":100,"quantize":75},{"type":"note","time":6.666666666666667,"duration":0.4444444444444444,"noteNumber":63,"velocity":100,"quantize":75},{"type":"note","time":6.666666666666667,"duration":0.4444444444444444,"noteNumber":66,"velocity":100,"quantize":75},{"type":"note","time":6.666666666666667,"duration":0.4444444444444444,"noteNumber":70,"velocity":100,"quantize":75},{"type":"note","time":7.333333333333334,"duration":0.2222222222222222,"noteNumber":60,"velocity":100,"quantize":75},{"type":"note","time":7.333333333333334,"duration":0.2222222222222222,"noteNumber":62,"velocity":100,"quantize":75},{"type":"note","time":7.333333333333334,"duration":0.2222222222222222,"noteNumber":65,"velocity":100,"quantize":75},{"type":"note","time":7.333333333333334,"duration":0.2222222222222222,"noteNumber":69,"velocity":100,"quantize":75},{"type":"note","time":7.777777777777779,"duration":0.2222222222222222,"noteNumber":60,"velocity":100,"quantize":75},{"type":"note","time":7.777777777777779,"duration":0.2222222222222222,"noteNumber":62,"velocity":100,"quantize":75},{"type":"note","time":7.777777777777779,"duration":0.2222222222222222,"noteNumber":65,"velocity":100,"quantize":75},{"type":"note","time":7.777777777777779,"duration":0.2222222222222222,"noteNumber":69,"velocity":100,"quantize":75},{"type":"note","time":8.222222222222221,"duration":0.2222222222222222,"noteNumber":57,"velocity":100,"quantize":75},{"type":"note","time":8.222222222222221,"duration":0.2222222222222222,"noteNumber":60,"velocity":100,"quantize":75},{"type":"note","time":8.222222222222221,"duration":0.2222222222222222,"noteNumber":64,"velocity":100,"quantize":75},{"type":"note","time":8.222222222222221,"duration":0.2222222222222222,"noteNumber":67,"velocity":100,"quantize":75},{"type":"note","time":8.666666666666664,"duration":0.2222222222222222,"noteNumber":57,"velocity":100,"quantize":75},{"type":"note","time":8.666666666666664,"duration":0.2222222222222222,"noteNumber":60,"velocity":100,"quantize":75},{"type":"note","time":8.666666666666664,"duration":0.2222222222222222,"noteNumber":64,"velocity":100,"quantize":75},{"type":"note","time":8.666666666666664,"duration":0.2222222222222222,"noteNumber":67,"velocity":100,"quantize":75},{"type":"note","time":9.111111111111107,"duration":0.2222222222222222,"noteNumber":60,"velocity":100,"quantize":75},{"type":"note","time":9.111111111111107,"duration":0.2222222222222222,"noteNumber":62,"velocity":100,"quantize":75},{"type":"note","time":9.111111111111107,"duration":0.2222222222222222,"noteNumber":65,"velocity":100,"quantize":75},{"type":"note","time":9.111111111111107,"duration":0.2222222222222222,"noteNumber":69,"velocity":100,"quantize":75},{"type":"note","time":9.55555555555555,"duration":0.2222222222222222,"noteNumber":60,"velocity":100,"quantize":75},{"type":"note","time":9.55555555555555,"duration":0.2222222222222222,"noteNumber":62,"velocity":100,"quantize":75},{"type":"note","time":9.55555555555555,"duration":0.2222222222222222,"noteNumber":65,"velocity":100,"quantize":75},{"type":"note","time":9.55555555555555,"duration":0.2222222222222222,"noteNumber":69,"velocity":100,"quantize":75},{"type":"note","time":9.999999999999993,"duration":0.2222222222222222,"noteNumber":57,"velocity":100,"quantize":75},{"type":"note","time":9.999999999999993,"duration":0.2222222222222222,"noteNumber":60,"velocity":100,"quantize":75},{"type":"note","time":9.999999999999993,"duration":0.2222222222222222,"noteNumber":64,"velocity":100,"quantize":75},{"type":"note","time":9.999999999999993,"duration":0.2222222222222222,"noteNumber":67,"velocity":100,"quantize":75},{"type":"note","time":10.444444444444436,"duration":0.2222222222222222,"noteNumber":57,"velocity":100,"quantize":75},{"type":"note","time":10.444444444444436,"duration":0.2222222222222222,"noteNumber":60,"velocity":100,"quantize":75},{"type":"note","time":10.444444444444436,"duration":0.2222222222222222,"noteNumber":64,"velocity":100,"quantize":75},{"type":"note","time":10.444444444444436,"duration":0.2222222222222222,"noteNumber":67,"velocity":100,"quantize":75},{"type":"note","time":10.888888888888879,"duration":0.2222222222222222,"noteNumber":58,"velocity":100,"quantize":75},{"type":"note","time":10.888888888888879,"duration":0.2222222222222222,"noteNumber":62,"velocity":100,"quantize":75},{"type":"note","time":10.888888888888879,"duration":0.2222222222222222,"noteNumber":65,"velocity":100,"quantize":75},{"type":"note","time":10.888888888888879,"duration":0.2222222222222222,"noteNumber":67,"velocity":100,"quantize":75},{"type":"note","time":11.333333333333321,"duration":0.2222222222222222,"noteNumber":58,"velocity":100,"quantize":75},{"type":"note","time":11.333333333333321,"duration":0.2222222222222222,"noteNumber":62,"velocity":100,"quantize":75},{"type":"note","time":11.333333333333321,"duration":0.2222222222222222,"noteNumber":65,"velocity":100,"quantize":75},{"type":"note","time":11.333333333333321,"duration":0.2222222222222222,"noteNumber":67,"velocity":100,"quantize":75},{"type":"note","time":11.777777777777764,"duration":0.2222222222222222,"noteNumber":58,"velocity":100,"quantize":75},{"type":"note","time":11.777777777777764,"duration":0.2222222222222222,"noteNumber":60,"velocity":100,"quantize":75},{"type":"note","time":11.777777777777764,"duration":0.2222222222222222,"noteNumber":64,"velocity":100,"quantize":75},{"type":"note","time":11.777777777777764,"duration":0.2222222222222222,"noteNumber":67,"velocity":100,"quantize":75},{"type":"note","time":12.222222222222207,"duration":0.2222222222222222,"noteNumber":58,"velocity":100,"quantize":75},{"type":"note","time":12.222222222222207,"duration":0.2222222222222222,"noteNumber":60,"velocity":100,"quantize":75},{"type":"note","time":12.222222222222207,"duration":0.2222222222222222,"noteNumber":64,"velocity":100,"quantize":75},{"type":"note","time":12.222222222222207,"duration":0.2222222222222222,"noteNumber":67,"velocity":100,"quantize":75},{"type":"note","time":12.66666666666665,"duration":0.2222222222222222,"noteNumber":57,"velocity":100,"quantize":75},{"type":"note","time":12.66666666666665,"duration":0.2222222222222222,"noteNumber":60,"velocity":100,"quantize":75},{"type":"note","time":12.66666666666665,"duration":0.2222222222222222,"noteNumber":64,"velocity":100,"quantize":75},{"type":"note","time":12.66666666666665,"duration":0.2222222222222222,"noteNumber":65,"velocity":100,"quantize":75},{"type":"note","time":13.111111111111093,"duration":0.2222222222222222,"noteNumber":57,"velocity":100,"quantize":75},{"type":"note","time":13.111111111111093,"duration":0.2222222222222222,"noteNumber":60,"velocity":100,"quantize":75},{"type":"note","time":13.111111111111093,"duration":0.2222222222222222,"noteNumber":64,"velocity":100,"quantize":75},{"type":"note","time":13.111111111111093,"duration":0.2222222222222222,"noteNumber":65,"velocity":100,"quantize":75},{"type":"note","time":13.555555555555536,"duration":0.2222222222222222,"noteNumber":57,"velocity":100,"quantize":75},{"type":"note","time":13.555555555555536,"duration":0.2222222222222222,"noteNumber":60,"velocity":100,"quantize":75},{"type":"note","time":13.555555555555536,"duration":0.2222222222222222,"noteNumber":63,"velocity":100,"quantize":75},{"type":"note","time":13.555555555555536,"duration":0.2222222222222222,"noteNumber":65,"velocity":100,"quantize":75},{"type":"note","time":13.999999999999979,"duration":0.2222222222222222,"noteNumber":57,"velocity":100,"quantize":75},{"type":"note","time":13.999999999999979,"duration":0.2222222222222222,"noteNumber":60,"velocity":100,"quantize":75},{"type":"note","time":13.999999999999979,"duration":0.2222222222222222,"noteNumber":63,"velocity":100,"quantize":75},{"type":"note","time":13.999999999999979,"duration":0.2222222222222222,"noteNumber":65,"velocity":100,"quantize":75},{"type":"note","time":14.444444444444422,"duration":0.2222222222222222,"noteNumber":58,"velocity":100,"quantize":75},{"type":"note","time":14.444444444444422,"duration":0.2222222222222222,"noteNumber":62,"velocity":100,"quantize":75},{"type":"note","time":14.444444444444422,"duration":0.2222222222222222,"noteNumber":64,"velocity":100,"quantize":75},{"type":"note","time":14.444444444444422,"duration":0.2222222222222222,"noteNumber":67,"velocity":100,"quantize":75},{"type":"note","time":14.888888888888864,"duration":0.2222222222222222,"noteNumber":58,"velocity":100,"quantize":75},{"type":"note","time":14.888888888888864,"duration":0.2222222222222222,"noteNumber":62,"velocity":100,"quantize":75},{"type":"note","time":14.888888888888864,"duration":0.2222222222222222,"noteNumber":64,"velocity":100,"quantize":75},{"type":"note","time":14.888888888888864,"duration":0.2222222222222222,"noteNumber":67,"velocity":100,"quantize":75},{"type":"note","time":15.333333333333307,"duration":0.2222222222222222,"noteNumber":57,"velocity":100,"quantize":75},{"type":"note","time":15.333333333333307,"duration":0.2222222222222222,"noteNumber":61,"velocity":100,"quantize":75},{"type":"note","time":15.333333333333307,"duration":0.2222222222222222,"noteNumber":64,"velocity":100,"quantize":75},{"type":"note","time":15.333333333333307,"duration":0.2222222222222222,"noteNumber":67,"velocity":100,"quantize":75},{"type":"note","time":15.77777777777775,"duration":0.2222222222222222,"noteNumber":57,"velocity":100,"quantize":75},{"type":"note","time":15.77777777777775,"duration":0.2222222222222222,"noteNumber":61,"velocity":100,"quantize":75},{"type":"note","time":15.77777777777775,"duration":0.2222222222222222,"noteNumber":64,"velocity":100,"quantize":75},{"type":"note","time":15.77777777777775,"duration":0.2222222222222222,"noteNumber":67,"velocity":100,"quantize":75},{"type":"note","time":16.222222222222193,"duration":0.2222222222222222,"noteNumber":57,"velocity":100,"quantize":75},{"type":"note","time":16.222222222222193,"duration":0.2222222222222222,"noteNumber":60,"velocity":100,"quantize":75},{"type":"note","time":16.222222222222193,"duration":0.2222222222222222,"noteNumber":62,"velocity":100,"quantize":75},{"type":"note","time":16.222222222222193,"duration":0.2222222222222222,"noteNumber":65,"velocity":100,"quantize":75},{"type":"note","time":16.666666666666636,"duration":0.2222222222222222,"noteNumber":57,"velocity":100,"quantize":75},{"type":"note","time":16.666666666666636,"duration":0.2222222222222222,"noteNumber":60,"velocity":100,"quantize":75},{"type":"note","time":16.666666666666636,"duration":0.2222222222222222,"noteNumber":62,"velocity":100,"quantize":75},{"type":"note","time":16.666666666666636,"duration":0.2222222222222222,"noteNumber":65,"velocity":100,"quantize":75},{"type":"note","time":17.11111111111108,"duration":0.2222222222222222,"noteNumber":60,"velocity":100,"quantize":75},{"type":"note","time":17.11111111111108,"duration":0.2222222222222222,"noteNumber":64,"velocity":100,"quantize":75},{"type":"note","time":17.11111111111108,"duration":0.2222222222222222,"noteNumber":67,"velocity":100,"quantize":75},{"type":"note","time":17.55555555555552,"duration":0.2222222222222222,"noteNumber":60,"velocity":100,"quantize":75},{"type":"note","time":17.55555555555552,"duration":0.2222222222222222,"noteNumber":64,"velocity":100,"quantize":75},{"type":"note","time":17.55555555555552,"duration":0.2222222222222222,"noteNumber":67,"velocity":100,"quantize":75},{"type":"note","time":17.999999999999964,"duration":0.2222222222222222,"noteNumber":58,"velocity":100,"quantize":75},{"type":"note","time":17.999999999999964,"duration":0.2222222222222222,"noteNumber":62,"velocity":100,"quantize":75},{"type":"note","time":17.999999999999964,"duration":0.2222222222222222,"noteNumber":65,"velocity":100,"quantize":75},{"type":"note","time":17.999999999999964,"duration":0.2222222222222222,"noteNumber":69,"velocity":100,"quantize":75},{"type":"note","time":18.444444444444407,"duration":0.2222222222222222,"noteNumber":58,"velocity":100,"quantize":75},{"type":"note","time":18.444444444444407,"duration":0.2222222222222222,"noteNumber":62,"velocity":100,"quantize":75},{"type":"note","time":18.444444444444407,"duration":0.2222222222222222,"noteNumber":65,"velocity":100,"quantize":75},{"type":"note","time":18.444444444444407,"duration":0.2222222222222222,"noteNumber":69,"velocity":100,"quantize":75},{"type":"note","time":18.88888888888885,"duration":0.2222222222222222,"noteNumber":57,"velocity":100,"quantize":75},{"type":"note","time":18.88888888888885,"duration":0.2222222222222222,"noteNumber":60,"velocity":100,"quantize":75},{"type":"note","time":18.88888888888885,"duration":0.2222222222222222,"noteNumber":64,"velocity":100,"quantize":75},{"type":"note","time":18.88888888888885,"duration":0.2222222222222222,"noteNumber":67,"velocity":100,"quantize":75},{"type":"note","time":19.333333333333293,"duration":0.2222222222222222,"noteNumber":57,"velocity":100,"quantize":75},{"type":"note","time":19.333333333333293,"duration":0.2222222222222222,"noteNumber":60,"velocity":100,"quantize":75},{"type":"note","time":19.333333333333293,"duration":0.2222222222222222,"noteNumber":64,"velocity":100,"quantize":75},{"type":"note","time":19.333333333333293,"duration":0.2222222222222222,"noteNumber":67,"velocity":100,"quantize":75},{"type":"note","time":19.555555555555515,"duration":0.2222222222222222,"noteNumber":57,"velocity":100,"quantize":75},{"type":"note","time":19.555555555555515,"duration":0.2222222222222222,"noteNumber":60,"velocity":100,"quantize":75},{"type":"note","time":19.555555555555515,"duration":0.2222222222222222,"noteNumber":62,"velocity":100,"quantize":75},{"type":"note","time":19.555555555555515,"duration":0.2222222222222222,"noteNumber":65,"velocity":100,"quantize":75},{"type":"note","time":19.888888888888847,"duration":0.1111111111111111,"noteNumber":60,"velocity":100,"quantize":75},{"type":"note","time":19.888888888888847,"duration":0.1111111111111111,"noteNumber":61,"velocity":100,"quantize":75},{"type":"note","time":19.888888888888847,"duration":0.1111111111111111,"noteNumber":65,"velocity":100,"quantize":75},{"type":"note","time":19.888888888888847,"duration":0.1111111111111111,"noteNumber":69,"velocity":100,"quantize":75},{"type":"note","time":20.22222222222218,"duration":0.1111111111111111,"noteNumber":59,"velocity":100,"quantize":75},{"type":"note","time":20.22222222222218,"duration":0.1111111111111111,"noteNumber":60,"velocity":100,"quantize":75},{"type":"note","time":20.22222222222218,"duration":0.1111111111111111,"noteNumber":64,"velocity":100,"quantize":75},{"type":"note","time":20.22222222222218,"duration":0.1111111111111111,"noteNumber":67,"velocity":100,"quantize":75},{"type":"note","time":20.4444444444444,"duration":0.1111111111111111,"noteNumber":58,"velocity":100,"quantize":75},{"type":"note","time":20.4444444444444,"duration":0.1111111111111111,"noteNumber":59,"velocity":100,"quantize":75},{"type":"note","time":20.4444444444444,"duration":0.1111111111111111,"noteNumber":63,"velocity":100,"quantize":75},{"type":"note","time":20.4444444444444,"duration":0.1111111111111111,"noteNumber":66,"velocity":100,"quantize":75},{"type":"note","time":20.888888888888843,"duration":0.4444444444444444,"noteNumber":57,"velocity":100,"quantize":75},{"type":"note","time":20.888888888888843,"duration":0.4444444444444444,"noteNumber":61,"velocity":100,"quantize":75},{"type":"note","time":20.888888888888843,"duration":0.4444444444444444,"noteNumber":64,"velocity":100,"quantize":75},{"type":"note","time":20.888888888888843,"duration":0.4444444444444444,"noteNumber":67,"velocity":100,"quantize":75},{"type":"note","time":21.555555555555507,"duration":0.2222222222222222,"noteNumber":60,"velocity":100,"quantize":75},{"type":"note","time":21.555555555555507,"duration":0.2222222222222222,"noteNumber":62,"velocity":100,"quantize":75},{"type":"note","time":21.555555555555507,"duration":0.2222222222222222,"noteNumber":65,"velocity":100,"quantize":75},{"type":"note","time":21.555555555555507,"duration":0.2222222222222222,"noteNumber":69,"velocity":100,"quantize":75},{"type":"note","time":21.99999999999995,"duration":0.2222222222222222,"noteNumber":60,"velocity":100,"quantize":75},{"type":"note","time":21.99999999999995,"duration":0.2222222222222222,"noteNumber":62,"velocity":100,"quantize":75},{"type":"note","time":21.99999999999995,"duration":0.2222222222222222,"noteNumber":65,"velocity":100,"quantize":75},{"type":"note","time":21.99999999999995,"duration":0.2222222222222222,"noteNumber":69,"velocity":100,"quantize":75},{"type":"note","time":22.444444444444393,"duration":0.2222222222222222,"noteNumber":60,"velocity":100,"quantize":75},{"type":"note","time":22.444444444444393,"duration":0.2222222222222222,"noteNumber":64,"velocity":100,"quantize":75},{"type":"note","time":22.444444444444393,"duration":0.2222222222222222,"noteNumber":67,"velocity":100,"quantize":75},{"type":"note","time":22.888888888888836,"duration":0.2222222222222222,"noteNumber":60,"velocity":100,"quantize":75},{"type":"note","time":22.888888888888836,"duration":0.2222222222222222,"noteNumber":64,"velocity":100,"quantize":75},{"type":"note","time":22.888888888888836,"duration":0.2222222222222222,"noteNumber":67,"velocity":100,"quantize":75},{"type":"note","time":23.33333333333328,"duration":0.2222222222222222,"noteNumber":58,"velocity":100,"quantize":75},{"type":"note","time":23.33333333333328,"duration":0.2222222222222222,"noteNumber":62,"velocity":100,"quantize":75},{"type":"note","time":23.33333333333328,"duration":0.2222222222222222,"noteNumber":65,"velocity":100,"quantize":75},{"type":"note","time":23.33333333333328,"duration":0.2222222222222222,"noteNumber":69,"velocity":100,"quantize":75},{"type":"note","time":23.77777777777772,"duration":0.2222222222222222,"noteNumber":58,"velocity":100,"quantize":75},{"type":"note","time":23.77777777777772,"duration":0.2222222222222222,"noteNumber":62,"velocity":100,"quantize":75},{"type":"note","time":23.77777777777772,"duration":0.2222222222222222,"noteNumber":65,"velocity":100,"quantize":75},{"type":"note","time":23.77777777777772,"duration":0.2222222222222222,"noteNumber":69,"velocity":100,"quantize":75},{"type":"note","time":24.222222222222165,"duration":0.2222222222222222,"noteNumber":60,"velocity":100,"quantize":75},{"type":"note","time":24.222222222222165,"duration":0.2222222222222222,"noteNumber":64,"velocity":100,"quantize":75},{"type":"note","time":24.222222222222165,"duration":0.2222222222222222,"noteNumber":65,"velocity":100,"quantize":75},{"type":"note","time":24.222222222222165,"duration":0.2222222222222222,"noteNumber":69,"velocity":100,"quantize":75},{"type":"note","time":24.666666666666607,"duration":0.2222222222222222,"noteNumber":60,"velocity":100,"quantize":75},{"type":"note","time":24.666666666666607,"duration":0.2222222222222222,"noteNumber":64,"velocity":100,"quantize":75},{"type":"note","time":24.666666666666607,"duration":0.2222222222222222,"noteNumber":65,"velocity":100,"quantize":75},{"type":"note","time":24.666666666666607,"duration":0.2222222222222222,"noteNumber":69,"velocity":100,"quantize":75},{"type":"note","time":25.11111111111105,"duration":0.2222222222222222,"noteNumber":62,"velocity":100,"quantize":75},{"type":"note","time":25.11111111111105,"duration":0.2222222222222222,"noteNumber":65,"velocity":100,"quantize":75},{"type":"note","time":25.11111111111105,"duration":0.2222222222222222,"noteNumber":67,"velocity":100,"quantize":75},{"type":"note","time":25.11111111111105,"duration":0.2222222222222222,"noteNumber":70,"velocity":100,"quantize":75},{"type":"note","time":25.555555555555493,"duration":0.2222222222222222,"noteNumber":62,"velocity":100,"quantize":75},{"type":"note","time":25.555555555555493,"duration":0.2222222222222222,"noteNumber":65,"velocity":100,"quantize":75},{"type":"note","time":25.555555555555493,"duration":0.2222222222222222,"noteNumber":67,"velocity":100,"quantize":75},{"type":"note","time":25.555555555555493,"duration":0.2222222222222222,"noteNumber":70,"velocity":100,"quantize":75},{"type":"note","time":25.999999999999936,"duration":0.2222222222222222,"noteNumber":60,"velocity":100,"quantize":75},{"type":"note","time":25.999999999999936,"duration":0.2222222222222222,"noteNumber":64,"velocity":100,"quantize":75},{"type":"note","time":25.999999999999936,"duration":0.2222222222222222,"noteNumber":67,"velocity":100,"quantize":75},{"type":"note","time":25.999999999999936,"duration":0.2222222222222222,"noteNumber":71,"velocity":100,"quantize":75},{"type":"note","time":26.44444444444438,"duration":0.2222222222222222,"noteNumber":60,"velocity":100,"quantize":75},{"type":"note","time":26.44444444444438,"duration":0.2222222222222222,"noteNumber":64,"velocity":100,"quantize":75},{"type":"note","time":26.44444444444438,"duration":0.2222222222222222,"noteNumber":67,"velocity":100,"quantize":75},{"type":"note","time":26.44444444444438,"duration":0.2222222222222222,"noteNumber":71,"velocity":100,"quantize":75},{"type":"note","time":26.888888888888822,"duration":0.2222222222222222,"noteNumber":60,"velocity":100,"quantize":75},{"type":"note","time":26.888888888888822,"duration":0.2222222222222222,"noteNumber":64,"velocity":100,"quantize":75},{"type":"note","time":26.888888888888822,"duration":0.2222222222222222,"noteNumber":65,"velocity":100,"quantize":75},{"type":"note","time":26.888888888888822,"duration":0.2222222222222222,"noteNumber":69,"velocity":100,"quantize":75},{"type":"note","time":27.333333333333265,"duration":0.2222222222222222,"noteNumber":60,"velocity":100,"quantize":75},{"type":"note","time":27.333333333333265,"duration":0.2222222222222222,"noteNumber":64,"velocity":100,"quantize":75},{"type":"note","time":27.333333333333265,"duration":0.2222222222222222,"noteNumber":65,"velocity":100,"quantize":75},{"type":"note","time":27.333333333333265,"duration":0.2222222222222222,"noteNumber":69,"velocity":100,"quantize":75},{"type":"note","time":27.777777777777708,"duration":0.2222222222222222,"noteNumber":60,"velocity":100,"quantize":75},{"type":"note","time":27.777777777777708,"duration":0.2222222222222222,"noteNumber":63,"velocity":100,"quantize":75},{"type":"note","time":27.777777777777708,"duration":0.2222222222222222,"noteNumber":65,"velocity":100,"quantize":75},{"type":"note","time":27.777777777777708,"duration":0.2222222222222222,"noteNumber":69,"velocity":100,"quantize":75},{"type":"note","time":28.22222222222215,"duration":0.2222222222222222,"noteNumber":60,"velocity":100,"quantize":75},{"type":"note","time":28.22222222222215,"duration":0.2222222222222222,"noteNumber":63,"velocity":100,"quantize":75},{"type":"note","time":28.22222222222215,"duration":0.2222222222222222,"noteNumber":65,"velocity":100,"quantize":75},{"type":"note","time":28.22222222222215,"duration":0.2222222222222222,"noteNumber":69,"velocity":100,"quantize":75},{"type":"note","time":28.666666666666593,"duration":0.2222222222222222,"noteNumber":58,"velocity":100,"quantize":75},{"type":"note","time":28.666666666666593,"duration":0.2222222222222222,"noteNumber":62,"velocity":100,"quantize":75},{"type":"note","time":28.666666666666593,"duration":0.2222222222222222,"noteNumber":65,"velocity":100,"quantize":75},{"type":"note","time":28.666666666666593,"duration":0.2222222222222222,"noteNumber":69,"velocity":100,"quantize":75},{"type":"note","time":29.111111111111036,"duration":0.2222222222222222,"noteNumber":58,"velocity":100,"quantize":75},{"type":"note","time":29.111111111111036,"duration":0.2222222222222222,"noteNumber":62,"velocity":100,"quantize":75},{"type":"note","time":29.111111111111036,"duration":0.2222222222222222,"noteNumber":65,"velocity":100,"quantize":75},{"type":"note","time":29.111111111111036,"duration":0.2222222222222222,"noteNumber":69,"velocity":100,"quantize":75},{"type":"note","time":29.55555555555548,"duration":0.2222222222222222,"noteNumber":60,"velocity":100,"quantize":75},{"type":"note","time":29.55555555555548,"duration":0.2222222222222222,"noteNumber":64,"velocity":100,"quantize":75},{"type":"note","time":29.55555555555548,"duration":0.2222222222222222,"noteNumber":67,"velocity":100,"quantize":75},{"type":"note","time":29.55555555555548,"duration":0.2222222222222222,"noteNumber":69,"velocity":100,"quantize":75},{"type":"note","time":29.999999999999922,"duration":0.2222222222222222,"noteNumber":60,"velocity":100,"quantize":75},{"type":"note","time":29.999999999999922,"duration":0.2222222222222222,"noteNumber":64,"velocity":100,"quantize":75},{"type":"note","time":29.999999999999922,"duration":0.2222222222222222,"noteNumber":67,"velocity":100,"quantize":75},{"type":"note","time":29.999999999999922,"duration":0.2222222222222222,"noteNumber":69,"velocity":100,"quantize":75},{"type":"note","time":30.444444444444365,"duration":0.2222222222222222,"noteNumber":60,"velocity":100,"quantize":75},{"type":"note","time":30.444444444444365,"duration":0.2222222222222222,"noteNumber":62,"velocity":100,"quantize":75},{"type":"note","time":30.444444444444365,"duration":0.2222222222222222,"noteNumber":65,"velocity":100,"quantize":75},{"type":"note","time":30.444444444444365,"duration":0.2222222222222222,"noteNumber":69,"velocity":100,"quantize":75},{"type":"note","time":30.888888888888808,"duration":0.2222222222222222,"noteNumber":60,"velocity":100,"quantize":75},{"type":"note","time":30.888888888888808,"duration":0.2222222222222222,"noteNumber":62,"velocity":100,"quantize":75},{"type":"note","time":30.888888888888808,"duration":0.2222222222222222,"noteNumber":65,"velocity":100,"quantize":75},{"type":"note","time":30.888888888888808,"duration":0.2222222222222222,"noteNumber":69,"velocity":100,"quantize":75},{"type":"note","time":31.33333333333325,"duration":0.2222222222222222,"noteNumber":64,"velocity":100,"quantize":75},{"type":"note","time":31.33333333333325,"duration":0.2222222222222222,"noteNumber":67,"velocity":100,"quantize":75},{"type":"note","time":31.33333333333325,"duration":0.2222222222222222,"noteNumber":72,"velocity":100,"quantize":75},{"type":"note","time":31.777777777777693,"duration":0.2222222222222222,"noteNumber":64,"velocity":100,"quantize":75},{"type":"note","time":31.777777777777693,"duration":0.2222222222222222,"noteNumber":67,"velocity":100,"quantize":75},{"type":"note","time":31.777777777777693,"duration":0.2222222222222222,"noteNumber":72,"velocity":100,"quantize":75},{"type":"note","time":32.222222222222136,"duration":0.2222222222222222,"noteNumber":62,"velocity":100,"quantize":75},{"type":"note","time":32.222222222222136,"duration":0.2222222222222222,"noteNumber":65,"velocity":100,"quantize":75},{"type":"note","time":32.222222222222136,"duration":0.2222222222222222,"noteNumber":67,"velocity":100,"quantize":75},{"type":"note","time":32.222222222222136,"duration":0.2222222222222222,"noteNumber":70,"velocity":100,"quantize":75},{"type":"note","time":32.66666666666658,"duration":0.2222222222222222,"noteNumber":62,"velocity":100,"quantize":75},{"type":"note","time":32.66666666666658,"duration":0.2222222222222222,"noteNumber":65,"velocity":100,"quantize":75},{"type":"note","time":32.66666666666658,"duration":0.2222222222222222,"noteNumber":67,"velocity":100,"quantize":75},{"type":"note","time":32.66666666666658,"duration":0.2222222222222222,"noteNumber":70,"velocity":100,"quantize":75},{"type":"note","time":33.11111111111102,"duration":0.2222222222222222,"noteNumber":64,"velocity":100,"quantize":75},{"type":"note","time":33.11111111111102,"duration":0.2222222222222222,"noteNumber":67,"velocity":100,"quantize":75},{"type":"note","time":33.11111111111102,"duration":0.2222222222222222,"noteNumber":70,"velocity":100,"quantize":75},{"type":"note","time":33.11111111111102,"duration":0.2222222222222222,"noteNumber":72,"velocity":100,"quantize":75},{"type":"note","time":33.555555555555465,"duration":0.2222222222222222,"noteNumber":64,"velocity":100,"quantize":75},{"type":"note","time":33.555555555555465,"duration":0.2222222222222222,"noteNumber":67,"velocity":100,"quantize":75},{"type":"note","time":33.555555555555465,"duration":0.2222222222222222,"noteNumber":70,"velocity":100,"quantize":75},{"type":"note","time":33.555555555555465,"duration":0.2222222222222222,"noteNumber":72,"velocity":100,"quantize":75},{"type":"note","time":33.99999999999991,"duration":0.2222222222222222,"noteNumber":62,"velocity":100,"quantize":75},{"type":"note","time":33.99999999999991,"duration":0.2222222222222222,"noteNumber":64,"velocity":100,"quantize":75},{"type":"note","time":33.99999999999991,"duration":0.2222222222222222,"noteNumber":67,"velocity":100,"quantize":75},{"type":"note","time":33.99999999999991,"duration":0.2222222222222222,"noteNumber":70,"velocity":100,"quantize":75},{"type":"note","time":34.44444444444435,"duration":0.2222222222222222,"noteNumber":62,"velocity":100,"quantize":75},{"type":"note","time":34.44444444444435,"duration":0.2222222222222222,"noteNumber":64,"velocity":100,"quantize":75},{"type":"note","time":34.44444444444435,"duration":0.2222222222222222,"noteNumber":67,"velocity":100,"quantize":75},{"type":"note","time":34.44444444444435,"duration":0.2222222222222222,"noteNumber":70,"velocity":100,"quantize":75},{"type":"note","time":34.88888888888879,"duration":0.2222222222222222,"noteNumber":64,"velocity":100,"quantize":75},{"type":"note","time":34.88888888888879,"duration":0.2222222222222222,"noteNumber":69,"velocity":100,"quantize":75},{"type":"note","time":34.88888888888879,"duration":0.2222222222222222,"noteNumber":72,"velocity":100,"quantize":75},{"type":"note","time":35.333333333333236,"duration":0.2222222222222222,"noteNumber":64,"velocity":100,"quantize":75},{"type":"note","time":35.333333333333236,"duration":0.2222222222222222,"noteNumber":69,"velocity":100,"quantize":75},{"type":"note","time":35.333333333333236,"duration":0.2222222222222222,"noteNumber":72,"velocity":100,"quantize":75},{"type":"note","time":35.77777777777768,"duration":0.2222222222222222,"noteNumber":60,"velocity":100,"quantize":75},{"type":"note","time":35.77777777777768,"duration":0.2222222222222222,"noteNumber":62,"velocity":100,"quantize":75},{"type":"note","time":35.77777777777768,"duration":0.2222222222222222,"noteNumber":65,"velocity":100,"quantize":75},{"type":"note","time":35.77777777777768,"duration":0.2222222222222222,"noteNumber":69,"velocity":100,"quantize":75},{"type":"note","time":36.22222222222212,"duration":0.2222222222222222,"noteNumber":60,"velocity":100,"quantize":75},{"type":"note","time":36.22222222222212,"duration":0.2222222222222222,"noteNumber":62,"velocity":100,"quantize":75},{"type":"note","time":36.22222222222212,"duration":0.2222222222222222,"noteNumber":65,"velocity":100,"quantize":75},{"type":"note","time":36.22222222222212,"duration":0.2222222222222222,"noteNumber":69,"velocity":100,"quantize":75},{"type":"note","time":36.666666666666565,"duration":0.2222222222222222,"noteNumber":60,"velocity":100,"quantize":75},{"type":"note","time":36.666666666666565,"duration":0.2222222222222222,"noteNumber":64,"velocity":100,"quantize":75},{"type":"note","time":36.666666666666565,"duration":0.2222222222222222,"noteNumber":67,"velocity":100,"quantize":75},{"type":"note","time":37.11111111111101,"duration":0.2222222222222222,"noteNumber":60,"velocity":100,"quantize":75},{"type":"note","time":37.11111111111101,"duration":0.2222222222222222,"noteNumber":64,"velocity":100,"quantize":75},{"type":"note","time":37.11111111111101,"duration":0.2222222222222222,"noteNumber":67,"velocity":100,"quantize":75},{"type":"note","time":37.55555555555545,"duration":0.2222222222222222,"noteNumber":58,"velocity":100,"quantize":75},{"type":"note","time":37.55555555555545,"duration":0.2222222222222222,"noteNumber":62,"velocity":100,"quantize":75},{"type":"note","time":37.55555555555545,"duration":0.2222222222222222,"noteNumber":65,"velocity":100,"quantize":75},{"type":"note","time":37.55555555555545,"duration":0.2222222222222222,"noteNumber":69,"velocity":100,"quantize":75},{"type":"note","time":37.99999999999989,"duration":0.2222222222222222,"noteNumber":58,"velocity":100,"quantize":75},{"type":"note","time":37.99999999999989,"duration":0.2222222222222222,"noteNumber":62,"velocity":100,"quantize":75},{"type":"note","time":37.99999999999989,"duration":0.2222222222222222,"noteNumber":65,"velocity":100,"quantize":75},{"type":"note","time":37.99999999999989,"duration":0.2222222222222222,"noteNumber":69,"velocity":100,"quantize":75},{"type":"note","time":38.444444444444336,"duration":0.2222222222222222,"noteNumber":60,"velocity":100,"quantize":75},{"type":"note","time":38.444444444444336,"duration":0.2222222222222222,"noteNumber":64,"velocity":100,"quantize":75},{"type":"note","time":38.444444444444336,"duration":0.2222222222222222,"noteNumber":65,"velocity":100,"quantize":75},{"type":"note","time":38.444444444444336,"duration":0.2222222222222222,"noteNumber":69,"velocity":100,"quantize":75},{"type":"note","time":38.88888888888878,"duration":0.2222222222222222,"noteNumber":60,"velocity":100,"quantize":75},{"type":"note","time":38.88888888888878,"duration":0.2222222222222222,"noteNumber":64,"velocity":100,"quantize":75},{"type":"note","time":38.88888888888878,"duration":0.2222222222222222,"noteNumber":65,"velocity":100,"quantize":75},{"type":"note","time":38.88888888888878,"duration":0.2222222222222222,"noteNumber":69,"velocity":100,"quantize":75},{"type":"note","time":39.33333333333322,"duration":0.2222222222222222,"noteNumber":62,"velocity":100,"quantize":75},{"type":"note","time":39.33333333333322,"duration":0.2222222222222222,"noteNumber":65,"velocity":100,"quantize":75},{"type":"note","time":39.33333333333322,"duration":0.2222222222222222,"noteNumber":67,"velocity":100,"quantize":75},{"type":"note","time":39.33333333333322,"duration":0.2222222222222222,"noteNumber":70,"velocity":100,"quantize":75},{"type":"note","time":39.777777777777665,"duration":0.2222222222222222,"noteNumber":62,"velocity":100,"quantize":75},{"type":"note","time":39.777777777777665,"duration":0.2222222222222222,"noteNumber":65,"velocity":100,"quantize":75},{"type":"note","time":39.777777777777665,"duration":0.2222222222222222,"noteNumber":67,"velocity":100,"quantize":75},{"type":"note","time":39.777777777777665,"duration":0.2222222222222222,"noteNumber":70,"velocity":100,"quantize":75},{"type":"note","time":40.22222222222211,"duration":0.2222222222222222,"noteNumber":60,"velocity":100,"quantize":75},{"type":"note","time":40.22222222222211,"duration":0.2222222222222222,"noteNumber":64,"velocity":100,"quantize":75},{"type":"note","time":40.22222222222211,"duration":0.2222222222222222,"noteNumber":67,"velocity":100,"quantize":75},{"type":"note","time":40.22222222222211,"duration":0.2222222222222222,"noteNumber":71,"velocity":100,"quantize":75},{"type":"note","time":40.66666666666655,"duration":0.2222222222222222,"noteNumber":60,"velocity":100,"quantize":75},{"type":"note","time":40.66666666666655,"duration":0.2222222222222222,"noteNumber":64,"velocity":100,"quantize":75},{"type":"note","time":40.66666666666655,"duration":0.2222222222222222,"noteNumber":67,"velocity":100,"quantize":75},{"type":"note","time":40.66666666666655,"duration":0.2222222222222222,"noteNumber":71,"velocity":100,"quantize":75},{"type":"note","time":41.11111111111099,"duration":0.2222222222222222,"noteNumber":60,"velocity":100,"quantize":75},{"type":"note","time":41.11111111111099,"duration":0.2222222222222222,"noteNumber":64,"velocity":100,"quantize":75},{"type":"note","time":41.11111111111099,"duration":0.2222222222222222,"noteNumber":65,"velocity":100,"quantize":75},{"type":"note","time":41.11111111111099,"duration":0.2222222222222222,"noteNumber":69,"velocity":100,"quantize":75},{"type":"note","time":41.555555555555436,"duration":0.2222222222222222,"noteNumber":60,"velocity":100,"quantize":75},{"type":"note","time":41.555555555555436,"duration":0.2222222222222222,"noteNumber":64,"velocity":100,"quantize":75},{"type":"note","time":41.555555555555436,"duration":0.2222222222222222,"noteNumber":65,"velocity":100,"quantize":75},{"type":"note","time":41.555555555555436,"duration":0.2222222222222222,"noteNumber":69,"velocity":100,"quantize":75},{"type":"note","time":41.99999999999988,"duration":0.2222222222222222,"noteNumber":60,"velocity":100,"quantize":75},{"type":"note","time":41.99999999999988,"duration":0.2222222222222222,"noteNumber":63,"velocity":100,"quantize":75},{"type":"note","time":41.99999999999988,"duration":0.2222222222222222,"noteNumber":65,"velocity":100,"quantize":75},{"type":"note","time":41.99999999999988,"duration":0.2222222222222222,"noteNumber":69,"velocity":100,"quantize":75},{"type":"note","time":42.44444444444432,"duration":0.2222222222222222,"noteNumber":60,"velocity":100,"quantize":75},{"type":"note","time":42.44444444444432,"duration":0.2222222222222222,"noteNumber":63,"velocity":100,"quantize":75},{"type":"note","time":42.44444444444432,"duration":0.2222222222222222,"noteNumber":65,"velocity":100,"quantize":75},{"type":"note","time":42.44444444444432,"duration":0.2222222222222222,"noteNumber":69,"velocity":100,"quantize":75},{"type":"note","time":42.888888888888765,"duration":0.2222222222222222,"noteNumber":58,"velocity":100,"quantize":75},{"type":"note","time":42.888888888888765,"duration":0.2222222222222222,"noteNumber":62,"velocity":100,"quantize":75},{"type":"note","time":42.888888888888765,"duration":0.2222222222222222,"noteNumber":65,"velocity":100,"quantize":75},{"type":"note","time":42.888888888888765,"duration":0.2222222222222222,"noteNumber":69,"velocity":100,"quantize":75},{"type":"note","time":43.33333333333321,"duration":0.2222222222222222,"noteNumber":58,"velocity":100,"quantize":75},{"type":"note","time":43.33333333333321,"duration":0.2222222222222222,"noteNumber":62,"velocity":100,"quantize":75},{"type":"note","time":43.33333333333321,"duration":0.2222222222222222,"noteNumber":65,"velocity":100,"quantize":75},{"type":"note","time":43.33333333333321,"duration":0.2222222222222222,"noteNumber":69,"velocity":100,"quantize":75},{"type":"note","time":43.77777777777765,"duration":0.2222222222222222,"noteNumber":60,"velocity":100,"quantize":75},{"type":"note","time":43.77777777777765,"duration":0.2222222222222222,"noteNumber":64,"velocity":100,"quantize":75},{"type":"note","time":43.77777777777765,"duration":0.2222222222222222,"noteNumber":67,"velocity":100,"quantize":75},{"type":"note","time":43.77777777777765,"duration":0.2222222222222222,"noteNumber":69,"velocity":100,"quantize":75},{"type":"note","time":44.22222222222209,"duration":0.2222222222222222,"noteNumber":60,"velocity":100,"quantize":75},{"type":"note","time":44.22222222222209,"duration":0.2222222222222222,"noteNumber":64,"velocity":100,"quantize":75},{"type":"note","time":44.22222222222209,"duration":0.2222222222222222,"noteNumber":67,"velocity":100,"quantize":75},{"type":"note","time":44.22222222222209,"duration":0.2222222222222222,"noteNumber":69,"velocity":100,"quantize":75},{"type":"note","time":44.666666666666536,"duration":0.2222222222222222,"noteNumber":60,"velocity":100,"quantize":75},{"type":"note","time":44.666666666666536,"duration":0.2222222222222222,"noteNumber":62,"velocity":100,"quantize":75},{"type":"note","time":44.666666666666536,"duration":0.2222222222222222,"noteNumber":65,"velocity":100,"quantize":75},{"type":"note","time":44.666666666666536,"duration":0.2222222222222222,"noteNumber":69,"velocity":100,"quantize":75},{"type":"note","time":45.11111111111098,"duration":0.2222222222222222,"noteNumber":60,"velocity":100,"quantize":75},{"type":"note","time":45.11111111111098,"duration":0.2222222222222222,"noteNumber":62,"velocity":100,"quantize":75},{"type":"note","time":45.11111111111098,"duration":0.2222222222222222,"noteNumber":65,"velocity":100,"quantize":75},{"type":"note","time":45.11111111111098,"duration":0.2222222222222222,"noteNumber":69,"velocity":100,"quantize":75},{"type":"note","time":45.55555555555542,"duration":0.2222222222222222,"noteNumber":60,"velocity":100,"quantize":75},{"type":"note","time":45.55555555555542,"duration":0.2222222222222222,"noteNumber":63,"velocity":100,"quantize":75},{"type":"note","time":45.55555555555542,"duration":0.2222222222222222,"noteNumber":65,"velocity":100,"quantize":75},{"type":"note","time":45.55555555555542,"duration":0.2222222222222222,"noteNumber":69,"velocity":100,"quantize":75},{"type":"note","time":45.999999999999865,"duration":0.2222222222222222,"noteNumber":60,"velocity":100,"quantize":75},{"type":"note","time":45.999999999999865,"duration":0.2222222222222222,"noteNumber":63,"velocity":100,"quantize":75},{"type":"note","time":45.999999999999865,"duration":0.2222222222222222,"noteNumber":65,"velocity":100,"quantize":75},{"type":"note","time":45.999999999999865,"duration":0.2222222222222222,"noteNumber":69,"velocity":100,"quantize":75},{"type":"note","time":46.44444444444431,"duration":0.2222222222222222,"noteNumber":62,"velocity":100,"quantize":75},{"type":"note","time":46.44444444444431,"duration":0.2222222222222222,"noteNumber":65,"velocity":100,"quantize":75},{"type":"note","time":46.44444444444431,"duration":0.2222222222222222,"noteNumber":67,"velocity":100,"quantize":75},{"type":"note","time":46.44444444444431,"duration":0.2222222222222222,"noteNumber":70,"velocity":100,"quantize":75},{"type":"note","time":46.88888888888875,"duration":0.2222222222222222,"noteNumber":62,"velocity":100,"quantize":75},{"type":"note","time":46.88888888888875,"duration":0.2222222222222222,"noteNumber":65,"velocity":100,"quantize":75},{"type":"note","time":46.88888888888875,"duration":0.2222222222222222,"noteNumber":67,"velocity":100,"quantize":75},{"type":"note","time":46.88888888888875,"duration":0.2222222222222222,"noteNumber":70,"velocity":100,"quantize":75},{"type":"note","time":47.333333333333194,"duration":0.2222222222222222,"noteNumber":60,"velocity":100,"quantize":75},{"type":"note","time":47.333333333333194,"duration":0.2222222222222222,"noteNumber":64,"velocity":100,"quantize":75},{"type":"note","time":47.333333333333194,"duration":0.2222222222222222,"noteNumber":67,"velocity":100,"quantize":75},{"type":"note","time":47.333333333333194,"duration":0.2222222222222222,"noteNumber":70,"velocity":100,"quantize":75},{"type":"note","time":47.77777777777764,"duration":0.2222222222222222,"noteNumber":60,"velocity":100,"quantize":75},{"type":"note","time":47.77777777777764,"duration":0.2222222222222222,"noteNumber":64,"velocity":100,"quantize":75},{"type":"note","time":47.77777777777764,"duration":0.2222222222222222,"noteNumber":67,"velocity":100,"quantize":75},{"type":"note","time":47.77777777777764,"duration":0.2222222222222222,"noteNumber":70,"velocity":100,"quantize":75},{"type":"note","time":48.22222222222208,"duration":0.2222222222222222,"noteNumber":65,"velocity":100,"quantize":75},{"type":"note","time":48.22222222222208,"duration":0.2222222222222222,"noteNumber":69,"velocity":100,"quantize":75},{"type":"note","time":48.22222222222208,"duration":0.2222222222222222,"noteNumber":72,"velocity":100,"quantize":75},{"type":"note","time":48.66666666666652,"duration":0.2222222222222222,"noteNumber":65,"velocity":100,"quantize":75},{"type":"note","time":48.66666666666652,"duration":0.2222222222222222,"noteNumber":69,"velocity":100,"quantize":75},{"type":"note","time":48.66666666666652,"duration":0.2222222222222222,"noteNumber":72,"velocity":100,"quantize":75},{"type":"note","time":49.111111111110965,"duration":0.2222222222222222,"noteNumber":60,"velocity":100,"quantize":75},{"type":"note","time":49.111111111110965,"duration":0.2222222222222222,"noteNumber":64,"velocity":100,"quantize":75},{"type":"note","time":49.111111111110965,"duration":0.2222222222222222,"noteNumber":67,"velocity":100,"quantize":75},{"type":"note","time":49.55555555555541,"duration":0.2222222222222222,"noteNumber":60,"velocity":100,"quantize":75},{"type":"note","time":49.55555555555541,"duration":0.2222222222222222,"noteNumber":64,"velocity":100,"quantize":75},{"type":"note","time":49.55555555555541,"duration":0.2222222222222222,"noteNumber":67,"velocity":100,"quantize":75},{"type":"note","time":78.66666666666647,"duration":0.4444444444444444,"noteNumber":60,"velocity":100,"quantize":75},{"type":"note","time":78.66666666666647,"duration":0.4444444444444444,"noteNumber":62,"velocity":100,"quantize":75},{"type":"note","time":78.66666666666647,"duration":0.4444444444444444,"noteNumber":65,"velocity":100,"quantize":75},{"type":"note","time":78.66666666666647,"duration":0.4444444444444444,"noteNumber":69,"velocity":100,"quantize":75},{"type":"note","time":79.55555555555536,"duration":0.4444444444444444,"noteNumber":57,"velocity":100,"quantize":75},{"type":"note","time":79.55555555555536,"duration":0.4444444444444444,"noteNumber":60,"velocity":100,"quantize":75},{"type":"note","time":79.55555555555536,"duration":0.4444444444444444,"noteNumber":64,"velocity":100,"quantize":75},{"type":"note","time":79.55555555555536,"duration":0.4444444444444444,"noteNumber":67,"velocity":100,"quantize":75},{"type":"note","time":80.44444444444424,"duration":0.4444444444444444,"noteNumber":60,"velocity":100,"quantize":75},{"type":"note","time":80.44444444444424,"duration":0.4444444444444444,"noteNumber":62,"velocity":100,"quantize":75},{"type":"note","time":80.44444444444424,"duration":0.4444444444444444,"noteNumber":65,"velocity":100,"quantize":75},{"type":"note","time":80.44444444444424,"duration":0.4444444444444444,"noteNumber":69,"velocity":100,"quantize":75},{"type":"note","time":81.33333333333313,"duration":0.4444444444444444,"noteNumber":57,"velocity":100,"quantize":75},{"type":"note","time":81.33333333333313,"duration":0.4444444444444444,"noteNumber":60,"velocity":100,"quantize":75},{"type":"note","time":81.33333333333313,"duration":0.4444444444444444,"noteNumber":64,"velocity":100,"quantize":75},{"type":"note","time":81.33333333333313,"duration":0.4444444444444444,"noteNumber":67,"velocity":100,"quantize":75},{"type":"note","time":82.22222222222202,"duration":0.4444444444444444,"noteNumber":60,"velocity":100,"quantize":75},{"type":"note","time":82.22222222222202,"duration":0.4444444444444444,"noteNumber":62,"velocity":100,"quantize":75},{"type":"note","time":82.22222222222202,"duration":0.4444444444444444,"noteNumber":65,"velocity":100,"quantize":75},{"type":"note","time":82.22222222222202,"duration":0.4444444444444444,"noteNumber":69,"velocity":100,"quantize":75},{"type":"note","time":83.1111111111109,"duration":0.4444444444444444,"noteNumber":57,"velocity":100,"quantize":75},{"type":"note","time":83.1111111111109,"duration":0.4444444444444444,"noteNumber":60,"velocity":100,"quantize":75},{"type":"note","time":83.1111111111109,"duration":0.4444444444444444,"noteNumber":64,"velocity":100,"quantize":75},{"type":"note","time":83.1111111111109,"duration":0.4444444444444444,"noteNumber":67,"velocity":100,"quantize":75},{"type":"note","time":83.55555555555534,"duration":0.2222222222222222,"noteNumber":60,"velocity":100,"quantize":75},{"type":"note","time":83.55555555555534,"duration":0.2222222222222222,"noteNumber":62,"velocity":100,"quantize":75},{"type":"note","time":83.55555555555534,"duration":0.2222222222222222,"noteNumber":65,"velocity":100,"quantize":75},{"type":"note","time":83.55555555555534,"duration":0.2222222222222222,"noteNumber":69,"velocity":100,"quantize":75},{"type":"note","time":83.88888888888869,"duration":0.2222222222222222,"noteNumber":60,"velocity":100,"quantize":75},{"type":"note","time":83.88888888888869,"duration":0.2222222222222222,"noteNumber":62,"velocity":100,"quantize":75},{"type":"note","time":83.88888888888869,"duration":0.2222222222222222,"noteNumber":65,"velocity":100,"quantize":75},{"type":"note","time":83.88888888888869,"duration":0.2222222222222222,"noteNumber":69,"velocity":100,"quantize":75},{"type":"note","time":84.22222222222203,"duration":0.2222222222222222,"noteNumber":57,"velocity":100,"quantize":75},{"type":"note","time":84.22222222222203,"duration":0.2222222222222222,"noteNumber":61,"velocity":100,"quantize":75},{"type":"note","time":84.22222222222203,"duration":0.2222222222222222,"noteNumber":64,"velocity":100,"quantize":75},{"type":"note","time":84.22222222222203,"duration":0.2222222222222222,"noteNumber":67,"velocity":100,"quantize":75},{"type":"note","time":84.44444444444426,"duration":0.3333333333333333,"noteNumber":60,"velocity":100,"quantize":75},{"type":"note","time":84.44444444444426,"duration":0.3333333333333333,"noteNumber":62,"velocity":100,"quantize":75},{"type":"note","time":84.44444444444426,"duration":0.3333333333333333,"noteNumber":65,"velocity":100,"quantize":75},{"type":"note","time":84.44444444444426,"duration":0.3333333333333333,"noteNumber":69,"velocity":100,"quantize":75},{"type":"note","time":84.8888888888887,"duration":0.4444444444444444,"noteNumber":58,"velocity":100,"quantize":75},{"type":"note","time":84.8888888888887,"duration":0.4444444444444444,"noteNumber":63,"velocity":100,"quantize":75},{"type":"note","time":84.8888888888887,"duration":0.4444444444444444,"noteNumber":66,"velocity":100,"quantize":75},{"type":"note","time":84.8888888888887,"duration":0.4444444444444444,"noteNumber":70,"velocity":100,"quantize":75},{"type":"end","time":85.33333333333314}]
 
 /***/ }),
-/* 66 */
+/* 104 */
 /***/ (function(module, exports) {
 
-module.exports = [{"type":"note","time":20.88888888888889,"duration":0.4444444444444444,"noteNumber":55,"velocity":100,"quantize":75},{"type":"note","time":21.333333333333332,"duration":0.8888888888888888,"noteNumber":57,"velocity":100,"quantize":75},{"type":"note","time":22.22222222222222,"duration":0.8888888888888888,"noteNumber":55,"velocity":100,"quantize":75},{"type":"note","time":23.11111111111111,"duration":0.8888888888888888,"noteNumber":53,"velocity":100,"quantize":75},{"type":"note","time":24,"duration":0.8888888888888888,"noteNumber":52,"velocity":100,"quantize":75},{"type":"note","time":24.88888888888889,"duration":0.8888888888888888,"noteNumber":53,"velocity":100,"quantize":75},{"type":"note","time":25.77777777777778,"duration":0.8888888888888888,"noteNumber":55,"velocity":100,"quantize":75},{"type":"note","time":26.666666666666668,"duration":0.8888888888888888,"noteNumber":48,"velocity":100,"quantize":75},{"type":"note","time":27.555555555555557,"duration":0.8888888888888888,"noteNumber":51,"velocity":100,"quantize":75},{"type":"note","time":28.444444444444446,"duration":0.8888888888888888,"noteNumber":50,"velocity":100,"quantize":75},{"type":"note","time":29.333333333333336,"duration":0.8888888888888888,"noteNumber":48,"velocity":100,"quantize":75},{"type":"note","time":30.222222222222225,"duration":0.8888888888888888,"noteNumber":57,"velocity":100,"quantize":75},{"type":"note","time":31.111111111111114,"duration":0.8888888888888888,"noteNumber":55,"velocity":100,"quantize":75},{"type":"note","time":32,"duration":0.8888888888888888,"noteNumber":53,"velocity":100,"quantize":75},{"type":"note","time":32.888888888888886,"duration":0.8888888888888888,"noteNumber":55,"velocity":100,"quantize":75},{"type":"note","time":33.77777777777777,"duration":0.8888888888888888,"noteNumber":55,"velocity":100,"quantize":75},{"type":"note","time":34.66666666666666,"duration":0.8888888888888888,"noteNumber":57,"velocity":100,"quantize":75},{"type":"note","time":35.55555555555554,"duration":0.8888888888888888,"noteNumber":57,"velocity":100,"quantize":75},{"type":"note","time":36.44444444444443,"duration":0.8888888888888888,"noteNumber":55,"velocity":100,"quantize":75},{"type":"note","time":37.333333333333314,"duration":0.8888888888888888,"noteNumber":53,"velocity":100,"quantize":75},{"type":"note","time":38.2222222222222,"duration":0.8888888888888888,"noteNumber":52,"velocity":100,"quantize":75},{"type":"note","time":39.111111111111086,"duration":0.8888888888888888,"noteNumber":53,"velocity":100,"quantize":75},{"type":"note","time":39.99999999999997,"duration":0.8888888888888888,"noteNumber":55,"velocity":100,"quantize":75},{"type":"note","time":40.88888888888886,"duration":0.8888888888888888,"noteNumber":48,"velocity":100,"quantize":75},{"type":"note","time":41.77777777777774,"duration":0.8888888888888888,"noteNumber":51,"velocity":100,"quantize":75},{"type":"note","time":42.66666666666663,"duration":0.8888888888888888,"noteNumber":50,"velocity":100,"quantize":75},{"type":"note","time":43.555555555555515,"duration":0.8888888888888888,"noteNumber":48,"velocity":100,"quantize":75},{"type":"note","time":44.4444444444444,"duration":0.8888888888888888,"noteNumber":57,"velocity":100,"quantize":75},{"type":"note","time":45.333333333333286,"duration":0.8888888888888888,"noteNumber":55,"velocity":100,"quantize":75},{"type":"note","time":46.22222222222217,"duration":0.8888888888888888,"noteNumber":53,"velocity":100,"quantize":75},{"type":"note","time":47.11111111111106,"duration":0.8888888888888888,"noteNumber":55,"velocity":100,"quantize":75},{"type":"note","time":47.99999999999994,"duration":0.8888888888888888,"noteNumber":53,"velocity":100,"quantize":75},{"type":"note","time":48.88888888888883,"duration":0.8888888888888888,"noteNumber":52,"velocity":100,"quantize":75},{"type":"end","time":49.777777777777715}]
+module.exports = [{"type":"note","time":20.88888888888889,"duration":0.4444444444444444,"noteNumber":55,"velocity":100,"quantize":75},{"type":"note","time":21.333333333333332,"duration":0.8888888888888888,"noteNumber":57,"velocity":100,"quantize":75},{"type":"note","time":22.22222222222222,"duration":0.8888888888888888,"noteNumber":55,"velocity":100,"quantize":75},{"type":"note","time":23.11111111111111,"duration":0.8888888888888888,"noteNumber":53,"velocity":100,"quantize":75},{"type":"note","time":24,"duration":0.8888888888888888,"noteNumber":52,"velocity":100,"quantize":75},{"type":"note","time":24.88888888888889,"duration":0.8888888888888888,"noteNumber":53,"velocity":100,"quantize":75},{"type":"note","time":25.77777777777778,"duration":0.8888888888888888,"noteNumber":55,"velocity":100,"quantize":75},{"type":"note","time":26.666666666666668,"duration":0.8888888888888888,"noteNumber":48,"velocity":100,"quantize":75},{"type":"note","time":27.555555555555557,"duration":0.8888888888888888,"noteNumber":51,"velocity":100,"quantize":75},{"type":"note","time":28.444444444444446,"duration":0.8888888888888888,"noteNumber":50,"velocity":100,"quantize":75},{"type":"note","time":29.333333333333336,"duration":0.8888888888888888,"noteNumber":48,"velocity":100,"quantize":75},{"type":"note","time":30.222222222222225,"duration":0.8888888888888888,"noteNumber":57,"velocity":100,"quantize":75},{"type":"note","time":31.111111111111114,"duration":0.8888888888888888,"noteNumber":55,"velocity":100,"quantize":75},{"type":"note","time":32,"duration":0.8888888888888888,"noteNumber":53,"velocity":100,"quantize":75},{"type":"note","time":32.888888888888886,"duration":0.8888888888888888,"noteNumber":55,"velocity":100,"quantize":75},{"type":"note","time":33.77777777777777,"duration":0.8888888888888888,"noteNumber":55,"velocity":100,"quantize":75},{"type":"note","time":34.66666666666666,"duration":0.8888888888888888,"noteNumber":57,"velocity":100,"quantize":75},{"type":"note","time":35.55555555555554,"duration":0.8888888888888888,"noteNumber":57,"velocity":100,"quantize":75},{"type":"note","time":36.44444444444443,"duration":0.8888888888888888,"noteNumber":55,"velocity":100,"quantize":75},{"type":"note","time":37.333333333333314,"duration":0.8888888888888888,"noteNumber":53,"velocity":100,"quantize":75},{"type":"note","time":38.2222222222222,"duration":0.8888888888888888,"noteNumber":52,"velocity":100,"quantize":75},{"type":"note","time":39.111111111111086,"duration":0.8888888888888888,"noteNumber":53,"velocity":100,"quantize":75},{"type":"note","time":39.99999999999997,"duration":0.8888888888888888,"noteNumber":55,"velocity":100,"quantize":75},{"type":"note","time":40.88888888888886,"duration":0.8888888888888888,"noteNumber":48,"velocity":100,"quantize":75},{"type":"note","time":41.77777777777774,"duration":0.8888888888888888,"noteNumber":51,"velocity":100,"quantize":75},{"type":"note","time":42.66666666666663,"duration":0.8888888888888888,"noteNumber":50,"velocity":100,"quantize":75},{"type":"note","time":43.555555555555515,"duration":0.8888888888888888,"noteNumber":48,"velocity":100,"quantize":75},{"type":"note","time":44.4444444444444,"duration":0.8888888888888888,"noteNumber":57,"velocity":100,"quantize":75},{"type":"note","time":45.333333333333286,"duration":0.8888888888888888,"noteNumber":55,"velocity":100,"quantize":75},{"type":"note","time":46.22222222222217,"duration":0.8888888888888888,"noteNumber":53,"velocity":100,"quantize":75},{"type":"note","time":47.11111111111106,"duration":0.8888888888888888,"noteNumber":55,"velocity":100,"quantize":75},{"type":"note","time":47.99999999999994,"duration":0.8888888888888888,"noteNumber":53,"velocity":100,"quantize":75},{"type":"note","time":48.88888888888883,"duration":0.8888888888888888,"noteNumber":52,"velocity":100,"quantize":75},{"type":"note","time":78.22222222222211,"duration":0.4444444444444444,"noteNumber":48,"velocity":100,"quantize":75},{"type":"note","time":79.111111111111,"duration":0.4444444444444444,"noteNumber":48,"velocity":100,"quantize":75},{"type":"note","time":79.99999999999989,"duration":0.4444444444444444,"noteNumber":48,"velocity":100,"quantize":75},{"type":"note","time":80.88888888888877,"duration":0.4444444444444444,"noteNumber":48,"velocity":100,"quantize":75},{"type":"note","time":81.77777777777766,"duration":0.4444444444444444,"noteNumber":48,"velocity":100,"quantize":75},{"type":"note","time":82.66666666666654,"duration":0.4444444444444444,"noteNumber":48,"velocity":100,"quantize":75},{"type":"note","time":83.55555555555543,"duration":0.2222222222222222,"noteNumber":48,"velocity":100,"quantize":75},{"type":"note","time":83.88888888888877,"duration":0.1111111111111111,"noteNumber":48,"velocity":100,"quantize":75},{"type":"note","time":84.22222222222211,"duration":0.2222222222222222,"noteNumber":48,"velocity":100,"quantize":75},{"type":"note","time":84.44444444444434,"duration":0.2222222222222222,"noteNumber":48,"velocity":100,"quantize":75},{"type":"note","time":84.8888888888888,"duration":0.4444444444444444,"noteNumber":46,"velocity":100,"quantize":75},{"type":"end","time":85.33333333333324}]
 
 /***/ }),
-/* 67 */
+/* 105 */
 /***/ (function(module, exports) {
 
-module.exports = [{"type":"note","time":20.88888888888889,"duration":0.4444444444444444,"noteNumber":62,"velocity":100,"quantize":75},{"type":"note","time":21.333333333333332,"duration":0.8888888888888888,"noteNumber":65,"velocity":100,"quantize":75},{"type":"note","time":22.22222222222222,"duration":0.8888888888888888,"noteNumber":64,"velocity":100,"quantize":75},{"type":"note","time":23.11111111111111,"duration":0.8888888888888888,"noteNumber":62,"velocity":100,"quantize":75},{"type":"note","time":24,"duration":0.8888888888888888,"noteNumber":60,"velocity":100,"quantize":75},{"type":"note","time":24.88888888888889,"duration":0.8888888888888888,"noteNumber":62,"velocity":100,"quantize":75},{"type":"note","time":25.77777777777778,"duration":0.8888888888888888,"noteNumber":64,"velocity":100,"quantize":75},{"type":"note","time":26.666666666666668,"duration":0.8888888888888888,"noteNumber":60,"velocity":100,"quantize":75},{"type":"note","time":27.555555555555557,"duration":0.8888888888888888,"noteNumber":57,"velocity":100,"quantize":75},{"type":"note","time":28.444444444444446,"duration":0.8888888888888888,"noteNumber":64,"velocity":100,"quantize":75},{"type":"note","time":29.333333333333336,"duration":0.8888888888888888,"noteNumber":62,"velocity":100,"quantize":75},{"type":"note","time":30.222222222222225,"duration":0.8888888888888888,"noteNumber":64,"velocity":100,"quantize":75},{"type":"note","time":31.111111111111114,"duration":0.8888888888888888,"noteNumber":57,"velocity":100,"quantize":75},{"type":"note","time":32,"duration":0.8888888888888888,"noteNumber":60,"velocity":100,"quantize":75},{"type":"note","time":32.888888888888886,"duration":0.8888888888888888,"noteNumber":62,"velocity":100,"quantize":75},{"type":"note","time":33.77777777777777,"duration":0.8888888888888888,"noteNumber":69,"velocity":100,"quantize":75},{"type":"note","time":34.66666666666666,"duration":0.8888888888888888,"noteNumber":64,"velocity":100,"quantize":75},{"type":"note","time":35.55555555555554,"duration":0.8888888888888888,"noteNumber":65,"velocity":100,"quantize":75},{"type":"note","time":36.44444444444443,"duration":0.8888888888888888,"noteNumber":64,"velocity":100,"quantize":75},{"type":"note","time":37.333333333333314,"duration":0.8888888888888888,"noteNumber":62,"velocity":100,"quantize":75},{"type":"note","time":38.2222222222222,"duration":0.8888888888888888,"noteNumber":60,"velocity":100,"quantize":75},{"type":"note","time":39.111111111111086,"duration":0.8888888888888888,"noteNumber":62,"velocity":100,"quantize":75},{"type":"note","time":39.99999999999997,"duration":0.8888888888888888,"noteNumber":64,"velocity":100,"quantize":75},{"type":"note","time":40.88888888888886,"duration":0.8888888888888888,"noteNumber":60,"velocity":100,"quantize":75},{"type":"note","time":41.77777777777774,"duration":0.8888888888888888,"noteNumber":57,"velocity":100,"quantize":75},{"type":"note","time":42.66666666666663,"duration":0.8888888888888888,"noteNumber":64,"velocity":100,"quantize":75},{"type":"note","time":43.555555555555515,"duration":0.8888888888888888,"noteNumber":62,"velocity":100,"quantize":75},{"type":"note","time":44.4444444444444,"duration":0.8888888888888888,"noteNumber":64,"velocity":100,"quantize":75},{"type":"note","time":45.333333333333286,"duration":0.8888888888888888,"noteNumber":57,"velocity":100,"quantize":75},{"type":"note","time":46.22222222222217,"duration":0.8888888888888888,"noteNumber":60,"velocity":100,"quantize":75},{"type":"note","time":47.11111111111106,"duration":0.8888888888888888,"noteNumber":62,"velocity":100,"quantize":75},{"type":"note","time":47.99999999999994,"duration":0.8888888888888888,"noteNumber":60,"velocity":100,"quantize":75},{"type":"note","time":48.88888888888883,"duration":0.8888888888888888,"noteNumber":67,"velocity":100,"quantize":75},{"type":"end","time":49.777777777777715}]
+module.exports = [{"type":"note","time":20.88888888888889,"duration":0.4444444444444444,"noteNumber":62,"velocity":100,"quantize":75},{"type":"note","time":21.333333333333332,"duration":0.8888888888888888,"noteNumber":65,"velocity":100,"quantize":75},{"type":"note","time":22.22222222222222,"duration":0.8888888888888888,"noteNumber":64,"velocity":100,"quantize":75},{"type":"note","time":23.11111111111111,"duration":0.8888888888888888,"noteNumber":62,"velocity":100,"quantize":75},{"type":"note","time":24,"duration":0.8888888888888888,"noteNumber":60,"velocity":100,"quantize":75},{"type":"note","time":24.88888888888889,"duration":0.8888888888888888,"noteNumber":62,"velocity":100,"quantize":75},{"type":"note","time":25.77777777777778,"duration":0.8888888888888888,"noteNumber":64,"velocity":100,"quantize":75},{"type":"note","time":26.666666666666668,"duration":0.8888888888888888,"noteNumber":60,"velocity":100,"quantize":75},{"type":"note","time":27.555555555555557,"duration":0.8888888888888888,"noteNumber":57,"velocity":100,"quantize":75},{"type":"note","time":28.444444444444446,"duration":0.8888888888888888,"noteNumber":64,"velocity":100,"quantize":75},{"type":"note","time":29.333333333333336,"duration":0.8888888888888888,"noteNumber":62,"velocity":100,"quantize":75},{"type":"note","time":30.222222222222225,"duration":0.8888888888888888,"noteNumber":64,"velocity":100,"quantize":75},{"type":"note","time":31.111111111111114,"duration":0.8888888888888888,"noteNumber":57,"velocity":100,"quantize":75},{"type":"note","time":32,"duration":0.8888888888888888,"noteNumber":60,"velocity":100,"quantize":75},{"type":"note","time":32.888888888888886,"duration":0.8888888888888888,"noteNumber":62,"velocity":100,"quantize":75},{"type":"note","time":33.77777777777777,"duration":0.8888888888888888,"noteNumber":69,"velocity":100,"quantize":75},{"type":"note","time":34.66666666666666,"duration":0.8888888888888888,"noteNumber":64,"velocity":100,"quantize":75},{"type":"note","time":35.55555555555554,"duration":0.8888888888888888,"noteNumber":65,"velocity":100,"quantize":75},{"type":"note","time":36.44444444444443,"duration":0.8888888888888888,"noteNumber":64,"velocity":100,"quantize":75},{"type":"note","time":37.333333333333314,"duration":0.8888888888888888,"noteNumber":62,"velocity":100,"quantize":75},{"type":"note","time":38.2222222222222,"duration":0.8888888888888888,"noteNumber":60,"velocity":100,"quantize":75},{"type":"note","time":39.111111111111086,"duration":0.8888888888888888,"noteNumber":62,"velocity":100,"quantize":75},{"type":"note","time":39.99999999999997,"duration":0.8888888888888888,"noteNumber":64,"velocity":100,"quantize":75},{"type":"note","time":40.88888888888886,"duration":0.8888888888888888,"noteNumber":60,"velocity":100,"quantize":75},{"type":"note","time":41.77777777777774,"duration":0.8888888888888888,"noteNumber":57,"velocity":100,"quantize":75},{"type":"note","time":42.66666666666663,"duration":0.8888888888888888,"noteNumber":64,"velocity":100,"quantize":75},{"type":"note","time":43.555555555555515,"duration":0.8888888888888888,"noteNumber":62,"velocity":100,"quantize":75},{"type":"note","time":44.4444444444444,"duration":0.8888888888888888,"noteNumber":64,"velocity":100,"quantize":75},{"type":"note","time":45.333333333333286,"duration":0.8888888888888888,"noteNumber":57,"velocity":100,"quantize":75},{"type":"note","time":46.22222222222217,"duration":0.8888888888888888,"noteNumber":60,"velocity":100,"quantize":75},{"type":"note","time":47.11111111111106,"duration":0.8888888888888888,"noteNumber":62,"velocity":100,"quantize":75},{"type":"note","time":47.99999999999994,"duration":0.8888888888888888,"noteNumber":60,"velocity":100,"quantize":75},{"type":"note","time":48.88888888888883,"duration":0.8888888888888888,"noteNumber":67,"velocity":100,"quantize":75},{"type":"note","time":78.22222222222211,"duration":0.4444444444444444,"noteNumber":65,"velocity":100,"quantize":75},{"type":"note","time":79.111111111111,"duration":0.4444444444444444,"noteNumber":64,"velocity":100,"quantize":75},{"type":"note","time":79.99999999999989,"duration":0.4444444444444444,"noteNumber":65,"velocity":100,"quantize":75},{"type":"note","time":80.88888888888877,"duration":0.4444444444444444,"noteNumber":64,"velocity":100,"quantize":75},{"type":"note","time":81.77777777777766,"duration":0.4444444444444444,"noteNumber":65,"velocity":100,"quantize":75},{"type":"note","time":82.66666666666654,"duration":0.4444444444444444,"noteNumber":64,"velocity":100,"quantize":75},{"type":"note","time":83.55555555555543,"duration":0.2222222222222222,"noteNumber":65,"velocity":100,"quantize":75},{"type":"note","time":83.88888888888877,"duration":0.1111111111111111,"noteNumber":65,"velocity":100,"quantize":75},{"type":"note","time":84.22222222222211,"duration":0.2222222222222222,"noteNumber":64,"velocity":100,"quantize":75},{"type":"note","time":84.44444444444434,"duration":0.2222222222222222,"noteNumber":65,"velocity":100,"quantize":75},{"type":"note","time":84.8888888888888,"duration":0.4444444444444444,"noteNumber":54,"velocity":100,"quantize":75},{"type":"end","time":85.33333333333324}]
 
 /***/ }),
-/* 68 */
+/* 106 */
 /***/ (function(module, exports) {
 
-module.exports = [{"type":"note","time":7.555555555555555,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":8.444444444444445,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":9.333333333333334,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":10.222222222222223,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":11.111111111111112,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":12.000000000000002,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":12.888888888888891,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":13.77777777777778,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":14.66666666666667,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":15.555555555555559,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":16.444444444444446,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":17.333333333333332,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":18.222222222222218,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":19.111111111111104,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":21.777777777777768,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":22.666666666666654,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":23.55555555555554,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":24.444444444444425,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":25.33333333333331,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":26.222222222222197,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":27.111111111111082,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":27.999999999999968,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":28.888888888888854,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":29.77777777777774,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":30.666666666666625,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":31.55555555555551,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":32.4444444444444,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":33.333333333333286,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":34.22222222222217,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":35.11111111111106,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":35.99999999999994,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":36.88888888888883,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":37.777777777777715,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":38.6666666666666,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":39.555555555555486,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":40.44444444444437,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":41.33333333333326,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":42.22222222222214,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":43.11111111111103,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":43.999999999999915,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":44.8888888888888,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":45.777777777777686,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":46.66666666666657,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":47.55555555555546,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":48.44444444444434,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":49.33333333333323,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"end","time":49.77777777777767}]
+module.exports = [{"type":"note","time":49.77777777777779,"duration":0.8888888888888888,"noteNumber":62,"velocity":100,"quantize":75},{"type":"note","time":51.555555555555564,"duration":0.8888888888888888,"noteNumber":62,"velocity":100,"quantize":75},{"type":"note","time":53.333333333333336,"duration":0.8888888888888888,"noteNumber":65,"velocity":100,"quantize":75},{"type":"note","time":54.22222222222222,"duration":0.8888888888888888,"noteNumber":64,"velocity":100,"quantize":75},{"type":"note","time":55.11111111111111,"duration":0.8888888888888888,"noteNumber":67,"velocity":100,"quantize":75},{"type":"note","time":55.99999999999999,"duration":0.8888888888888888,"noteNumber":65,"velocity":100,"quantize":75},{"type":"note","time":56.88888888888888,"duration":0.8888888888888888,"noteNumber":62,"velocity":100,"quantize":75},{"type":"note","time":58.66666666666665,"duration":0.8888888888888888,"noteNumber":62,"velocity":100,"quantize":75},{"type":"note","time":59.555555555555536,"duration":0.8888888888888888,"noteNumber":60,"velocity":100,"quantize":75},{"type":"note","time":60.44444444444442,"duration":0.8888888888888888,"noteNumber":65,"velocity":100,"quantize":75},{"type":"note","time":61.33333333333331,"duration":0.8888888888888888,"noteNumber":62,"velocity":100,"quantize":75},{"type":"note","time":62.22222222222219,"duration":0.8888888888888888,"noteNumber":60,"velocity":100,"quantize":75},{"type":"note","time":63.11111111111108,"duration":0.8888888888888888,"noteNumber":63,"velocity":100,"quantize":75},{"type":"note","time":63.999999999999964,"duration":0.8888888888888888,"noteNumber":62,"velocity":100,"quantize":75},{"type":"note","time":65.77777777777774,"duration":0.8888888888888888,"noteNumber":62,"velocity":100,"quantize":75},{"type":"note","time":67.55555555555551,"duration":0.8888888888888888,"noteNumber":65,"velocity":100,"quantize":75},{"type":"note","time":68.4444444444444,"duration":0.8888888888888888,"noteNumber":64,"velocity":100,"quantize":75},{"type":"note","time":69.33333333333329,"duration":0.8888888888888888,"noteNumber":67,"velocity":100,"quantize":75},{"type":"note","time":70.22222222222217,"duration":0.8888888888888888,"noteNumber":65,"velocity":100,"quantize":75},{"type":"note","time":71.11111111111106,"duration":0.8888888888888888,"noteNumber":62,"velocity":100,"quantize":75},{"type":"note","time":72.88888888888883,"duration":0.8888888888888888,"noteNumber":62,"velocity":100,"quantize":75},{"type":"note","time":73.77777777777771,"duration":0.8888888888888888,"noteNumber":60,"velocity":100,"quantize":75},{"type":"note","time":74.6666666666666,"duration":0.8888888888888888,"noteNumber":65,"velocity":100,"quantize":75},{"type":"note","time":75.55555555555549,"duration":0.8888888888888888,"noteNumber":62,"velocity":100,"quantize":75},{"type":"note","time":76.44444444444437,"duration":0.8888888888888888,"noteNumber":60,"velocity":100,"quantize":75},{"type":"note","time":77.33333333333326,"duration":0.8888888888888888,"noteNumber":63,"velocity":100,"quantize":75},{"type":"end","time":85.33333333333323}]
 
 /***/ }),
-/* 69 */
+/* 107 */
 /***/ (function(module, exports) {
 
-module.exports = [{"type":"note","time":7.333333333333333,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":7.777777777777778,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":8.222222222222221,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":8.666666666666664,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":9.111111111111107,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":9.55555555555555,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":9.999999999999993,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":10.444444444444436,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":10.888888888888879,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":11.333333333333321,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":11.777777777777764,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":12.222222222222207,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":12.66666666666665,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":13.111111111111093,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":13.555555555555536,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":13.999999999999979,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":14.444444444444422,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":14.888888888888864,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":15.333333333333307,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":15.77777777777775,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":16.222222222222193,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":16.666666666666636,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":17.11111111111108,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":17.55555555555552,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":17.999999999999964,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":18.444444444444407,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":18.88888888888885,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":19.333333333333293,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":20.66666666666662,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":21.555555555555507,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":21.99999999999995,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":22.444444444444393,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":22.888888888888836,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":23.33333333333328,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":23.77777777777772,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":24.222222222222165,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":24.666666666666607,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":25.11111111111105,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":25.555555555555493,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":25.999999999999936,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":26.44444444444438,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":26.888888888888822,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":27.333333333333265,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":27.777777777777708,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":28.22222222222215,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":28.666666666666593,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":29.111111111111036,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":29.55555555555548,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":29.999999999999922,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":30.444444444444365,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":30.888888888888808,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":31.33333333333325,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":31.777777777777693,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":32.222222222222136,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":32.66666666666658,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":33.11111111111102,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":33.555555555555465,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":33.99999999999991,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":34.44444444444435,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":34.88888888888879,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":35.333333333333236,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":35.77777777777768,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":36.22222222222212,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":36.666666666666565,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":37.11111111111101,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":37.55555555555545,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":37.99999999999989,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":38.444444444444336,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":38.88888888888878,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":39.33333333333322,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":39.777777777777665,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":40.22222222222211,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":40.66666666666655,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":41.11111111111099,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":41.555555555555436,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":41.99999999999988,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":42.44444444444432,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":42.888888888888765,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":43.33333333333321,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":43.77777777777765,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":44.22222222222209,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":44.666666666666536,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":45.11111111111098,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":45.55555555555542,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":45.999999999999865,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":46.44444444444431,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":46.88888888888875,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":47.333333333333194,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":47.77777777777764,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":48.22222222222208,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":48.66666666666652,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":49.111111111110965,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":49.55555555555541,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"end","time":49.77777777777763}]
+module.exports = [{"type":"note","time":49.77777777777779,"duration":0.8888888888888888,"noteNumber":65,"velocity":100,"quantize":75},{"type":"note","time":50.66666666666668,"duration":0.8888888888888888,"noteNumber":69,"velocity":100,"quantize":75},{"type":"note","time":51.555555555555564,"duration":0.8888888888888888,"noteNumber":65,"velocity":100,"quantize":75},{"type":"note","time":52.44444444444445,"duration":0.8888888888888888,"noteNumber":67,"velocity":100,"quantize":75},{"type":"note","time":53.333333333333336,"duration":0.8888888888888888,"noteNumber":69,"velocity":100,"quantize":75},{"type":"note","time":54.22222222222222,"duration":0.8888888888888888,"noteNumber":65,"velocity":100,"quantize":75},{"type":"note","time":55.11111111111111,"duration":0.8888888888888888,"noteNumber":70,"velocity":100,"quantize":75},{"type":"note","time":55.99999999999999,"duration":0.8888888888888888,"noteNumber":69,"velocity":100,"quantize":75},{"type":"note","time":56.88888888888888,"duration":0.8888888888888888,"noteNumber":65,"velocity":100,"quantize":75},{"type":"note","time":57.777777777777764,"duration":0.8888888888888888,"noteNumber":69,"velocity":100,"quantize":75},{"type":"note","time":58.66666666666665,"duration":0.8888888888888888,"noteNumber":65,"velocity":100,"quantize":75},{"type":"note","time":59.555555555555536,"duration":0.8888888888888888,"noteNumber":64,"velocity":100,"quantize":75},{"type":"note","time":60.44444444444442,"duration":0.8888888888888888,"noteNumber":69,"velocity":100,"quantize":75},{"type":"note","time":61.33333333333331,"duration":0.8888888888888888,"noteNumber":65,"velocity":100,"quantize":75},{"type":"note","time":62.22222222222219,"duration":0.8888888888888888,"noteNumber":64,"velocity":100,"quantize":75},{"type":"note","time":63.11111111111108,"duration":0.8888888888888888,"noteNumber":69,"velocity":100,"quantize":75},{"type":"note","time":63.999999999999964,"duration":0.8888888888888888,"noteNumber":65,"velocity":100,"quantize":75},{"type":"note","time":64.88888888888886,"duration":0.8888888888888888,"noteNumber":69,"velocity":100,"quantize":75},{"type":"note","time":65.77777777777774,"duration":0.8888888888888888,"noteNumber":65,"velocity":100,"quantize":75},{"type":"note","time":66.66666666666663,"duration":0.8888888888888888,"noteNumber":67,"velocity":100,"quantize":75},{"type":"note","time":67.55555555555551,"duration":0.8888888888888888,"noteNumber":69,"velocity":100,"quantize":75},{"type":"note","time":68.4444444444444,"duration":0.8888888888888888,"noteNumber":65,"velocity":100,"quantize":75},{"type":"note","time":69.33333333333329,"duration":0.8888888888888888,"noteNumber":70,"velocity":100,"quantize":75},{"type":"note","time":70.22222222222217,"duration":0.8888888888888888,"noteNumber":69,"velocity":100,"quantize":75},{"type":"note","time":71.11111111111106,"duration":0.8888888888888888,"noteNumber":65,"velocity":100,"quantize":75},{"type":"note","time":71.99999999999994,"duration":0.8888888888888888,"noteNumber":69,"velocity":100,"quantize":75},{"type":"note","time":72.88888888888883,"duration":0.8888888888888888,"noteNumber":65,"velocity":100,"quantize":75},{"type":"note","time":73.77777777777771,"duration":0.8888888888888888,"noteNumber":64,"velocity":100,"quantize":75},{"type":"note","time":74.6666666666666,"duration":0.8888888888888888,"noteNumber":69,"velocity":100,"quantize":75},{"type":"note","time":75.55555555555549,"duration":0.8888888888888888,"noteNumber":65,"velocity":100,"quantize":75},{"type":"note","time":76.44444444444437,"duration":0.8888888888888888,"noteNumber":64,"velocity":100,"quantize":75},{"type":"note","time":77.33333333333326,"duration":0.8888888888888888,"noteNumber":69,"velocity":100,"quantize":75},{"type":"end","time":85.33333333333323}]
 
 /***/ }),
-/* 70 */
+/* 108 */
 /***/ (function(module, exports) {
 
-module.exports = [{"type":"note","time":7.111111111111113,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":21.333333333333318,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":35.55555555555549,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"end","time":49.777777777777665}]
+module.exports = [{"type":"note","time":7.555555555555555,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":8.444444444444445,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":9.333333333333334,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":10.222222222222223,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":11.111111111111112,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":12.000000000000002,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":12.888888888888891,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":13.77777777777778,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":14.66666666666667,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":15.555555555555559,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":16.444444444444446,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":17.333333333333332,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":18.222222222222218,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":19.111111111111104,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":21.777777777777768,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":22.666666666666654,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":23.55555555555554,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":24.444444444444425,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":25.33333333333331,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":26.222222222222197,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":27.111111111111082,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":27.999999999999968,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":28.888888888888854,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":29.77777777777774,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":30.666666666666625,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":31.55555555555551,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":32.4444444444444,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":33.333333333333286,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":34.22222222222217,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":35.11111111111106,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":35.99999999999994,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":36.88888888888883,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":37.777777777777715,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":38.6666666666666,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":39.555555555555486,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":40.44444444444437,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":41.33333333333326,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":42.22222222222214,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":43.11111111111103,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":43.999999999999915,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":44.8888888888888,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":45.777777777777686,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":46.66666666666657,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":47.55555555555546,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":48.44444444444434,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":49.33333333333323,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":50.66666666666656,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":52.44444444444433,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":54.2222222222221,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":55.99999999999987,"duration":0.3333333333333333,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":56.33333333333321,"duration":0.3333333333333333,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":56.66666666666654,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":57.77777777777765,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":59.55555555555542,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":61.333333333333194,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":63.111111111110965,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":63.33333333333319,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":63.55555555555541,"duration":0.05555555555555555,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":63.611111111110965,"duration":0.05555555555555555,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":63.66666666666652,"duration":0.05555555555555555,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":63.72222222222208,"duration":0.05555555555555555,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":63.77777777777764,"duration":0.05555555555555555,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":63.833333333333194,"duration":0.05555555555555555,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":63.88888888888875,"duration":0.05555555555555555,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":63.94444444444431,"duration":0.05555555555555555,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":64.44444444444431,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":65.3333333333332,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":66.22222222222209,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":67.11111111111097,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":67.99999999999986,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":68.88888888888874,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":69.77777777777763,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":70.66666666666652,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":71.5555555555554,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":72.44444444444429,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":73.33333333333317,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":74.22222222222206,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":75.11111111111094,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":75.99999999999983,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":76.88888888888872,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":77.7777777777776,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":78.66666666666649,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":79.55555555555537,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":80.44444444444426,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":81.33333333333314,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":82.22222222222203,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":83.11111111111092,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"end","time":85.33333333333313}]
 
 /***/ }),
-/* 71 */
+/* 109 */
 /***/ (function(module, exports) {
 
-module.exports = [{"type":"note","time":6.444444444444444,"duration":0.1111111111111111,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":6.5555555555555545,"duration":0.1111111111111111,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":6.8888888888888875,"duration":0.1111111111111111,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":6.999999999999998,"duration":0.1111111111111111,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":7.555555555555554,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":8.444444444444443,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":9.333333333333332,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":10.222222222222221,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":11.11111111111111,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":12,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":12.88888888888889,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":13.777777777777779,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":14.666666666666668,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":15.555555555555557,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":16.444444444444443,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":17.33333333333333,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":18.222222222222214,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":19.1111111111111,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":20.666666666666654,"duration":0.1111111111111111,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":20.777777777777764,"duration":0.1111111111111111,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":21.111111111111097,"duration":0.1111111111111111,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":21.222222222222207,"duration":0.1111111111111111,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":21.77777777777776,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":22.666666666666647,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":23.555555555555532,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":24.444444444444418,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":25.333333333333304,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":26.22222222222219,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":27.111111111111075,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":27.99999999999996,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":28.888888888888847,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":29.777777777777732,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":30.666666666666618,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":31.555555555555504,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":32.44444444444439,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":33.33333333333328,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":34.222222222222165,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":35.11111111111105,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":35.999999999999936,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":36.88888888888882,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":37.77777777777771,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":38.66666666666659,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":39.55555555555548,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":40.444444444444365,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":41.33333333333325,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":42.222222222222136,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":43.11111111111102,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":43.99999999999991,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":44.88888888888879,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":45.77777777777768,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":46.666666666666565,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":47.55555555555545,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":48.444444444444336,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":49.33333333333322,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"end","time":49.777777777777665}]
+module.exports = [{"type":"note","time":7.333333333333333,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":7.777777777777778,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":8.222222222222221,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":8.666666666666664,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":9.111111111111107,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":9.55555555555555,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":9.999999999999993,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":10.444444444444436,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":10.888888888888879,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":11.333333333333321,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":11.777777777777764,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":12.222222222222207,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":12.66666666666665,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":13.111111111111093,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":13.555555555555536,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":13.999999999999979,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":14.444444444444422,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":14.888888888888864,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":15.333333333333307,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":15.77777777777775,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":16.222222222222193,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":16.666666666666636,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":17.11111111111108,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":17.55555555555552,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":17.999999999999964,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":18.444444444444407,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":18.88888888888885,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":19.333333333333293,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":20.66666666666662,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":21.555555555555507,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":21.99999999999995,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":22.444444444444393,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":22.888888888888836,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":23.33333333333328,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":23.77777777777772,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":24.222222222222165,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":24.666666666666607,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":25.11111111111105,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":25.555555555555493,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":25.999999999999936,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":26.44444444444438,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":26.888888888888822,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":27.333333333333265,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":27.777777777777708,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":28.22222222222215,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":28.666666666666593,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":29.111111111111036,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":29.55555555555548,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":29.999999999999922,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":30.444444444444365,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":30.888888888888808,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":31.33333333333325,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":31.777777777777693,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":32.222222222222136,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":32.66666666666658,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":33.11111111111102,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":33.555555555555465,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":33.99999999999991,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":34.44444444444435,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":34.88888888888879,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":35.333333333333236,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":35.77777777777768,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":36.22222222222212,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":36.666666666666565,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":37.11111111111101,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":37.55555555555545,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":37.99999999999989,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":38.444444444444336,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":38.88888888888878,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":39.33333333333322,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":39.777777777777665,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":40.22222222222211,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":40.66666666666655,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":41.11111111111099,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":41.555555555555436,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":41.99999999999988,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":42.44444444444432,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":42.888888888888765,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":43.33333333333321,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":43.77777777777765,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":44.22222222222209,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":44.666666666666536,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":45.11111111111098,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":45.55555555555542,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":45.999999999999865,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":46.44444444444431,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":46.88888888888875,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":47.333333333333194,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":47.77777777777764,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":48.22222222222208,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":48.66666666666652,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":49.111111111110965,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":49.55555555555541,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":49.99999999999985,"duration":0.3333333333333333,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":50.33333333333319,"duration":1.2222222222222225,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":51.77777777777763,"duration":0.3333333333333333,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":52.111111111110965,"duration":1.2222222222222225,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":53.55555555555541,"duration":0.3333333333333333,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":53.888888888888744,"duration":1.2222222222222225,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":55.22222222222208,"duration":0.3333333333333333,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":55.555555555555415,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":55.77777777777764,"duration":1.1111111111111114,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":57.11111111111097,"duration":0.3333333333333333,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":57.44444444444431,"duration":1.2222222222222225,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":58.88888888888875,"duration":0.3333333333333333,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":59.222222222222086,"duration":1.2222222222222225,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":60.66666666666653,"duration":0.3333333333333333,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":60.999999999999865,"duration":1.2222222222222225,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":62.44444444444431,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":62.66666666666653,"duration":0.3333333333333333,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":62.999999999999865,"duration":0.1111111111111111,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":63.11111111111098,"duration":0.8888888888888891,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":64.22222222222209,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":64.66666666666654,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":65.111111111111,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":65.55555555555546,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":65.99999999999991,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":66.44444444444437,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":66.88888888888883,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":67.33333333333329,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":67.77777777777774,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":68.2222222222222,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":68.66666666666666,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":69.11111111111111,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":69.55555555555557,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":70.00000000000003,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":70.44444444444449,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":70.88888888888894,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":71.3333333333334,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":71.77777777777786,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":72.22222222222231,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":72.66666666666677,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":73.11111111111123,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":73.55555555555569,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":74.00000000000014,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":74.4444444444446,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":74.88888888888906,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":75.33333333333351,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":75.77777777777797,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":76.22222222222243,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":76.66666666666688,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":77.11111111111134,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":77.5555555555558,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":78.00000000000026,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":78.44444444444471,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":78.88888888888917,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":79.33333333333363,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":79.77777777777808,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":80.22222222222254,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":80.666666666667,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":81.11111111111146,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":81.55555555555591,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":82.00000000000037,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":82.44444444444483,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":82.88888888888928,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":83.33333333333374,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":83.7777777777782,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":84.22222222222265,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":84.66666666666711,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":85.11111111111157,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"end","time":85.3333333333338}]
 
 /***/ }),
-/* 72 */
+/* 110 */
+/***/ (function(module, exports) {
+
+module.exports = [{"type":"note","time":7.111111111111113,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":21.333333333333318,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":35.55555555555549,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":49.777777777777665,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":63.99999999999984,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":78.22222222222202,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"end","time":85.3333333333331}]
+
+/***/ }),
+/* 111 */
+/***/ (function(module, exports) {
+
+module.exports = [{"type":"note","time":6.444444444444444,"duration":0.1111111111111111,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":6.5555555555555545,"duration":0.1111111111111111,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":6.8888888888888875,"duration":0.1111111111111111,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":6.999999999999998,"duration":0.1111111111111111,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":7.555555555555554,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":8.444444444444443,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":9.333333333333332,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":10.222222222222221,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":11.11111111111111,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":12,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":12.88888888888889,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":13.777777777777779,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":14.666666666666668,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":15.555555555555557,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":16.444444444444443,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":17.33333333333333,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":18.222222222222214,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":19.1111111111111,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":20.66666666666665,"duration":0.1111111111111111,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":20.77777777777776,"duration":0.1111111111111111,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":21.111111111111093,"duration":0.1111111111111111,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":21.222222222222204,"duration":0.1111111111111111,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":21.777777777777757,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":22.666666666666643,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":23.55555555555553,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":24.444444444444414,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":25.3333333333333,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":26.222222222222186,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":27.11111111111107,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":27.999999999999957,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":28.888888888888843,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":29.77777777777773,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":30.666666666666615,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":31.5555555555555,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":32.444444444444386,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":33.33333333333327,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":34.22222222222216,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":35.11111111111104,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":35.99999999999993,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":36.888888888888815,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":37.7777777777777,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":38.666666666666586,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":39.55555555555547,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":40.44444444444436,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":41.33333333333324,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":42.22222222222213,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":43.111111111111015,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":43.9999999999999,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":44.888888888888786,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":45.77777777777767,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":46.66666666666656,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":47.55555555555544,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":48.44444444444433,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":49.333333333333215,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":63.111111111110944,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":63.333333333333165,"duration":0.2222222222222222,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":63.55555555555539,"duration":0.05555555555555555,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":63.611111111110944,"duration":0.05555555555555555,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":63.6666666666665,"duration":0.05555555555555555,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":63.72222222222206,"duration":0.05555555555555555,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":63.777777777777615,"duration":0.05555555555555555,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":63.83333333333317,"duration":0.05555555555555555,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":63.88888888888873,"duration":0.05555555555555555,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":63.94444444444429,"duration":0.05555555555555555,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":64.44444444444429,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":65.33333333333317,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":66.22222222222206,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":67.11111111111094,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":67.99999999999983,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":68.88888888888872,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":69.7777777777776,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":70.66666666666649,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":71.55555555555537,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":72.44444444444426,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":73.33333333333314,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":74.22222222222203,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":75.11111111111092,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":75.9999999999998,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":76.88888888888869,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":77.77777777777757,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":78.66666666666646,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":79.55555555555534,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":80.44444444444423,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":81.33333333333312,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":82.222222222222,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":83.11111111111089,"duration":0.4444444444444444,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":84.66666666666644,"duration":0.1111111111111111,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":84.77777777777756,"duration":0.1111111111111111,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":85.1111111111109,"duration":0.1111111111111111,"noteNumber":24,"velocity":100,"quantize":75},{"type":"note","time":85.22222222222202,"duration":0.1111111111111111,"noteNumber":24,"velocity":100,"quantize":75},{"type":"end","time":85.33333333333313}]
+
+/***/ }),
+/* 112 */
+/***/ (function(module, exports) {
+
+module.exports = [{"type":"note","time":49.77777777777779,"duration":0.05555555555555555,"noteNumber":62,"velocity":100,"quantize":75},{"type":"note","time":49.83333333333335,"duration":0.05555555555555555,"noteNumber":64,"velocity":100,"quantize":75},{"type":"note","time":49.88888888888891,"duration":0.05555555555555555,"noteNumber":65,"velocity":100,"quantize":75},{"type":"note","time":49.944444444444464,"duration":0.05555555555555555,"noteNumber":67,"velocity":100,"quantize":75},{"type":"note","time":50.00000000000002,"duration":0.05555555555555555,"noteNumber":69,"velocity":100,"quantize":75},{"type":"note","time":50.05555555555558,"duration":0.05555555555555555,"noteNumber":71,"velocity":100,"quantize":75},{"type":"note","time":50.111111111111136,"duration":0.05555555555555555,"noteNumber":72,"velocity":100,"quantize":75},{"type":"note","time":50.16666666666669,"duration":0.05555555555555555,"noteNumber":74,"velocity":100,"quantize":75},{"type":"note","time":50.22222222222225,"duration":0.05555555555555555,"noteNumber":76,"velocity":100,"quantize":75},{"type":"note","time":50.27777777777781,"duration":0.05555555555555555,"noteNumber":77,"velocity":100,"quantize":75},{"type":"note","time":50.333333333333364,"duration":0.05555555555555555,"noteNumber":79,"velocity":100,"quantize":75},{"type":"note","time":50.38888888888892,"duration":0.05555555555555555,"noteNumber":81,"velocity":100,"quantize":75},{"type":"note","time":50.44444444444448,"duration":0.05555555555555555,"noteNumber":84,"velocity":100,"quantize":75},{"type":"note","time":50.500000000000036,"duration":0.05555555555555555,"noteNumber":86,"velocity":100,"quantize":75},{"type":"note","time":50.55555555555559,"duration":0.1111111111111111,"noteNumber":88,"velocity":100,"quantize":75},{"type":"note","time":50.66666666666671,"duration":0.1111111111111111,"noteNumber":89,"velocity":100,"quantize":75},{"type":"note","time":50.77777777777782,"duration":0.1111111111111111,"noteNumber":86,"velocity":100,"quantize":75},{"type":"note","time":50.888888888888935,"duration":0.1111111111111111,"noteNumber":84,"velocity":100,"quantize":75},{"type":"note","time":51.00000000000005,"duration":0.1111111111111111,"noteNumber":81,"velocity":100,"quantize":75},{"type":"note","time":51.111111111111164,"duration":0.1111111111111111,"noteNumber":79,"velocity":100,"quantize":75},{"type":"note","time":51.22222222222228,"duration":0.16666666666666666,"noteNumber":77,"velocity":100,"quantize":75},{"type":"note","time":51.38888888888894,"duration":0.16666666666666666,"noteNumber":76,"velocity":100,"quantize":75},{"type":"note","time":51.55555555555561,"duration":0.1111111111111111,"noteNumber":74,"velocity":100,"quantize":75},{"type":"note","time":51.66666666666672,"duration":0.05555555555555555,"noteNumber":69,"velocity":100,"quantize":75},{"type":"note","time":51.72222222222228,"duration":0.05555555555555555,"noteNumber":74,"velocity":100,"quantize":75},{"type":"note","time":51.777777777777835,"duration":0.05555555555555555,"noteNumber":69,"velocity":100,"quantize":75},{"type":"note","time":51.83333333333339,"duration":0.05555555555555555,"noteNumber":74,"velocity":100,"quantize":75},{"type":"note","time":51.88888888888895,"duration":0.05555555555555555,"noteNumber":69,"velocity":100,"quantize":75},{"type":"note","time":51.94444444444451,"duration":0.05555555555555555,"noteNumber":74,"velocity":100,"quantize":75},{"type":"note","time":52.000000000000064,"duration":0.05555555555555555,"noteNumber":69,"velocity":100,"quantize":75},{"type":"note","time":52.05555555555562,"duration":0.05555555555555555,"noteNumber":74,"velocity":100,"quantize":75},{"type":"note","time":52.11111111111118,"duration":0.05555555555555555,"noteNumber":69,"velocity":100,"quantize":75},{"type":"note","time":52.166666666666735,"duration":0.05555555555555555,"noteNumber":74,"velocity":100,"quantize":75},{"type":"note","time":52.22222222222229,"duration":0.05555555555555555,"noteNumber":69,"velocity":100,"quantize":75},{"type":"note","time":52.27777777777785,"duration":0.05555555555555555,"noteNumber":74,"velocity":100,"quantize":75},{"type":"note","time":52.33333333333341,"duration":0.05555555555555555,"noteNumber":69,"velocity":100,"quantize":75},{"type":"note","time":52.388888888888964,"duration":0.05555555555555555,"noteNumber":74,"velocity":100,"quantize":75},{"type":"note","time":52.44444444444452,"duration":0.1111111111111111,"noteNumber":69,"velocity":100,"quantize":75},{"type":"note","time":53.77777777777786,"duration":0.05555555555555555,"noteNumber":59,"velocity":100,"quantize":75},{"type":"note","time":53.833333333333414,"duration":0.05555555555555555,"noteNumber":62,"velocity":100,"quantize":75},{"type":"note","time":53.88888888888897,"duration":0.05555555555555555,"noteNumber":65,"velocity":100,"quantize":75},{"type":"note","time":53.94444444444453,"duration":0.05555555555555555,"noteNumber":69,"velocity":100,"quantize":75},{"type":"note","time":54.000000000000085,"duration":0.05555555555555555,"noteNumber":59,"velocity":100,"quantize":75},{"type":"note","time":54.05555555555564,"duration":0.05555555555555555,"noteNumber":62,"velocity":100,"quantize":75},{"type":"note","time":54.1111111111112,"duration":0.05555555555555555,"noteNumber":65,"velocity":100,"quantize":75},{"type":"note","time":54.16666666666676,"duration":0.05555555555555555,"noteNumber":69,"velocity":100,"quantize":75},{"type":"note","time":54.222222222222314,"duration":0.05555555555555555,"noteNumber":74,"velocity":100,"quantize":75},{"type":"note","time":54.27777777777787,"duration":0.05555555555555555,"noteNumber":77,"velocity":100,"quantize":75},{"type":"note","time":54.33333333333343,"duration":0.1111111111111111,"noteNumber":72,"velocity":100,"quantize":75},{"type":"note","time":54.44444444444454,"duration":0.1111111111111111,"noteNumber":74,"velocity":100,"quantize":75},{"type":"note","time":54.55555555555566,"duration":0.1111111111111111,"noteNumber":77,"velocity":100,"quantize":75},{"type":"note","time":54.66666666666677,"duration":0.16666666666666666,"noteNumber":79,"velocity":100,"quantize":75},{"type":"note","time":54.833333333333435,"duration":0.16666666666666666,"noteNumber":77,"velocity":100,"quantize":75},{"type":"note","time":55.0000000000001,"duration":0.1111111111111111,"noteNumber":79,"velocity":100,"quantize":75},{"type":"note","time":55.111111111111214,"duration":0.05555555555555555,"noteNumber":81,"velocity":100,"quantize":75},{"type":"note","time":55.16666666666677,"duration":0.05555555555555555,"noteNumber":77,"velocity":100,"quantize":75},{"type":"note","time":55.22222222222233,"duration":0.05555555555555555,"noteNumber":81,"velocity":100,"quantize":75},{"type":"note","time":55.277777777777885,"duration":0.05555555555555555,"noteNumber":77,"velocity":100,"quantize":75},{"type":"note","time":55.33333333333344,"duration":0.05555555555555555,"noteNumber":81,"velocity":100,"quantize":75},{"type":"note","time":55.388888888889,"duration":0.05555555555555555,"noteNumber":77,"velocity":100,"quantize":75},{"type":"note","time":55.44444444444456,"duration":0.05555555555555555,"noteNumber":81,"velocity":100,"quantize":75},{"type":"note","time":55.500000000000114,"duration":0.05555555555555555,"noteNumber":77,"velocity":100,"quantize":75},{"type":"note","time":55.55555555555567,"duration":0.05555555555555555,"noteNumber":81,"velocity":100,"quantize":75},{"type":"note","time":55.61111111111123,"duration":0.05555555555555555,"noteNumber":77,"velocity":100,"quantize":75},{"type":"note","time":55.666666666666785,"duration":0.05555555555555555,"noteNumber":81,"velocity":100,"quantize":75},{"type":"note","time":55.72222222222234,"duration":0.05555555555555555,"noteNumber":77,"velocity":100,"quantize":75},{"type":"note","time":55.7777777777779,"duration":0.05555555555555555,"noteNumber":81,"velocity":100,"quantize":75},{"type":"note","time":55.83333333333346,"duration":0.05555555555555555,"noteNumber":77,"velocity":100,"quantize":75},{"type":"note","time":55.888888888889014,"duration":0.05555555555555555,"noteNumber":81,"velocity":100,"quantize":75},{"type":"note","time":55.94444444444457,"duration":0.05555555555555555,"noteNumber":77,"velocity":100,"quantize":75},{"type":"note","time":56.00000000000013,"duration":0.1111111111111111,"noteNumber":89,"velocity":100,"quantize":75},{"type":"note","time":56.11111111111124,"duration":0.1111111111111111,"noteNumber":81,"velocity":100,"quantize":75},{"type":"note","time":56.222222222222356,"duration":0.1111111111111111,"noteNumber":89,"velocity":100,"quantize":75},{"type":"note","time":56.33333333333347,"duration":0.1111111111111111,"noteNumber":81,"velocity":100,"quantize":75},{"type":"note","time":56.444444444444585,"duration":0.1111111111111111,"noteNumber":93,"velocity":100,"quantize":75},{"type":"note","time":56.5555555555557,"duration":0.1111111111111111,"noteNumber":84,"velocity":100,"quantize":75},{"type":"note","time":56.66666666666681,"duration":0.1111111111111111,"noteNumber":93,"velocity":100,"quantize":75},{"type":"note","time":56.77777777777793,"duration":0.1111111111111111,"noteNumber":84,"velocity":100,"quantize":75},{"type":"note","time":56.88888888888904,"duration":0.05555555555555555,"noteNumber":62,"velocity":100,"quantize":75},{"type":"note","time":56.9444444444446,"duration":0.05555555555555555,"noteNumber":64,"velocity":100,"quantize":75},{"type":"note","time":57.000000000000156,"duration":0.05555555555555555,"noteNumber":65,"velocity":100,"quantize":75},{"type":"note","time":57.05555555555571,"duration":0.05555555555555555,"noteNumber":67,"velocity":100,"quantize":75},{"type":"note","time":57.11111111111127,"duration":0.05555555555555555,"noteNumber":69,"velocity":100,"quantize":75},{"type":"note","time":57.16666666666683,"duration":0.05555555555555555,"noteNumber":71,"velocity":100,"quantize":75},{"type":"note","time":57.222222222222385,"duration":0.05555555555555555,"noteNumber":72,"velocity":100,"quantize":75},{"type":"note","time":57.27777777777794,"duration":0.05555555555555555,"noteNumber":74,"velocity":100,"quantize":75},{"type":"note","time":57.3333333333335,"duration":0.05555555555555555,"noteNumber":76,"velocity":100,"quantize":75},{"type":"note","time":57.388888888889056,"duration":0.05555555555555555,"noteNumber":77,"velocity":100,"quantize":75},{"type":"note","time":57.44444444444461,"duration":0.05555555555555555,"noteNumber":79,"velocity":100,"quantize":75},{"type":"note","time":57.50000000000017,"duration":0.05555555555555555,"noteNumber":81,"velocity":100,"quantize":75},{"type":"note","time":57.55555555555573,"duration":0.05555555555555555,"noteNumber":84,"velocity":100,"quantize":75},{"type":"note","time":57.611111111111285,"duration":0.05555555555555555,"noteNumber":86,"velocity":100,"quantize":75},{"type":"note","time":57.66666666666684,"duration":0.1111111111111111,"noteNumber":88,"velocity":100,"quantize":75},{"type":"note","time":57.777777777777956,"duration":0.1111111111111111,"noteNumber":89,"velocity":100,"quantize":75},{"type":"note","time":57.88888888888907,"duration":0.1111111111111111,"noteNumber":86,"velocity":100,"quantize":75},{"type":"note","time":58.000000000000185,"duration":0.1111111111111111,"noteNumber":84,"velocity":100,"quantize":75},{"type":"note","time":58.1111111111113,"duration":0.1111111111111111,"noteNumber":81,"velocity":100,"quantize":75},{"type":"note","time":58.22222222222241,"duration":0.1111111111111111,"noteNumber":79,"velocity":100,"quantize":75},{"type":"note","time":58.33333333333353,"duration":0.16666666666666666,"noteNumber":77,"velocity":100,"quantize":75},{"type":"note","time":58.50000000000019,"duration":0.16666666666666666,"noteNumber":76,"velocity":100,"quantize":75},{"type":"note","time":58.666666666666856,"duration":0.1111111111111111,"noteNumber":74,"velocity":100,"quantize":75},{"type":"note","time":58.77777777777797,"duration":0.05555555555555555,"noteNumber":69,"velocity":100,"quantize":75},{"type":"note","time":58.83333333333353,"duration":0.05555555555555555,"noteNumber":74,"velocity":100,"quantize":75},{"type":"note","time":58.888888888889085,"duration":0.05555555555555555,"noteNumber":69,"velocity":100,"quantize":75},{"type":"note","time":58.94444444444464,"duration":0.05555555555555555,"noteNumber":74,"velocity":100,"quantize":75},{"type":"note","time":59.0000000000002,"duration":0.05555555555555555,"noteNumber":69,"velocity":100,"quantize":75},{"type":"note","time":59.055555555555756,"duration":0.05555555555555555,"noteNumber":74,"velocity":100,"quantize":75},{"type":"note","time":59.11111111111131,"duration":0.05555555555555555,"noteNumber":69,"velocity":100,"quantize":75},{"type":"note","time":59.16666666666687,"duration":0.05555555555555555,"noteNumber":74,"velocity":100,"quantize":75},{"type":"note","time":59.22222222222243,"duration":0.05555555555555555,"noteNumber":69,"velocity":100,"quantize":75},{"type":"note","time":59.277777777777985,"duration":0.05555555555555555,"noteNumber":74,"velocity":100,"quantize":75},{"type":"note","time":59.33333333333354,"duration":0.05555555555555555,"noteNumber":69,"velocity":100,"quantize":75},{"type":"note","time":59.3888888888891,"duration":0.05555555555555555,"noteNumber":74,"velocity":100,"quantize":75},{"type":"note","time":59.444444444444656,"duration":0.05555555555555555,"noteNumber":69,"velocity":100,"quantize":75},{"type":"note","time":59.50000000000021,"duration":0.05555555555555555,"noteNumber":74,"velocity":100,"quantize":75},{"type":"note","time":59.55555555555577,"duration":0.1111111111111111,"noteNumber":69,"velocity":100,"quantize":75},{"type":"note","time":60.888888888889106,"duration":0.05555555555555555,"noteNumber":59,"velocity":100,"quantize":75},{"type":"note","time":60.94444444444466,"duration":0.05555555555555555,"noteNumber":62,"velocity":100,"quantize":75},{"type":"note","time":61.00000000000022,"duration":0.05555555555555555,"noteNumber":65,"velocity":100,"quantize":75},{"type":"note","time":61.05555555555578,"duration":0.05555555555555555,"noteNumber":69,"velocity":100,"quantize":75},{"type":"note","time":61.111111111111335,"duration":0.05555555555555555,"noteNumber":59,"velocity":100,"quantize":75},{"type":"note","time":61.16666666666689,"duration":0.05555555555555555,"noteNumber":62,"velocity":100,"quantize":75},{"type":"note","time":61.22222222222245,"duration":0.05555555555555555,"noteNumber":65,"velocity":100,"quantize":75},{"type":"note","time":61.277777777778006,"duration":0.05555555555555555,"noteNumber":69,"velocity":100,"quantize":75},{"type":"note","time":61.33333333333356,"duration":0.05555555555555555,"noteNumber":74,"velocity":100,"quantize":75},{"type":"note","time":61.38888888888912,"duration":0.05555555555555555,"noteNumber":77,"velocity":100,"quantize":75},{"type":"note","time":61.44444444444468,"duration":0.1111111111111111,"noteNumber":72,"velocity":100,"quantize":75},{"type":"note","time":61.55555555555579,"duration":0.1111111111111111,"noteNumber":74,"velocity":100,"quantize":75},{"type":"note","time":61.666666666666906,"duration":0.1111111111111111,"noteNumber":77,"velocity":100,"quantize":75},{"type":"note","time":61.77777777777802,"duration":0.16666666666666666,"noteNumber":79,"velocity":100,"quantize":75},{"type":"note","time":61.944444444444684,"duration":0.16666666666666666,"noteNumber":77,"velocity":100,"quantize":75},{"type":"note","time":62.11111111111135,"duration":0.1111111111111111,"noteNumber":79,"velocity":100,"quantize":75},{"type":"note","time":62.22222222222246,"duration":0.05555555555555555,"noteNumber":81,"velocity":100,"quantize":75},{"type":"note","time":62.27777777777802,"duration":0.05555555555555555,"noteNumber":77,"velocity":100,"quantize":75},{"type":"note","time":62.33333333333358,"duration":0.05555555555555555,"noteNumber":81,"velocity":100,"quantize":75},{"type":"note","time":62.388888888889134,"duration":0.05555555555555555,"noteNumber":77,"velocity":100,"quantize":75},{"type":"note","time":62.44444444444469,"duration":0.05555555555555555,"noteNumber":81,"velocity":100,"quantize":75},{"type":"note","time":62.50000000000025,"duration":0.05555555555555555,"noteNumber":77,"velocity":100,"quantize":75},{"type":"note","time":62.555555555555806,"duration":0.05555555555555555,"noteNumber":81,"velocity":100,"quantize":75},{"type":"note","time":62.61111111111136,"duration":0.05555555555555555,"noteNumber":77,"velocity":100,"quantize":75},{"type":"note","time":62.66666666666692,"duration":0.05555555555555555,"noteNumber":81,"velocity":100,"quantize":75},{"type":"note","time":62.72222222222248,"duration":0.05555555555555555,"noteNumber":77,"velocity":100,"quantize":75},{"type":"note","time":62.777777777778034,"duration":0.05555555555555555,"noteNumber":81,"velocity":100,"quantize":75},{"type":"note","time":62.83333333333359,"duration":0.05555555555555555,"noteNumber":77,"velocity":100,"quantize":75},{"type":"note","time":62.88888888888915,"duration":0.05555555555555555,"noteNumber":81,"velocity":100,"quantize":75},{"type":"note","time":62.944444444444706,"duration":0.05555555555555555,"noteNumber":77,"velocity":100,"quantize":75},{"type":"note","time":63.00000000000026,"duration":0.05555555555555555,"noteNumber":81,"velocity":100,"quantize":75},{"type":"note","time":63.05555555555582,"duration":0.05555555555555555,"noteNumber":77,"velocity":100,"quantize":75},{"type":"note","time":63.11111111111138,"duration":0.1111111111111111,"noteNumber":89,"velocity":100,"quantize":75},{"type":"note","time":63.22222222222249,"duration":0.1111111111111111,"noteNumber":81,"velocity":100,"quantize":75},{"type":"note","time":63.333333333333606,"duration":0.1111111111111111,"noteNumber":89,"velocity":100,"quantize":75},{"type":"note","time":63.44444444444472,"duration":0.1111111111111111,"noteNumber":81,"velocity":100,"quantize":75},{"type":"note","time":63.555555555555834,"duration":0.1111111111111111,"noteNumber":93,"velocity":100,"quantize":75},{"type":"note","time":63.66666666666695,"duration":0.1111111111111111,"noteNumber":84,"velocity":100,"quantize":75},{"type":"note","time":63.77777777777806,"duration":0.1111111111111111,"noteNumber":93,"velocity":100,"quantize":75},{"type":"note","time":63.88888888888918,"duration":0.1111111111111111,"noteNumber":84,"velocity":100,"quantize":75},{"type":"note","time":64.00000000000028,"duration":0.05555555555555555,"noteNumber":62,"velocity":100,"quantize":75},{"type":"note","time":64.05555555555584,"duration":0.05555555555555555,"noteNumber":64,"velocity":100,"quantize":75},{"type":"note","time":64.1111111111114,"duration":0.05555555555555555,"noteNumber":65,"velocity":100,"quantize":75},{"type":"note","time":64.16666666666696,"duration":0.05555555555555555,"noteNumber":67,"velocity":100,"quantize":75},{"type":"note","time":64.22222222222251,"duration":0.05555555555555555,"noteNumber":69,"velocity":100,"quantize":75},{"type":"note","time":64.27777777777807,"duration":0.05555555555555555,"noteNumber":71,"velocity":100,"quantize":75},{"type":"note","time":64.33333333333363,"duration":0.05555555555555555,"noteNumber":72,"velocity":100,"quantize":75},{"type":"note","time":64.38888888888918,"duration":0.05555555555555555,"noteNumber":74,"velocity":100,"quantize":75},{"type":"note","time":64.44444444444474,"duration":0.05555555555555555,"noteNumber":76,"velocity":100,"quantize":75},{"type":"note","time":64.5000000000003,"duration":0.05555555555555555,"noteNumber":77,"velocity":100,"quantize":75},{"type":"note","time":64.55555555555586,"duration":0.05555555555555555,"noteNumber":79,"velocity":100,"quantize":75},{"type":"note","time":64.61111111111141,"duration":0.05555555555555555,"noteNumber":81,"velocity":100,"quantize":75},{"type":"note","time":64.66666666666697,"duration":0.05555555555555555,"noteNumber":84,"velocity":100,"quantize":75},{"type":"note","time":64.72222222222253,"duration":0.05555555555555555,"noteNumber":86,"velocity":100,"quantize":75},{"type":"note","time":64.77777777777808,"duration":0.1111111111111111,"noteNumber":88,"velocity":100,"quantize":75},{"type":"note","time":64.8888888888892,"duration":0.1111111111111111,"noteNumber":89,"velocity":100,"quantize":75},{"type":"note","time":65.00000000000031,"duration":0.1111111111111111,"noteNumber":86,"velocity":100,"quantize":75},{"type":"note","time":65.11111111111143,"duration":0.1111111111111111,"noteNumber":84,"velocity":100,"quantize":75},{"type":"note","time":65.22222222222254,"duration":0.1111111111111111,"noteNumber":81,"velocity":100,"quantize":75},{"type":"note","time":65.33333333333366,"duration":0.1111111111111111,"noteNumber":79,"velocity":100,"quantize":75},{"type":"note","time":65.44444444444477,"duration":0.16666666666666666,"noteNumber":77,"velocity":100,"quantize":75},{"type":"note","time":65.61111111111144,"duration":0.16666666666666666,"noteNumber":76,"velocity":100,"quantize":75},{"type":"note","time":65.77777777777811,"duration":0.1111111111111111,"noteNumber":74,"velocity":100,"quantize":75},{"type":"note","time":65.88888888888923,"duration":0.05555555555555555,"noteNumber":69,"velocity":100,"quantize":75},{"type":"note","time":65.94444444444478,"duration":0.05555555555555555,"noteNumber":74,"velocity":100,"quantize":75},{"type":"note","time":66.00000000000034,"duration":0.05555555555555555,"noteNumber":69,"velocity":100,"quantize":75},{"type":"note","time":66.0555555555559,"duration":0.05555555555555555,"noteNumber":74,"velocity":100,"quantize":75},{"type":"note","time":66.11111111111146,"duration":0.05555555555555555,"noteNumber":69,"velocity":100,"quantize":75},{"type":"note","time":66.16666666666701,"duration":0.05555555555555555,"noteNumber":74,"velocity":100,"quantize":75},{"type":"note","time":66.22222222222257,"duration":0.05555555555555555,"noteNumber":69,"velocity":100,"quantize":75},{"type":"note","time":66.27777777777813,"duration":0.05555555555555555,"noteNumber":74,"velocity":100,"quantize":75},{"type":"note","time":66.33333333333368,"duration":0.05555555555555555,"noteNumber":69,"velocity":100,"quantize":75},{"type":"note","time":66.38888888888924,"duration":0.05555555555555555,"noteNumber":74,"velocity":100,"quantize":75},{"type":"note","time":66.4444444444448,"duration":0.05555555555555555,"noteNumber":69,"velocity":100,"quantize":75},{"type":"note","time":66.50000000000036,"duration":0.05555555555555555,"noteNumber":74,"velocity":100,"quantize":75},{"type":"note","time":66.55555555555591,"duration":0.05555555555555555,"noteNumber":69,"velocity":100,"quantize":75},{"type":"note","time":66.61111111111147,"duration":0.05555555555555555,"noteNumber":74,"velocity":100,"quantize":75},{"type":"note","time":66.66666666666703,"duration":0.1111111111111111,"noteNumber":69,"velocity":100,"quantize":75},{"type":"note","time":68.00000000000036,"duration":0.05555555555555555,"noteNumber":59,"velocity":100,"quantize":75},{"type":"note","time":68.05555555555591,"duration":0.05555555555555555,"noteNumber":62,"velocity":100,"quantize":75},{"type":"note","time":68.11111111111147,"duration":0.05555555555555555,"noteNumber":65,"velocity":100,"quantize":75},{"type":"note","time":68.16666666666703,"duration":0.05555555555555555,"noteNumber":69,"velocity":100,"quantize":75},{"type":"note","time":68.22222222222258,"duration":0.05555555555555555,"noteNumber":59,"velocity":100,"quantize":75},{"type":"note","time":68.27777777777814,"duration":0.05555555555555555,"noteNumber":62,"velocity":100,"quantize":75},{"type":"note","time":68.3333333333337,"duration":0.05555555555555555,"noteNumber":65,"velocity":100,"quantize":75},{"type":"note","time":68.38888888888926,"duration":0.05555555555555555,"noteNumber":69,"velocity":100,"quantize":75},{"type":"note","time":68.44444444444481,"duration":0.05555555555555555,"noteNumber":74,"velocity":100,"quantize":75},{"type":"note","time":68.50000000000037,"duration":0.05555555555555555,"noteNumber":77,"velocity":100,"quantize":75},{"type":"note","time":68.55555555555593,"duration":0.1111111111111111,"noteNumber":72,"velocity":100,"quantize":75},{"type":"note","time":68.66666666666704,"duration":0.1111111111111111,"noteNumber":74,"velocity":100,"quantize":75},{"type":"note","time":68.77777777777816,"duration":0.1111111111111111,"noteNumber":77,"velocity":100,"quantize":75},{"type":"note","time":68.88888888888927,"duration":0.16666666666666666,"noteNumber":79,"velocity":100,"quantize":75},{"type":"note","time":69.05555555555594,"duration":0.16666666666666666,"noteNumber":77,"velocity":100,"quantize":75},{"type":"note","time":69.22222222222261,"duration":0.1111111111111111,"noteNumber":79,"velocity":100,"quantize":75},{"type":"note","time":69.33333333333373,"duration":0.05555555555555555,"noteNumber":81,"velocity":100,"quantize":75},{"type":"note","time":69.38888888888928,"duration":0.05555555555555555,"noteNumber":77,"velocity":100,"quantize":75},{"type":"note","time":69.44444444444484,"duration":0.05555555555555555,"noteNumber":81,"velocity":100,"quantize":75},{"type":"note","time":69.5000000000004,"duration":0.05555555555555555,"noteNumber":77,"velocity":100,"quantize":75},{"type":"note","time":69.55555555555596,"duration":0.05555555555555555,"noteNumber":81,"velocity":100,"quantize":75},{"type":"note","time":69.61111111111151,"duration":0.05555555555555555,"noteNumber":77,"velocity":100,"quantize":75},{"type":"note","time":69.66666666666707,"duration":0.05555555555555555,"noteNumber":81,"velocity":100,"quantize":75},{"type":"note","time":69.72222222222263,"duration":0.05555555555555555,"noteNumber":77,"velocity":100,"quantize":75},{"type":"note","time":69.77777777777818,"duration":0.05555555555555555,"noteNumber":81,"velocity":100,"quantize":75},{"type":"note","time":69.83333333333374,"duration":0.05555555555555555,"noteNumber":77,"velocity":100,"quantize":75},{"type":"note","time":69.8888888888893,"duration":0.05555555555555555,"noteNumber":81,"velocity":100,"quantize":75},{"type":"note","time":69.94444444444485,"duration":0.05555555555555555,"noteNumber":77,"velocity":100,"quantize":75},{"type":"note","time":70.00000000000041,"duration":0.05555555555555555,"noteNumber":81,"velocity":100,"quantize":75},{"type":"note","time":70.05555555555597,"duration":0.05555555555555555,"noteNumber":77,"velocity":100,"quantize":75},{"type":"note","time":70.11111111111153,"duration":0.05555555555555555,"noteNumber":81,"velocity":100,"quantize":75},{"type":"note","time":70.16666666666708,"duration":0.05555555555555555,"noteNumber":77,"velocity":100,"quantize":75},{"type":"note","time":70.22222222222264,"duration":0.1111111111111111,"noteNumber":89,"velocity":100,"quantize":75},{"type":"note","time":70.33333333333375,"duration":0.1111111111111111,"noteNumber":81,"velocity":100,"quantize":75},{"type":"note","time":70.44444444444487,"duration":0.1111111111111111,"noteNumber":89,"velocity":100,"quantize":75},{"type":"note","time":70.55555555555598,"duration":0.1111111111111111,"noteNumber":81,"velocity":100,"quantize":75},{"type":"note","time":70.6666666666671,"duration":0.1111111111111111,"noteNumber":93,"velocity":100,"quantize":75},{"type":"note","time":70.77777777777821,"duration":0.1111111111111111,"noteNumber":84,"velocity":100,"quantize":75},{"type":"note","time":70.88888888888933,"duration":0.1111111111111111,"noteNumber":93,"velocity":100,"quantize":75},{"type":"note","time":71.00000000000044,"duration":0.1111111111111111,"noteNumber":84,"velocity":100,"quantize":75},{"type":"note","time":71.11111111111155,"duration":0.05555555555555555,"noteNumber":62,"velocity":100,"quantize":75},{"type":"note","time":71.16666666666711,"duration":0.05555555555555555,"noteNumber":64,"velocity":100,"quantize":75},{"type":"note","time":71.22222222222267,"duration":0.05555555555555555,"noteNumber":65,"velocity":100,"quantize":75},{"type":"note","time":71.27777777777823,"duration":0.05555555555555555,"noteNumber":67,"velocity":100,"quantize":75},{"type":"note","time":71.33333333333378,"duration":0.05555555555555555,"noteNumber":69,"velocity":100,"quantize":75},{"type":"note","time":71.38888888888934,"duration":0.05555555555555555,"noteNumber":71,"velocity":100,"quantize":75},{"type":"note","time":71.4444444444449,"duration":0.05555555555555555,"noteNumber":72,"velocity":100,"quantize":75},{"type":"note","time":71.50000000000045,"duration":0.05555555555555555,"noteNumber":74,"velocity":100,"quantize":75},{"type":"note","time":71.55555555555601,"duration":0.05555555555555555,"noteNumber":76,"velocity":100,"quantize":75},{"type":"note","time":71.61111111111157,"duration":0.05555555555555555,"noteNumber":77,"velocity":100,"quantize":75},{"type":"note","time":71.66666666666713,"duration":0.05555555555555555,"noteNumber":79,"velocity":100,"quantize":75},{"type":"note","time":71.72222222222268,"duration":0.05555555555555555,"noteNumber":81,"velocity":100,"quantize":75},{"type":"note","time":71.77777777777824,"duration":0.05555555555555555,"noteNumber":84,"velocity":100,"quantize":75},{"type":"note","time":71.8333333333338,"duration":0.05555555555555555,"noteNumber":86,"velocity":100,"quantize":75},{"type":"note","time":71.88888888888935,"duration":0.1111111111111111,"noteNumber":88,"velocity":100,"quantize":75},{"type":"note","time":72.00000000000047,"duration":0.1111111111111111,"noteNumber":89,"velocity":100,"quantize":75},{"type":"note","time":72.11111111111158,"duration":0.1111111111111111,"noteNumber":86,"velocity":100,"quantize":75},{"type":"note","time":72.2222222222227,"duration":0.1111111111111111,"noteNumber":84,"velocity":100,"quantize":75},{"type":"note","time":72.33333333333381,"duration":0.1111111111111111,"noteNumber":81,"velocity":100,"quantize":75},{"type":"note","time":72.44444444444493,"duration":0.1111111111111111,"noteNumber":79,"velocity":100,"quantize":75},{"type":"note","time":72.55555555555604,"duration":0.16666666666666666,"noteNumber":77,"velocity":100,"quantize":75},{"type":"note","time":72.72222222222271,"duration":0.16666666666666666,"noteNumber":76,"velocity":100,"quantize":75},{"type":"note","time":72.88888888888938,"duration":0.1111111111111111,"noteNumber":74,"velocity":100,"quantize":75},{"type":"note","time":73.0000000000005,"duration":0.05555555555555555,"noteNumber":69,"velocity":100,"quantize":75},{"type":"note","time":73.05555555555605,"duration":0.05555555555555555,"noteNumber":74,"velocity":100,"quantize":75},{"type":"note","time":73.11111111111161,"duration":0.05555555555555555,"noteNumber":69,"velocity":100,"quantize":75},{"type":"note","time":73.16666666666717,"duration":0.05555555555555555,"noteNumber":74,"velocity":100,"quantize":75},{"type":"note","time":73.22222222222273,"duration":0.05555555555555555,"noteNumber":69,"velocity":100,"quantize":75},{"type":"note","time":73.27777777777828,"duration":0.05555555555555555,"noteNumber":74,"velocity":100,"quantize":75},{"type":"note","time":73.33333333333384,"duration":0.05555555555555555,"noteNumber":69,"velocity":100,"quantize":75},{"type":"note","time":73.3888888888894,"duration":0.05555555555555555,"noteNumber":74,"velocity":100,"quantize":75},{"type":"note","time":73.44444444444495,"duration":0.05555555555555555,"noteNumber":69,"velocity":100,"quantize":75},{"type":"note","time":73.50000000000051,"duration":0.05555555555555555,"noteNumber":74,"velocity":100,"quantize":75},{"type":"note","time":73.55555555555607,"duration":0.05555555555555555,"noteNumber":69,"velocity":100,"quantize":75},{"type":"note","time":73.61111111111163,"duration":0.05555555555555555,"noteNumber":74,"velocity":100,"quantize":75},{"type":"note","time":73.66666666666718,"duration":0.05555555555555555,"noteNumber":69,"velocity":100,"quantize":75},{"type":"note","time":73.72222222222274,"duration":0.05555555555555555,"noteNumber":74,"velocity":100,"quantize":75},{"type":"note","time":73.7777777777783,"duration":0.1111111111111111,"noteNumber":69,"velocity":100,"quantize":75},{"type":"note","time":75.11111111111163,"duration":0.05555555555555555,"noteNumber":59,"velocity":100,"quantize":75},{"type":"note","time":75.16666666666718,"duration":0.05555555555555555,"noteNumber":62,"velocity":100,"quantize":75},{"type":"note","time":75.22222222222274,"duration":0.05555555555555555,"noteNumber":65,"velocity":100,"quantize":75},{"type":"note","time":75.2777777777783,"duration":0.05555555555555555,"noteNumber":69,"velocity":100,"quantize":75},{"type":"note","time":75.33333333333385,"duration":0.05555555555555555,"noteNumber":59,"velocity":100,"quantize":75},{"type":"note","time":75.38888888888941,"duration":0.05555555555555555,"noteNumber":62,"velocity":100,"quantize":75},{"type":"note","time":75.44444444444497,"duration":0.05555555555555555,"noteNumber":65,"velocity":100,"quantize":75},{"type":"note","time":75.50000000000053,"duration":0.05555555555555555,"noteNumber":69,"velocity":100,"quantize":75},{"type":"note","time":75.55555555555608,"duration":0.05555555555555555,"noteNumber":74,"velocity":100,"quantize":75},{"type":"note","time":75.61111111111164,"duration":0.05555555555555555,"noteNumber":77,"velocity":100,"quantize":75},{"type":"note","time":75.6666666666672,"duration":0.1111111111111111,"noteNumber":72,"velocity":100,"quantize":75},{"type":"note","time":75.77777777777831,"duration":0.1111111111111111,"noteNumber":74,"velocity":100,"quantize":75},{"type":"note","time":75.88888888888943,"duration":0.1111111111111111,"noteNumber":77,"velocity":100,"quantize":75},{"type":"note","time":76.00000000000054,"duration":0.16666666666666666,"noteNumber":79,"velocity":100,"quantize":75},{"type":"note","time":76.16666666666721,"duration":0.16666666666666666,"noteNumber":77,"velocity":100,"quantize":75},{"type":"note","time":76.33333333333388,"duration":0.1111111111111111,"noteNumber":79,"velocity":100,"quantize":75},{"type":"note","time":76.444444444445,"duration":0.05555555555555555,"noteNumber":81,"velocity":100,"quantize":75},{"type":"note","time":76.50000000000055,"duration":0.05555555555555555,"noteNumber":77,"velocity":100,"quantize":75},{"type":"note","time":76.55555555555611,"duration":0.05555555555555555,"noteNumber":81,"velocity":100,"quantize":75},{"type":"note","time":76.61111111111167,"duration":0.05555555555555555,"noteNumber":77,"velocity":100,"quantize":75},{"type":"note","time":76.66666666666723,"duration":0.05555555555555555,"noteNumber":81,"velocity":100,"quantize":75},{"type":"note","time":76.72222222222278,"duration":0.05555555555555555,"noteNumber":77,"velocity":100,"quantize":75},{"type":"note","time":76.77777777777834,"duration":0.05555555555555555,"noteNumber":81,"velocity":100,"quantize":75},{"type":"note","time":76.8333333333339,"duration":0.05555555555555555,"noteNumber":77,"velocity":100,"quantize":75},{"type":"note","time":76.88888888888945,"duration":0.05555555555555555,"noteNumber":81,"velocity":100,"quantize":75},{"type":"note","time":76.94444444444501,"duration":0.05555555555555555,"noteNumber":77,"velocity":100,"quantize":75},{"type":"note","time":77.00000000000057,"duration":0.05555555555555555,"noteNumber":81,"velocity":100,"quantize":75},{"type":"note","time":77.05555555555613,"duration":0.05555555555555555,"noteNumber":77,"velocity":100,"quantize":75},{"type":"note","time":77.11111111111168,"duration":0.05555555555555555,"noteNumber":81,"velocity":100,"quantize":75},{"type":"note","time":77.16666666666724,"duration":0.05555555555555555,"noteNumber":77,"velocity":100,"quantize":75},{"type":"note","time":77.2222222222228,"duration":0.05555555555555555,"noteNumber":81,"velocity":100,"quantize":75},{"type":"note","time":77.27777777777835,"duration":0.05555555555555555,"noteNumber":77,"velocity":100,"quantize":75},{"type":"note","time":77.33333333333391,"duration":0.1111111111111111,"noteNumber":89,"velocity":100,"quantize":75},{"type":"note","time":77.44444444444503,"duration":0.1111111111111111,"noteNumber":84,"velocity":100,"quantize":75},{"type":"note","time":77.55555555555614,"duration":0.1111111111111111,"noteNumber":89,"velocity":100,"quantize":75},{"type":"note","time":77.77777777777837,"duration":0.16666666666666666,"noteNumber":89,"velocity":100,"quantize":75},{"type":"note","time":77.94444444444504,"duration":0.16666666666666666,"noteNumber":84,"velocity":100,"quantize":75},{"type":"note","time":78.11111111111171,"duration":0.1111111111111111,"noteNumber":91,"velocity":100,"quantize":75},{"type":"note","time":78.22222222222283,"duration":0.05555555555555555,"noteNumber":89,"velocity":100,"quantize":75},{"type":"note","time":78.27777777777838,"duration":0.05555555555555555,"noteNumber":86,"velocity":100,"quantize":75},{"type":"note","time":78.33333333333394,"duration":0.05555555555555555,"noteNumber":89,"velocity":100,"quantize":75},{"type":"note","time":78.3888888888895,"duration":0.05555555555555555,"noteNumber":86,"velocity":100,"quantize":75},{"type":"note","time":78.44444444444505,"duration":0.05555555555555555,"noteNumber":89,"velocity":100,"quantize":75},{"type":"note","time":78.50000000000061,"duration":0.05555555555555555,"noteNumber":86,"velocity":100,"quantize":75},{"type":"note","time":78.55555555555617,"duration":0.05555555555555555,"noteNumber":89,"velocity":100,"quantize":75},{"type":"note","time":78.61111111111173,"duration":0.05555555555555555,"noteNumber":86,"velocity":100,"quantize":75},{"type":"note","time":78.66666666666728,"duration":0.05555555555555555,"noteNumber":89,"velocity":100,"quantize":75},{"type":"note","time":78.72222222222284,"duration":0.05555555555555555,"noteNumber":86,"velocity":100,"quantize":75},{"type":"note","time":78.7777777777784,"duration":0.05555555555555555,"noteNumber":89,"velocity":100,"quantize":75},{"type":"note","time":78.83333333333395,"duration":0.05555555555555555,"noteNumber":86,"velocity":100,"quantize":75},{"type":"note","time":78.88888888888951,"duration":0.05555555555555555,"noteNumber":89,"velocity":100,"quantize":75},{"type":"note","time":78.94444444444507,"duration":0.05555555555555555,"noteNumber":86,"velocity":100,"quantize":75},{"type":"note","time":79.00000000000063,"duration":0.05555555555555555,"noteNumber":89,"velocity":100,"quantize":75},{"type":"note","time":79.05555555555618,"duration":0.05555555555555555,"noteNumber":86,"velocity":100,"quantize":75},{"type":"note","time":79.11111111111174,"duration":0.1111111111111111,"noteNumber":89,"velocity":100,"quantize":75},{"type":"note","time":79.22222222222285,"duration":0.1111111111111111,"noteNumber":86,"velocity":100,"quantize":75},{"type":"note","time":79.33333333333397,"duration":0.1111111111111111,"noteNumber":89,"velocity":100,"quantize":75},{"type":"note","time":79.44444444444508,"duration":0.1111111111111111,"noteNumber":86,"velocity":100,"quantize":75},{"type":"note","time":79.5555555555562,"duration":0.16666666666666666,"noteNumber":89,"velocity":100,"quantize":75},{"type":"note","time":79.72222222222287,"duration":0.16666666666666666,"noteNumber":86,"velocity":100,"quantize":75},{"type":"note","time":79.88888888888954,"duration":0.33333333333333337,"noteNumber":89,"velocity":100,"quantize":75},{"type":"end","time":85.33333333333397}]
+
+/***/ }),
+/* 113 */
+/***/ (function(module, exports) {
+
+module.exports = [{"type":"note","time":51.555555555555564,"duration":0.1111111111111111,"noteNumber":98,"velocity":100,"quantize":75},{"type":"note","time":51.66666666666668,"duration":0.1111111111111111,"noteNumber":91,"velocity":100,"quantize":75},{"type":"note","time":51.77777777777779,"duration":0.1111111111111111,"noteNumber":86,"velocity":100,"quantize":75},{"type":"note","time":51.88888888888891,"duration":0.1111111111111111,"noteNumber":81,"velocity":100,"quantize":75},{"type":"note","time":52.00000000000002,"duration":0.1111111111111111,"noteNumber":91,"velocity":100,"quantize":75},{"type":"note","time":52.111111111111136,"duration":0.1111111111111111,"noteNumber":86,"velocity":100,"quantize":75},{"type":"note","time":52.22222222222225,"duration":0.1111111111111111,"noteNumber":81,"velocity":100,"quantize":75},{"type":"note","time":52.333333333333364,"duration":0.1111111111111111,"noteNumber":89,"velocity":100,"quantize":75},{"type":"note","time":52.44444444444448,"duration":0.1111111111111111,"noteNumber":86,"velocity":100,"quantize":75},{"type":"note","time":52.66666666666671,"duration":0.1111111111111111,"noteNumber":91,"velocity":100,"quantize":75},{"type":"note","time":52.77777777777782,"duration":0.1111111111111111,"noteNumber":81,"velocity":100,"quantize":75},{"type":"note","time":52.888888888888935,"duration":0.1111111111111111,"noteNumber":86,"velocity":100,"quantize":75},{"type":"note","time":53.00000000000005,"duration":0.1111111111111111,"noteNumber":91,"velocity":100,"quantize":75},{"type":"note","time":53.111111111111164,"duration":0.1111111111111111,"noteNumber":81,"velocity":100,"quantize":75},{"type":"note","time":53.22222222222228,"duration":0.1111111111111111,"noteNumber":89,"velocity":100,"quantize":75},{"type":"note","time":53.33333333333339,"duration":0.1111111111111111,"noteNumber":81,"velocity":100,"quantize":75},{"type":"note","time":53.44444444444451,"duration":0.1111111111111111,"noteNumber":89,"velocity":100,"quantize":75},{"type":"note","time":53.55555555555562,"duration":0.1111111111111111,"noteNumber":86,"velocity":100,"quantize":75},{"type":"note","time":53.666666666666735,"duration":0.1111111111111111,"noteNumber":91,"velocity":100,"quantize":75},{"type":"note","time":53.77777777777785,"duration":0.1111111111111111,"noteNumber":89,"velocity":100,"quantize":75},{"type":"note","time":54.00000000000008,"duration":0.1111111111111111,"noteNumber":89,"velocity":100,"quantize":75},{"type":"note","time":54.11111111111119,"duration":0.1111111111111111,"noteNumber":93,"velocity":100,"quantize":75},{"type":"note","time":58.666666666666764,"duration":0.1111111111111111,"noteNumber":98,"velocity":100,"quantize":75},{"type":"note","time":58.77777777777788,"duration":0.1111111111111111,"noteNumber":91,"velocity":100,"quantize":75},{"type":"note","time":58.88888888888899,"duration":0.1111111111111111,"noteNumber":86,"velocity":100,"quantize":75},{"type":"note","time":59.00000000000011,"duration":0.1111111111111111,"noteNumber":81,"velocity":100,"quantize":75},{"type":"note","time":59.11111111111122,"duration":0.1111111111111111,"noteNumber":91,"velocity":100,"quantize":75},{"type":"note","time":59.222222222222335,"duration":0.1111111111111111,"noteNumber":86,"velocity":100,"quantize":75},{"type":"note","time":59.33333333333345,"duration":0.1111111111111111,"noteNumber":81,"velocity":100,"quantize":75},{"type":"note","time":59.444444444444564,"duration":0.1111111111111111,"noteNumber":89,"velocity":100,"quantize":75},{"type":"note","time":59.55555555555568,"duration":0.1111111111111111,"noteNumber":86,"velocity":100,"quantize":75},{"type":"note","time":59.77777777777791,"duration":0.1111111111111111,"noteNumber":91,"velocity":100,"quantize":75},{"type":"note","time":59.88888888888902,"duration":0.1111111111111111,"noteNumber":81,"velocity":100,"quantize":75},{"type":"note","time":60.000000000000135,"duration":0.1111111111111111,"noteNumber":86,"velocity":100,"quantize":75},{"type":"note","time":60.11111111111125,"duration":0.1111111111111111,"noteNumber":91,"velocity":100,"quantize":75},{"type":"note","time":60.22222222222236,"duration":0.1111111111111111,"noteNumber":81,"velocity":100,"quantize":75},{"type":"note","time":60.33333333333348,"duration":0.1111111111111111,"noteNumber":89,"velocity":100,"quantize":75},{"type":"note","time":60.44444444444459,"duration":0.1111111111111111,"noteNumber":81,"velocity":100,"quantize":75},{"type":"note","time":60.555555555555706,"duration":0.1111111111111111,"noteNumber":89,"velocity":100,"quantize":75},{"type":"note","time":60.66666666666682,"duration":0.1111111111111111,"noteNumber":86,"velocity":100,"quantize":75},{"type":"note","time":60.777777777777935,"duration":0.1111111111111111,"noteNumber":91,"velocity":100,"quantize":75},{"type":"note","time":60.88888888888905,"duration":0.1111111111111111,"noteNumber":89,"velocity":100,"quantize":75},{"type":"note","time":61.11111111111128,"duration":0.1111111111111111,"noteNumber":89,"velocity":100,"quantize":75},{"type":"note","time":61.22222222222239,"duration":0.1111111111111111,"noteNumber":93,"velocity":100,"quantize":75},{"type":"note","time":65.77777777777797,"duration":0.1111111111111111,"noteNumber":98,"velocity":100,"quantize":75},{"type":"note","time":65.88888888888908,"duration":0.1111111111111111,"noteNumber":91,"velocity":100,"quantize":75},{"type":"note","time":66.0000000000002,"duration":0.1111111111111111,"noteNumber":86,"velocity":100,"quantize":75},{"type":"note","time":66.11111111111131,"duration":0.1111111111111111,"noteNumber":81,"velocity":100,"quantize":75},{"type":"note","time":66.22222222222243,"duration":0.1111111111111111,"noteNumber":91,"velocity":100,"quantize":75},{"type":"note","time":66.33333333333354,"duration":0.1111111111111111,"noteNumber":86,"velocity":100,"quantize":75},{"type":"note","time":66.44444444444466,"duration":0.1111111111111111,"noteNumber":81,"velocity":100,"quantize":75},{"type":"note","time":66.55555555555577,"duration":0.1111111111111111,"noteNumber":89,"velocity":100,"quantize":75},{"type":"note","time":66.66666666666688,"duration":0.1111111111111111,"noteNumber":86,"velocity":100,"quantize":75},{"type":"note","time":66.88888888888911,"duration":0.1111111111111111,"noteNumber":91,"velocity":100,"quantize":75},{"type":"note","time":67.00000000000023,"duration":0.1111111111111111,"noteNumber":81,"velocity":100,"quantize":75},{"type":"note","time":67.11111111111134,"duration":0.1111111111111111,"noteNumber":86,"velocity":100,"quantize":75},{"type":"note","time":67.22222222222246,"duration":0.1111111111111111,"noteNumber":91,"velocity":100,"quantize":75},{"type":"note","time":67.33333333333357,"duration":0.1111111111111111,"noteNumber":81,"velocity":100,"quantize":75},{"type":"note","time":67.44444444444468,"duration":0.1111111111111111,"noteNumber":89,"velocity":100,"quantize":75},{"type":"note","time":67.5555555555558,"duration":0.1111111111111111,"noteNumber":81,"velocity":100,"quantize":75},{"type":"note","time":67.66666666666691,"duration":0.1111111111111111,"noteNumber":89,"velocity":100,"quantize":75},{"type":"note","time":67.77777777777803,"duration":0.1111111111111111,"noteNumber":86,"velocity":100,"quantize":75},{"type":"note","time":67.88888888888914,"duration":0.1111111111111111,"noteNumber":91,"velocity":100,"quantize":75},{"type":"note","time":68.00000000000026,"duration":0.1111111111111111,"noteNumber":89,"velocity":100,"quantize":75},{"type":"note","time":68.22222222222248,"duration":0.1111111111111111,"noteNumber":89,"velocity":100,"quantize":75},{"type":"note","time":68.3333333333336,"duration":0.1111111111111111,"noteNumber":93,"velocity":100,"quantize":75},{"type":"note","time":72.88888888888917,"duration":0.1111111111111111,"noteNumber":98,"velocity":100,"quantize":75},{"type":"note","time":73.00000000000028,"duration":0.1111111111111111,"noteNumber":91,"velocity":100,"quantize":75},{"type":"note","time":73.1111111111114,"duration":0.1111111111111111,"noteNumber":86,"velocity":100,"quantize":75},{"type":"note","time":73.22222222222251,"duration":0.1111111111111111,"noteNumber":81,"velocity":100,"quantize":75},{"type":"note","time":73.33333333333363,"duration":0.1111111111111111,"noteNumber":91,"velocity":100,"quantize":75},{"type":"note","time":73.44444444444474,"duration":0.1111111111111111,"noteNumber":86,"velocity":100,"quantize":75},{"type":"note","time":73.55555555555586,"duration":0.1111111111111111,"noteNumber":81,"velocity":100,"quantize":75},{"type":"note","time":73.66666666666697,"duration":0.1111111111111111,"noteNumber":89,"velocity":100,"quantize":75},{"type":"note","time":73.77777777777808,"duration":0.1111111111111111,"noteNumber":86,"velocity":100,"quantize":75},{"type":"note","time":74.00000000000031,"duration":0.1111111111111111,"noteNumber":91,"velocity":100,"quantize":75},{"type":"note","time":74.11111111111143,"duration":0.1111111111111111,"noteNumber":81,"velocity":100,"quantize":75},{"type":"note","time":74.22222222222254,"duration":0.1111111111111111,"noteNumber":86,"velocity":100,"quantize":75},{"type":"note","time":74.33333333333366,"duration":0.1111111111111111,"noteNumber":91,"velocity":100,"quantize":75},{"type":"note","time":74.44444444444477,"duration":0.1111111111111111,"noteNumber":81,"velocity":100,"quantize":75},{"type":"note","time":74.55555555555588,"duration":0.1111111111111111,"noteNumber":89,"velocity":100,"quantize":75},{"type":"note","time":74.666666666667,"duration":0.1111111111111111,"noteNumber":81,"velocity":100,"quantize":75},{"type":"note","time":74.77777777777811,"duration":0.1111111111111111,"noteNumber":89,"velocity":100,"quantize":75},{"type":"note","time":74.88888888888923,"duration":0.1111111111111111,"noteNumber":86,"velocity":100,"quantize":75},{"type":"note","time":75.00000000000034,"duration":0.1111111111111111,"noteNumber":91,"velocity":100,"quantize":75},{"type":"note","time":75.11111111111146,"duration":0.1111111111111111,"noteNumber":89,"velocity":100,"quantize":75},{"type":"note","time":75.33333333333368,"duration":0.1111111111111111,"noteNumber":89,"velocity":100,"quantize":75},{"type":"note","time":75.4444444444448,"duration":0.1111111111111111,"noteNumber":93,"velocity":100,"quantize":75},{"type":"end","time":85.33333333333368}]
+
+/***/ }),
+/* 114 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(115);
+if(typeof content === 'string') content = [[module.i, content, '']];
+// Prepare cssTransformation
+var transform;
+
+var options = {"hmr":true}
+options.transform = transform
+// add the styles to the DOM
+var update = __webpack_require__(118)(content, options);
+if(content.locals) module.exports = content.locals;
+// Hot Module Replacement
+if(false) {
+	// When the styles change, update the <style> tags
+	if(!content.locals) {
+		module.hot.accept("!!../node_modules/css-loader/index.js??ref--1-1!../node_modules/postcss-loader/lib/index.js!./App.pcss", function() {
+			var newContent = require("!!../node_modules/css-loader/index.js??ref--1-1!../node_modules/postcss-loader/lib/index.js!./App.pcss");
+			if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+			update(newContent);
+		});
+	}
+	// When the module is disposed, remove the <style> tags
+	module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 115 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(116)(undefined);
+// imports
+
+
+// module
+exports.push([module.i, "@font-face {\r\n\tfont-family: misaki;\r\n\tsrc: url(" + __webpack_require__(117) + ") format('woff');\r\n}\r\n\r\nbody {\r\n\tfont-family: misaki;\r\n}\r\n", ""]);
+
+// exports
+
+
+/***/ }),
+/* 116 */
+/***/ (function(module, exports) {
+
+/*
+	MIT License http://www.opensource.org/licenses/mit-license.php
+	Author Tobias Koppers @sokra
+*/
+// css base code, injected by the css-loader
+module.exports = function(useSourceMap) {
+	var list = [];
+
+	// return the list of modules as css string
+	list.toString = function toString() {
+		return this.map(function (item) {
+			var content = cssWithMappingToString(item, useSourceMap);
+			if(item[2]) {
+				return "@media " + item[2] + "{" + content + "}";
+			} else {
+				return content;
+			}
+		}).join("");
+	};
+
+	// import a list of modules into the list
+	list.i = function(modules, mediaQuery) {
+		if(typeof modules === "string")
+			modules = [[null, modules, ""]];
+		var alreadyImportedModules = {};
+		for(var i = 0; i < this.length; i++) {
+			var id = this[i][0];
+			if(typeof id === "number")
+				alreadyImportedModules[id] = true;
+		}
+		for(i = 0; i < modules.length; i++) {
+			var item = modules[i];
+			// skip already imported module
+			// this implementation is not 100% perfect for weird media query combinations
+			//  when a module is imported multiple times with different media queries.
+			//  I hope this will never occur (Hey this way we have smaller bundles)
+			if(typeof item[0] !== "number" || !alreadyImportedModules[item[0]]) {
+				if(mediaQuery && !item[2]) {
+					item[2] = mediaQuery;
+				} else if(mediaQuery) {
+					item[2] = "(" + item[2] + ") and (" + mediaQuery + ")";
+				}
+				list.push(item);
+			}
+		}
+	};
+	return list;
+};
+
+function cssWithMappingToString(item, useSourceMap) {
+	var content = item[1] || '';
+	var cssMapping = item[3];
+	if (!cssMapping) {
+		return content;
+	}
+
+	if (useSourceMap && typeof btoa === 'function') {
+		var sourceMapping = toComment(cssMapping);
+		var sourceURLs = cssMapping.sources.map(function (source) {
+			return '/*# sourceURL=' + cssMapping.sourceRoot + source + ' */'
+		});
+
+		return [content].concat(sourceURLs).concat([sourceMapping]).join('\n');
+	}
+
+	return [content].join('\n');
+}
+
+// Adapted from convert-source-map (MIT)
+function toComment(sourceMap) {
+	// eslint-disable-next-line no-undef
+	var base64 = btoa(unescape(encodeURIComponent(JSON.stringify(sourceMap))));
+	var data = 'sourceMappingURL=data:application/json;charset=utf-8;base64,' + base64;
+
+	return '/*# ' + data + ' */';
+}
+
+
+/***/ }),
+/* 117 */
+/***/ (function(module, exports) {
+
+module.exports = "data:application/font-woff;base64,d09GRgABAAAAAArwAAoAAAAACqgH3wp+AAAAAAAAAAAAAAAAAAAAAAAAAABPUy8yAAAA9AAAAGAAAABgk9m0x2NtYXAAAAFUAAABigAAAYoOYRc4Z2x5ZgAAAuAAAAUQAAAFEPCl7vJoZWFkAAAH8AAAADYAAAA2FVERMGhoZWEAAAgoAAAAJAAAACQNAgaNaG10eAAACEwAAAAgAAAAIBPsAURsb2NhAAAIbAAAABoAAAAaB94Gjm1heHAAAAiIAAAAIAAAACAAVQA1bmFtZQAACKgAAAIoAAACKCrfmv5wb3N0AAAK0AAAACAAAAAg/wMAcgAEBukBkAAFAAAFMwWZAAABHgUzBZkAAAPXAGYCEggAAgsFCQAAAAAAAIAAAoMQAAAAAAAAEAAAAABLZG0gAMAAKJHNBgD+AAAABgACACASAAQAAAAABAAGAAAAACAAAQAAAAMAAAADAAAAHAABAAAAAACEAAMAAQAAABwABABoAAAAFgAQAAMABgApMFkwizCSUY1S1W/AdR91O5HN//8AAAAoMFkwizCSUY1S1W/AdR91O5HN////2c+qz3nPc655rTKQSIrqis9uPgABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQYAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAEQAAAJkBVUAAwAHAAA3ESERJSERIUQCIP4kAZj+aAAFVfqrRATNAAAAAAMBAP8AAwAGAAADAAcACwAAJREhETEhESEZASERAQABAAEA/wABAAAFAPsA/wAGAAEA/wAAAAAAAgAA/wACAAYAAAcACwAANyERIREhESEZASERAAEAAQD/AP8AAQAABQD7AP8ABgABAP8AAAMAAP8ABwAGAAARABUAGQAAExEhESERIREhESERIREhESERAREhGQEhESEABAABAAIA/gD/AP8AAQD/AP8AAQABAP8ABAABAAEA/wD/APwAAQABAAEAAQD+AAEA/wD+AP8AAAAFAQD/AAcABgAAAwAJABEAGQAdAAABESEZAiERIREBESERIREhEQERIREhESERAREhEQEAAQACAAIA/AABAAEAAgD8AAQA/wD/AAIAAQABAAEA/wD+AAIA/wD/AAMAAQABAP8A/wADAAEA/wD/AAEA+wACAP4AAAAEAAD/AAcABgAAAwAdACEAJQAAExEhGQIhESERIREhESERIREhESERIREhESERIREBESERAREhEQABAAEA/wACAAEAAgD9AAEAAQACAPwAAQD/AP8AAQACAAIAAQABAP8AAQABAAEAAQABAP8A/wD/AP8A/gD/AAEAAQABAP4AAQD/AAIAAQD/AAAAAAUAAP8ABwAGAAAVABkAHQAhACUAABMRIREhESERIREhESERIREhESERIREBIREhESERIQEhESERIREhAAEA/wAHAP8AAQD/AP4AAQD9AP8AAQABAP8AAQD/AAIAAQD/AAEA/wABAAEAAwABAP8A/QD/AP4AAQABAP4AAgABAAEAAQABAP0AAQABAAEAAAAAAAMAAP8ABwAGAAATAB8AIwAANyERIREhESERIREhESERIREhESEBESERIREhESERIREBIREhAAEA/wABAP8AAwD/AAEA/wACAPwAAwABAAEAAgD+AP8AAQABAP8AAAEAAwABAAEA/wD/AP0A/wD/AAUAAQABAP8A+gABAAQA/AAEAAAAAAcAAP8ABwAGAAAFAAkADQAhACUALQAxAAATESERIREBESERAREhGQIhESERIREhESERIREhESERIREBESERAREhESERIRkBIREhAAEAAQD+AAEA/wABAAEAAQABAAEAAQD/AP4AAQD/AP8AAQACAAEAAQD/AAEA/wD/AAMA/gD/AAQAAQD/AAIAAQD/AP0AAQACAAEA/gD9AP8A/wABAAEAAQD+AAEA/wAEAAIA/wD8AAMA/AD/AAACAAD/AAcABgAAGQAdAAA3IREhESERIREhESERIREhESERIREhESERIRkBIREAAwD+AAIA/gABAAEAAQADAP0AAgD+AAMA+QABAAABAAEAAgACAP8AAQD/AP8A/gD/AP8A/wAEAAEA/wAAAAACAAD/AAcABgAABwATAAATESERIREhEQERIREhESERIREhEQABAAUAAQD5AAcA/QABAP0AAQD/AAUA/AAEAPsABgABAP8A/wD9AAMAAQAAAAUAAP8ABwAGAAATABcAGwAfACMAADchESERIREhESERIREhESERIREhASERIREhESEBIREhESERIQACAP8A/wACAAMAAgD/AP8AAgD5AAIAAQD/AAEA/wACAAEA/wABAP8AAAEAAwABAAEA/wD/AP0A/wD/AAIAAQABAAEA/QABAAEAAQAAAAABAAAH3wp+ry13w18PPPUACwgAAAAAANFMT0UAAAAA1gdtcAAA/wAHAAYAAAAACAACAAAAAAAAAAEAAAYA/gAAAAgAAAAAiAcAAAEAAAAAAAAAAAAAAAAAAAAEAuwARAQAAQAEAAAACAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAWADIATAB+ALoBAAFIAYoB5gIcAkQCiAAAAAEAAAAMADIABwAAAAAAAgAAAAEAAQAAAEAAAAAAAAAAAAAOAK4AAQAAAAAAAAAiAAAAAQAAAAAAAQAMACIAAQAAAAAAAgAHAC4AAQAAAAAAAwAoADUAAQAAAAAABAAMAF0AAQAAAAAABQAJAGkAAQAAAAAABgAMAHIAAwABBAkAAABEAH4AAwABBAkAAQAYAMIAAwABBAkAAgAOANoAAwABBAkAAwBQAOgAAwABBAkABAAYATgAAwABBAkABQASAVAAAwABBAkABgAYAWJDb3B5cmlnaHQgKEMpIDIwMDItMjAxNSBOdW0gS2Fkb21hTWlzYWtpR290aGljUmVndWxhckZvbnRGb3JnZSAyLjAgOiBNaXNha2lHb3RoaWMgOiAxMC00LTIwMTVNaXNha2lHb3RoaWMyMDE1LjA0MTBNaXNha2lHb3RoaWMAQwBvAHAAeQByAGkAZwBoAHQAIAAoAEMAKQAgADIAMAAwADIALQAyADAAMQA1ACAATgB1AG0AIABLAGEAZABvAG0AYQBNAGkAcwBhAGsAaQBHAG8AdABoAGkAYwBSAGUAZwB1AGwAYQByAEYAbwBuAHQARgBvAHIAZwBlACAAMgAuADAAIAA6ACAATQBpAHMAYQBrAGkARwBvAHQAaABpAGMAIAA6ACAAMQAwAC0ANAAtADIAMAAxADUATQBpAHMAYQBrAGkARwBvAHQAaABpAGMAMgAwADEANQAuADAANAAxADAATQBpAHMAYQBrAGkARwBvAHQAaABpAGMAAwAAAAAAAP8AAGYAAAAAAAAAAAAAAAAAAAAAAAAADA=="
+
+/***/ }),
+/* 118 */
+/***/ (function(module, exports, __webpack_require__) {
+
+/*
+	MIT License http://www.opensource.org/licenses/mit-license.php
+	Author Tobias Koppers @sokra
+*/
+
+var stylesInDom = {};
+
+var	memoize = function (fn) {
+	var memo;
+
+	return function () {
+		if (typeof memo === "undefined") memo = fn.apply(this, arguments);
+		return memo;
+	};
+};
+
+var isOldIE = memoize(function () {
+	// Test for IE <= 9 as proposed by Browserhacks
+	// @see http://browserhacks.com/#hack-e71d8692f65334173fee715c222cb805
+	// Tests for existence of standard globals is to allow style-loader
+	// to operate correctly into non-standard environments
+	// @see https://github.com/webpack-contrib/style-loader/issues/177
+	return window && document && document.all && !window.atob;
+});
+
+var getElement = (function (fn) {
+	var memo = {};
+
+	return function(selector) {
+		if (typeof memo[selector] === "undefined") {
+			var styleTarget = fn.call(this, selector);
+			// Special case to return head of iframe instead of iframe itself
+			if (styleTarget instanceof window.HTMLIFrameElement) {
+				try {
+					// This will throw an exception if access to iframe is blocked
+					// due to cross-origin restrictions
+					styleTarget = styleTarget.contentDocument.head;
+				} catch(e) {
+					styleTarget = null;
+				}
+			}
+			memo[selector] = styleTarget;
+		}
+		return memo[selector]
+	};
+})(function (target) {
+	return document.querySelector(target)
+});
+
+var singleton = null;
+var	singletonCounter = 0;
+var	stylesInsertedAtTop = [];
+
+var	fixUrls = __webpack_require__(119);
+
+module.exports = function(list, options) {
+	if (typeof DEBUG !== "undefined" && DEBUG) {
+		if (typeof document !== "object") throw new Error("The style-loader cannot be used in a non-browser environment");
+	}
+
+	options = options || {};
+
+	options.attrs = typeof options.attrs === "object" ? options.attrs : {};
+
+	// Force single-tag solution on IE6-9, which has a hard limit on the # of <style>
+	// tags it will allow on a page
+	if (!options.singleton) options.singleton = isOldIE();
+
+	// By default, add <style> tags to the <head> element
+	if (!options.insertInto) options.insertInto = "head";
+
+	// By default, add <style> tags to the bottom of the target
+	if (!options.insertAt) options.insertAt = "bottom";
+
+	var styles = listToStyles(list, options);
+
+	addStylesToDom(styles, options);
+
+	return function update (newList) {
+		var mayRemove = [];
+
+		for (var i = 0; i < styles.length; i++) {
+			var item = styles[i];
+			var domStyle = stylesInDom[item.id];
+
+			domStyle.refs--;
+			mayRemove.push(domStyle);
+		}
+
+		if(newList) {
+			var newStyles = listToStyles(newList, options);
+			addStylesToDom(newStyles, options);
+		}
+
+		for (var i = 0; i < mayRemove.length; i++) {
+			var domStyle = mayRemove[i];
+
+			if(domStyle.refs === 0) {
+				for (var j = 0; j < domStyle.parts.length; j++) domStyle.parts[j]();
+
+				delete stylesInDom[domStyle.id];
+			}
+		}
+	};
+};
+
+function addStylesToDom (styles, options) {
+	for (var i = 0; i < styles.length; i++) {
+		var item = styles[i];
+		var domStyle = stylesInDom[item.id];
+
+		if(domStyle) {
+			domStyle.refs++;
+
+			for(var j = 0; j < domStyle.parts.length; j++) {
+				domStyle.parts[j](item.parts[j]);
+			}
+
+			for(; j < item.parts.length; j++) {
+				domStyle.parts.push(addStyle(item.parts[j], options));
+			}
+		} else {
+			var parts = [];
+
+			for(var j = 0; j < item.parts.length; j++) {
+				parts.push(addStyle(item.parts[j], options));
+			}
+
+			stylesInDom[item.id] = {id: item.id, refs: 1, parts: parts};
+		}
+	}
+}
+
+function listToStyles (list, options) {
+	var styles = [];
+	var newStyles = {};
+
+	for (var i = 0; i < list.length; i++) {
+		var item = list[i];
+		var id = options.base ? item[0] + options.base : item[0];
+		var css = item[1];
+		var media = item[2];
+		var sourceMap = item[3];
+		var part = {css: css, media: media, sourceMap: sourceMap};
+
+		if(!newStyles[id]) styles.push(newStyles[id] = {id: id, parts: [part]});
+		else newStyles[id].parts.push(part);
+	}
+
+	return styles;
+}
+
+function insertStyleElement (options, style) {
+	var target = getElement(options.insertInto)
+
+	if (!target) {
+		throw new Error("Couldn't find a style target. This probably means that the value for the 'insertInto' parameter is invalid.");
+	}
+
+	var lastStyleElementInsertedAtTop = stylesInsertedAtTop[stylesInsertedAtTop.length - 1];
+
+	if (options.insertAt === "top") {
+		if (!lastStyleElementInsertedAtTop) {
+			target.insertBefore(style, target.firstChild);
+		} else if (lastStyleElementInsertedAtTop.nextSibling) {
+			target.insertBefore(style, lastStyleElementInsertedAtTop.nextSibling);
+		} else {
+			target.appendChild(style);
+		}
+		stylesInsertedAtTop.push(style);
+	} else if (options.insertAt === "bottom") {
+		target.appendChild(style);
+	} else if (typeof options.insertAt === "object" && options.insertAt.before) {
+		var nextSibling = getElement(options.insertInto + " " + options.insertAt.before);
+		target.insertBefore(style, nextSibling);
+	} else {
+		throw new Error("[Style Loader]\n\n Invalid value for parameter 'insertAt' ('options.insertAt') found.\n Must be 'top', 'bottom', or Object.\n (https://github.com/webpack-contrib/style-loader#insertat)\n");
+	}
+}
+
+function removeStyleElement (style) {
+	if (style.parentNode === null) return false;
+	style.parentNode.removeChild(style);
+
+	var idx = stylesInsertedAtTop.indexOf(style);
+	if(idx >= 0) {
+		stylesInsertedAtTop.splice(idx, 1);
+	}
+}
+
+function createStyleElement (options) {
+	var style = document.createElement("style");
+
+	options.attrs.type = "text/css";
+
+	addAttrs(style, options.attrs);
+	insertStyleElement(options, style);
+
+	return style;
+}
+
+function createLinkElement (options) {
+	var link = document.createElement("link");
+
+	options.attrs.type = "text/css";
+	options.attrs.rel = "stylesheet";
+
+	addAttrs(link, options.attrs);
+	insertStyleElement(options, link);
+
+	return link;
+}
+
+function addAttrs (el, attrs) {
+	Object.keys(attrs).forEach(function (key) {
+		el.setAttribute(key, attrs[key]);
+	});
+}
+
+function addStyle (obj, options) {
+	var style, update, remove, result;
+
+	// If a transform function was defined, run it on the css
+	if (options.transform && obj.css) {
+	    result = options.transform(obj.css);
+
+	    if (result) {
+	    	// If transform returns a value, use that instead of the original css.
+	    	// This allows running runtime transformations on the css.
+	    	obj.css = result;
+	    } else {
+	    	// If the transform function returns a falsy value, don't add this css.
+	    	// This allows conditional loading of css
+	    	return function() {
+	    		// noop
+	    	};
+	    }
+	}
+
+	if (options.singleton) {
+		var styleIndex = singletonCounter++;
+
+		style = singleton || (singleton = createStyleElement(options));
+
+		update = applyToSingletonTag.bind(null, style, styleIndex, false);
+		remove = applyToSingletonTag.bind(null, style, styleIndex, true);
+
+	} else if (
+		obj.sourceMap &&
+		typeof URL === "function" &&
+		typeof URL.createObjectURL === "function" &&
+		typeof URL.revokeObjectURL === "function" &&
+		typeof Blob === "function" &&
+		typeof btoa === "function"
+	) {
+		style = createLinkElement(options);
+		update = updateLink.bind(null, style, options);
+		remove = function () {
+			removeStyleElement(style);
+
+			if(style.href) URL.revokeObjectURL(style.href);
+		};
+	} else {
+		style = createStyleElement(options);
+		update = applyToTag.bind(null, style);
+		remove = function () {
+			removeStyleElement(style);
+		};
+	}
+
+	update(obj);
+
+	return function updateStyle (newObj) {
+		if (newObj) {
+			if (
+				newObj.css === obj.css &&
+				newObj.media === obj.media &&
+				newObj.sourceMap === obj.sourceMap
+			) {
+				return;
+			}
+
+			update(obj = newObj);
+		} else {
+			remove();
+		}
+	};
+}
+
+var replaceText = (function () {
+	var textStore = [];
+
+	return function (index, replacement) {
+		textStore[index] = replacement;
+
+		return textStore.filter(Boolean).join('\n');
+	};
+})();
+
+function applyToSingletonTag (style, index, remove, obj) {
+	var css = remove ? "" : obj.css;
+
+	if (style.styleSheet) {
+		style.styleSheet.cssText = replaceText(index, css);
+	} else {
+		var cssNode = document.createTextNode(css);
+		var childNodes = style.childNodes;
+
+		if (childNodes[index]) style.removeChild(childNodes[index]);
+
+		if (childNodes.length) {
+			style.insertBefore(cssNode, childNodes[index]);
+		} else {
+			style.appendChild(cssNode);
+		}
+	}
+}
+
+function applyToTag (style, obj) {
+	var css = obj.css;
+	var media = obj.media;
+
+	if(media) {
+		style.setAttribute("media", media)
+	}
+
+	if(style.styleSheet) {
+		style.styleSheet.cssText = css;
+	} else {
+		while(style.firstChild) {
+			style.removeChild(style.firstChild);
+		}
+
+		style.appendChild(document.createTextNode(css));
+	}
+}
+
+function updateLink (link, options, obj) {
+	var css = obj.css;
+	var sourceMap = obj.sourceMap;
+
+	/*
+		If convertToAbsoluteUrls isn't defined, but sourcemaps are enabled
+		and there is no publicPath defined then lets turn convertToAbsoluteUrls
+		on by default.  Otherwise default to the convertToAbsoluteUrls option
+		directly
+	*/
+	var autoFixUrls = options.convertToAbsoluteUrls === undefined && sourceMap;
+
+	if (options.convertToAbsoluteUrls || autoFixUrls) {
+		css = fixUrls(css);
+	}
+
+	if (sourceMap) {
+		// http://stackoverflow.com/a/26603875
+		css += "\n/*# sourceMappingURL=data:application/json;base64," + btoa(unescape(encodeURIComponent(JSON.stringify(sourceMap)))) + " */";
+	}
+
+	var blob = new Blob([css], { type: "text/css" });
+
+	var oldSrc = link.href;
+
+	link.href = URL.createObjectURL(blob);
+
+	if(oldSrc) URL.revokeObjectURL(oldSrc);
+}
+
+
+/***/ }),
+/* 119 */
+/***/ (function(module, exports) {
+
+
+/**
+ * When source maps are enabled, `style-loader` uses a link element with a data-uri to
+ * embed the css on the page. This breaks all relative urls because now they are relative to a
+ * bundle instead of the current page.
+ *
+ * One solution is to only use full urls, but that may be impossible.
+ *
+ * Instead, this function "fixes" the relative urls to be absolute according to the current page location.
+ *
+ * A rudimentary test suite is located at `test/fixUrls.js` and can be run via the `npm test` command.
+ *
+ */
+
+module.exports = function (css) {
+  // get current location
+  var location = typeof window !== "undefined" && window.location;
+
+  if (!location) {
+    throw new Error("fixUrls requires window.location");
+  }
+
+	// blank or null?
+	if (!css || typeof css !== "string") {
+	  return css;
+  }
+
+  var baseUrl = location.protocol + "//" + location.host;
+  var currentDir = baseUrl + location.pathname.replace(/\/[^\/]*$/, "/");
+
+	// convert each url(...)
+	/*
+	This regular expression is just a way to recursively match brackets within
+	a string.
+
+	 /url\s*\(  = Match on the word "url" with any whitespace after it and then a parens
+	   (  = Start a capturing group
+	     (?:  = Start a non-capturing group
+	         [^)(]  = Match anything that isn't a parentheses
+	         |  = OR
+	         \(  = Match a start parentheses
+	             (?:  = Start another non-capturing groups
+	                 [^)(]+  = Match anything that isn't a parentheses
+	                 |  = OR
+	                 \(  = Match a start parentheses
+	                     [^)(]*  = Match anything that isn't a parentheses
+	                 \)  = Match a end parentheses
+	             )  = End Group
+              *\) = Match anything and then a close parens
+          )  = Close non-capturing group
+          *  = Match anything
+       )  = Close capturing group
+	 \)  = Match a close parens
+
+	 /gi  = Get all matches, not the first.  Be case insensitive.
+	 */
+	var fixedCss = css.replace(/url\s*\(((?:[^)(]|\((?:[^)(]+|\([^)(]*\))*\))*)\)/gi, function(fullMatch, origUrl) {
+		// strip quotes (if they exist)
+		var unquotedOrigUrl = origUrl
+			.trim()
+			.replace(/^"(.*)"$/, function(o, $1){ return $1; })
+			.replace(/^'(.*)'$/, function(o, $1){ return $1; });
+
+		// already a full url? no change
+		if (/^(#|data:|http:\/\/|https:\/\/|file:\/\/\/)/i.test(unquotedOrigUrl)) {
+		  return fullMatch;
+		}
+
+		// convert the url to a full url
+		var newUrl;
+
+		if (unquotedOrigUrl.indexOf("//") === 0) {
+		  	//TODO: should we add protocol?
+			newUrl = unquotedOrigUrl;
+		} else if (unquotedOrigUrl.indexOf("/") === 0) {
+			// path should be relative to the base url
+			newUrl = baseUrl + unquotedOrigUrl; // already starts with '/'
+		} else {
+			// path should be relative to current directory
+			newUrl = currentDir + unquotedOrigUrl.replace(/^\.\//, ""); // Strip leading './'
+		}
+
+		// send back the fixed url(...)
+		return "url(" + JSON.stringify(newUrl) + ")";
+	});
+
+	// send back the fixed css
+	return fixedCss;
+};
+
+
+/***/ }),
+/* 120 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // ie9- setTimeout & setInterval additional parameters fix
 var global     = __webpack_require__(2)
-  , $export    = __webpack_require__(9)
-  , invoke     = __webpack_require__(10)
-  , partial    = __webpack_require__(75)
+  , $export    = __webpack_require__(11)
+  , invoke     = __webpack_require__(12)
+  , partial    = __webpack_require__(123)
   , navigator  = global.navigator
   , MSIE       = !!navigator && /MSIE .\./.test(navigator.userAgent); // <- dirty ie9- check
 var wrap = function(set){
@@ -7855,16 +9745,16 @@ $export($export.G + $export.B + $export.F * MSIE, {
 });
 
 /***/ }),
-/* 73 */
+/* 121 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // Thank's IE8 for his funny defineProperty
-module.exports = !__webpack_require__(74)(function(){
+module.exports = !__webpack_require__(122)(function(){
   return Object.defineProperty({}, 'a', {get: function(){ return 7; }}).a != 7;
 });
 
 /***/ }),
-/* 74 */
+/* 122 */
 /***/ (function(module, exports) {
 
 module.exports = function(exec){
@@ -7876,14 +9766,14 @@ module.exports = function(exec){
 };
 
 /***/ }),
-/* 75 */
+/* 123 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
-var path      = __webpack_require__(76)
-  , invoke    = __webpack_require__(10)
-  , aFunction = __webpack_require__(24);
+var path      = __webpack_require__(124)
+  , invoke    = __webpack_require__(12)
+  , aFunction = __webpack_require__(34);
 module.exports = function(/* ...pargs */){
   var fn     = aFunction(this)
     , length = arguments.length
@@ -7906,30 +9796,30 @@ module.exports = function(/* ...pargs */){
 };
 
 /***/ }),
-/* 76 */
+/* 124 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__(2);
 
 /***/ }),
-/* 77 */
+/* 125 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var $export = __webpack_require__(9)
-  , $task   = __webpack_require__(78);
+var $export = __webpack_require__(11)
+  , $task   = __webpack_require__(126);
 $export($export.G + $export.B, {
   setImmediate:   $task.set,
   clearImmediate: $task.clear
 });
 
 /***/ }),
-/* 78 */
+/* 126 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var ctx                = __webpack_require__(23)
-  , invoke             = __webpack_require__(10)
-  , html               = __webpack_require__(79)
-  , cel                = __webpack_require__(80)
+var ctx                = __webpack_require__(33)
+  , invoke             = __webpack_require__(12)
+  , html               = __webpack_require__(127)
+  , cel                = __webpack_require__(128)
   , global             = __webpack_require__(2)
   , process            = global.process
   , setTask            = global.setImmediate
@@ -7965,7 +9855,7 @@ if(!setTask || !clearTask){
     delete queue[id];
   };
   // Node.js 0.8-
-  if(__webpack_require__(25)(process) == 'process'){
+  if(__webpack_require__(35)(process) == 'process'){
     defer = function(id){
       process.nextTick(ctx(run, id, 1));
     };
@@ -8003,16 +9893,16 @@ module.exports = {
 };
 
 /***/ }),
-/* 79 */
+/* 127 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__(2).document && document.documentElement;
 
 /***/ }),
-/* 80 */
+/* 128 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var isObject = __webpack_require__(81)
+var isObject = __webpack_require__(129)
   , document = __webpack_require__(2).document
   // in old IE typeof document.createElement is 'object'
   , is = isObject(document) && isObject(document.createElement);
@@ -8021,7 +9911,7 @@ module.exports = function(it){
 };
 
 /***/ }),
-/* 81 */
+/* 129 */
 /***/ (function(module, exports) {
 
 module.exports = function(it){
@@ -8029,13 +9919,13 @@ module.exports = function(it){
 };
 
 /***/ }),
-/* 82 */
+/* 130 */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(83);
+__webpack_require__(131);
 var global      = __webpack_require__(2)
   , hide        = __webpack_require__(4)
-  , Iterators   = __webpack_require__(11)
+  , Iterators   = __webpack_require__(13)
   , ITERATOR    = __webpack_require__(5)('iterator')
   , NL          = global.NodeList
   , HTC         = global.HTMLCollection
@@ -8046,21 +9936,21 @@ if(NLProto && !NLProto[ITERATOR])hide(NLProto, ITERATOR, ArrayValues);
 if(HTCProto && !HTCProto[ITERATOR])hide(HTCProto, ITERATOR, ArrayValues);
 
 /***/ }),
-/* 83 */
+/* 131 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
-var addToUnscopables = __webpack_require__(84)
-  , step             = __webpack_require__(86)
-  , Iterators        = __webpack_require__(11)
-  , toIObject        = __webpack_require__(87);
+var addToUnscopables = __webpack_require__(132)
+  , step             = __webpack_require__(134)
+  , Iterators        = __webpack_require__(13)
+  , toIObject        = __webpack_require__(135);
 
 // 22.1.3.4 Array.prototype.entries()
 // 22.1.3.13 Array.prototype.keys()
 // 22.1.3.29 Array.prototype.values()
 // 22.1.3.30 Array.prototype[@@iterator]()
-module.exports = __webpack_require__(90)(Array, 'Array', function(iterated, kind){
+module.exports = __webpack_require__(138)(Array, 'Array', function(iterated, kind){
   this._t = toIObject(iterated); // target
   this._i = 0;                   // next index
   this._k = kind;                // kind
@@ -8086,7 +9976,7 @@ addToUnscopables('values');
 addToUnscopables('entries');
 
 /***/ }),
-/* 84 */
+/* 132 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // 22.1.3.31 Array.prototype[@@unscopables]
@@ -8098,7 +9988,7 @@ module.exports = function(key){
 };
 
 /***/ }),
-/* 85 */
+/* 133 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var global = __webpack_require__(2)
@@ -8109,7 +9999,7 @@ module.exports = function(key){
 };
 
 /***/ }),
-/* 86 */
+/* 134 */
 /***/ (function(module, exports) {
 
 module.exports = function(done, value){
@@ -8117,28 +10007,28 @@ module.exports = function(done, value){
 };
 
 /***/ }),
-/* 87 */
+/* 135 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // to indexed object, toObject with fallback for non-array-like ES3 strings
-var IObject = __webpack_require__(88)
-  , defined = __webpack_require__(89);
+var IObject = __webpack_require__(136)
+  , defined = __webpack_require__(137);
 module.exports = function(it){
   return IObject(defined(it));
 };
 
 /***/ }),
-/* 88 */
+/* 136 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // fallback for non-array-like ES3 and non-enumerable old V8 strings
-var cof = __webpack_require__(25);
+var cof = __webpack_require__(35);
 module.exports = Object('z').propertyIsEnumerable(0) ? Object : function(it){
   return cof(it) == 'String' ? it.split('') : Object(it);
 };
 
 /***/ }),
-/* 89 */
+/* 137 */
 /***/ (function(module, exports) {
 
 // 7.2.1 RequireObjectCoercible(argument)
@@ -8148,19 +10038,19 @@ module.exports = function(it){
 };
 
 /***/ }),
-/* 90 */
+/* 138 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
-var LIBRARY        = __webpack_require__(91)
-  , $export        = __webpack_require__(9)
-  , redefine       = __webpack_require__(21)
+var LIBRARY        = __webpack_require__(139)
+  , $export        = __webpack_require__(11)
+  , redefine       = __webpack_require__(31)
   , hide           = __webpack_require__(4)
-  , has            = __webpack_require__(26)
-  , Iterators      = __webpack_require__(11)
-  , $iterCreate    = __webpack_require__(92)
-  , setToStringTag = __webpack_require__(27)
+  , has            = __webpack_require__(36)
+  , Iterators      = __webpack_require__(13)
+  , $iterCreate    = __webpack_require__(140)
+  , setToStringTag = __webpack_require__(37)
   , getProto       = __webpack_require__(7).getProto
   , ITERATOR       = __webpack_require__(5)('iterator')
   , BUGGY          = !([].keys && 'next' in [].keys()) // Safari has buggy iterators w/o `next`
@@ -8220,20 +10110,20 @@ module.exports = function(Base, NAME, Constructor, next, DEFAULT, IS_SET, FORCED
 };
 
 /***/ }),
-/* 91 */
+/* 139 */
 /***/ (function(module, exports) {
 
 module.exports = false;
 
 /***/ }),
-/* 92 */
+/* 140 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 var $              = __webpack_require__(7)
-  , descriptor     = __webpack_require__(20)
-  , setToStringTag = __webpack_require__(27)
+  , descriptor     = __webpack_require__(30)
+  , setToStringTag = __webpack_require__(37)
   , IteratorPrototype = {};
 
 // 25.1.2.1.1 %IteratorPrototype%[@@iterator]()
