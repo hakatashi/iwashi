@@ -7,3 +7,6 @@ r1 r1 r1 r r c c
 
 l1
 /: r :/16
+
+l4
+/: r r c c :/4

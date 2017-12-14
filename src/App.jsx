@@ -33,7 +33,22 @@ module.exports = class App extends React.Component {
 			{
 				source: 'vocal/yufu/03',
 				start: 626,
-				end: 2808,
+				end: 882,
+			},
+			{
+				source: 'vocal/yufu/04',
+				start: 882,
+				end: 1104,
+			},
+			{
+				source: 'vocal/yufu/05',
+				start: 1106,
+				end: 1408,
+			},
+			{
+				source: 'vocal/yufu/06',
+				start: 1410,
+				end: 1504,
 			},
 		];
 
@@ -54,21 +69,22 @@ module.exports = class App extends React.Component {
 	}
 
 	handleBeat = () => {
-		this.setState({beat: this.state.beat === null ? 0 : this.state.beat + TICK});
+		this.setState({beat: this.state.beat === null ? TICK * 0 : this.state.beat + TICK});
 
 		for (const {source, start, end} of this.vocalData) {
-			if (Math.abs(this.state.beat % (TICK * 1408) - TICK * (start - 64)) < TICK / 2) {
+			if (Math.abs(this.state.beat % (TICK * 1536) - TICK * (start - 64)) < TICK / 2) {
 				this.preloadVocal(source);
 			}
 
-			if (Math.abs(this.state.beat % (TICK * 1408) - TICK * start) < TICK / 2) {
+			if (Math.abs(this.state.beat % (TICK * 1536) - TICK * start) < TICK / 2) {
+				this.vocalSounds.get(source).seek(0);
 				this.vocalSounds.get(source).play();
 			}
 
-			if (Math.floor(this.state.beat / TICK) % 16 === 0 && TICK * start <= this.state.beat % (TICK * 1408) && this.state.beat % (TICK * 1408) <= TICK * end) {
+			if (Math.floor(this.state.beat / TICK) % 16 === 0 && TICK * start <= this.state.beat % (TICK * 1536) && this.state.beat % (TICK * 1536) <= TICK * end) {
 				const playbackTime = this.vocalSounds.get(source).seek();
-				if (Math.abs((playbackTime + TICK * start) - this.state.beat % (TICK * 1408)) > TICK * 2) {
-					this.vocalSounds.get(source).seek(this.state.beat % (TICK * 1408) - TICK * start);
+				if (Math.abs((playbackTime + TICK * start) - this.state.beat % (TICK * 1536)) > TICK * 2) {
+					this.vocalSounds.get(source).seek(this.state.beat % (TICK * 1536) - TICK * start);
 				}
 			}
 		}
@@ -243,7 +259,7 @@ module.exports = class App extends React.Component {
 						videoStart={10.7}
 						videoDuration={1}
 						beat={this.state.beat}
-						volume={0.5}
+						volume={0.3}
 						sourceNote={62}
 						onReady={this.handleSoundReady}
 						isNoVideo={this.state.isReady && this.state.isNoVideo}
@@ -267,7 +283,7 @@ module.exports = class App extends React.Component {
 						videoStart={10}
 						videoDuration={1}
 						beat={this.state.beat}
-						volume={0.8}
+						volume={0.3}
 						sourceNote={69}
 						onReady={this.handleSoundReady}
 						isNoVideo={this.state.isReady && this.state.isNoVideo}
@@ -280,7 +296,7 @@ module.exports = class App extends React.Component {
 						videoStart={24}
 						videoDuration={1}
 						beat={this.state.beat}
-						volume={0.6}
+						volume={0.2}
 						sourceNote={97}
 						onReady={this.handleSoundReady}
 						isNoVideo={this.state.isReady && this.state.isNoVideo}

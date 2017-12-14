@@ -37,3 +37,7 @@ l8
 d >d< d >d< d >d< d >d<
 c >c< c >c< f >f< f >f<
 :/2
+
+/: d >d< d >d< <a> a <a> a :/3
+l16
+d^ r d^ r <a^> d^ r^ d+^^^

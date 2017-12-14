@@ -13,3 +13,6 @@ rc^^c^c^ ^^^^^^^^
 r^c^c^^c c^^^^^^^
 l8
 /: r c r c r c r c :/8
+
+l8
+/: r c r c r c r c :/4

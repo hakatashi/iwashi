@@ -14,3 +14,7 @@ l4
 r r l16 c^c^ l32 cccccccc
 l4
 /: r c r c :/8
+
+l4
+/: r c r c :/3
+r r r r

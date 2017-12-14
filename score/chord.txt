@@ -30,3 +30,8 @@ r [fa>c<] r [fa>c<] r [ceg] r [ceg]
 
 l1
 /: r :/16
+
+l4
+/: r [cdfa] r [<a>ceg] :/3
+l8
+[cdfa] r16 [cdfa] r16 [<a>c+eg] [cdfa]16^^ r16 [<a+>d+f+a+]^
