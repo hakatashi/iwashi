@@ -99,8 +99,8 @@ module.exports = class App extends React.Component {
 				score: 'base',
 				videoStart: 4.8,
 				videoDuration: 0.5,
-				volume: 1,
-				sourceNote: 22,
+				volume: 0.5,
+				sourceNote: 34,
 				prank: true,
 			},
 			{
