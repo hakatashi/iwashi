@@ -12,3 +12,6 @@ l1
 
 l4
 /: c c r r :/3 l16 c^^ c^^ c^ r2
+
+l4
+/: c c r r :/7 l16 c^^ c^^ c^ r2

@@ -17,3 +17,6 @@ l4
 /: c r c r :/3
 l16
 c^rcr^c^c^r^<a+^^^>
+
+l1
+ r r r r r r r l4 r r r g

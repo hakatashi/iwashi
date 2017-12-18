@@ -15,3 +15,7 @@ l4
 
 l4
 /: r c r c :/3 r r l16 r^ccr^cc
+
+l4
+/: r c r c :/4
+/: r c r c :/3 l16 c^^c^^c^ c^ccr^cc
