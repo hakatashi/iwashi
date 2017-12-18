@@ -18,3 +18,7 @@ l4
 l4
 /: r c r c :/3
 r r r r
+
+l4
+/: r c r c :/4
+/: r c r c :/3 l16 c^^c^^c^ c^^^^^^^

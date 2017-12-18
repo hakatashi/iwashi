@@ -51,6 +51,11 @@ module.exports = class App extends React.Component {
 				start: 1410,
 				end: 1504,
 			},
+			{
+				source: 'vocal/yufu/07',
+				start: 1530,
+				end: 1790,
+			},
 		];
 
 		this.vocalSounds = new Map();
@@ -99,7 +104,7 @@ module.exports = class App extends React.Component {
 				score: 'base',
 				videoStart: 4.8,
 				videoDuration: 0.5,
-				volume: 1,
+				volume: 0.3,
 				sourceNote: 22,
 				prank: true,
 			},
@@ -211,6 +216,28 @@ module.exports = class App extends React.Component {
 				sourceNote: 97,
 				prank: true,
 			},
+			{
+				type: 'instrument',
+				src: 'chargeman-hai',
+				url: 'https://www.youtube.com/watch?v=Ih9uYOlrPpQ',
+				score: 'chorus5',
+				videoStart: 179,
+				videoDuration: 1,
+				volume: 0.25,
+				sourceNote: 59,
+				prank: true,
+			},
+			{
+				type: 'instrument',
+				src: 'deremasu-suimasen',
+				url: 'https://www.youtube.com/watch?v=7m7Wt75-js0',
+				score: 'chorus6',
+				videoStart: 4,
+				videoDuration: 1,
+				volume: 0.4,
+				sourceNote: 56,
+				prank: true,
+			},
 		];
 
 		this.tracks = shuffle(tracks);
@@ -233,19 +260,19 @@ module.exports = class App extends React.Component {
 		this.setState({beat: this.state.beat === null ? TICK * 0 : this.state.beat + TICK});
 
 		for (const {source, start, end} of this.vocalData) {
-			if (Math.abs(this.state.beat % (TICK * 1536) - TICK * (start - 64)) < TICK / 2) {
+			if (Math.abs(this.state.beat % (TICK * 1792) - TICK * (start - 64)) < TICK / 2) {
 				this.preloadVocal(source);
 			}
 
-			if (Math.abs(this.state.beat % (TICK * 1536) - TICK * start) < TICK / 2) {
+			if (Math.abs(this.state.beat % (TICK * 1792) - TICK * start) < TICK / 2) {
 				this.vocalSounds.get(source).seek(0);
 				this.vocalSounds.get(source).play();
 			}
 
-			if (Math.floor(this.state.beat / TICK) % 16 === 0 && TICK * start <= this.state.beat % (TICK * 1536) && this.state.beat % (TICK * 1536) <= TICK * end) {
+			if (Math.floor(this.state.beat / TICK) % 16 === 0 && TICK * start <= this.state.beat % (TICK * 1792) && this.state.beat % (TICK * 1792) <= TICK * end) {
 				const playbackTime = this.vocalSounds.get(source).seek();
-				if (Math.abs((playbackTime + TICK * start) - this.state.beat % (TICK * 1536)) > TICK * 2) {
-					this.vocalSounds.get(source).seek(this.state.beat % (TICK * 1536) - TICK * start);
+				if (Math.abs((playbackTime + TICK * start) - this.state.beat % (TICK * 1792)) > TICK * 2) {
+					this.vocalSounds.get(source).seek(this.state.beat % (TICK * 1792) - TICK * start);
 				}
 			}
 		}
@@ -253,7 +280,7 @@ module.exports = class App extends React.Component {
 
 	handleSoundReady = (score) => {
 		this.readySounds.add(score);
-		if (this.readySounds.size === 16) {
+		if (this.readySounds.size === this.tracks.length) {
 			this.setState({isReady: true});
 			setInterval(this.handleBeat, TICK * 1000);
 		}

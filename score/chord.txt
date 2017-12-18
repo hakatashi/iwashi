@@ -35,3 +35,13 @@ l4
 /: r [cdfa] r [<a>ceg] :/3
 l8
 [cdfa] r16 [cdfa] r16 [<a>c+eg] [cdfa]16^^ r16 [<a+>d+f+a+]^
+
+l8
+r [cdfa] r [cdfa] r [<a>ceg] r [<a>ceg]
+r [cdfa] r [cdfa] r [<a>ceg] r [<a>ceg]
+r [<a+>dfg] r [<a+>dfg] r [<a+>ceg] r [<a+>ceg]
+r [<a>cef] r [<a>cef] r [<a>cd+f] r [<a>cd+f]
+r [<a+>deg] r [<a+>deg] r [<a>c+eg] r [<a>c+eg]
+r [<a>cdf] r [<a>cdf] r [ceg] r [ceg]
+r [<a+>dfa] r [<a+>dfa] r [<a>ceg] r [<a>ceg]
+[<a>cdf] r16 [cc+fa]16 r8 [<b>ceg]16 r16 [<a+><b>d+f+]16 r16^^ [<a>c+eg]4

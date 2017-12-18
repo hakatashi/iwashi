@@ -2,7 +2,7 @@ t135 o1 l8
 /: d >d< d >d< <a> a <a> a :/3
 d r16 d r16 <a> d r d+4
 
-l16
+o1 l16
 d^ r >d< d r >d^<  <a^> r a <a> r a^
 d^ r >d< d r >d^<  <a^> r a <a> r a^
 g^ r >g< g r >g^<  c^ r >c< c r >c^<
@@ -12,6 +12,7 @@ d^ r >d< d r >d^<  c^ r >c< c r >c^<
 <a+^> r a+ d <a+> a+^  <a^> r a <a> r a^
 o2 d^ r c+ r^ c r <b> r^^ <a^^^>
 
+o1
 /:
 d^ r >d< d r >d^<  c^ r >c< c r >c^<
 <a+^> r a+ d <a+> a+^  f^ r >f< f r >f^<
@@ -25,7 +26,7 @@ e^ r >e< e r >e^<  <a^> r a <a> r a^
 :/2
 f^ r >f< f r >f^<  e^ r >e< e r >e^<
 
-l4
+o1 l4
 <a+^^> r <a+^> c^
 d^^ r c^ f^
 <a+^^> r <a+^> <a^>
@@ -38,6 +39,17 @@ d >d< d >d< d >d< d >d<
 c >c< c >c< f >f< f >f<
 :/2
 
+o1
 /: d >d< d >d< <a> a <a> a :/3
 l16
 d^ r d^ r <a^> d^ r^ d+^^^
+
+o1 l16
+d^ r >d< d r >d^<  <a^> r a <a> r a^
+d^ r >d< d r >d^<  <a^> r a <a> r a^
+g^ r >g< g r >g^<  c^ r >c< c r >c^<
+f^ r >f< f r >f^<  f^ r >f< f r >f^<
+e^ r >e< e r >e^<  <a^> r a <a> r a^
+d^ r >d< d r >d^<  c^ r >c< c r >c^<
+<a+^> r a+ d <a+> a+^  <a^> r a <a> r a^
+o2 d^ r c+ r^ c r <b> r^^ <a^^^>

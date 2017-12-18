@@ -21,3 +21,7 @@ l4
 /: c c c c :/8
 
 /: c c c c :/3 l16 c^^ c^^ c^ c^^^ c^^^
+
+l4
+/: c c c c :/4
+/: c c c c :/3 l16 c^^ c^^ c^ c^^^ c^^^
