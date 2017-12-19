@@ -61,36 +61,42 @@ module.exports = class Sound extends React.Component {
 	}
 
 	handleBeat = (beat) => {
-		if (Math.abs((beat + TICK) % (TICK * 1792) - TICK) < TICK / 2) {
+		if (Math.abs((beat + TICK) % (TICK * 2304) - TICK) < TICK / 2) {
 			this.setState({isShown: false});
 			this.sounds.forEach((sound) => sound.stop());
 		}
 
-		if (Math.abs(beat % (TICK * 1792) - TICK * 892) < TICK / 2) {
+		let hidden = false;
+
+		if (Math.abs(beat % (TICK * 2304) - TICK * 892) < TICK / 2) {
 			this.setState({isShown: false});
+			hidden = true;
 		}
 
-		if (Math.abs(beat % (TICK * 1792) - TICK * 1408) < TICK / 2) {
+		if (Math.abs(beat % (TICK * 2304) - TICK * 1408) < TICK / 2) {
 			this.setState({isShown: false});
+			hidden = true;
 		}
 
-		if (Math.abs(beat % (TICK * 1792) - TICK * 1536) < TICK / 2) {
+		if (Math.abs(beat % (TICK * 2304) - TICK * 1792) < TICK / 2) {
 			this.setState({isShown: false});
+			hidden = true;
 		}
 
 		if (this.props.isPercussion) {
-			const isPlay = this.score.some((note) => Math.abs(note.time - beat % (TICK * 1792)) < TICK / 2 && note.type === 'note');
+			const playNote = this.score.find((note) => Math.abs(note.time - beat % (TICK * 2304)) < TICK / 2 && note.type === 'note');
 
-			if (!isPlay) {
+			if (!playNote) {
 				return;
 			}
 
+			this.sounds[0].volume(playNote.velocity / 100 * this.props.volume);
 			this.sounds[0].play();
 		} else {
-			const playNoteIndex = this.score.findIndex((note) => Math.abs(note.time - beat % (TICK * 1792)) < TICK / 2 && note.type === 'note');
-			const playNotes = this.score.filter((note) => Math.abs(note.time - beat % (TICK * 1792)) < TICK / 2 && note.type === 'note');
+			const playNoteIndex = this.score.findIndex((note) => Math.abs(note.time - beat % (TICK * 2304)) < TICK / 2 && note.type === 'note');
+			const playNotes = this.score.filter((note) => Math.abs(note.time - beat % (TICK * 2304)) < TICK / 2 && note.type === 'note');
 
-			if (playNotes.length !== 0 || (this.score[this.currentNote] && Math.abs(this.score[this.currentNote].time + this.score[this.currentNote].duration - beat % (TICK * 1792)) < TICK / 2)) {
+			if (playNotes.length !== 0 || (this.score[this.currentNote] && Math.abs(this.score[this.currentNote].time + this.score[this.currentNote].duration - beat % (TICK * 2304)) < TICK / 2)) {
 				this.sounds.forEach((sound) => sound.stop());
 			}
 
@@ -102,6 +108,7 @@ module.exports = class Sound extends React.Component {
 
 			playNotes.forEach((note, index) => {
 				this.sounds[index].rate(2 ** ((note.noteNumber - this.props.sourceNote) / 12));
+				this.sounds[index].volume(note.velocity / 100 * this.props.volume);
 				this.sounds[index].play();
 			});
 		}
@@ -110,7 +117,7 @@ module.exports = class Sound extends React.Component {
 			this.player && this.player.seekTo(this.props.videoStart);
 		}
 
-		if (!this.state.isShown) {
+		if (!this.state.isShown || hidden) {
 			this.setState({isShown: true});
 		}
 

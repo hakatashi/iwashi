@@ -54,7 +54,17 @@ module.exports = class App extends React.Component {
 			{
 				source: 'vocal/yufu/07',
 				start: 1530,
-				end: 1790,
+				end: 1786,
+			},
+			{
+				source: 'vocal/yufu/02',
+				start: 1778,
+				end: 2034,
+			},
+			{
+				source: 'vocal/yufu/03',
+				start: 2034,
+				end: 2290,
 			},
 		];
 
@@ -152,7 +162,7 @@ module.exports = class App extends React.Component {
 				score: 'chorus1',
 				videoStart: 30.5,
 				videoDuration: 3,
-				volume: 0.1,
+				volume: 0.2,
 				sourceNote: 53,
 			},
 			{
@@ -162,7 +172,7 @@ module.exports = class App extends React.Component {
 				score: 'chorus2',
 				videoStart: 18,
 				videoDuration: 1,
-				volume: 0.2,
+				volume: 0.4,
 				sourceNote: 64,
 			},
 			{
@@ -260,19 +270,20 @@ module.exports = class App extends React.Component {
 		this.setState({beat: this.state.beat === null ? TICK * 0 : this.state.beat + TICK});
 
 		for (const {source, start, end} of this.vocalData) {
-			if (Math.abs(this.state.beat % (TICK * 1792) - TICK * (start - 64)) < TICK / 2) {
+			if (Math.abs(this.state.beat % (TICK * 2304) - TICK * (start - 64)) < TICK / 2) {
 				this.preloadVocal(source);
 			}
 
-			if (Math.abs(this.state.beat % (TICK * 1792) - TICK * start) < TICK / 2) {
+			if (Math.abs(this.state.beat % (TICK * 2304) - TICK * start) < TICK / 2) {
+				this.vocalSounds.get(source).stop();
 				this.vocalSounds.get(source).seek(0);
 				this.vocalSounds.get(source).play();
 			}
 
-			if (Math.floor(this.state.beat / TICK) % 16 === 0 && TICK * start <= this.state.beat % (TICK * 1792) && this.state.beat % (TICK * 1792) <= TICK * end) {
+			if (Math.floor(this.state.beat / TICK) % 16 === 0 && TICK * start <= this.state.beat % (TICK * 2304) && this.state.beat % (TICK * 2304) <= TICK * end) {
 				const playbackTime = this.vocalSounds.get(source).seek();
-				if (Math.abs((playbackTime + TICK * start) - this.state.beat % (TICK * 1792)) > TICK * 2) {
-					this.vocalSounds.get(source).seek(this.state.beat % (TICK * 1792) - TICK * start);
+				if (Math.abs((playbackTime + TICK * start) - this.state.beat % (TICK * 2304)) > TICK * 2) {
+					this.vocalSounds.get(source).seek(this.state.beat % (TICK * 2304) - TICK * start);
 				}
 			}
 		}
