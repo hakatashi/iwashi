@@ -19,3 +19,16 @@ r^^^^^^^ ^^<a>cd^c^
 <a^^>r^^^^ l8 r<ga>c
 dcd<a> efec
 dr^^ ^^^^
+
+l1
+/: r :/16
+
+l8 v30
+<aa>cde^de fdfge^<fg>
+<a^ga>cc<a>c dcdfddcd16g16
+a^geddeg agfffr<a>c
+d^cdedef e^^^r^dc
+<aa>cde^de fdfge^<fg>
+<a^ga>cd16c16<a>c dcdfddcd16g16
+a^geddeg agfffr<a>c
+d^cdedef f^^^r^dc

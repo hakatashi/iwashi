@@ -1,4 +1,4 @@
-t135 o4 l1
+t135 o4 l1 v50
 r r r r
 
 r r r r r r r l4 r r r d
@@ -20,3 +20,10 @@ f^rfr^e^f^r^<f+^^^>
 
 l1
 r r r r r r r l4 r r r d
+
+l2 v100
+/:
+f e d c d e c <a>
+e d e <a> c d | a e
+:/
+c g

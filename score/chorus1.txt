@@ -1,4 +1,4 @@
-t135 o3 l1
+t135 o3 l1 v50
 r r r r
 
 r r r r r r r l4 r r r g
@@ -19,4 +19,11 @@ l16
 c^rcr^c^c^r^<a+^^^>
 
 l1
- r r r r r r r l4 r r r g
+r r r r r r r l4 r r r g
+
+l2 v100
+/:
+a g f e f g c d+
+d c a g f g | g a
+:/
+f e
