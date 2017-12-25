@@ -66,6 +66,16 @@ module.exports = class App extends React.Component {
 				start: 2034,
 				end: 2290,
 			},
+			{
+				source: 'vocal/yufu/02',
+				start: 2290,
+				end: 2546,
+			},
+			{
+				source: 'vocal/yufu/03',
+				start: 2546,
+				end: 2802,
+			},
 		];
 
 		this.vocalSounds = new Map();
@@ -267,23 +277,23 @@ module.exports = class App extends React.Component {
 	}
 
 	handleBeat = () => {
-		this.setState({beat: this.state.beat === null ? TICK * 0 : this.state.beat + TICK});
+		this.setState({beat: this.state.beat === null ? TICK * 1792 : this.state.beat + TICK});
 
 		for (const {source, start, end} of this.vocalData) {
-			if (Math.abs(this.state.beat % (TICK * 2304) - TICK * (start - 64)) < TICK / 2) {
+			if (Math.abs(this.state.beat % (TICK * 2816) - TICK * (start - 64)) < TICK / 2) {
 				this.preloadVocal(source);
 			}
 
-			if (Math.abs(this.state.beat % (TICK * 2304) - TICK * start) < TICK / 2) {
+			if (Math.abs(this.state.beat % (TICK * 2816) - TICK * start) < TICK / 2) {
 				this.vocalSounds.get(source).stop();
 				this.vocalSounds.get(source).seek(0);
 				this.vocalSounds.get(source).play();
 			}
 
-			if (Math.floor(this.state.beat / TICK) % 16 === 0 && TICK * start <= this.state.beat % (TICK * 2304) && this.state.beat % (TICK * 2304) <= TICK * end) {
+			if (Math.floor(this.state.beat / TICK) % 16 === 0 && TICK * start <= this.state.beat % (TICK * 2816) && this.state.beat % (TICK * 2816) <= TICK * end) {
 				const playbackTime = this.vocalSounds.get(source).seek();
-				if (Math.abs((playbackTime + TICK * start) - this.state.beat % (TICK * 2304)) > TICK * 2) {
-					this.vocalSounds.get(source).seek(this.state.beat % (TICK * 2304) - TICK * start);
+				if (Math.abs((playbackTime + TICK * start) - this.state.beat % (TICK * 2816)) > TICK * 2) {
+					this.vocalSounds.get(source).seek(this.state.beat % (TICK * 2816) - TICK * start);
 				}
 			}
 		}

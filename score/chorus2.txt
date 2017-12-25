@@ -27,3 +27,10 @@ f e d c d e c <a>
 e d e <a> c d | a e
 :/
 c g
+
+l2 v100
+/:
+f e d c d e c <a>
+e d e <a> c d | a e
+:/
+c g
