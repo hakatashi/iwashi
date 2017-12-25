@@ -60,3 +60,18 @@ r [dega+] r [dega+] r [ea>c+<] r [ea>c+<]
 r [cdfa] r [cdfa] r [cd+fa] r [cd+fa]
 r [dfga+] r [dfga+] r [cega+] r [cega+]
 r [fa>c<] r [fa>c<] r [ceg>c<] r [ceg>c<]
+
+/:
+r [cdfa] r [cdfa] r [ceg] r [ceg]
+r [<a+>dfa] r [<a+>dfa] r [cefa] r [cefa]
+r [dfga+] r [dfga+] r [cegb] r [cegb]
+r [cefa] r [cefa] r [cd+fa] r [cd+fa]
+r [<a+>dfa] r [<a+>dfa] r [cega] r [cega]
+|
+r [cdfa] r [cdfa] r [ceg] r [ceg]
+r [dfga+] r [dfga+] r [cega+] r [cega+]
+r [dega+] r [dega+] r [ea>c+<] r [ea>c+<]
+:/
+r [cdfa] r [cdfa] r [cd+fa] r [cd+fa]
+r [dfga+] r [dfga+] r [cega+] r [cega+]
+r [fa>c<] r [fa>c<] r [ceg>c<] r [ceg>c<]
