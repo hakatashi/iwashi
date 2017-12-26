@@ -35,11 +35,12 @@ module.exports = class Sound extends React.Component {
 	constructor(props, state) {
 		super(props, state);
 
-		this.sounds = Array((this.props.isPercussion || !this.props.isChord) ? 1 : 5).fill().map(() => (
+		this.sounds = Array((this.props.isPercussion || this.props.isRap || !this.props.isChord) ? 1 : 5).fill().map(() => (
 			new Howl({
 				src: getSoundUrls(this.props.src),
 				volume: this.props.volume,
 				loop: !this.props.isPercussion,
+				html5: this.props.isRap,
 			})
 		));
 
@@ -50,7 +51,7 @@ module.exports = class Sound extends React.Component {
 		};
 
 		this.currentNote = null;
-		this.score = scores[this.props.score];
+		this.score = this.props.isRap ? null : scores[this.props.score];
 		this.isReady = false;
 	}
 
@@ -61,6 +62,8 @@ module.exports = class Sound extends React.Component {
 	}
 
 	handleBeat = (beat) => {
+		const tick = Math.floor((beat + TICK / 2) / TICK) % 2816;
+
 		if (Math.abs((beat + TICK) % (TICK * 2816) - TICK) < TICK / 2) {
 			this.setState({isShown: false});
 			this.sounds.forEach((sound) => sound.stop());
@@ -92,6 +95,52 @@ module.exports = class Sound extends React.Component {
 
 			this.sounds[0].volume(playNote.velocity / 100 * this.props.volume);
 			this.sounds[0].play();
+		} else if (this.props.isRap) {
+			if (this.props.rapFrom <= tick && tick < this.props.rapTo) {
+				if (!this.sounds[0].playing()) {
+					this.setState({
+						isPlaying: true,
+						isShown: true,
+					});
+
+					this.sounds[0].rate(135 / this.props.rapSpeed);
+					this.sounds[0].volume(this.props.volume);
+					this.sounds[0].seek(0);
+					this.sounds[0].play();
+
+					const session = Symbol('videoPlaySession');
+					this.videoPlaySession = session;
+
+					if (!this.props.isNoVideo) {
+						setTimeout(() => {
+							this.handleVideoSessionTimeout(session);
+						}, this.props.videoDuration * 1000);
+					}
+				}
+
+				if ((tick - this.props.rapFrom) % (32 * this.props.rapDuration) === 0) {
+					if (!this.props.isNoVideo) {
+						this.player && this.player.seekTo(this.props.videoStart);
+					}
+				}
+
+				if ((tick - this.props.rapFrom) % 4 === 0) {
+					const playbackTime = this.sounds[0].seek();
+					const targetTime = ((tick - this.props.rapFrom) % (32 * this.props.rapDuration)) * TICK * 135 / 120 + TICK;
+					console.log(playbackTime, targetTime);
+					if (Math.abs(playbackTime + TICK - targetTime) > TICK) {
+						this.sounds[0].seek(targetTime);
+					}
+				}
+			} else if (this.sounds[0].playing()) {
+				this.setState({
+					isPlaying: false,
+					isShown: false,
+				});
+				this.sounds[0].stop();
+			}
+
+			return;
 		} else {
 			const playNoteIndex = this.score.findIndex((note) => Math.abs(note.time - beat % (TICK * 2816)) < TICK / 2 && note.type === 'note');
 			const playNotes = this.score.filter((note) => Math.abs(note.time - beat % (TICK * 2816)) < TICK / 2 && note.type === 'note');

@@ -153,7 +153,7 @@ module.exports = class App extends React.Component {
 				url: 'https://www.youtube.com/watch?v=tKt0oImbQ_Y',
 				score: 'chime1',
 				videoStart: 500.5,
-				videoDuration: 0.5,
+				videoDuration: 1,
 				volume: 0.5,
 			},
 			{
@@ -258,6 +258,19 @@ module.exports = class App extends React.Component {
 				sourceNote: 56,
 				prank: true,
 			},
+			{
+				type: 'rap',
+				src: 'yuyushiki-nantsutte',
+				url: 'https://www.youtube.com/watch?v=H1C97ZqLE8Y',
+				videoStart: 55.8,
+				videoDuration: 30,
+				volume: 0.6,
+				sourceRate: 1,
+				rapSpeed: 120,
+				rapFrom: 2304,
+				rapTo: 2816,
+				rapDuration: 8,
+			},
 		];
 
 		this.tracks = shuffle(tracks);
@@ -327,11 +340,17 @@ module.exports = class App extends React.Component {
 							beat={this.state.beat}
 							volume={track.volume}
 							sourceNote={track.sourceNote}
+							sourceRate={track.sourceRate}
+							rapSpeed={track.rapSpeed}
+							rapFrom={track.rapFrom}
+							rapTo={track.rapTo}
+							rapDuration={track.rapDuration}
 							onReady={this.handleSoundReady}
 							isNoVideo={this.state.isReady && this.state.isNoVideo}
 							isPrank={Boolean(track.isPrank)}
 							isPercussion={track.type === 'percussion'}
 							isChord={track.type === 'chord'}
+							isRap={track.type === 'rap'}
 						/>
 					))}
 				</div>
