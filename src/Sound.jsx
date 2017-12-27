@@ -62,32 +62,37 @@ module.exports = class Sound extends React.Component {
 	}
 
 	handleBeat = (beat) => {
-		const tick = Math.floor((beat + TICK / 2) / TICK) % 2816;
+		const tick = Math.floor((beat + TICK / 2) / TICK) % 2944;
 
-		if (Math.abs((beat + TICK) % (TICK * 2816) - TICK) < TICK / 2) {
+		if (Math.abs((beat + TICK) % (TICK * 2944) - TICK) < TICK / 2) {
 			this.setState({isShown: false});
 			this.sounds.forEach((sound) => sound.stop());
 		}
 
 		let hidden = false;
 
-		if (Math.abs(beat % (TICK * 2816) - TICK * 892) < TICK / 2) {
+		if (Math.abs(beat % (TICK * 2944) - TICK * 892) < TICK / 2) {
 			this.setState({isShown: false});
 			hidden = true;
 		}
 
-		if (Math.abs(beat % (TICK * 2816) - TICK * 1408) < TICK / 2) {
+		if (Math.abs(beat % (TICK * 2944) - TICK * 1408) < TICK / 2) {
 			this.setState({isShown: false});
 			hidden = true;
 		}
 
-		if (Math.abs(beat % (TICK * 2816) - TICK * 1792) < TICK / 2) {
+		if (Math.abs(beat % (TICK * 2944) - TICK * 1792) < TICK / 2) {
+			this.setState({isShown: false});
+			hidden = true;
+		}
+
+		if (Math.abs(beat % (TICK * 2944) - TICK * 2816) < TICK / 2) {
 			this.setState({isShown: false});
 			hidden = true;
 		}
 
 		if (this.props.isPercussion) {
-			const playNote = this.score.find((note) => Math.abs(note.time - beat % (TICK * 2816)) < TICK / 2 && note.type === 'note');
+			const playNote = this.score.find((note) => Math.abs(note.time - beat % (TICK * 2944)) < TICK / 2 && note.type === 'note');
 
 			if (!playNote) {
 				return;
@@ -141,10 +146,10 @@ module.exports = class Sound extends React.Component {
 
 			return;
 		} else {
-			const playNoteIndex = this.score.findIndex((note) => Math.abs(note.time - beat % (TICK * 2816)) < TICK / 2 && note.type === 'note');
-			const playNotes = this.score.filter((note) => Math.abs(note.time - beat % (TICK * 2816)) < TICK / 2 && note.type === 'note');
+			const playNoteIndex = this.score.findIndex((note) => Math.abs(note.time - beat % (TICK * 2944)) < TICK / 2 && note.type === 'note');
+			const playNotes = this.score.filter((note) => Math.abs(note.time - beat % (TICK * 2944)) < TICK / 2 && note.type === 'note');
 
-			if (playNotes.length !== 0 || (this.score[this.currentNote] && Math.abs(this.score[this.currentNote].time + this.score[this.currentNote].duration - beat % (TICK * 2816)) < TICK / 2)) {
+			if (playNotes.length !== 0 || (this.score[this.currentNote] && Math.abs(this.score[this.currentNote].time + this.score[this.currentNote].duration - beat % (TICK * 2944)) < TICK / 2)) {
 				this.sounds.forEach((sound) => sound.stop());
 			}
 

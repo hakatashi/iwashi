@@ -75,3 +75,6 @@ r [dega+] r [dega+] r [ea>c+<] r [ea>c+<]
 r [cdfa] r [cdfa] r [cd+fa] r [cd+fa]
 r [dfga+] r [dfga+] r [cega+] r [cega+]
 r [fa>c<] r [fa>c<] r [ceg>c<] r [ceg>c<]
+
+l1
+/: r :/4
