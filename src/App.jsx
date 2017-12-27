@@ -295,7 +295,7 @@ module.exports = class App extends React.Component {
 	}
 
 	handleBeat = () => {
-		this.setState({beat: this.state.beat === null ? TICK * 2688 : this.state.beat + TICK});
+		this.setState({beat: this.state.beat === null ? TICK * 0 : this.state.beat + TICK});
 
 		for (const {source, start, end} of this.vocalData) {
 			if (Math.abs(this.state.beat % (TICK * 2944) - TICK * (start - 64)) < TICK / 2) {
