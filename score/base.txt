@@ -85,3 +85,7 @@ e^ r >e< e r >e^<  <a^> r a <a> r a^
 d^ r >d< d r >d^<  f^ r >f< f r >f^<
 <g^> r g <g> r g^  c^ r >c< c r >c^<
 f^ r >f< f r >f^<  e^ r >e< e r >e^<
+
+l8
+/: d >d< d >d< <a> a <a> a :/3
+d^ a^ d
