@@ -126,8 +126,7 @@ module.exports = class Sound extends React.Component {
 
 				if ((tick - this.props.rapFrom) % 4 === 0) {
 					const playbackTime = this.sounds[0].seek();
-					const targetTime = ((tick - this.props.rapFrom) % (32 * this.props.rapDuration)) * TICK * 135 / 120 + TICK;
-					console.log(playbackTime, targetTime);
+					const targetTime = ((tick - this.props.rapFrom) % (32 * this.props.rapDuration)) * TICK * 135 / this.props.rapSpeed + TICK;
 					if (Math.abs(playbackTime + TICK - targetTime) > TICK) {
 						this.sounds[0].seek(targetTime);
 					}

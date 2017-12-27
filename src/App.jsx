@@ -260,16 +260,16 @@ module.exports = class App extends React.Component {
 			},
 			{
 				type: 'rap',
-				src: 'yuyushiki-nantsutte',
-				url: 'https://www.youtube.com/watch?v=H1C97ZqLE8Y',
-				videoStart: 55.8,
+				src: 'bemybaby-intro',
+				url: 'https://www.youtube.com/watch?v=jGWFDZ33UCU',
+				videoStart: 5.3,
 				videoDuration: 30,
-				volume: 0.6,
+				volume: 0.3,
 				sourceRate: 1,
-				rapSpeed: 120,
+				rapSpeed: 127,
 				rapFrom: 2304,
 				rapTo: 2816,
-				rapDuration: 8,
+				rapDuration: 4,
 			},
 		];
 
