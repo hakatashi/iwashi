@@ -5,6 +5,10 @@ const Music = require('react-icons/lib/fa/Music');
 const Videocam = require('react-icons/lib/md/videocam');
 const VideocamOff = require('react-icons/lib/md/videocam-off');
 const Refresh = require('react-icons/lib/fa/refresh');
+const Play = require('react-icons/lib/fa/play');
+const Pause = require('react-icons/lib/fa/pause');
+const StepBackward = require('react-icons/lib/fa/step-backward');
+const StepForward = require('react-icons/lib/fa/step-forward');
 
 const Track = require('./Track.jsx');
 const {TICK} = require('./const.js');
@@ -26,6 +30,7 @@ module.exports = class App extends React.Component {
 			isFlashing: false,
 			isNoVideo: true,
 			isReady: false,
+			isPaused: false,
 		};
 
 		this.readySounds = new Set();
@@ -347,6 +352,12 @@ module.exports = class App extends React.Component {
 
 	}
 
+	handleClickPause = () => {
+		this.setState({
+			isPaused: !this.state.isPaused,
+		});
+	}
+
 	render() {
 		return (
 			<div styleName={classNames('app', {flash: this.state.isFlashing})}>
@@ -401,7 +412,22 @@ module.exports = class App extends React.Component {
 					</div>
 				</div>
 				<div styleName="controls">
-					<div styleName="title"><Music/> イワシがつちからはえてくるんだ</div>
+					<div styleName="playback">
+						<div styleName="button">
+							<StepBackward/>
+						</div>
+						<div styleName="button" onClick={this.handleClickPause}>
+							{this.state.isPaused ? (
+								<Play/>
+							) : (
+								<Pause/>
+							)}
+						</div>
+						<div styleName="button">
+							<StepForward/>
+						</div>
+					</div>
+					<div styleName="title"><Music/> イワシがつちからはえてくるんだ by ころんば</div>
 					<div styleName="play-video" onClick={this.handleChangeCheckbox}>
 						{this.state.isNoVideo ? (
 							<VideocamOff/>

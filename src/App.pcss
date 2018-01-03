@@ -132,8 +132,26 @@ body {
 	line-height: 40px;
 }
 
+.playback {
+	display: flex;
+
+	.button {
+		height: 40px;
+		width: 40px;
+		color: white;
+		text-align: center;
+		cursor: pointer;
+
+		&:hover {
+			background: rgba(255, 255, 255, 0.3);
+		}
+	}
+}
+
 .title {
 	flex: 1 0 0;
+	font-size: 14px;
+	padding-left: 1em;
 }
 
 .play-video {
