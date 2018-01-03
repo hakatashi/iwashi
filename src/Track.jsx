@@ -26,6 +26,7 @@ module.exports = class Track extends React.Component {
 		volume: PropTypes.number.isRequired,
 		sourceNote: PropTypes.number,
 		onReady: PropTypes.func.isRequired,
+		onFlash: PropTypes.func.isRequired,
 		isPrank: PropTypes.bool,
 		isPercussion: PropTypes.bool,
 		isChord: PropTypes.bool,
@@ -212,6 +213,10 @@ module.exports = class Track extends React.Component {
 				this.sounds[index].volume(this.getVolume());
 				this.sounds[index].play();
 			});
+		}
+
+		if (this.props.score === 'cymbal') {
+			this.props.onFlash();
 		}
 
 		if (!this.props.isNoVideo) {

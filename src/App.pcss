@@ -23,6 +23,28 @@ body {
 
 	display: flex;
 	flex-direction: column;
+
+	&.flash::after {
+		content: '';
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		pointer-events: none;
+		animation: app-after-animation 0.6s linear;
+
+		@at-root {
+			@keyframes app-after-animation {
+				from {
+					background: rgba(255, 255, 255, 0.6);
+				}
+				to {
+					background: rgba(255, 255, 255, 0);
+				}
+			}
+		}
+	}
 }
 
 .main {

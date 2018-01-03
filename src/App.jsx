@@ -1,4 +1,5 @@
 const React = require('react');
+const classNames = require('classnames');
 const shuffle = require('lodash/shuffle');
 const Music = require('react-icons/lib/fa/Music');
 const Videocam = require('react-icons/lib/md/videocam');
@@ -20,6 +21,7 @@ module.exports = class App extends React.Component {
 		this.state = {
 			beat: null,
 			lyric: '',
+			isFlashing: false,
 			isNoVideo: true,
 			isReady: false,
 		};
@@ -88,8 +90,6 @@ module.exports = class App extends React.Component {
 				end: 2930,
 			},
 		]);
-
-		this.song = songs.iwashi;
 
 		const tracks = [
 			{
@@ -285,6 +285,7 @@ module.exports = class App extends React.Component {
 		];
 
 		this.tracks = shuffle(tracks);
+		this.song = songs.iwashi;
 	}
 
 	handleBeat = () => {
@@ -318,9 +319,25 @@ module.exports = class App extends React.Component {
 		this.setState({isNoVideo: !this.state.isNoVideo});
 	}
 
+	handleFlash = async () => {
+		await new Promise((resolve) => {
+			this.setState({
+				isFlashing: false,
+			}, resolve);
+		});
+
+		await new Promise((resolve) => {
+			setTimeout(resolve, 0);
+		});
+
+		this.setState({
+			isFlashing: true,
+		});
+	}
+
 	render() {
 		return (
-			<div styleName="app">
+			<div styleName={classNames('app', {flash: this.state.isFlashing})}>
 				<div styleName="main">
 					<div styleName="tracks">
 						{this.tracks.map((track) => (
@@ -340,6 +357,7 @@ module.exports = class App extends React.Component {
 								rapTo={track.rapTo}
 								rapDuration={track.rapDuration}
 								onReady={this.handleSoundReady}
+								onFlash={this.handleFlash}
 								isNoVideo={this.state.isReady && this.state.isNoVideo}
 								isPrank={Boolean(track.isPrank)}
 								isPercussion={track.type === 'percussion'}
