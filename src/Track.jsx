@@ -28,10 +28,12 @@ module.exports = class Track extends React.Component {
 		sourceNote: PropTypes.number,
 		onReady: PropTypes.func.isRequired,
 		onFlash: PropTypes.func.isRequired,
+		onChangeSolo: PropTypes.func.isRequired,
 		isPrank: PropTypes.bool,
 		isPercussion: PropTypes.bool,
 		isChord: PropTypes.bool,
 		isNoVideo: PropTypes.bool,
+		isNotSolo: PropTypes.bool.isRequired,
 	}
 
 	static defaultProps = {
@@ -76,6 +78,7 @@ module.exports = class Track extends React.Component {
 			isReverse: false,
 			isShown: true,
 			isMuted: false,
+			isSolo: false,
 		};
 
 		this.currentNoteIndex = null;
@@ -98,10 +101,16 @@ module.exports = class Track extends React.Component {
 		if (this.props.beat !== nextProps.beat) {
 			this.handleBeat(nextProps.beat);
 		}
+
+		if (this.props.isNotSolo === false && nextProps.isNotSolo === true && this.state.isSolo === true) {
+			this.setState({
+				isSolo: false,
+			});
+		}
 	}
 
 	componentDidUpdate(prevProps, prevState) {
-		if (this.props.volume !== prevProps.volume || this.state.isMuted !== prevState.isMuted) {
+		if (this.props.volume !== prevProps.volume || this.state.isMuted !== prevState.isMuted || this.props.isNotSolo !== prevProps.isNotSolo) {
 			for (const sound of this.sounds) {
 				sound.volume(this.getVolume());
 			}
@@ -247,7 +256,7 @@ module.exports = class Track extends React.Component {
 	}
 
 	getVolume = () => {
-		if (this.state.isMuted) {
+		if (this.state.isMuted || this.props.isNotSolo) {
 			return 0;
 		}
 
@@ -290,10 +299,15 @@ module.exports = class Track extends React.Component {
 		this.setState({isMuted});
 	}
 
+	handleChangeSolo = (isSolo) => {
+		this.setState({isSolo});
+		this.props.onChangeSolo(this.props.score, isSolo);
+	}
+
 	render() {
 		return (
 			<div
-				styleName={classNames('track', {muted: this.state.isMuted})}
+				styleName={classNames('track', {muted: this.state.isMuted || this.props.isNotSolo})}
 			>
 				<div styleName="name">
 					{this.props.score}
@@ -342,7 +356,9 @@ module.exports = class Track extends React.Component {
 				<VolumeControls
 					volume={this.props.volume}
 					isMuted={this.state.isMuted}
+					isSolo={this.state.isSolo}
 					onChangeMuted={this.handleChangeMuted}
+					onChangeSolo={this.handleChangeSolo}
 				/>
 			</div>
 		);

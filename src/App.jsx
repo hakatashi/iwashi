@@ -22,6 +22,7 @@ module.exports = class App extends React.Component {
 		this.state = {
 			beat: null,
 			lyric: '',
+			soloScore: null,
 			isFlashing: false,
 			isNoVideo: true,
 			isReady: false,
@@ -336,6 +337,12 @@ module.exports = class App extends React.Component {
 		});
 	}
 
+	handleChangeSolo = (score, isSolo) => {
+		this.setState({
+			soloScore: isSolo ? score : null,
+		});
+	}
+
 	handleChangeVoiceMuted = () => {
 
 	}
@@ -363,11 +370,13 @@ module.exports = class App extends React.Component {
 								rapDuration={track.rapDuration}
 								onReady={this.handleSoundReady}
 								onFlash={this.handleFlash}
+								onChangeSolo={this.handleChangeSolo}
 								isNoVideo={this.state.isReady && this.state.isNoVideo}
 								isPrank={Boolean(track.isPrank)}
 								isPercussion={track.type === 'percussion'}
 								isChord={track.type === 'chord'}
 								isRap={track.type === 'rap'}
+								isNotSolo={this.state.soloScore !== null && this.state.soloScore !== (track.type === 'rap' ? 'rap' : track.score)}
 							/>
 						))}
 					</div>
@@ -385,6 +394,7 @@ module.exports = class App extends React.Component {
 							<VolumeControls
 								volume={1}
 								isMuted={false}
+								isSolo={false}
 								onChangeMuted={this.handleChangeVoiceMuted}
 							/>
 						</div>

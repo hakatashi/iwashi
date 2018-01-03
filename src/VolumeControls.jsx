@@ -1,6 +1,7 @@
 const qs = require('querystring');
 const React = require('react');
 const PropTypes = require('prop-types');
+const classNames = require('classnames');
 const VolumeUp = require('react-icons/lib/md/volume-up');
 const VolumeOff = require('react-icons/lib/md/volume-off');
 
@@ -10,7 +11,9 @@ module.exports = class Track extends React.Component {
 	static propTypes = {
 		volume: PropTypes.number.isRequired,
 		isMuted: PropTypes.bool.isRequired,
+		isSolo: PropTypes.bool.isRequired,
 		onChangeMuted: PropTypes.func.isRequired,
+		onChangeSolo: PropTypes.func.isRequired,
 	}
 
 	constructor(props, state) {
@@ -18,7 +21,22 @@ module.exports = class Track extends React.Component {
 
 		this.state = {
 			isMuted: this.props.isMuted,
+			isSolo: this.props.isSolo,
 		};
+	}
+
+	componentWillReceiveProps(nextProps) {
+		if (this.props.isMuted !== nextProps.isMuted) {
+			this.setState({
+				isMuted: nextProps.isMuted,
+			});
+		}
+
+		if (this.props.isSolo !== nextProps.isSolo) {
+			this.setState({
+				isSolo: nextProps.isSolo,
+			});
+		}
 	}
 
 	handleClickMute = () => {
@@ -26,6 +44,13 @@ module.exports = class Track extends React.Component {
 
 		this.setState({isMuted: newIsMuted});
 		this.props.onChangeMuted(newIsMuted);
+	}
+
+	handleClickSolo = () => {
+		const newIsSolo = !this.state.isSolo;
+
+		this.setState({isSolo: newIsSolo});
+		this.props.onChangeSolo(newIsSolo);
 	}
 
 	render() {
@@ -72,6 +97,9 @@ module.exports = class Track extends React.Component {
 							</svg>
 						);
 					})()}
+				</div>
+				<div styleName={classNames('solo', {active: this.state.isSolo})} onClick={this.handleClickSolo}>
+					SOLO
 				</div>
 			</div>
 		);
