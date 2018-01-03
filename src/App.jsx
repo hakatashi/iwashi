@@ -1,5 +1,9 @@
 const React = require('react');
 const shuffle = require('lodash/shuffle');
+const Music = require('react-icons/lib/fa/Music');
+const Videocam = require('react-icons/lib/md/videocam');
+const VideocamOff = require('react-icons/lib/md/videocam-off');
+const Refresh = require('react-icons/lib/fa/refresh');
 
 const Track = require('./Track.jsx');
 const {TICK} = require('./const.js');
@@ -266,7 +270,7 @@ module.exports = class App extends React.Component {
 				url: 'https://www.youtube.com/watch?v=jGWFDZ33UCU',
 				videoStart: 5.3,
 				videoDuration: 30,
-				volume: 0.05,
+				volume: 0.01,
 				sourceRate: 1,
 				rapSpeed: 127,
 				rapFrom: 2304,
@@ -302,33 +306,55 @@ module.exports = class App extends React.Component {
 
 	render() {
 		return (
-			<div>
-				<input type="checkbox" checked={!this.state.isNoVideo} onChange={this.handleChangeCheckbox}/> 動画を再生する (激重)
-				<div>
-					{this.tracks.map((track) => (
-						<Track
-							key={track.src}
-							src={track.src}
-							url={track.url}
-							score={track.type === 'rap' ? 'rap' : track.score}
-							videoStart={track.videoStart}
-							videoDuration={track.videoDuration}
-							beat={this.state.beat}
-							volume={track.volume}
-							sourceNote={track.sourceNote}
-							sourceRate={track.sourceRate}
-							rapSpeed={track.rapSpeed}
-							rapFrom={track.rapFrom}
-							rapTo={track.rapTo}
-							rapDuration={track.rapDuration}
-							onReady={this.handleSoundReady}
-							isNoVideo={this.state.isReady && this.state.isNoVideo}
-							isPrank={Boolean(track.isPrank)}
-							isPercussion={track.type === 'percussion'}
-							isChord={track.type === 'chord'}
-							isRap={track.type === 'rap'}
-						/>
-					))}
+			<div styleName="app">
+				<div styleName="main">
+					<div styleName="tracks">
+						{this.tracks.map((track) => (
+							<Track
+								key={track.src}
+								src={track.src}
+								url={track.url}
+								score={track.type === 'rap' ? 'rap' : track.score}
+								videoStart={track.videoStart}
+								videoDuration={track.videoDuration}
+								beat={this.state.beat}
+								volume={track.volume}
+								sourceNote={track.sourceNote}
+								sourceRate={track.sourceRate}
+								rapSpeed={track.rapSpeed}
+								rapFrom={track.rapFrom}
+								rapTo={track.rapTo}
+								rapDuration={track.rapDuration}
+								onReady={this.handleSoundReady}
+								isNoVideo={this.state.isReady && this.state.isNoVideo}
+								isPrank={Boolean(track.isPrank)}
+								isPercussion={track.type === 'percussion'}
+								isChord={track.type === 'chord'}
+								isRap={track.type === 'rap'}
+							/>
+						))}
+					</div>
+					<div styleName="lyric">
+						<div styleName="character">
+							<img styleName="character-image" src="sound/vocal/yufu/character.png"/>
+							<div styleName="change">
+								<Refresh/> かえる
+							</div>
+						</div>
+						<div styleName="lyric-text">
+							{'なんねん　まえかの　ことでした'}
+						</div>
+					</div>
+				</div>
+				<div styleName="controls">
+					<div styleName="title"><Music/> イワシがつちからはえてくるんだ</div>
+					<div styleName="play-video" onClick={this.handleChangeCheckbox}>
+						{this.state.isNoVideo ? (
+							<VideocamOff/>
+						) : (
+							<Videocam/>
+						)} 動画再生
+					</div>
 				</div>
 			</div>
 		);
