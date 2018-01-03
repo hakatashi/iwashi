@@ -155,7 +155,7 @@ module.exports = class App extends React.Component {
 				type: 'percussion',
 				src: 'zen-glass',
 				url: 'https://www.youtube.com/watch?v=M_1UZlPBYzM',
-				score: 'bongo',
+				score: 'cowbell',
 				videoStart: 24.5,
 				videoDuration: 0.5,
 				volume: 1,
