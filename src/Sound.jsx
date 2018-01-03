@@ -1,3 +1,4 @@
+const qs = require('querystring');
 const React = require('react');
 const {default: Player} = require('react-player');
 const {Howl} = require('howler');
@@ -5,7 +6,7 @@ const PropTypes = require('prop-types');
 
 const scores = require('./scores.js');
 const {TICK} = require('./const.js');
-const {getSoundUrls} = require('./util.js');
+const {getSoundUrls, Deferred} = require('./util.js');
 
 module.exports = class Sound extends React.Component {
 	static propTypes = {
@@ -35,14 +36,31 @@ module.exports = class Sound extends React.Component {
 	constructor(props, state) {
 		super(props, state);
 
-		this.sounds = Array((this.props.isPercussion || this.props.isRap || !this.props.isChord) ? 1 : 5).fill().map(() => (
-			new Howl({
-				src: getSoundUrls(this.props.src),
-				volume: this.props.volume,
-				loop: !this.props.isPercussion,
-				html5: this.props.isRap,
+		this.videoLoadDefer = new Deferred();
+		this.audioLoadDefer = new Deferred();
+
+		const soundLoadPromises = Array((this.props.isPercussion || this.props.isRap || !this.props.isChord) ? 1 : 5).fill().map(() => (
+			new Promise((resolve, reject) => {
+				const howl = new Howl({
+					src: getSoundUrls(this.props.src),
+					volume: this.props.volume,
+					loop: !this.props.isPercussion,
+					html5: this.props.isRap,
+					preload: true,
+					onload: () => {
+						resolve(howl);
+					},
+					onloaderror: (id, error) => {
+						reject(error);
+					},
+				});
 			})
 		));
+
+		Promise.all(soundLoadPromises).then((sounds) => {
+			this.sounds = sounds;
+			this.audioLoadDefer.resolve();
+		});
 
 		this.state = {
 			isPlaying: true,
@@ -53,6 +71,16 @@ module.exports = class Sound extends React.Component {
 		this.currentNote = null;
 		this.score = this.props.isRap ? null : scores[this.props.score];
 		this.isReady = false;
+
+		const query = qs.parse(location.search.slice(1));
+		this.isDebug = Boolean(query.debug);
+
+		Promise.all([
+			...(this.isDebug ? [] : this.videoLoadDefer.primose),
+			this.audioLoadDefer.promise,
+		]).then(() => {
+			this.props.onReady(this.props.score);
+		});
 	}
 
 	componentWillReceiveProps(nextProps) {
@@ -210,7 +238,7 @@ module.exports = class Sound extends React.Component {
 				isPlaying: false,
 			});
 			this.player.seekTo(this.props.videoStart);
-			this.props.onReady(this.props.score);
+			this.videoLoadDefer.resolve();
 		}
 	}
 
@@ -223,28 +251,32 @@ module.exports = class Sound extends React.Component {
 					visibility: this.state.isShown ? 'visible' : 'hidden',
 				}}
 			>
-				<Player
-					ref={(element) => {
-						this.player = element;
-						this.player && this.player.player && this.player.player.player && this.player.player.player.setPlaybackQuality && this.player.player.player.setPlaybackQuality('tiny');
-					}}
-					url={this.props.url}
-					config={{
-						youtube: {
-							playerVars: {
-								start: Math.floor(this.props.videoStart),
-								end: Math.ceil(this.props.videoStart + this.props.videoDuration),
+				{this.isDebug ? (
+					this.props.score.toUpperCase()
+				) : (
+					<Player
+						ref={(element) => {
+							this.player = element;
+							this.player && this.player.player && this.player.player.player && this.player.player.player.setPlaybackQuality && this.player.player.player.setPlaybackQuality('tiny');
+						}}
+						url={this.props.url}
+						config={{
+							youtube: {
+								playerVars: {
+									start: Math.floor(this.props.videoStart),
+									end: Math.ceil(this.props.videoStart + this.props.videoDuration),
+								},
 							},
-						},
-					}}
-					width={320}
-					height={180}
-					playing={this.state.isPlaying && !this.props.isNoVideo}
-					controls
-					muted
-					onReady={this.handlePlayerReady}
-					onStart={this.handlePlayerStart}
-				/>
+						}}
+						width={320}
+						height={180}
+						playing={this.state.isPlaying && !this.props.isNoVideo}
+						controls
+						muted
+						onReady={this.handlePlayerReady}
+						onStart={this.handlePlayerStart}
+					/>
+				)}
 			</div>
 		);
 	}

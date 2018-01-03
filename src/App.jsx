@@ -1,10 +1,9 @@
 const React = require('react');
-const {Howl} = require('howler');
 const shuffle = require('lodash/shuffle');
 
 const Sound = require('./Sound.jsx');
 const {TICK} = require('./const.js');
-const {getSoundUrls} = require('./util.js');
+const VoiceManager = require('./VoiceManager.js');
 
 require('./App.pcss');
 
@@ -20,7 +19,7 @@ module.exports = class App extends React.Component {
 
 		this.readySounds = new Set();
 
-		this.vocalData = [
+		this.voiceManager = new VoiceManager([
 			{
 				source: 'vocal/yufu/01',
 				start: 122,
@@ -81,9 +80,7 @@ module.exports = class App extends React.Component {
 				start: 2802,
 				end: 2930,
 			},
-		];
-
-		this.vocalSounds = new Map();
+		]);
 
 		const tracks = [
 			{
@@ -281,40 +278,11 @@ module.exports = class App extends React.Component {
 		this.tracks = shuffle(tracks);
 	}
 
-	preloadVocal = (source) => {
-		if (this.vocalSounds.has(source)) {
-			return;
-		}
-
-		const howl = new Howl({
-			src: getSoundUrls(source),
-			volume: 1.3,
-		});
-
-		this.vocalSounds.set(source, howl);
-	}
-
 	handleBeat = () => {
 		this.setState({beat: this.state.beat === null ? TICK * 0 : this.state.beat + TICK});
 
-		for (const {source, start, end} of this.vocalData) {
-			if (Math.abs(this.state.beat % (TICK * 2944) - TICK * (start - 64)) < TICK / 2) {
-				this.preloadVocal(source);
-			}
-
-			if (Math.abs(this.state.beat % (TICK * 2944) - TICK * start) < TICK / 2) {
-				this.vocalSounds.get(source).stop();
-				this.vocalSounds.get(source).seek(0);
-				this.vocalSounds.get(source).play();
-			}
-
-			if (Math.floor(this.state.beat / TICK) % 16 === 0 && TICK * start <= this.state.beat % (TICK * 2944) && this.state.beat % (TICK * 2944) <= TICK * end) {
-				const playbackTime = this.vocalSounds.get(source).seek();
-				if (Math.abs((playbackTime + TICK * start) - this.state.beat % (TICK * 2944)) > TICK * 2) {
-					this.vocalSounds.get(source).seek(this.state.beat % (TICK * 2944) - TICK * start);
-				}
-			}
-		}
+		const beat = Math.floor(this.state.beat / TICK) % 2944;
+		this.voiceManager.handleBeat(beat);
 	}
 
 	handleSoundReady = (score) => {
@@ -339,7 +307,7 @@ module.exports = class App extends React.Component {
 							key={track.src}
 							src={track.src}
 							url={track.url}
-							score={track.score}
+							score={track.type === 'rap' ? 'rap' : track.score}
 							videoStart={track.videoStart}
 							videoDuration={track.videoDuration}
 							beat={this.state.beat}

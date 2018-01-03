@@ -7,3 +7,12 @@ module.exports.getSoundUrls = (id) => (
 		`sound/${id}.wav`,
 	]
 );
+
+module.exports.Deferred = class Deferred {
+	constructor() {
+		this.promise = new Promise((resolve, reject) => {
+			this.reject = reject;
+			this.resolve = resolve;
+		});
+	}
+};
