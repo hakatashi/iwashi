@@ -2,6 +2,30 @@
 	display: inline-block;
 	vertical-align: top;
 	margin: 3px;
+	background: rgba(255, 255, 255, 0.8);
+    border-radius: 5px;
+}
+
+.name {
+	text-transform: uppercase;
+	display: flex;
+	background: #333;
+	color: white;
+	font-weight: bold;
+	padding: 0 0.3em;
+	font-size: 20px;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.change {
+	background: #2196F3;
+	color: white;
+	padding: 3px;
+	border-radius: 9999px;
+	cursor: pointer;
+	font-weight: normal;
+	font-size: 14px;
 }
 
 .video-area {
@@ -17,4 +41,33 @@
 
 	font-size: 48px;
 	font-weight: bold;
+}
+
+.controls {
+	padding: 3px;
+	display: flex;
+	align-items: center;
+	font-size: 20px;
+}
+
+.mute {
+	color: #333;
+	cursor: pointer;
+}
+
+.volume {
+	display: flex;
+}
+
+.volume-back {
+	fill: #555;
+}
+
+.volume-color {
+	fill: #2196F3;
+}
+
+.volume-pinch {
+	fill: white;
+	cursor: pointer;
 }

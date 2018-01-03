@@ -4,6 +4,9 @@ const {default: Player} = require('react-player');
 const {Howl} = require('howler');
 const PropTypes = require('prop-types');
 const randomColor = require('randomcolor');
+const Refresh = require('react-icons/lib/fa/refresh');
+const VolumeUp = require('react-icons/lib/md/volume-up');
+const VolumeOff = require('react-icons/lib/md/volume-off');
 
 const scores = require('./scores.js');
 const {TICK} = require('./const.js');
@@ -69,6 +72,7 @@ module.exports = class Track extends React.Component {
 			isPlaying: true,
 			isReverse: false,
 			isShown: true,
+			isMuted: false,
 		};
 
 		this.currentNote = null;
@@ -245,11 +249,23 @@ module.exports = class Track extends React.Component {
 		}
 	}
 
+	handleClickMute = () => {
+		this.setState({
+			isMuted: !this.state.isMuted,
+		});
+	}
+
 	render() {
 		return (
 			<div
 				styleName="track"
 			>
+				<div styleName="name">
+					{this.props.score}
+					<div styleName="change">
+						<Refresh/> かえる
+					</div>
+				</div>
 				<div
 					styleName="video-area"
 					style={{
@@ -287,6 +303,50 @@ module.exports = class Track extends React.Component {
 							onStart={this.handlePlayerStart}
 						/>
 					)}
+				</div>
+				<div styleName="controls">
+					<div styleName="mute" onClick={this.handleClickMute}>
+						{this.state.isMuted ? (
+							<VolumeOff/>
+						) : (
+							<VolumeUp/>
+						)}
+					</div>
+					<div styleName="volume">
+						{(() => {
+							const height = 15;
+							const width = 100;
+
+							return (
+								<svg width={width + height} height={height}>
+									<rect
+										styleName="volume-back"
+										x="0"
+										y="0"
+										width={width + height}
+										height={height}
+										rx={height / 2}
+										ry={height / 2}
+									/>
+									<path
+										styleName="volume-color"
+										d={`
+											M ${height / 2} ${height / 2}
+											L ${width + height / 2} 0
+											A ${height / 2} ${height / 2} 0 0 1 ${width + height / 2} ${height}
+											Z
+										`}
+									/>
+									<circle
+										styleName="volume-pinch"
+										cx={height / 2 + width * this.props.volume}
+										cy={height / 2}
+										r={height * 0.4}
+									/>
+								</svg>
+							);
+						})()}
+					</div>
 				</div>
 			</div>
 		);

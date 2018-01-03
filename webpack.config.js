@@ -68,7 +68,11 @@ module.exports = (env = {}) => ({
 				{
 					loader: './lib/fontmin-loader.js',
 					options: {
-						text: '動画を再生する (激重)',
+						text: [
+							'イワシがつちからはえてくるんだ',
+							'動画を再生する (激重)',
+							'かえる',
+						],
 					},
 				},
 			],
