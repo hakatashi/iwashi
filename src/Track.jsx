@@ -8,7 +8,7 @@ const scores = require('./scores.js');
 const {TICK} = require('./const.js');
 const {getSoundUrls, Deferred} = require('./util.js');
 
-module.exports = class Sound extends React.Component {
+module.exports = class Track extends React.Component {
 	static propTypes = {
 		src: PropTypes.string.isRequired,
 		url: PropTypes.string.isRequired,

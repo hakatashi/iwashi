@@ -1,7 +1,7 @@
 const React = require('react');
 const shuffle = require('lodash/shuffle');
 
-const Sound = require('./Sound.jsx');
+const Track = require('./Track.jsx');
 const {TICK} = require('./const.js');
 const VoiceManager = require('./VoiceManager.js');
 
@@ -266,7 +266,7 @@ module.exports = class App extends React.Component {
 				url: 'https://www.youtube.com/watch?v=jGWFDZ33UCU',
 				videoStart: 5.3,
 				videoDuration: 30,
-				volume: 0.3,
+				volume: 0.1,
 				sourceRate: 1,
 				rapSpeed: 127,
 				rapFrom: 2304,
@@ -306,7 +306,7 @@ module.exports = class App extends React.Component {
 				<input type="checkbox" checked={!this.state.isNoVideo} onChange={this.handleChangeCheckbox}/> 動画を再生する (激重)
 				<div>
 					{this.tracks.map((track) => (
-						<Sound
+						<Track
 							key={track.src}
 							src={track.src}
 							url={track.url}
