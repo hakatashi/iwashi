@@ -8,6 +8,7 @@ const Refresh = require('react-icons/lib/fa/refresh');
 const Track = require('./Track.jsx');
 const {TICK} = require('./const.js');
 const VoiceManager = require('./VoiceManager.js');
+const {getResourceUrl} = require('./util.js');
 
 import './App.pcss';
 
@@ -336,7 +337,7 @@ module.exports = class App extends React.Component {
 					</div>
 					<div styleName="lyric">
 						<div styleName="character">
-							<img styleName="character-image" src="sound/vocal/yufu/character.png"/>
+							<img styleName="character-image" src={getResourceUrl('sound/vocal/yufu/character.png')}/>
 							<div styleName="change">
 								<Refresh/> かえる
 							</div>

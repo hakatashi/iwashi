@@ -4,6 +4,7 @@ const {default: Player} = require('react-player');
 const {Howl} = require('howler');
 const PropTypes = require('prop-types');
 const randomColor = require('randomcolor');
+const classNames = require('classNames');
 const Refresh = require('react-icons/lib/fa/refresh');
 const VolumeUp = require('react-icons/lib/md/volume-up');
 const VolumeOff = require('react-icons/lib/md/volume-off');
@@ -75,7 +76,8 @@ module.exports = class Track extends React.Component {
 			isMuted: false,
 		};
 
-		this.currentNote = null;
+		this.currentNoteIndex = null;
+		this.currentVelocity;
 		this.score = this.props.isRap ? null : scores[this.props.score];
 		this.isReady = false;
 
@@ -93,6 +95,14 @@ module.exports = class Track extends React.Component {
 	componentWillReceiveProps(nextProps) {
 		if (this.props.beat !== nextProps.beat) {
 			this.handleBeat(nextProps.beat);
+		}
+	}
+
+	componentDidUpdate(prevProps, prevState) {
+		if (this.props.volume !== prevProps.volume || this.state.isMuted !== prevState.isMuted) {
+			for (const sound of this.sounds) {
+				sound.volume(this.getVolume());
+			}
 		}
 	}
 
@@ -127,13 +137,16 @@ module.exports = class Track extends React.Component {
 		}
 
 		if (this.props.isPercussion) {
-			const playNote = this.score.find((note) => Math.abs(note.time - beat % (TICK * 2944)) < TICK / 2 && note.type === 'note');
+			const playNoteIndex = this.score.findIndex((note) => Math.abs(note.time - beat % (TICK * 2944)) < TICK / 2 && note.type === 'note');
 
-			if (!playNote) {
+			if (playNoteIndex === -1) {
 				return;
 			}
 
-			this.sounds[0].volume(playNote.velocity / 100 * this.props.volume);
+			const playNote = this.score[playNoteIndex];
+			this.currentNoteIndex = playNoteIndex;
+
+			this.sounds[0].volume(this.getVolume());
 			this.sounds[0].play();
 		} else if (this.props.isRap) {
 			if (this.props.rapFrom <= tick && tick < this.props.rapTo) {
@@ -144,7 +157,7 @@ module.exports = class Track extends React.Component {
 					});
 
 					this.sounds[0].rate(135 / this.props.rapSpeed);
-					this.sounds[0].volume(this.props.volume);
+					this.sounds[0].volume(this.getVolume());
 					this.sounds[0].seek(0);
 					this.sounds[0].play();
 
@@ -184,7 +197,7 @@ module.exports = class Track extends React.Component {
 			const playNoteIndex = this.score.findIndex((note) => Math.abs(note.time - beat % (TICK * 2944)) < TICK / 2 && note.type === 'note');
 			const playNotes = this.score.filter((note) => Math.abs(note.time - beat % (TICK * 2944)) < TICK / 2 && note.type === 'note');
 
-			if (playNotes.length !== 0 || (this.score[this.currentNote] && Math.abs(this.score[this.currentNote].time + this.score[this.currentNote].duration - beat % (TICK * 2944)) < TICK / 2)) {
+			if (playNotes.length !== 0 || (this.score[this.currentNoteIndex] && Math.abs(this.score[this.currentNoteIndex].time + this.score[this.currentNoteIndex].duration - beat % (TICK * 2944)) < TICK / 2)) {
 				this.sounds.forEach((sound) => sound.stop());
 			}
 
@@ -192,11 +205,11 @@ module.exports = class Track extends React.Component {
 				return;
 			}
 
-			this.currentNote = playNoteIndex;
+			this.currentNoteIndex = playNoteIndex;
 
 			playNotes.forEach((note, index) => {
 				this.sounds[index].rate(2 ** ((note.noteNumber - this.props.sourceNote) / 12));
-				this.sounds[index].volume(note.velocity / 100 * this.props.volume);
+				this.sounds[index].volume(this.getVolume());
 				this.sounds[index].play();
 			});
 		}
@@ -225,6 +238,24 @@ module.exports = class Track extends React.Component {
 				this.handleVideoSessionTimeout(session);
 			}, this.props.videoDuration * 1000);
 		}
+	}
+
+	getVolume = () => {
+		if (this.state.isMuted) {
+			return 0;
+		}
+
+		if (this.props.isRap) {
+			return this.props.volume;
+		}
+
+		if (this.currentNoteIndex === null) {
+			return this.props.volume;
+		}
+
+		const playNote = this.score[this.currentNoteIndex];
+
+		return playNote.velocity / 100 * this.props.volume;
 	}
 
 	handleVideoSessionTimeout = (session) => {
@@ -258,7 +289,7 @@ module.exports = class Track extends React.Component {
 	render() {
 		return (
 			<div
-				styleName="track"
+				styleName={classNames('track', {muted: this.state.isMuted})}
 			>
 				<div styleName="name">
 					{this.props.score}
