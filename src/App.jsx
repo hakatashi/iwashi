@@ -9,6 +9,7 @@ const Track = require('./Track.jsx');
 const {TICK} = require('./const.js');
 const VoiceManager = require('./VoiceManager.js');
 const {getResourceUrl} = require('./util.js');
+const songs = require('../songs/index.js');
 
 import './App.pcss';
 
@@ -18,6 +19,7 @@ module.exports = class App extends React.Component {
 
 		this.state = {
 			beat: null,
+			lyric: '',
 			isNoVideo: true,
 			isReady: false,
 		};
@@ -86,6 +88,8 @@ module.exports = class App extends React.Component {
 				end: 2930,
 			},
 		]);
+
+		this.song = songs.iwashi;
 
 		const tracks = [
 			{
@@ -288,6 +292,15 @@ module.exports = class App extends React.Component {
 
 		const beat = Math.floor(this.state.beat / TICK) % 2944;
 		this.voiceManager.handleBeat(beat);
+
+		const lyric = this.song.lyrics.find(({start, end}) => start <= beat && beat < end);
+		if (!lyric && this.state.lyric !== '') {
+			this.setState({lyric: ''});
+		}
+
+		if (lyric && this.state.lyric !== lyric.text) {
+			this.setState({lyric: lyric.text});
+		}
 	}
 
 	handleSoundReady = (score) => {
@@ -343,7 +356,7 @@ module.exports = class App extends React.Component {
 							</div>
 						</div>
 						<div styleName="lyric-text">
-							{'なんねん　まえかの　ことでした'}
+							{this.state.lyric}
 						</div>
 					</div>
 				</div>

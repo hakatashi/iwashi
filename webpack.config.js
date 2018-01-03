@@ -102,6 +102,10 @@ module.exports = (env = {}) => ({
 			test: /\.txt$/,
 			exclude: /node_modules/,
 			use: ['json-loader', './lib/mml-loader.js'],
+		}, {
+			test: /\.yml$/,
+			exclude: /node_modules/,
+			use: ['json-loader', 'yaml-loader'],
 		}],
 	},
 	node: {
