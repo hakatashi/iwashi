@@ -12,6 +12,7 @@ const VolumeOff = require('react-icons/lib/md/volume-off');
 const scores = require('./scores.js');
 const {TICK} = require('./const.js');
 const {getSoundUrls, Deferred} = require('./util.js');
+const VolumeControls = require('./VolumeControls.jsx');
 
 import './Track.pcss';
 
@@ -285,10 +286,8 @@ module.exports = class Track extends React.Component {
 		}
 	}
 
-	handleClickMute = () => {
-		this.setState({
-			isMuted: !this.state.isMuted,
-		});
+	handleChangeMuted = (isMuted) => {
+		this.setState({isMuted});
 	}
 
 	render() {
@@ -340,50 +339,11 @@ module.exports = class Track extends React.Component {
 						/>
 					)}
 				</div>
-				<div styleName="controls">
-					<div styleName="mute" onClick={this.handleClickMute}>
-						{this.state.isMuted ? (
-							<VolumeOff/>
-						) : (
-							<VolumeUp/>
-						)}
-					</div>
-					<div styleName="volume">
-						{(() => {
-							const height = 15;
-							const width = 100;
-
-							return (
-								<svg width={width + height} height={height}>
-									<rect
-										styleName="volume-back"
-										x="0"
-										y="0"
-										width={width + height}
-										height={height}
-										rx={height / 2}
-										ry={height / 2}
-									/>
-									<path
-										styleName="volume-color"
-										d={`
-											M ${height / 2} ${height / 2}
-											L ${width + height / 2} 0
-											A ${height / 2} ${height / 2} 0 0 1 ${width + height / 2} ${height}
-											Z
-										`}
-									/>
-									<circle
-										styleName="volume-pinch"
-										cx={height / 2 + width * this.props.volume}
-										cy={height / 2}
-										r={height * 0.4}
-									/>
-								</svg>
-							);
-						})()}
-					</div>
-				</div>
+				<VolumeControls
+					volume={this.props.volume}
+					isMuted={this.state.isMuted}
+					onChangeMuted={this.handleChangeMuted}
+				/>
 			</div>
 		);
 	}

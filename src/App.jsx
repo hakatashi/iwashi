@@ -11,6 +11,7 @@ const {TICK} = require('./const.js');
 const VoiceManager = require('./VoiceManager.js');
 const {getResourceUrl} = require('./util.js');
 const songs = require('../songs/index.js');
+const VolumeControls = require('./VolumeControls.jsx');
 
 import './App.pcss';
 
@@ -335,6 +336,10 @@ module.exports = class App extends React.Component {
 		});
 	}
 
+	handleChangeVoiceMuted = () => {
+
+	}
+
 	render() {
 		return (
 			<div styleName={classNames('app', {flash: this.state.isFlashing})}>
@@ -375,6 +380,13 @@ module.exports = class App extends React.Component {
 						</div>
 						<div styleName="lyric-text">
 							{this.state.lyric}
+						</div>
+						<div styleName="lyric-controls">
+							<VolumeControls
+								volume={1}
+								isMuted={false}
+								onChangeMuted={this.handleChangeVoiceMuted}
+							/>
 						</div>
 					</div>
 				</div>
