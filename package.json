@@ -27,6 +27,7 @@
     "postcss-loader": "^2.0.9",
     "precss": "^2.0.0",
     "prop-types": "^15.6.0",
+    "randomcolor": "^0.5.3",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "react-icons": "^2.2.7",

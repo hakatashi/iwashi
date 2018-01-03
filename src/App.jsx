@@ -266,7 +266,7 @@ module.exports = class App extends React.Component {
 				url: 'https://www.youtube.com/watch?v=jGWFDZ33UCU',
 				videoStart: 5.3,
 				videoDuration: 30,
-				volume: 0.1,
+				volume: 0.05,
 				sourceRate: 1,
 				rapSpeed: 127,
 				rapFrom: 2304,

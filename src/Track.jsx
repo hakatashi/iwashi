@@ -3,6 +3,7 @@ const React = require('react');
 const {default: Player} = require('react-player');
 const {Howl} = require('howler');
 const PropTypes = require('prop-types');
+const randomColor = require('randomcolor');
 
 const scores = require('./scores.js');
 const {TICK} = require('./const.js');
@@ -254,6 +255,10 @@ module.exports = class Track extends React.Component {
 					style={{
 						transform: this.state.isReverse ? 'scale(-1, 1)' : 'none',
 						visibility: this.state.isShown ? 'visible' : 'hidden',
+						background: randomColor({
+							seed: this.props.score,
+							luminosity: 'light',
+						}),
 					}}
 				>
 					{this.isDebug ? (
