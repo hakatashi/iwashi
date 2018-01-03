@@ -27,6 +27,15 @@ module.exports = (env = {}) => ({
 						'react',
 					],
 					plugins: [
+						['react-css-modules', {
+							filetypes: {
+								'.pcss': {
+									syntax: 'postcss',
+								},
+							},
+							handleMissingStyleName: 'warn',
+							generateScopedName: '[name]__[local]--[hash:base64:5]',
+						}],
 						'transform-class-properties',
 					],
 				},
@@ -36,7 +45,14 @@ module.exports = (env = {}) => ({
 			exclude: /node_modules/,
 			use: [
 				'style-loader',
-				{loader: 'css-loader', options: {importLoaders: 1}},
+				{
+					loader: 'css-loader',
+					options: {
+						modules: true,
+						importLoaders: 1,
+						localIdentName: '[name]__[local]--[hash:base64:5]',
+					},
+				},
 				'postcss-loader',
 			],
 		}, {

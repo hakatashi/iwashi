@@ -5,7 +5,7 @@ const Track = require('./Track.jsx');
 const {TICK} = require('./const.js');
 const VoiceManager = require('./VoiceManager.js');
 
-require('./App.pcss');
+import './App.pcss';
 
 module.exports = class App extends React.Component {
 	constructor() {

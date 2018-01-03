@@ -8,6 +8,8 @@ const scores = require('./scores.js');
 const {TICK} = require('./const.js');
 const {getSoundUrls, Deferred} = require('./util.js');
 
+import './Track.pcss';
+
 module.exports = class Track extends React.Component {
 	static propTypes = {
 		src: PropTypes.string.isRequired,
@@ -245,38 +247,42 @@ module.exports = class Track extends React.Component {
 	render() {
 		return (
 			<div
-				style={{
-					display: 'inline-block',
-					transform: this.state.isReverse ? 'scale(-1, 1)' : 'none',
-					visibility: this.state.isShown ? 'visible' : 'hidden',
-				}}
+				styleName="track"
 			>
-				{this.isDebug ? (
-					this.props.score.toUpperCase()
-				) : (
-					<Player
-						ref={(element) => {
-							this.player = element;
-							this.player && this.player.player && this.player.player.player && this.player.player.player.setPlaybackQuality && this.player.player.player.setPlaybackQuality('tiny');
-						}}
-						url={this.props.url}
-						config={{
-							youtube: {
-								playerVars: {
-									start: Math.floor(this.props.videoStart),
-									end: Math.ceil(this.props.videoStart + this.props.videoDuration),
+				<div
+					styleName="video-area"
+					style={{
+						transform: this.state.isReverse ? 'scale(-1, 1)' : 'none',
+						visibility: this.state.isShown ? 'visible' : 'hidden',
+					}}
+				>
+					{this.isDebug ? (
+						this.props.score.toUpperCase()
+					) : (
+						<Player
+							ref={(element) => {
+								this.player = element;
+								this.player && this.player.player && this.player.player.player && this.player.player.player.setPlaybackQuality && this.player.player.player.setPlaybackQuality('tiny');
+							}}
+							url={this.props.url}
+							config={{
+								youtube: {
+									playerVars: {
+										start: Math.floor(this.props.videoStart),
+										end: Math.ceil(this.props.videoStart + this.props.videoDuration),
+									},
 								},
-							},
-						}}
-						width={320}
-						height={180}
-						playing={this.state.isPlaying && !this.props.isNoVideo}
-						controls
-						muted
-						onReady={this.handlePlayerReady}
-						onStart={this.handlePlayerStart}
-					/>
-				)}
+							}}
+							width={320}
+							height={180}
+							playing={this.state.isPlaying && !this.props.isNoVideo}
+							controls
+							muted
+							onReady={this.handlePlayerReady}
+							onStart={this.handlePlayerStart}
+						/>
+					)}
+				</div>
 			</div>
 		);
 	}
