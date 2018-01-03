@@ -1,13 +1,22 @@
+const qs = require('querystring');
 const React = require('react');
 const {default: Player} = require('react-player');
 const {Howl} = require('howler');
 const PropTypes = require('prop-types');
+const randomColor = require('randomcolor');
+const classNames = require('classNames');
+const Refresh = require('react-icons/lib/fa/refresh');
+const VolumeUp = require('react-icons/lib/md/volume-up');
+const VolumeOff = require('react-icons/lib/md/volume-off');
 
 const scores = require('./scores.js');
 const {TICK} = require('./const.js');
-const {getSoundUrls} = require('./util.js');
+const {getSoundUrls, Deferred} = require('./util.js');
+const VolumeControls = require('./VolumeControls.jsx');
 
-module.exports = class Sound extends React.Component {
+import './Track.pcss';
+
+module.exports = class Track extends React.Component {
 	static propTypes = {
 		src: PropTypes.string.isRequired,
 		url: PropTypes.string.isRequired,
@@ -18,10 +27,13 @@ module.exports = class Sound extends React.Component {
 		volume: PropTypes.number.isRequired,
 		sourceNote: PropTypes.number,
 		onReady: PropTypes.func.isRequired,
+		onFlash: PropTypes.func.isRequired,
+		onChangeSolo: PropTypes.func.isRequired,
 		isPrank: PropTypes.bool,
 		isPercussion: PropTypes.bool,
 		isChord: PropTypes.bool,
 		isNoVideo: PropTypes.bool,
+		isNotSolo: PropTypes.bool.isRequired,
 	}
 
 	static defaultProps = {
@@ -35,29 +47,73 @@ module.exports = class Sound extends React.Component {
 	constructor(props, state) {
 		super(props, state);
 
-		this.sounds = Array((this.props.isPercussion || this.props.isRap || !this.props.isChord) ? 1 : 5).fill().map(() => (
-			new Howl({
-				src: getSoundUrls(this.props.src),
-				volume: this.props.volume,
-				loop: !this.props.isPercussion,
-				html5: this.props.isRap,
+		this.videoLoadDefer = new Deferred();
+		this.audioLoadDefer = new Deferred();
+
+		const soundLoadPromises = Array((this.props.isPercussion || this.props.isRap || !this.props.isChord) ? 1 : 5).fill().map(() => (
+			new Promise((resolve, reject) => {
+				const howl = new Howl({
+					src: getSoundUrls(this.props.src),
+					volume: this.props.volume,
+					loop: !this.props.isPercussion,
+					html5: this.props.isRap,
+					preload: true,
+					onload: () => {
+						resolve(howl);
+					},
+					onloaderror: (id, error) => {
+						reject(error);
+					},
+				});
 			})
 		));
+
+		Promise.all(soundLoadPromises).then((sounds) => {
+			this.sounds = sounds;
+			this.audioLoadDefer.resolve();
+		});
 
 		this.state = {
 			isPlaying: true,
 			isReverse: false,
 			isShown: true,
+			isMuted: false,
+			isSolo: false,
 		};
 
-		this.currentNote = null;
+		this.currentNoteIndex = null;
+		this.currentVelocity;
 		this.score = this.props.isRap ? null : scores[this.props.score];
 		this.isReady = false;
+
+		const query = qs.parse(location.search.slice(1));
+		this.isDebug = Boolean(query.debug);
+
+		Promise.all([
+			...(this.isDebug ? [] : this.videoLoadDefer.primose),
+			this.audioLoadDefer.promise,
+		]).then(() => {
+			this.props.onReady(this.props.score);
+		});
 	}
 
 	componentWillReceiveProps(nextProps) {
 		if (this.props.beat !== nextProps.beat) {
 			this.handleBeat(nextProps.beat);
+		}
+
+		if (this.props.isNotSolo === false && nextProps.isNotSolo === true && this.state.isSolo === true) {
+			this.setState({
+				isSolo: false,
+			});
+		}
+	}
+
+	componentDidUpdate(prevProps, prevState) {
+		if (this.props.volume !== prevProps.volume || this.state.isMuted !== prevState.isMuted || this.props.isNotSolo !== prevProps.isNotSolo) {
+			for (const sound of this.sounds) {
+				sound.volume(this.getVolume());
+			}
 		}
 	}
 
@@ -92,13 +148,16 @@ module.exports = class Sound extends React.Component {
 		}
 
 		if (this.props.isPercussion) {
-			const playNote = this.score.find((note) => Math.abs(note.time - beat % (TICK * 2944)) < TICK / 2 && note.type === 'note');
+			const playNoteIndex = this.score.findIndex((note) => Math.abs(note.time - beat % (TICK * 2944)) < TICK / 2 && note.type === 'note');
 
-			if (!playNote) {
+			if (playNoteIndex === -1) {
 				return;
 			}
 
-			this.sounds[0].volume(playNote.velocity / 100 * this.props.volume);
+			const playNote = this.score[playNoteIndex];
+			this.currentNoteIndex = playNoteIndex;
+
+			this.sounds[0].volume(this.getVolume());
 			this.sounds[0].play();
 		} else if (this.props.isRap) {
 			if (this.props.rapFrom <= tick && tick < this.props.rapTo) {
@@ -109,7 +168,7 @@ module.exports = class Sound extends React.Component {
 					});
 
 					this.sounds[0].rate(135 / this.props.rapSpeed);
-					this.sounds[0].volume(this.props.volume);
+					this.sounds[0].volume(this.getVolume());
 					this.sounds[0].seek(0);
 					this.sounds[0].play();
 
@@ -149,7 +208,7 @@ module.exports = class Sound extends React.Component {
 			const playNoteIndex = this.score.findIndex((note) => Math.abs(note.time - beat % (TICK * 2944)) < TICK / 2 && note.type === 'note');
 			const playNotes = this.score.filter((note) => Math.abs(note.time - beat % (TICK * 2944)) < TICK / 2 && note.type === 'note');
 
-			if (playNotes.length !== 0 || (this.score[this.currentNote] && Math.abs(this.score[this.currentNote].time + this.score[this.currentNote].duration - beat % (TICK * 2944)) < TICK / 2)) {
+			if (playNotes.length !== 0 || (this.score[this.currentNoteIndex] && Math.abs(this.score[this.currentNoteIndex].time + this.score[this.currentNoteIndex].duration - beat % (TICK * 2944)) < TICK / 2)) {
 				this.sounds.forEach((sound) => sound.stop());
 			}
 
@@ -157,13 +216,17 @@ module.exports = class Sound extends React.Component {
 				return;
 			}
 
-			this.currentNote = playNoteIndex;
+			this.currentNoteIndex = playNoteIndex;
 
 			playNotes.forEach((note, index) => {
 				this.sounds[index].rate(2 ** ((note.noteNumber - this.props.sourceNote) / 12));
-				this.sounds[index].volume(note.velocity / 100 * this.props.volume);
+				this.sounds[index].volume(this.getVolume());
 				this.sounds[index].play();
 			});
+		}
+
+		if (this.props.score === 'cymbal') {
+			this.props.onFlash();
 		}
 
 		if (!this.props.isNoVideo) {
@@ -192,6 +255,24 @@ module.exports = class Sound extends React.Component {
 		}
 	}
 
+	getVolume = () => {
+		if (this.state.isMuted || this.props.isNotSolo) {
+			return 0;
+		}
+
+		if (this.props.isRap) {
+			return this.props.volume;
+		}
+
+		if (this.currentNoteIndex === null) {
+			return this.props.volume;
+		}
+
+		const playNote = this.score[this.currentNoteIndex];
+
+		return playNote.velocity / 100 * this.props.volume;
+	}
+
 	handleVideoSessionTimeout = (session) => {
 		if (this.videoPlaySession === session && this.state.isPlaying) {
 			this.setState({isPlaying: false});
@@ -210,40 +291,74 @@ module.exports = class Sound extends React.Component {
 				isPlaying: false,
 			});
 			this.player.seekTo(this.props.videoStart);
-			this.props.onReady(this.props.score);
+			this.videoLoadDefer.resolve();
 		}
+	}
+
+	handleChangeMuted = (isMuted) => {
+		this.setState({isMuted});
+	}
+
+	handleChangeSolo = (isSolo) => {
+		this.setState({isSolo});
+		this.props.onChangeSolo(this.props.score, isSolo);
 	}
 
 	render() {
 		return (
 			<div
-				style={{
-					display: 'inline-block',
-					transform: this.state.isReverse ? 'scale(-1, 1)' : 'none',
-					visibility: this.state.isShown ? 'visible' : 'hidden',
-				}}
+				styleName={classNames('track', {muted: this.state.isMuted || this.props.isNotSolo})}
 			>
-				<Player
-					ref={(element) => {
-						this.player = element;
-						this.player && this.player.player && this.player.player.player && this.player.player.player.setPlaybackQuality && this.player.player.player.setPlaybackQuality('tiny');
+				<div styleName="name">
+					{this.props.score}
+					<div styleName="change">
+						<Refresh/> かえる
+					</div>
+				</div>
+				<div
+					styleName="video-area"
+					style={{
+						transform: this.state.isReverse ? 'scale(-1, 1)' : 'none',
+						visibility: this.state.isShown ? 'visible' : 'hidden',
+						background: randomColor({
+							seed: this.props.score,
+							luminosity: 'light',
+						}),
 					}}
-					url={this.props.url}
-					config={{
-						youtube: {
-							playerVars: {
-								start: Math.floor(this.props.videoStart),
-								end: Math.ceil(this.props.videoStart + this.props.videoDuration),
-							},
-						},
-					}}
-					width={320}
-					height={180}
-					playing={this.state.isPlaying && !this.props.isNoVideo}
-					controls
-					muted
-					onReady={this.handlePlayerReady}
-					onStart={this.handlePlayerStart}
+				>
+					{this.isDebug ? (
+						this.props.score.toUpperCase()
+					) : (
+						<Player
+							ref={(element) => {
+								this.player = element;
+								this.player && this.player.player && this.player.player.player && this.player.player.player.setPlaybackQuality && this.player.player.player.setPlaybackQuality('tiny');
+							}}
+							url={this.props.url}
+							config={{
+								youtube: {
+									playerVars: {
+										start: Math.floor(this.props.videoStart),
+										end: Math.ceil(this.props.videoStart + this.props.videoDuration),
+									},
+								},
+							}}
+							width={320}
+							height={180}
+							playing={this.state.isPlaying && !this.props.isNoVideo}
+							controls
+							muted
+							onReady={this.handlePlayerReady}
+							onStart={this.handlePlayerStart}
+						/>
+					)}
+				</div>
+				<VolumeControls
+					volume={this.props.volume}
+					isMuted={this.state.isMuted}
+					isSolo={this.state.isSolo}
+					onChangeMuted={this.handleChangeMuted}
+					onChangeSolo={this.handleChangeSolo}
 				/>
 			</div>
 		);

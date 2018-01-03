@@ -1,12 +1,23 @@
 const React = require('react');
-const {Howl} = require('howler');
+const classNames = require('classnames');
 const shuffle = require('lodash/shuffle');
+const Music = require('react-icons/lib/fa/Music');
+const Videocam = require('react-icons/lib/md/videocam');
+const VideocamOff = require('react-icons/lib/md/videocam-off');
+const Refresh = require('react-icons/lib/fa/refresh');
+const Play = require('react-icons/lib/fa/play');
+const Pause = require('react-icons/lib/fa/pause');
+const StepBackward = require('react-icons/lib/fa/step-backward');
+const StepForward = require('react-icons/lib/fa/step-forward');
 
-const Sound = require('./Sound.jsx');
+const Track = require('./Track.jsx');
 const {TICK} = require('./const.js');
-const {getSoundUrls} = require('./util.js');
+const VoiceManager = require('./VoiceManager.js');
+const {getResourceUrl} = require('./util.js');
+const songs = require('../songs/index.js');
+const VolumeControls = require('./VolumeControls.jsx');
 
-require('./App.pcss');
+import './App.pcss';
 
 module.exports = class App extends React.Component {
 	constructor() {
@@ -14,13 +25,17 @@ module.exports = class App extends React.Component {
 
 		this.state = {
 			beat: null,
+			lyric: '',
+			soloScore: null,
+			isFlashing: false,
 			isNoVideo: true,
 			isReady: false,
+			isPaused: false,
 		};
 
 		this.readySounds = new Set();
 
-		this.vocalData = [
+		this.voiceManagerPromise = VoiceManager.initialize([
 			{
 				source: 'vocal/yufu/01',
 				start: 122,
@@ -81,9 +96,7 @@ module.exports = class App extends React.Component {
 				start: 2802,
 				end: 2930,
 			},
-		];
-
-		this.vocalSounds = new Map();
+		]);
 
 		const tracks = [
 			{
@@ -147,7 +160,7 @@ module.exports = class App extends React.Component {
 				type: 'percussion',
 				src: 'zen-glass',
 				url: 'https://www.youtube.com/watch?v=M_1UZlPBYzM',
-				score: 'bongo',
+				score: 'cowbell',
 				videoStart: 24.5,
 				videoDuration: 0.5,
 				volume: 1,
@@ -269,7 +282,7 @@ module.exports = class App extends React.Component {
 				url: 'https://www.youtube.com/watch?v=jGWFDZ33UCU',
 				videoStart: 5.3,
 				videoDuration: 30,
-				volume: 0.3,
+				volume: 0.01,
 				sourceRate: 1,
 				rapSpeed: 127,
 				rapFrom: 2304,
@@ -279,49 +292,33 @@ module.exports = class App extends React.Component {
 		];
 
 		this.tracks = shuffle(tracks);
-	}
-
-	preloadVocal = (source) => {
-		if (this.vocalSounds.has(source)) {
-			return;
-		}
-
-		const howl = new Howl({
-			src: getSoundUrls(source),
-			volume: 1.3,
-		});
-
-		this.vocalSounds.set(source, howl);
+		this.song = songs.iwashi;
 	}
 
 	handleBeat = () => {
 		this.setState({beat: this.state.beat === null ? TICK * 0 : this.state.beat + TICK});
 
-		for (const {source, start, end} of this.vocalData) {
-			if (Math.abs(this.state.beat % (TICK * 2944) - TICK * (start - 64)) < TICK / 2) {
-				this.preloadVocal(source);
-			}
+		const beat = Math.floor(this.state.beat / TICK) % 2944;
+		this.voiceManager.handleBeat(beat);
 
-			if (Math.abs(this.state.beat % (TICK * 2944) - TICK * start) < TICK / 2) {
-				this.vocalSounds.get(source).stop();
-				this.vocalSounds.get(source).seek(0);
-				this.vocalSounds.get(source).play();
-			}
+		const lyric = this.song.lyrics.find(({start, end}) => start <= beat && beat < end);
+		if (!lyric && this.state.lyric !== '') {
+			this.setState({lyric: ''});
+		}
 
-			if (Math.floor(this.state.beat / TICK) % 16 === 0 && TICK * start <= this.state.beat % (TICK * 2944) && this.state.beat % (TICK * 2944) <= TICK * end) {
-				const playbackTime = this.vocalSounds.get(source).seek();
-				if (Math.abs((playbackTime + TICK * start) - this.state.beat % (TICK * 2944)) > TICK * 2) {
-					this.vocalSounds.get(source).seek(this.state.beat % (TICK * 2944) - TICK * start);
-				}
-			}
+		if (lyric && this.state.lyric !== lyric.text) {
+			this.setState({lyric: lyric.text});
 		}
 	}
 
 	handleSoundReady = (score) => {
 		this.readySounds.add(score);
 		if (this.readySounds.size === this.tracks.length) {
-			this.setState({isReady: true});
-			setInterval(this.handleBeat, TICK * 1000);
+			this.voiceManagerPromise.then((voiceManager) => {
+				this.voiceManager = voiceManager;
+				this.setState({isReady: true});
+				setInterval(this.handleBeat, TICK * 1000);
+			});
 		}
 	}
 
@@ -329,35 +326,115 @@ module.exports = class App extends React.Component {
 		this.setState({isNoVideo: !this.state.isNoVideo});
 	}
 
+	handleFlash = async () => {
+		await new Promise((resolve) => {
+			this.setState({
+				isFlashing: false,
+			}, resolve);
+		});
+
+		await new Promise((resolve) => {
+			setTimeout(resolve, 0);
+		});
+
+		this.setState({
+			isFlashing: true,
+		});
+	}
+
+	handleChangeSolo = (score, isSolo) => {
+		this.setState({
+			soloScore: isSolo ? score : null,
+		});
+	}
+
+	handleChangeVoiceMuted = () => {
+
+	}
+
+	handleClickPause = () => {
+		this.setState({
+			isPaused: !this.state.isPaused,
+		});
+	}
+
 	render() {
 		return (
-			<div>
-				<input type="checkbox" checked={!this.state.isNoVideo} onChange={this.handleChangeCheckbox}/> 動画を再生する (激重)
-				<div>
-					{this.tracks.map((track) => (
-						<Sound
-							key={track.src}
-							src={track.src}
-							url={track.url}
-							score={track.score}
-							videoStart={track.videoStart}
-							videoDuration={track.videoDuration}
-							beat={this.state.beat}
-							volume={track.volume}
-							sourceNote={track.sourceNote}
-							sourceRate={track.sourceRate}
-							rapSpeed={track.rapSpeed}
-							rapFrom={track.rapFrom}
-							rapTo={track.rapTo}
-							rapDuration={track.rapDuration}
-							onReady={this.handleSoundReady}
-							isNoVideo={this.state.isReady && this.state.isNoVideo}
-							isPrank={Boolean(track.isPrank)}
-							isPercussion={track.type === 'percussion'}
-							isChord={track.type === 'chord'}
-							isRap={track.type === 'rap'}
-						/>
-					))}
+			<div styleName={classNames('app', {flash: this.state.isFlashing})}>
+				<div styleName="main">
+					<div styleName="tracks">
+						{this.tracks.map((track) => (
+							<Track
+								key={track.src}
+								src={track.src}
+								url={track.url}
+								score={track.type === 'rap' ? 'rap' : track.score}
+								videoStart={track.videoStart}
+								videoDuration={track.videoDuration}
+								beat={this.state.beat}
+								volume={track.volume}
+								sourceNote={track.sourceNote}
+								sourceRate={track.sourceRate}
+								rapSpeed={track.rapSpeed}
+								rapFrom={track.rapFrom}
+								rapTo={track.rapTo}
+								rapDuration={track.rapDuration}
+								onReady={this.handleSoundReady}
+								onFlash={this.handleFlash}
+								onChangeSolo={this.handleChangeSolo}
+								isNoVideo={this.state.isReady && this.state.isNoVideo}
+								isPrank={Boolean(track.isPrank)}
+								isPercussion={track.type === 'percussion'}
+								isChord={track.type === 'chord'}
+								isRap={track.type === 'rap'}
+								isNotSolo={this.state.soloScore !== null && this.state.soloScore !== (track.type === 'rap' ? 'rap' : track.score)}
+							/>
+						))}
+					</div>
+					<div styleName="lyric">
+						<div styleName="character">
+							<img styleName="character-image" src={getResourceUrl('sound/vocal/yufu/character.png')}/>
+							<div styleName="change">
+								<Refresh/> かえる
+							</div>
+						</div>
+						<div styleName="lyric-text">
+							{this.state.lyric}
+						</div>
+						<div styleName="lyric-controls">
+							<VolumeControls
+								volume={1}
+								isMuted={false}
+								isSolo={false}
+								onChangeMuted={this.handleChangeVoiceMuted}
+							/>
+						</div>
+					</div>
+				</div>
+				<div styleName="controls">
+					<div styleName="playback">
+						<div styleName="button">
+							<StepBackward/>
+						</div>
+						<div styleName="button" onClick={this.handleClickPause}>
+							{this.state.isPaused ? (
+								<Play/>
+							) : (
+								<Pause/>
+							)}
+						</div>
+						<div styleName="button">
+							<StepForward/>
+						</div>
+					</div>
+					<div styleName="title"><Music/> イワシがつちからはえてくるんだ by ころんば</div>
+					<div styleName="play-video" onClick={this.handleChangeCheckbox}>
+						{this.state.isNoVideo ? (
+							<VideocamOff/>
+						) : (
+							<Videocam/>
+						)} 動画再生
+					</div>
 				</div>
 			</div>
 		);

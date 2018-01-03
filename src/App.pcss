@@ -3,6 +3,157 @@
 	src: url('../node_modules/misaki-font/misaki_gothic.ttf') format('woff');
 }
 
+html, body, .app {
+	margin: 0;
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
+}
+
 body {
 	font-family: misaki;
+	background-image: url(https://farm4.staticflickr.com/3671/11285730373_f3e33590b1_k.jpg);
+	background-attachment: fixed;
+	background-size: cover;
+}
+
+.app {
+	width: 100%;
+	height: 100%;
+
+	display: flex;
+	flex-direction: column;
+
+	&.flash::after {
+		content: '';
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		pointer-events: none;
+		animation: app-after-animation 0.6s linear;
+
+		@at-root {
+			@keyframes app-after-animation {
+				from {
+					background: rgba(255, 255, 255, 0.6);
+				}
+				to {
+					background: rgba(255, 255, 255, 0);
+				}
+			}
+		}
+	}
+}
+
+.main {
+	flex: 1 0 0;
+	height: 0;
+	position: relative;
+}
+
+.tracks {
+	height: 100%;
+	display: flex;
+	padding-bottom: 80px;
+	box-sizing: border-box;
+	overflow-y: auto;
+	flex-wrap: wrap;
+	justify-content: center;
+}
+
+.lyric {
+	position: absolute;
+	width: 100%;
+	height: 60px;
+	bottom: 0;
+
+	display: flex;
+
+	background: rgba(255, 255, 255, 0.8);
+	color: #333;
+	font-size: 36px;
+}
+
+.character {
+	height: 100%;
+	width: 160px;
+	position: relative;
+}
+
+.character-image {
+	position: absolute;
+	bottom: 0;
+}
+
+.lyric-text {
+	line-height: 60px;
+	flex: 1 0 0;
+}
+
+.lyric-controls {
+	flex: 0 0 auto;
+	display: flex;
+	margin-right: 10px;
+}
+
+.change {
+	position: absolute;
+	bottom: 0.5em;
+	left: 50%;
+	transform: translateX(-50%);
+
+	padding: 3px;
+
+	border-radius: 9999px;
+
+	background: #2196F3;
+
+	color: white;
+	font-weight: normal;
+	font-size: 14px;
+
+	cursor: pointer;
+}
+
+.controls {
+	flex: 0 0 40px;
+
+	height: 40px;
+	padding: 0 5px;
+
+	display: flex;
+
+	background: #111;
+
+	color: white;
+	font-size: 24px;
+	line-height: 40px;
+}
+
+.playback {
+	display: flex;
+
+	.button {
+		height: 40px;
+		width: 40px;
+		color: white;
+		text-align: center;
+		cursor: pointer;
+
+		&:hover {
+			background: rgba(255, 255, 255, 0.3);
+		}
+	}
+}
+
+.title {
+	flex: 1 0 0;
+	font-size: 14px;
+	padding-left: 1em;
+}
+
+.play-video {
+	cursor: pointer;
 }

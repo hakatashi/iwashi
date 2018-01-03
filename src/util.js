@@ -7,3 +7,19 @@ module.exports.getSoundUrls = (id) => (
 		`sound/${id}.wav`,
 	]
 );
+
+module.exports.getResourceUrl = (path) => (
+	process.env.NODE_ENV === 'production'
+		? `https://media.githubusercontent.com/media/hakatashi/iwashi/gh-pages/${path}`
+		: path
+
+);
+
+module.exports.Deferred = class Deferred {
+	constructor() {
+		this.promise = new Promise((resolve, reject) => {
+			this.reject = reject;
+			this.resolve = resolve;
+		});
+	}
+};

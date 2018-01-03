@@ -27,6 +27,15 @@ module.exports = (env = {}) => ({
 						'react',
 					],
 					plugins: [
+						['react-css-modules', {
+							filetypes: {
+								'.pcss': {
+									syntax: 'postcss',
+								},
+							},
+							handleMissingStyleName: 'warn',
+							generateScopedName: '[name]__[local]--[hash:base64:5]',
+						}],
 						'transform-class-properties',
 					],
 				},
@@ -36,7 +45,14 @@ module.exports = (env = {}) => ({
 			exclude: /node_modules/,
 			use: [
 				'style-loader',
-				{loader: 'css-loader', options: {importLoaders: 1}},
+				{
+					loader: 'css-loader',
+					options: {
+						modules: true,
+						importLoaders: 1,
+						localIdentName: '[name]__[local]--[hash:base64:5]',
+					},
+				},
 				'postcss-loader',
 			],
 		}, {
@@ -52,7 +68,33 @@ module.exports = (env = {}) => ({
 				{
 					loader: './lib/fontmin-loader.js',
 					options: {
-						text: '動画を再生する (激重)',
+						text: [
+							'イワシがつちからはえてくるんだ',
+							'なんねん　まえかの　ことでした',
+							'だれかが　ハサミで',
+							'タイムラインを　ちょんぎった',
+							'そして',
+							'あしたと　きのうが　つながった',
+							'あしたの　ことは　しっている',
+							'イワシが　つちから　はえてくるんだ',
+							'えきの　ホームに　あながあく',
+							'すのこが　きえるんだ',
+							'きのうの　きおくは　きえたけど',
+							'きえたってことも　よくわからないんだ',
+							'そらの　うえから　ビルがたつ',
+							'めが　みえなくなってきた',
+							'はな は かれず',
+							'とり は とばず ねむる',
+							'かぜ は とまり つめたく',
+							'つき は みちも かけも せず まわる',
+							'いままでと　これからが　つながって',
+							'いちにちを　とばして　わすれて',
+							'すすんでく',
+							'ここは',
+							'もとには　もどらなくなった',
+							'動画再生',
+							'かえる',
+						].join(''),
 					},
 				},
 			],
@@ -60,6 +102,10 @@ module.exports = (env = {}) => ({
 			test: /\.txt$/,
 			exclude: /node_modules/,
 			use: ['json-loader', './lib/mml-loader.js'],
+		}, {
+			test: /\.yml$/,
+			exclude: /node_modules/,
+			use: ['json-loader', 'yaml-loader'],
 		}],
 	},
 	node: {
