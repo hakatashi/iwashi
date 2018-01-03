@@ -23,20 +23,20 @@ module.exports = class VoiceManager {
 
 	handleBeat(beat) {
 		for (const {source, start, end} of this.vocals) {
-			if (Math.abs(beat % (TICK * 2944) - TICK * (start - 64)) < TICK / 2) {
+			if (beat === start - 64) {
 				this.preloadVocal(source);
 			}
 
-			if (Math.abs(beat % (TICK * 2944) - TICK * start) < TICK / 2) {
+			if (beat === start) {
 				this.vocalSounds.get(source).stop();
 				this.vocalSounds.get(source).seek(0);
 				this.vocalSounds.get(source).play();
 			}
 
-			if (Math.floor(beat / TICK) % 16 === 0 && TICK * start <= beat % (TICK * 2944) && beat % (TICK * 2944) <= TICK * end) {
+			if (beat % 16 === 0 && start <= beat && beat <= end) {
 				const playbackTime = this.vocalSounds.get(source).seek();
-				if (Math.abs((playbackTime + TICK * start) - beat % (TICK * 2944)) > TICK * 2) {
-					this.vocalSounds.get(source).seek(beat % (TICK * 2944) - TICK * start);
+				if (Math.abs((playbackTime + start * TICK) - beat * TICK) > TICK * 2) {
+					this.vocalSounds.get(source).seek(beat * TICK - start * TICK);
 				}
 			}
 		}
