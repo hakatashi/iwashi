@@ -19,7 +19,7 @@ module.exports = class App extends React.Component {
 
 		this.readySounds = new Set();
 
-		this.voiceManager = new VoiceManager([
+		this.voiceManagerPromise = VoiceManager.initialize([
 			{
 				source: 'vocal/yufu/01',
 				start: 122,
@@ -288,8 +288,11 @@ module.exports = class App extends React.Component {
 	handleSoundReady = (score) => {
 		this.readySounds.add(score);
 		if (this.readySounds.size === this.tracks.length) {
-			this.setState({isReady: true});
-			setInterval(this.handleBeat, TICK * 1000);
+			this.voiceManagerPromise.then((voiceManager) => {
+				this.voiceManager = voiceManager;
+				this.setState({isReady: true});
+				setInterval(this.handleBeat, TICK * 1000);
+			});
 		}
 	}
 
