@@ -69,6 +69,7 @@ module.exports = (env = {}) => ({
 					loader: './lib/fontmin-loader.js',
 					options: {
 						text: [
+							'♪',
 							'イワシがつちからはえてくるんだ',
 							'ころんば',
 							'なんねん　まえかの　ことでした',

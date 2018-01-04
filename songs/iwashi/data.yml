@@ -144,3 +144,5 @@ score:
   snare: !require ./score/snare.txt
   synth1: !require ./score/synth1.txt
   synth2: !require ./score/synth2.txt
+defaultComposition:
+  base:

@@ -18,8 +18,21 @@ module.exports.getResourceUrl = (path) => (
 module.exports.Deferred = class Deferred {
 	constructor() {
 		this.promise = new Promise((resolve, reject) => {
-			this.reject = reject;
-			this.resolve = resolve;
+			this.nativeReject = reject;
+			this.nativeResolve = resolve;
 		});
+
+		this.isResolved = false;
+		this.isRejected = false;
+	}
+
+	resolve(...args) {
+		this.nativeResolve(...args);
+		this.isResolved = true;
+	}
+
+	reject(...args) {
+		this.nativeReject(...args);
+		this.isReject = true;
 	}
 };
