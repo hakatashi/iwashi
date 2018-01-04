@@ -106,7 +106,7 @@ module.exports = (env = {}) => ({
 		}, {
 			test: /\.yml$/,
 			exclude: /node_modules/,
-			use: ['json-loader', 'yaml-loader'],
+			use: ['./lib/yaml-loader.js'],
 		}],
 	},
 	node: {

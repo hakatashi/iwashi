@@ -1,5 +1,4 @@
 const iwashi = require('./iwashi/data.yml');
-const iwashiScore = require('./iwashi/score/index.js');
 
 const parseTime = (timeText, resolution) => {
 	const components = timeText.split('.');
@@ -38,16 +37,7 @@ const compileLyrics = (lyricText, resolution) => {
 	return lyrics;
 };
 
-const songs = [
-	{
-		id: 'iwashi',
-		song: iwashi,
-		score: iwashiScore,
-	},
-];
-
-for (const {id, song, score} of songs) {
+for (const [id, song] of Object.entries({iwashi})) {
 	song.lyrics = compileLyrics(song.lyrics, song.resolution);
-	song.score = score;
 	module.exports[id] = song;
 }

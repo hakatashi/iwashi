@@ -125,3 +125,22 @@ voices:
   - source: '08'
     start: 88.3.25
     end: 91.3.875
+score:
+  base: !require ./score/base.txt
+  bass: !require ./score/bass.txt
+  chime1: !require ./score/chime1.txt
+  chime2: !require ./score/chime2.txt
+  chord: !require ./score/chord.txt
+  chorus1: !require ./score/chorus1.txt
+  chorus2: !require ./score/chorus2.txt
+  chorus3: !require ./score/chorus3.txt
+  chorus4: !require ./score/chorus4.txt
+  chorus5: !require ./score/chorus5.txt
+  chorus6: !require ./score/chorus6.txt
+  clap: !require ./score/clap.txt
+  closed-hihat: !require ./score/closed-hihat.txt
+  cowbell: !require ./score/cowbell.txt
+  cymbal: !require ./score/cymbal.txt
+  snare: !require ./score/snare.txt
+  synth1: !require ./score/synth1.txt
+  synth2: !require ./score/synth2.txt
