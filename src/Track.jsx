@@ -9,7 +9,7 @@ const Refresh = require('react-icons/lib/fa/refresh');
 const VolumeUp = require('react-icons/lib/md/volume-up');
 const VolumeOff = require('react-icons/lib/md/volume-off');
 
-const scores = require('./scores.js');
+const songs = require('../songs/index.js');
 const {TICK} = require('./const.js');
 const {getSoundUrls, Deferred} = require('./util.js');
 const VolumeControls = require('./VolumeControls.jsx');
@@ -83,7 +83,7 @@ module.exports = class Track extends React.Component {
 
 		this.currentNoteIndex = null;
 		this.currentVelocity;
-		this.score = this.props.isRap ? null : scores[this.props.score];
+		this.score = this.props.isRap ? null : songs.iwashi.score[this.props.score];
 		this.isReady = false;
 
 		const query = qs.parse(location.search.slice(1));
