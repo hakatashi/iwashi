@@ -1,10 +1,11 @@
 .track {
 	display: inline-block;
 	vertical-align: top;
-	margin: 3px;
+	margin: 4px;
 	background: rgba(255, 255, 255, 0.8);
     border-radius: 5px;
 	transition: opacity 0.2s;
+	overflow: hidden;
 
 	&.muted {
 		opacity: 0.5;
@@ -16,9 +17,10 @@
 	display: flex;
 	background: #333;
 	color: white;
-	font-weight: bold;
-	padding: 0 0.3em;
-	font-size: 20px;
+	padding: 0 0.5em;
+	font-size: 14px;
+	letter-spacing: 0.05em;
+	height: 26px;
 	justify-content: space-between;
 	align-items: center;
 }
@@ -30,7 +32,7 @@
 	border-radius: 9999px;
 	cursor: pointer;
 	font-weight: normal;
-	font-size: 14px;
+	font-size: 12px;
 }
 
 .video-area {

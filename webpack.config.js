@@ -69,7 +69,9 @@ module.exports = (env = {}) => ({
 					loader: './lib/fontmin-loader.js',
 					options: {
 						text: [
+							'♪',
 							'イワシがつちからはえてくるんだ',
+							'ころんば',
 							'なんねん　まえかの　ことでした',
 							'だれかが　ハサミで',
 							'タイムラインを　ちょんぎった',
@@ -105,7 +107,7 @@ module.exports = (env = {}) => ({
 		}, {
 			test: /\.yml$/,
 			exclude: /node_modules/,
-			use: ['json-loader', 'yaml-loader'],
+			use: ['./lib/yaml-loader.js'],
 		}],
 	},
 	node: {

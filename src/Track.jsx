@@ -6,10 +6,8 @@ const PropTypes = require('prop-types');
 const randomColor = require('randomcolor');
 const classNames = require('classNames');
 const Refresh = require('react-icons/lib/fa/refresh');
-const VolumeUp = require('react-icons/lib/md/volume-up');
-const VolumeOff = require('react-icons/lib/md/volume-off');
 
-const scores = require('./scores.js');
+const songs = require('../songs/index.js');
 const {TICK} = require('./const.js');
 const {getSoundUrls, Deferred} = require('./util.js');
 const VolumeControls = require('./VolumeControls.jsx');
@@ -83,14 +81,14 @@ module.exports = class Track extends React.Component {
 
 		this.currentNoteIndex = null;
 		this.currentVelocity;
-		this.score = this.props.isRap ? null : scores[this.props.score];
-		this.isReady = false;
+		this.score = this.props.isRap ? null : songs.iwashi.score[this.props.score];
+		this.isError = false;
 
 		const query = qs.parse(location.search.slice(1));
 		this.isDebug = Boolean(query.debug);
 
 		Promise.all([
-			...(this.isDebug ? [] : this.videoLoadDefer.primose),
+			...(this.isDebug ? [] : [this.videoLoadDefer.promise]),
 			this.audioLoadDefer.promise,
 		]).then(() => {
 			this.props.onReady(this.props.score);
@@ -154,7 +152,6 @@ module.exports = class Track extends React.Component {
 				return;
 			}
 
-			const playNote = this.score[playNoteIndex];
 			this.currentNoteIndex = playNoteIndex;
 
 			this.sounds[0].volume(this.getVolume());
@@ -256,7 +253,7 @@ module.exports = class Track extends React.Component {
 	}
 
 	getVolume = () => {
-		if (this.state.isMuted || this.props.isNotSolo) {
+		if (this.state.isMuted || this.props.isNotSolo || this.isError) {
 			return 0;
 		}
 
@@ -285,12 +282,22 @@ module.exports = class Track extends React.Component {
 	}
 
 	handlePlayerStart = () => {
-		if (!this.isReady) {
-			this.isReady = true;
+		if (!this.videoLoadDefer.isResolved) {
 			this.setState({
 				isPlaying: false,
 			});
 			this.player.seekTo(this.props.videoStart);
+			this.videoLoadDefer.resolve();
+		}
+	}
+
+	handlePlayerError = () => {
+		this.isError = true;
+		for (const sound of this.sounds) {
+			sound.volume(this.getVolume());
+		}
+
+		if (!this.videoLoadDefer.isResolved) {
 			this.videoLoadDefer.resolve();
 		}
 	}
@@ -350,6 +357,7 @@ module.exports = class Track extends React.Component {
 							muted
 							onReady={this.handlePlayerReady}
 							onStart={this.handlePlayerStart}
+							onError={this.handlePlayerError}
 						/>
 					)}
 				</div>

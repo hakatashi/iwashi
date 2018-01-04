@@ -1,7 +1,6 @@
 const React = require('react');
 const classNames = require('classnames');
 const shuffle = require('lodash/shuffle');
-const Music = require('react-icons/lib/fa/Music');
 const Videocam = require('react-icons/lib/md/videocam');
 const VideocamOff = require('react-icons/lib/md/videocam-off');
 const Refresh = require('react-icons/lib/fa/refresh');
@@ -427,7 +426,7 @@ module.exports = class App extends React.Component {
 							<StepForward/>
 						</div>
 					</div>
-					<div styleName="title"><Music/> イワシがつちからはえてくるんだ by ころんば</div>
+					<div styleName="title">♪イワシがつちからはえてくるんだ by ころんば</div>
 					<div styleName="play-video" onClick={this.handleChangeCheckbox}>
 						{this.state.isNoVideo ? (
 							<VideocamOff/>
