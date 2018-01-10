@@ -4,10 +4,10 @@ const {default: Player} = require('react-player');
 const {Howl} = require('howler');
 const PropTypes = require('prop-types');
 const randomColor = require('randomcolor');
-const classNames = require('classNames');
+const classNames = require('classnames');
 const Refresh = require('react-icons/lib/fa/refresh');
 
-const songs = require('../songs/index.js');
+const soundData = require('../sound/data.yml');
 const {TICK} = require('./const.js');
 const {getSoundUrls, Deferred} = require('./util.js');
 const VolumeControls = require('./VolumeControls.jsx');
@@ -16,45 +16,54 @@ import './Track.pcss';
 
 module.exports = class Track extends React.Component {
 	static propTypes = {
-		src: PropTypes.string.isRequired,
-		url: PropTypes.string.isRequired,
-		score: PropTypes.string.isRequired,
-		videoStart: PropTypes.number.isRequired,
-		videoDuration: PropTypes.number.isRequired,
+		name: PropTypes.string.isRequired,
+		type: PropTypes.oneOf(['percussion', 'instrument', 'chord', 'rap']).isRequired,
+		score: PropTypes.array,
+		prank: PropTypes.bool,
+		start: PropTypes.number,
+		end: PropTypes.number,
+		default: PropTypes.shape({
+			sound: PropTypes.string.isRequired,
+			volume: PropTypes.number.isRequired,
+		}).isRequired,
 		beat: PropTypes.number.isRequired,
-		volume: PropTypes.number.isRequired,
-		sourceNote: PropTypes.number,
 		onReady: PropTypes.func.isRequired,
 		onFlash: PropTypes.func.isRequired,
 		onChangeSolo: PropTypes.func.isRequired,
-		isPrank: PropTypes.bool,
-		isPercussion: PropTypes.bool,
-		isChord: PropTypes.bool,
-		isNoVideo: PropTypes.bool,
+		isNoVideo: PropTypes.bool.isRequired,
 		isNotSolo: PropTypes.bool.isRequired,
 	}
 
 	static defaultProps = {
-		sourceNote: 0,
-		isPrank: false,
-		isChord: false,
-		isPercussion: false,
-		isNoVideo: false,
+		score: null,
+		prank: false,
+		start: null,
+		end: null,
 	}
 
 	constructor(props, state) {
 		super(props, state);
 
+		this.state = {
+			volume: this.props.default.volume,
+			sound: this.props.default.sound,
+			isPlaying: true,
+			isReverse: false,
+			isShown: true,
+			isMuted: false,
+			isSolo: false,
+		};
+
 		this.videoLoadDefer = new Deferred();
 		this.audioLoadDefer = new Deferred();
 
-		const soundLoadPromises = Array((this.props.isPercussion || this.props.isRap || !this.props.isChord) ? 1 : 5).fill().map(() => (
+		const soundLoadPromises = Array(this.props.type === 'chord' ? 5 : 1).fill().map(() => (
 			new Promise((resolve, reject) => {
 				const howl = new Howl({
-					src: getSoundUrls(this.props.src),
-					volume: this.props.volume,
-					loop: !this.props.isPercussion,
-					html5: this.props.isRap,
+					src: getSoundUrls(this.state.sound),
+					volume: this.state.volume,
+					loop: this.props.type !== 'percussion',
+					html5: this.props.type === 'rap',
 					preload: true,
 					onload: () => {
 						resolve(howl);
@@ -71,17 +80,8 @@ module.exports = class Track extends React.Component {
 			this.audioLoadDefer.resolve();
 		});
 
-		this.state = {
-			isPlaying: true,
-			isReverse: false,
-			isShown: true,
-			isMuted: false,
-			isSolo: false,
-		};
-
 		this.currentNoteIndex = null;
 		this.currentVelocity;
-		this.score = this.props.isRap ? null : songs.iwashi.score[this.props.score];
 		this.isError = false;
 
 		const query = qs.parse(location.search.slice(1));
@@ -91,7 +91,7 @@ module.exports = class Track extends React.Component {
 			...(this.isDebug ? [] : [this.videoLoadDefer.promise]),
 			this.audioLoadDefer.promise,
 		]).then(() => {
-			this.props.onReady(this.props.score);
+			this.props.onReady(this.props.name);
 		});
 	}
 
@@ -108,11 +108,15 @@ module.exports = class Track extends React.Component {
 	}
 
 	componentDidUpdate(prevProps, prevState) {
-		if (this.props.volume !== prevProps.volume || this.state.isMuted !== prevState.isMuted || this.props.isNotSolo !== prevProps.isNotSolo) {
+		if (this.state.volume !== prevState.volume || this.state.isMuted !== prevState.isMuted || this.props.isNotSolo !== prevProps.isNotSolo) {
 			for (const sound of this.sounds) {
 				sound.volume(this.getVolume());
 			}
 		}
+	}
+
+	get soundData() {
+		return soundData[this.state.sound];
 	}
 
 	handleBeat = (beat) => {
@@ -145,8 +149,8 @@ module.exports = class Track extends React.Component {
 			hidden = true;
 		}
 
-		if (this.props.isPercussion) {
-			const playNoteIndex = this.score.findIndex((note) => Math.abs(note.time - beat % (TICK * 2944)) < TICK / 2 && note.type === 'note');
+		if (this.props.type === 'percussion') {
+			const playNoteIndex = this.props.score.findIndex((note) => Math.abs(note.time - beat % (TICK * 2944)) < TICK / 2 && note.type === 'note');
 
 			if (playNoteIndex === -1) {
 				return;
@@ -156,15 +160,15 @@ module.exports = class Track extends React.Component {
 
 			this.sounds[0].volume(this.getVolume());
 			this.sounds[0].play();
-		} else if (this.props.isRap) {
-			if (this.props.rapFrom <= tick && tick < this.props.rapTo) {
+		} else if (this.props.type === 'rap') {
+			if (this.props.start <= tick && tick < this.props.end) {
 				if (!this.sounds[0].playing()) {
 					this.setState({
 						isPlaying: true,
 						isShown: true,
 					});
 
-					this.sounds[0].rate(135 / this.props.rapSpeed);
+					this.sounds[0].rate(135 / this.soundData.tempo);
 					this.sounds[0].volume(this.getVolume());
 					this.sounds[0].seek(0);
 					this.sounds[0].play();
@@ -175,19 +179,19 @@ module.exports = class Track extends React.Component {
 					if (!this.props.isNoVideo) {
 						setTimeout(() => {
 							this.handleVideoSessionTimeout(session);
-						}, this.props.videoDuration * 1000);
+						}, this.soundData.video.duration * 1000);
 					}
 				}
 
-				if ((tick - this.props.rapFrom) % (32 * this.props.rapDuration) === 0) {
+				if ((tick - this.props.start) % (32 * this.props.end) === 0) {
 					if (!this.props.isNoVideo) {
-						this.player && this.player.seekTo(this.props.videoStart);
+						this.player && this.player.seekTo(this.soundData.video.start);
 					}
 				}
 
-				if ((tick - this.props.rapFrom) % 4 === 0) {
+				if ((tick - this.props.start) % 4 === 0) {
 					const playbackTime = this.sounds[0].seek();
-					const targetTime = ((tick - this.props.rapFrom) % (32 * this.props.rapDuration)) * TICK * 135 / this.props.rapSpeed + TICK;
+					const targetTime = ((tick - this.props.start) % (32 * this.soundData.video.duration)) * TICK * 135 / this.soundData.tempo + TICK;
 					if (Math.abs(playbackTime + TICK - targetTime) > TICK) {
 						this.sounds[0].seek(targetTime);
 					}
@@ -202,10 +206,10 @@ module.exports = class Track extends React.Component {
 
 			return;
 		} else {
-			const playNoteIndex = this.score.findIndex((note) => Math.abs(note.time - beat % (TICK * 2944)) < TICK / 2 && note.type === 'note');
-			const playNotes = this.score.filter((note) => Math.abs(note.time - beat % (TICK * 2944)) < TICK / 2 && note.type === 'note');
+			const playNoteIndex = this.props.score.findIndex((note) => Math.abs(note.time - beat % (TICK * 2944)) < TICK / 2 && note.type === 'note');
+			const playNotes = this.props.score.filter((note) => Math.abs(note.time - beat % (TICK * 2944)) < TICK / 2 && note.type === 'note');
 
-			if (playNotes.length !== 0 || (this.score[this.currentNoteIndex] && Math.abs(this.score[this.currentNoteIndex].time + this.score[this.currentNoteIndex].duration - beat % (TICK * 2944)) < TICK / 2)) {
+			if (playNotes.length !== 0 || (this.props.score[this.currentNoteIndex] && Math.abs(this.props.score[this.currentNoteIndex].time + this.props.score[this.currentNoteIndex].duration - beat % (TICK * 2944)) < TICK / 2)) {
 				this.sounds.forEach((sound) => sound.stop());
 			}
 
@@ -216,18 +220,18 @@ module.exports = class Track extends React.Component {
 			this.currentNoteIndex = playNoteIndex;
 
 			playNotes.forEach((note, index) => {
-				this.sounds[index].rate(2 ** ((note.noteNumber - this.props.sourceNote) / 12));
+				this.sounds[index].rate(2 ** ((note.noteNumber - this.soundData.sourceNote) / 12));
 				this.sounds[index].volume(this.getVolume());
 				this.sounds[index].play();
 			});
 		}
 
-		if (this.props.score === 'cymbal') {
+		if (this.props.name === 'cymbal') {
 			this.props.onFlash();
 		}
 
 		if (!this.props.isNoVideo) {
-			this.player && this.player.seekTo(this.props.videoStart);
+			this.player && this.player.seekTo(this.soundData.video.start);
 		}
 
 		if (!this.state.isShown || hidden) {
@@ -238,17 +242,17 @@ module.exports = class Track extends React.Component {
 			this.setState({isPlaying: true});
 		}
 
-		if (this.props.isPrank || this.props.isNoVideo) {
+		if (this.props.prank || this.soundData.prank || this.props.isNoVideo) {
 			this.setState({isReverse: !this.state.isReverse});
 		}
 
 		const session = Symbol('videoPlaySession');
 		this.videoPlaySession = session;
 
-		if (Number.isFinite(this.props.videoDuration) && !this.props.isNoVideo) {
+		if (Number.isFinite(this.soundData.video.duration) && !this.props.isNoVideo) {
 			setTimeout(() => {
 				this.handleVideoSessionTimeout(session);
-			}, this.props.videoDuration * 1000);
+			}, this.soundData.video.duration * 1000);
 		}
 	}
 
@@ -257,17 +261,17 @@ module.exports = class Track extends React.Component {
 			return 0;
 		}
 
-		if (this.props.isRap) {
-			return this.props.volume;
+		if (this.props.type === 'rap') {
+			return this.state.volume;
 		}
 
 		if (this.currentNoteIndex === null) {
-			return this.props.volume;
+			return this.state.volume;
 		}
 
-		const playNote = this.score[this.currentNoteIndex];
+		const playNote = this.props.score[this.currentNoteIndex];
 
-		return playNote.velocity / 100 * this.props.volume;
+		return playNote.velocity / 100 * this.state.volume;
 	}
 
 	handleVideoSessionTimeout = (session) => {
@@ -278,7 +282,7 @@ module.exports = class Track extends React.Component {
 
 	handlePlayerReady = () => {
 		this.player.player && this.player.player.player && this.player.player.player.setPlaybackQuality && this.player.player.player.setPlaybackQuality('tiny');
-		this.player.seekTo(this.props.videoStart);
+		this.player.seekTo(this.soundData.video.start);
 	}
 
 	handlePlayerStart = () => {
@@ -286,7 +290,7 @@ module.exports = class Track extends React.Component {
 			this.setState({
 				isPlaying: false,
 			});
-			this.player.seekTo(this.props.videoStart);
+			this.player.seekTo(this.soundData.video.start);
 			this.videoLoadDefer.resolve();
 		}
 	}
@@ -308,7 +312,7 @@ module.exports = class Track extends React.Component {
 
 	handleChangeSolo = (isSolo) => {
 		this.setState({isSolo});
-		this.props.onChangeSolo(this.props.score, isSolo);
+		this.props.onChangeSolo(this.props.name, isSolo);
 	}
 
 	render() {
@@ -317,7 +321,7 @@ module.exports = class Track extends React.Component {
 				styleName={classNames('track', {muted: this.state.isMuted || this.props.isNotSolo})}
 			>
 				<div styleName="name">
-					{this.props.score}
+					{this.props.name}
 					<div styleName="change">
 						<Refresh/> かえる
 					</div>
@@ -328,25 +332,25 @@ module.exports = class Track extends React.Component {
 						transform: this.state.isReverse ? 'scale(-1, 1)' : 'none',
 						visibility: this.state.isShown ? 'visible' : 'hidden',
 						background: randomColor({
-							seed: this.props.score,
+							seed: this.props.name,
 							luminosity: 'light',
 						}),
 					}}
 				>
 					{this.isDebug ? (
-						this.props.score.toUpperCase()
+						this.props.name.toUpperCase()
 					) : (
 						<Player
 							ref={(element) => {
 								this.player = element;
 								this.player && this.player.player && this.player.player.player && this.player.player.player.setPlaybackQuality && this.player.player.player.setPlaybackQuality('tiny');
 							}}
-							url={this.props.url}
+							url={this.soundData.video.url}
 							config={{
 								youtube: {
 									playerVars: {
-										start: Math.floor(this.props.videoStart),
-										end: Math.ceil(this.props.videoStart + this.props.videoDuration),
+										start: Math.floor(this.soundData.video.start),
+										end: Math.ceil(this.soundData.video.start + this.soundData.video.duration),
 									},
 								},
 							}}
@@ -355,6 +359,7 @@ module.exports = class Track extends React.Component {
 							playing={this.state.isPlaying && !this.props.isNoVideo}
 							controls
 							muted
+							loop
 							onReady={this.handlePlayerReady}
 							onStart={this.handlePlayerStart}
 							onError={this.handlePlayerError}
@@ -362,7 +367,7 @@ module.exports = class Track extends React.Component {
 					)}
 				</div>
 				<VolumeControls
-					volume={this.props.volume}
+					volume={this.state.volume}
 					isMuted={this.state.isMuted}
 					isSolo={this.state.isSolo}
 					onChangeMuted={this.handleChangeMuted}
