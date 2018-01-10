@@ -1,5 +1,9 @@
 title: イワシがつちからはえてくるんだ
-composer: ころんば
+titleComponents:
+  - イワシが
+  - つちから
+  - はえてくるんだ
+artist: ころんば
 bpm: 135
 resolution:  32
 lyrics: |

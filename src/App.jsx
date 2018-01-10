@@ -10,6 +10,7 @@ const StepBackward = require('react-icons/lib/fa/step-backward');
 const StepForward = require('react-icons/lib/fa/step-forward');
 
 const Track = require('./Track.jsx');
+const Loading = require('./Loading.jsx');
 const {TICK} = require('./const.js');
 const VoiceManager = require('./VoiceManager.js');
 const {getResourceUrl} = require('./util.js');
@@ -106,6 +107,11 @@ module.exports = class App extends React.Component {
 	render() {
 		return (
 			<div styleName={classNames('app', {flash: this.state.isFlashing})}>
+				<Loading
+					titleComponents={this.song.titleComponents}
+					artist={this.song.artist}
+					name="iwashi"
+				/>
 				<div styleName="main">
 					<div styleName="tracks">
 						{this.tracks.map(([name, track]) => (
