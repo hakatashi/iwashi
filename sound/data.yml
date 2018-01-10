@@ -180,6 +180,9 @@ bemybaby-intro:
   src: bemybaby-intro
   tempo: 127
   duration: 4
+  resource:
+    work: BE MY BABY
+    name: イントロ
   video:
     url: https://www.youtube.com/watch?v=jGWFDZ33UCU
     start: 5.3

@@ -35,7 +35,7 @@ module.exports = class App extends React.Component {
 		this.readySounds = new Set();
 
 		this.song = songs.iwashi;
-		
+
 		this.voiceManagerPromise = VoiceManager.initialize(this.song.vocals, this.song.defaultVocal);
 		this.tracks = shuffle(Object.entries(this.song.tracks));
 	}
@@ -118,7 +118,7 @@ module.exports = class App extends React.Component {
 								onFlash={this.handleFlash}
 								onChangeSolo={this.handleChangeSolo}
 								isNoVideo={this.state.isReady && this.state.isNoVideo}
-								isNotSolo={this.state.soloScore !== null && this.state.soloScore !== (track.type === 'rap' ? 'rap' : track.score)}
+								isNotSolo={this.state.soloScore !== null && this.state.soloScore !== name}
 							/>
 						))}
 					</div>
