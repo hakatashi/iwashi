@@ -28,8 +28,8 @@ killme-pyonsuke:
 ippon-crisp:
   type: percussion
   resource:
-    work: 一本満足バー
-    name: カリッ
+    work: 一本満足バーCM
+    name: 一本満足バー
   video:
     url: https://www.youtube.com/watch?v=2rc8CmeKinc
     start: 23.7
@@ -39,8 +39,8 @@ atsumori:
   sourceNote: 22
   prank: true
   resource:
-    work: 富川悠太アナ
-    name: 失礼しました。「あ」つ盛と出てしまいました
+    work: 熱盛放送事故
+    name: 富川悠太アナ
   video:
     url: https://www.youtube.com/watch?v=uvg3I_IR9FA
     start: 4.8
@@ -50,7 +50,7 @@ aoba-zoi:
   sourceNote: 62
   resource:
     work: NEW GAME!
-    name: 今日も一日頑張るぞい
+    name: 「今日も一日頑張るぞい」
   video:
     url: https://www.youtube.com/watch?v=DmZo4rL2E7E
     start: 18.9
@@ -88,7 +88,7 @@ ai-virus:
   sourceNote: 53
   resource:
     work: A.I.Channel
-    name: ブラックアイちゃんのウイルス感染音
+    name: ブラックアイちゃん感染音
   video:
     url: https://www.youtube.com/watch?v=4v3F3luBMEM
     start: 30.5
@@ -170,7 +170,7 @@ deremasu-suimasen:
   prank: true
   resource:
     work: アニメ「アイドルマスターシンデレラガールズ」
-    name: ｽｲﾏｾｰﾝ、そろそろ概要のほうお願いしますゥ＾～↑
+    name: 「ｽｲﾏｾｰﾝ、そろそろ概要のほうお願いしますゥ＾～↑」
   video:
     url: https://www.youtube.com/watch?v=7m7Wt75-js0
     start: 4

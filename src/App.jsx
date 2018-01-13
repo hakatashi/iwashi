@@ -196,6 +196,8 @@ module.exports = class App extends React.Component {
 								<VoiceSelect
 									top={this.state.voiceSelectTop}
 									left={this.state.voiceSelectLeft}
+									type={this.song.tracks[this.state.voiceSelect].type}
+									sound={this.song.tracks[this.state.voiceSelect].default.sound}
 								/>
 							</React.Fragment>
 						)}
