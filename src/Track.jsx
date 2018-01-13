@@ -1,4 +1,3 @@
-const qs = require('querystring');
 const React = require('react');
 const {default: Player} = require('react-player');
 const {Howl} = require('howler');
@@ -11,6 +10,7 @@ const invoke = require('lodash/invoke');
 const soundData = require('../sound/data.yml');
 const {TICK} = require('./const.js');
 const {getSoundUrls, Deferred} = require('./util.js');
+const params = require('./params.js');
 const VolumeControls = require('./VolumeControls.jsx');
 
 import './Track.pcss';
@@ -32,6 +32,7 @@ module.exports = class Track extends React.Component {
 		onFlash: PropTypes.func.isRequired,
 		onChangeSolo: PropTypes.func.isRequired,
 		isReady: PropTypes.bool.isRequired,
+		isPaused: PropTypes.bool.isRequired,
 		isNoVideo: PropTypes.bool.isRequired,
 		isNotSolo: PropTypes.bool.isRequired,
 	}
@@ -86,8 +87,7 @@ module.exports = class Track extends React.Component {
 		this.currentVelocity;
 		this.isError = false;
 
-		const query = qs.parse(location.search.slice(1));
-		this.isDebug = Boolean(query.debug);
+		this.isDebug = Boolean(params.debug);
 
 		Promise.all([
 			...(this.isDebug ? [] : [this.videoLoadDefer.promise]),
@@ -95,6 +95,9 @@ module.exports = class Track extends React.Component {
 		]).then(() => {
 			this.props.onChangeStatus(this.props.name, 'ready');
 		});
+
+		this.isSoundPaused = new WeakMap();
+		this.isVideoPaused = false;
 	}
 
 	componentWillReceiveProps(nextProps) {
@@ -108,6 +111,14 @@ module.exports = class Track extends React.Component {
 
 		if (this.props.isNotSolo === false && nextProps.isNotSolo === true && this.state.isSolo === true) {
 			this.setState({isSolo: false});
+		}
+
+		if (this.props.isPaused === false && nextProps.isPaused === true) {
+			this.handlePause();
+		}
+
+		if (this.props.isPaused === true && nextProps.isPaused === false) {
+			this.handleUnpause();
 		}
 	}
 
@@ -260,8 +271,38 @@ module.exports = class Track extends React.Component {
 		}
 	}
 
+	handlePause = () => {
+		for (const sound of this.sounds) {
+			if (sound.playing()) {
+				sound.pause();
+				this.isSoundPaused.set(sound, true);
+			} else {
+				this.isSoundPaused.set(sound, false);
+			}
+		}
+
+		if (this.state.isPlaying) {
+			this.isVideoPaused = true;
+			this.setState({isPlaying: false});
+		} else {
+			this.isVideoPaused = false;
+		}
+	}
+
+	handleUnpause = () => {
+		for (const sound of this.sounds) {
+			if (this.isSoundPaused.get(sound)) {
+				sound.play();
+			}
+		}
+
+		if (this.isVideoPaused) {
+			this.setState({isPlaying: true});
+		}
+	}
+
 	getVolume = () => {
-		if (this.state.isMuted || this.props.isNotSolo || this.isError) {
+		if (this.state.isMuted || this.props.isNotSolo || this.isError || this.props.isPaused) {
 			return 0;
 		}
 

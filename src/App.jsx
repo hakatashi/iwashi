@@ -9,12 +9,13 @@ const Pause = require('react-icons/lib/fa/pause');
 const StepBackward = require('react-icons/lib/fa/step-backward');
 const StepForward = require('react-icons/lib/fa/step-forward');
 
-const Track = require('./Track.jsx');
-const Loading = require('./Loading.jsx');
 const {TICK} = require('./const.js');
 const VocalManager = require('./VocalManager.js');
 const {getResourceUrl, wait} = require('./util.js');
 const songs = require('../songs/index.js');
+const params = require('./params.js');
+const Track = require('./Track.jsx');
+const Loading = require('./Loading.jsx');
 const VolumeControls = require('./VolumeControls.jsx');
 
 import './App.pcss';
@@ -82,11 +83,15 @@ module.exports = class App extends React.Component {
 			const vocalManager = await this.vocalManagerPromise;
 			this.vocalManager = vocalManager;
 
-			await wait(1000);
+			if (!params.debug) {
+				await wait(1000);
+			}
 			this.setState({isReady: true});
 
-			await wait(3000);
-			setInterval(this.handleBeat, TICK * 1000);
+			if (!params.debug) {
+				await wait(3000);
+			}
+			this.handleBeatInterval = setInterval(this.handleBeat, TICK * 1000);
 		}
 	}
 
@@ -119,9 +124,15 @@ module.exports = class App extends React.Component {
 	}
 
 	handleClickPause = () => {
-		this.setState({
-			isPaused: !this.state.isPaused,
-		});
+		if (this.state.isPaused) {
+			this.handleBeatInterval = setInterval(this.handleBeat, TICK * 1000);
+			this.vocalManager.unpause();
+			this.setState({isPaused: false});
+		} else {
+			clearTimeout(this.handleBeatInterval);
+			this.vocalManager.pause();
+			this.setState({isPaused: true});
+		}
 	}
 
 	render() {
@@ -145,6 +156,7 @@ module.exports = class App extends React.Component {
 								onFlash={this.handleFlash}
 								onChangeSolo={this.handleChangeSolo}
 								isReady={this.state.isReady}
+								isPaused={this.state.isPaused}
 								isNoVideo={this.state.isNoVideo}
 								isNotSolo={this.state.soloScore !== null && this.state.soloScore !== name}
 							/>
@@ -153,7 +165,10 @@ module.exports = class App extends React.Component {
 					<div styleName="lyric">
 						<div styleName="character">
 							<img
-								styleName={classNames('character-image', {animating: this.state.isCharacterAnimating})}
+								styleName={classNames('character-image', {
+									animating: this.state.isCharacterAnimating,
+									paused: this.state.isPaused,
+								})}
 								src={getResourceUrl('sound/vocal/yufu/character.png')}
 							/>
 							<div styleName="change">
