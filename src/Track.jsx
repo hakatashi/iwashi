@@ -31,6 +31,7 @@ module.exports = class Track extends React.Component {
 		onChangeStatus: PropTypes.func.isRequired,
 		onFlash: PropTypes.func.isRequired,
 		onChangeSolo: PropTypes.func.isRequired,
+		isReady: PropTypes.bool.isRequired,
 		isNoVideo: PropTypes.bool.isRequired,
 		isNotSolo: PropTypes.bool.isRequired,
 	}
@@ -101,10 +102,12 @@ module.exports = class Track extends React.Component {
 			this.handleBeat(nextProps.beat);
 		}
 
+		if (this.props.isReady === false && nextProps.isReady === true) {
+			this.setState({isShown: false});
+		}
+
 		if (this.props.isNotSolo === false && nextProps.isNotSolo === true && this.state.isSolo === true) {
-			this.setState({
-				isSolo: false,
-			});
+			this.setState({isSolo: false});
 		}
 	}
 
@@ -359,7 +362,7 @@ module.exports = class Track extends React.Component {
 							}}
 							width={320}
 							height={180}
-							playing={this.state.isPlaying && !this.props.isNoVideo}
+							playing={this.state.isPlaying && (!this.props.isNoVideo || !this.props.isReady)}
 							controls
 							muted
 							loop

@@ -36,3 +36,11 @@ module.exports.Deferred = class Deferred {
 		this.isReject = true;
 	}
 };
+
+module.exports.wait = (time) => (
+	new Promise((resolve) => {
+		setTimeout(() => {
+			resolve();
+		}, time);
+	})
+);

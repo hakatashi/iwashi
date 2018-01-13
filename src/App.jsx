@@ -13,7 +13,7 @@ const Track = require('./Track.jsx');
 const Loading = require('./Loading.jsx');
 const {TICK} = require('./const.js');
 const VoiceManager = require('./VoiceManager.js');
-const {getResourceUrl} = require('./util.js');
+const {getResourceUrl, wait} = require('./util.js');
 const songs = require('../songs/index.js');
 const VolumeControls = require('./VolumeControls.jsx');
 
@@ -56,15 +56,18 @@ module.exports = class App extends React.Component {
 		}
 	}
 
-	handleSoundStatusChanged = (name, status) => {
+	handleSoundStatusChanged = async (name, status) => {
 		this.setState({trackStatuses: this.state.trackStatuses.set(name, status)});
 
 		if (Array.from(this.state.trackStatuses.values()).every((s) => s === 'ready')) {
-			this.voiceManagerPromise.then((voiceManager) => {
-				this.voiceManager = voiceManager;
-				this.setState({isReady: true});
-				setInterval(this.handleBeat, TICK * 1000);
-			});
+			const voiceManager = await this.voiceManagerPromise;
+			this.voiceManager = voiceManager;
+
+			await wait(1000);
+			this.setState({isReady: true});
+
+			await wait(3000);
+			setInterval(this.handleBeat, TICK * 1000);
 		}
 	}
 
@@ -79,9 +82,7 @@ module.exports = class App extends React.Component {
 			}, resolve);
 		});
 
-		await new Promise((resolve) => {
-			setTimeout(resolve, 0);
-		});
+		await wait(0);
 
 		this.setState({
 			isFlashing: true,
@@ -109,9 +110,9 @@ module.exports = class App extends React.Component {
 			<div styleName={classNames('app', {flash: this.state.isFlashing})}>
 				<Loading
 					titleComponents={this.song.titleComponents}
-					artist={this.song.artist}
 					statuses={this.tracks.map(([name]) => this.state.trackStatuses.get(name))}
 					name="iwashi"
+					vanishing={this.state.isReady}
 				/>
 				<div styleName="main">
 					<div styleName="tracks">
@@ -124,7 +125,8 @@ module.exports = class App extends React.Component {
 								onChangeStatus={this.handleSoundStatusChanged}
 								onFlash={this.handleFlash}
 								onChangeSolo={this.handleChangeSolo}
-								isNoVideo={this.state.isReady && this.state.isNoVideo}
+								isReady={this.state.isReady}
+								isNoVideo={this.state.isNoVideo}
 								isNotSolo={this.state.soloScore !== null && this.state.soloScore !== name}
 							/>
 						))}

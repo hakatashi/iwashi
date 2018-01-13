@@ -10,6 +10,13 @@
 	text-align: center;
 	
 	z-index: 1;
+	opacity: 1;
+	transition: opacity 2s linear;
+	
+	&.vanishing {
+		opacity: 0;
+		pointer-events: none;
+	}
 }
 
 .inner {
