@@ -10,9 +10,10 @@ const StepBackward = require('react-icons/lib/fa/step-backward');
 const StepForward = require('react-icons/lib/fa/step-forward');
 
 const Track = require('./Track.jsx');
+const Loading = require('./Loading.jsx');
 const {TICK} = require('./const.js');
-const VoiceManager = require('./VoiceManager.js');
-const {getResourceUrl} = require('./util.js');
+const VocalManager = require('./VocalManager.js');
+const {getResourceUrl, wait} = require('./util.js');
 const songs = require('../songs/index.js');
 const VolumeControls = require('./VolumeControls.jsx');
 
@@ -22,283 +23,28 @@ module.exports = class App extends React.Component {
 	constructor() {
 		super();
 
+		this.song = songs.iwashi;
+
+		this.vocalManagerPromise = VocalManager.initialize(this.song.vocals, this.song.defaultVocal);
+		this.tracks = shuffle(Object.entries(this.song.tracks));
+
 		this.state = {
 			beat: null,
 			lyric: '',
 			soloScore: null,
+			trackStatuses: new Map(this.tracks.map(([name]) => [name, 'loading'])),
 			isFlashing: false,
 			isNoVideo: true,
 			isReady: false,
 			isPaused: false,
 		};
-
-		this.readySounds = new Set();
-
-		this.voiceManagerPromise = VoiceManager.initialize([
-			{
-				source: 'vocal/yufu/01',
-				start: 122,
-				end: 370,
-			},
-			{
-				source: 'vocal/yufu/02',
-				start: 370,
-				end: 626,
-			},
-			{
-				source: 'vocal/yufu/03',
-				start: 626,
-				end: 882,
-			},
-			{
-				source: 'vocal/yufu/04',
-				start: 882,
-				end: 1104,
-			},
-			{
-				source: 'vocal/yufu/05',
-				start: 1106,
-				end: 1408,
-			},
-			{
-				source: 'vocal/yufu/06',
-				start: 1410,
-				end: 1504,
-			},
-			{
-				source: 'vocal/yufu/07',
-				start: 1530,
-				end: 1786,
-			},
-			{
-				source: 'vocal/yufu/02',
-				start: 1778,
-				end: 2034,
-			},
-			{
-				source: 'vocal/yufu/03',
-				start: 2034,
-				end: 2290,
-			},
-			{
-				source: 'vocal/yufu/02',
-				start: 2290,
-				end: 2546,
-			},
-			{
-				source: 'vocal/yufu/03',
-				start: 2546,
-				end: 2802,
-			},
-			{
-				source: 'vocal/yufu/08',
-				start: 2802,
-				end: 2930,
-			},
-		]);
-
-		const tracks = [
-			{
-				type: 'percussion',
-				src: 'kinmoza-clap',
-				url: 'https://www.youtube.com/watch?v=STcc8H4Vr_g',
-				score: 'clap',
-				videoStart: 5.4,
-				videoDuration: 3,
-				volume: 1,
-			},
-			{
-				type: 'percussion',
-				src: 'karateka-kick',
-				url: 'https://www.youtube.com/watch?v=Cg6dlPZt-1g',
-				score: 'snare',
-				videoStart: 32,
-				videoDuration: 0.3,
-				volume: 0.5,
-			},
-			{
-				type: 'percussion',
-				src: 'killme-pyonsuke',
-				url: 'https://www.youtube.com/watch?v=vXBO_W5l6uY',
-				score: 'bass',
-				videoStart: 247.7,
-				videoDuration: 0.5,
-				volume: 1,
-			},
-			{
-				type: 'percussion',
-				src: 'ippon-crisp',
-				url: 'https://www.youtube.com/watch?v=2rc8CmeKinc',
-				score: 'closed-hihat',
-				videoStart: 23.7,
-				videoDuration: 1,
-				volume: 0.5,
-			},
-			{
-				type: 'instrument',
-				src: 'atsumori',
-				url: 'https://www.youtube.com/watch?v=uvg3I_IR9FA',
-				score: 'base',
-				videoStart: 4.8,
-				videoDuration: 0.5,
-				volume: 0.3,
-				sourceNote: 22,
-				prank: true,
-			},
-			{
-				type: 'chord',
-				src: 'aoba-zoi',
-				url: 'https://www.youtube.com/watch?v=DmZo4rL2E7E',
-				score: 'chord',
-				videoStart: 18.9,
-				videoDuration: 2,
-				volume: 0.2,
-				sourceNote: 62,
-			},
-			{
-				type: 'percussion',
-				src: 'zen-glass',
-				url: 'https://www.youtube.com/watch?v=M_1UZlPBYzM',
-				score: 'cowbell',
-				videoStart: 24.5,
-				videoDuration: 0.5,
-				volume: 1,
-			},
-			{
-				type: 'percussion',
-				src: 'minecraft-blaze',
-				url: 'https://www.youtube.com/watch?v=tKt0oImbQ_Y',
-				score: 'chime1',
-				videoStart: 500.5,
-				videoDuration: 1,
-				volume: 0.5,
-			},
-			{
-				type: 'percussion',
-				src: 'fireball-ring',
-				url: 'https://www.youtube.com/watch?v=6CQymHcBwWQ',
-				score: 'chime2',
-				videoStart: 477.5,
-				videoDuration: 3,
-				volume: 0.5,
-			},
-			{
-				type: 'instrument',
-				src: 'ai-virus',
-				url: 'https://www.youtube.com/watch?v=4v3F3luBMEM',
-				score: 'chorus1',
-				videoStart: 30.5,
-				videoDuration: 3,
-				volume: 0.2,
-				sourceNote: 53,
-			},
-			{
-				type: 'instrument',
-				src: 'inazuma-pan',
-				url: 'https://www.youtube.com/watch?v=l3JuhAwx5aY',
-				score: 'chorus2',
-				videoStart: 18,
-				videoDuration: 1,
-				volume: 0.4,
-				sourceNote: 64,
-			},
-			{
-				type: 'percussion',
-				src: 'killme-cymbal',
-				url: 'https://www.youtube.com/watch?v=Vv-SCTaw07w',
-				score: 'cymbal',
-				videoStart: 36.2,
-				videoDuration: 5,
-				volume: 0.2,
-			},
-			{
-				type: 'instrument',
-				src: 'oreo-oh',
-				url: 'https://www.youtube.com/watch?v=lnpXXafCzj8',
-				score: 'chorus3',
-				videoStart: 10.7,
-				videoDuration: 1,
-				volume: 0.3,
-				sourceNote: 62,
-			},
-			{
-				type: 'instrument',
-				src: 'zkai-eh',
-				url: 'https://www.youtube.com/watch?v=e9ohRtZcOuo',
-				score: 'chorus4',
-				videoStart: 38.3,
-				videoDuration: 1,
-				volume: 0.4,
-				sourceNote: 66,
-			},
-			{
-				type: 'instrument',
-				src: 'washing-aegi',
-				url: 'https://www.youtube.com/watch?v=w5xP4zHSQYI',
-				score: 'synth1',
-				videoStart: 10,
-				videoDuration: 1,
-				volume: 0.3,
-				sourceNote: 69,
-				prank: true,
-			},
-			{
-				type: 'instrument',
-				src: 'kemofure-toki',
-				url: 'https://www.youtube.com/watch?v=xOE6qlXqw7s',
-				score: 'synth2',
-				videoStart: 24,
-				videoDuration: 1,
-				volume: 0.2,
-				sourceNote: 97,
-				prank: true,
-			},
-			{
-				type: 'instrument',
-				src: 'chargeman-hai',
-				url: 'https://www.youtube.com/watch?v=Ih9uYOlrPpQ',
-				score: 'chorus5',
-				videoStart: 179,
-				videoDuration: 1,
-				volume: 0.25,
-				sourceNote: 59,
-				prank: true,
-			},
-			{
-				type: 'instrument',
-				src: 'deremasu-suimasen',
-				url: 'https://www.youtube.com/watch?v=7m7Wt75-js0',
-				score: 'chorus6',
-				videoStart: 4,
-				videoDuration: 1,
-				volume: 0.4,
-				sourceNote: 56,
-				prank: true,
-			},
-			{
-				type: 'rap',
-				src: 'bemybaby-intro',
-				url: 'https://www.youtube.com/watch?v=jGWFDZ33UCU',
-				videoStart: 5.3,
-				videoDuration: 30,
-				volume: 0.01,
-				sourceRate: 1,
-				rapSpeed: 127,
-				rapFrom: 2304,
-				rapTo: 2816,
-				rapDuration: 4,
-			},
-		];
-
-		this.tracks = shuffle(tracks);
-		this.song = songs.iwashi;
 	}
 
 	handleBeat = () => {
 		this.setState({beat: this.state.beat === null ? TICK * 0 : this.state.beat + TICK});
 
 		const beat = Math.floor(this.state.beat / TICK) % 2944;
-		this.voiceManager.handleBeat(beat);
+		this.vocalManager.handleBeat(beat);
 
 		const lyric = this.song.lyrics.find(({start, end}) => start <= beat && beat < end);
 		if (!lyric && this.state.lyric !== '') {
@@ -310,14 +56,18 @@ module.exports = class App extends React.Component {
 		}
 	}
 
-	handleSoundReady = (score) => {
-		this.readySounds.add(score);
-		if (this.readySounds.size === this.tracks.length) {
-			this.voiceManagerPromise.then((voiceManager) => {
-				this.voiceManager = voiceManager;
-				this.setState({isReady: true});
-				setInterval(this.handleBeat, TICK * 1000);
-			});
+	handleSoundStatusChanged = async (name, status) => {
+		this.setState({trackStatuses: this.state.trackStatuses.set(name, status)});
+
+		if (Array.from(this.state.trackStatuses.values()).every((s) => s === 'ready')) {
+			const vocalManager = await this.vocalManagerPromise;
+			this.vocalManager = vocalManager;
+
+			await wait(1000);
+			this.setState({isReady: true});
+
+			await wait(3000);
+			setInterval(this.handleBeat, TICK * 1000);
 		}
 	}
 
@@ -332,9 +82,7 @@ module.exports = class App extends React.Component {
 			}, resolve);
 		});
 
-		await new Promise((resolve) => {
-			setTimeout(resolve, 0);
-		});
+		await wait(0);
 
 		this.setState({
 			isFlashing: true,
@@ -360,33 +108,26 @@ module.exports = class App extends React.Component {
 	render() {
 		return (
 			<div styleName={classNames('app', {flash: this.state.isFlashing})}>
+				<Loading
+					titleComponents={this.song.titleComponents}
+					statuses={this.tracks.map(([name]) => this.state.trackStatuses.get(name))}
+					name="iwashi"
+					vanishing={this.state.isReady}
+				/>
 				<div styleName="main">
 					<div styleName="tracks">
-						{this.tracks.map((track) => (
+						{this.tracks.map(([name, track]) => (
 							<Track
-								key={track.src}
-								src={track.src}
-								url={track.url}
-								score={track.type === 'rap' ? 'rap' : track.score}
-								videoStart={track.videoStart}
-								videoDuration={track.videoDuration}
+								key={name}
+								name={name}
+								{...track}
 								beat={this.state.beat}
-								volume={track.volume}
-								sourceNote={track.sourceNote}
-								sourceRate={track.sourceRate}
-								rapSpeed={track.rapSpeed}
-								rapFrom={track.rapFrom}
-								rapTo={track.rapTo}
-								rapDuration={track.rapDuration}
-								onReady={this.handleSoundReady}
+								onChangeStatus={this.handleSoundStatusChanged}
 								onFlash={this.handleFlash}
 								onChangeSolo={this.handleChangeSolo}
-								isNoVideo={this.state.isReady && this.state.isNoVideo}
-								isPrank={Boolean(track.isPrank)}
-								isPercussion={track.type === 'percussion'}
-								isChord={track.type === 'chord'}
-								isRap={track.type === 'rap'}
-								isNotSolo={this.state.soloScore !== null && this.state.soloScore !== (track.type === 'rap' ? 'rap' : track.score)}
+								isReady={this.state.isReady}
+								isNoVideo={this.state.isNoVideo}
+								isNotSolo={this.state.soloScore !== null && this.state.soloScore !== name}
 							/>
 						))}
 					</div>

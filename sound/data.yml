@@ -1,0 +1,190 @@
+kinmoza-clap:
+  type: percussion
+  resource:
+    work: きんいろモザイク
+    name: 山手線ゲーム
+  video:
+    url: https://www.youtube.com/watch?v=STcc8H4Vr_g
+    start: 5.4
+    duration: 3
+karateka-kick:
+  type: percussion
+  resource:
+    work: リズム天国
+    name: カラテ家のキック
+  video:
+    url: https://www.youtube.com/watch?v=Cg6dlPZt-1g
+    start: 32
+    duration: 0.3
+killme-pyonsuke:
+  type: percussion
+  resource:
+    work: キルミーベイベー
+    name: ピョン助に無慈悲な一撃
+  video:
+    url: https://www.youtube.com/watch?v=vXBO_W5l6uY
+    start: 247.7
+    duration: 0.5
+ippon-crisp:
+  type: percussion
+  resource:
+    work: 一本満足バー
+    name: カリッ
+  video:
+    url: https://www.youtube.com/watch?v=2rc8CmeKinc
+    start: 23.7
+    duration: 1
+atsumori:
+  type: instrument
+  sourceNote: 22
+  prank: true
+  resource:
+    work: 富川悠太アナ
+    name: 失礼しました。「あ」つ盛と出てしまいました
+  video:
+    url: https://www.youtube.com/watch?v=uvg3I_IR9FA
+    start: 4.8
+    duration: 0.5
+aoba-zoi:
+  type: instrument
+  sourceNote: 62
+  resource:
+    work: NEW GAME!
+    name: 今日も一日頑張るぞい
+  video:
+    url: https://www.youtube.com/watch?v=DmZo4rL2E7E
+    start: 18.9
+    duration: 2
+zen-glass:
+  type: percussion
+  resource:
+    work: 膳
+    name: グラスを置く音
+  video:
+    url: https://www.youtube.com/watch?v=M_1UZlPBYzM
+    start: 24.5
+    duration: 0.5
+  volume: 1
+minecraft-blaze:
+  type: percussion
+  resource:
+    work: マインクラフト
+    name: ブレイズ打撃音
+  video:
+    url: https://www.youtube.com/watch?v=tKt0oImbQ_Y
+    start: 500.5
+    duration: 1
+fireball-ring:
+  type: percussion
+  resource:
+    work: ファイアボール
+    name: ドロッセルお嬢様が床下よりご登場あそばされる時の音
+  video:
+    url: https://www.youtube.com/watch?v=6CQymHcBwWQ
+    start: 477.5
+    duration: 3
+ai-virus:
+  type: instrument
+  sourceNote: 53
+  resource:
+    work: A.I.Channel
+    name: ブラックアイちゃんのウイルス感染音
+  video:
+    url: https://www.youtube.com/watch?v=4v3F3luBMEM
+    start: 30.5
+    duration: 3
+inazuma-pan:
+  type: instrument
+  sourceNote: 64
+  resource:
+    work: アニメ艦これ
+    name: 電の「ぱんぱかぱーん」
+  video:
+    url: https://www.youtube.com/watch?v=l3JuhAwx5aY
+    start: 18
+    duration: 1
+killme-cymbal:
+  type: percussion
+  resource:
+    work: キルミーベイベー
+    name: シンバル
+  video:
+    url: https://www.youtube.com/watch?v=Vv-SCTaw07w
+    start: 36.2
+    duration: 5
+oreo-oh:
+  type: instrument
+  sourceNote: 62
+  resource:
+    work: ナビスコCM
+    name: オレオ
+  video:
+    url: https://www.youtube.com/watch?v=lnpXXafCzj8
+    start: 10.5
+    duration: 1
+zkai-eh:
+  type: instrument
+  sourceNote: 66
+  resource:
+    work: Z会CM
+    name: 亀井有馬
+  video:
+    url: https://www.youtube.com/watch?v=e9ohRtZcOuo
+    start: 38.3
+    duration: 1
+washing-aegi:
+  type: instrument
+  sourceNote: 69
+  prank: true
+  resource:
+    work: エロい洗濯機
+    name: 喘ぎ声
+  video:
+    url: https://www.youtube.com/watch?v=w5xP4zHSQYI
+    start: 10
+    duration: 1
+kemofure-toki:
+  type: instrument
+  sourceNote: 97
+  resource:
+    work: けものフレンズ
+    name: トキの歌声
+  video:
+    url: https://www.youtube.com/watch?v=xOE6qlXqw7s
+    start: 24
+    duration: 1
+chargeman-hai:
+  type: instrument
+  sourceNote: 59
+  prank: true
+  resource:
+    work: チャージマン研！
+    name: No.12
+  video:
+    url: https://www.youtube.com/watch?v=Ih9uYOlrPpQ
+    start: 179
+    duration: 1
+deremasu-suimasen:
+  type: instrument
+  sourceNote: 56
+  prank: true
+  resource:
+    work: アニメ「アイドルマスターシンデレラガールズ」
+    name: ｽｲﾏｾｰﾝ、そろそろ概要のほうお願いしますゥ＾～↑
+  video:
+    url: https://www.youtube.com/watch?v=7m7Wt75-js0
+    start: 4
+    duration: 1
+bemybaby-intro:
+  type: rap
+  src: bemybaby-intro
+  tempo: 127
+  duration: 4
+  resource:
+    work: BE MY BABY
+    name: イントロ
+  video:
+    url: https://www.youtube.com/watch?v=jGWFDZ33UCU
+    start: 5.3
+    duration: 30
+    rate: 1

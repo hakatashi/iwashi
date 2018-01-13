@@ -1,0 +1,62 @@
+.loading {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	
+	background: rgba(0, 0, 0, 0.95);
+	color: white;
+	text-align: center;
+	
+	z-index: 1;
+	opacity: 1;
+	transition: opacity 2s linear;
+	
+	&.vanishing {
+		opacity: 0;
+		pointer-events: none;
+	}
+}
+
+.inner {
+	position: absolute;
+	top: 50%;
+	transform: translateY(-50%);
+	width: 100%;
+}
+
+.progress-area {
+	margin-bottom: 32px;
+	
+	height: 128px;
+	max-height: 30vmin;
+}
+
+.icon {
+	height: 100%;
+}
+
+.progress {
+	height: 100%;
+	width: 200px;
+}
+
+.progress-unit {
+	transition: fill 0.3s;
+}
+
+.title {
+	font-size: 8vmin;
+	white-space: pre;
+	margin-bottom: 10px;
+}
+
+.artist {
+	font-size: 3vmin;
+}
+
+.loading-text {
+	font-size: 3vmin;
+	margin-top: 6vmin;
+}

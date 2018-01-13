@@ -38,6 +38,25 @@ const compileLyrics = (lyricText, resolution) => {
 };
 
 for (const [id, song] of Object.entries({iwashi})) {
-	song.lyrics = compileLyrics(song.lyrics, song.resolution);
-	module.exports[id] = song;
+	module.exports[id] = {
+		...song,
+		lyrics: compileLyrics(song.lyrics, song.resolution),
+		vocals: Object.assign(...Object.entries(song.vocals).map(([name, vocals]) => ({
+			[name]: vocals.map((vocal) => ({
+				...vocal,
+				start: parseTime(vocal.start, song.resolution),
+				end: parseTime(vocal.end, song.resolution),
+			})),
+		}))),
+		tracks: Object.assign(...Object.entries(song.tracks).map(([name, track]) => ({
+			[name]: {
+				...track,
+				...(track.start ? {start: parseTime(track.start, song.resolution)} : {}),
+				...(track.end ? {end: parseTime(track.end, song.resolution)} : {}),
+			},
+		}))),
+		clearances: song.clearances.map((clearance) => (
+			parseTime(clearance, song.resolution)
+		)),
+	};
 }

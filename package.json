@@ -10,6 +10,7 @@
     "babel-loader": "^7.1.2",
     "babel-plugin-react-css-modules": "^3.3.2",
     "babel-plugin-transform-class-properties": "^6.24.1",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "babel-polyfill": "^6.26.0",
     "babel-preset-env": "^1.6.1",
     "babel-preset-react": "^6.24.1",
@@ -42,6 +43,9 @@
   "napa": {
     "misaki-font": "http://www.geocities.jp/littlimi/arc/misaki/misaki_ttf_2015-04-10.zip"
   },
+  "bundledDependencies": [
+    "misaki-font"
+  ],
   "scripts": {
     "install": "napa",
     "test": "echo \"Error: no test specified\" && exit 1",
