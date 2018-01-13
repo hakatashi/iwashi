@@ -1,0 +1,88 @@
+.voice-select {
+	position: absolute;
+}
+
+.content {
+	position: absolute;
+	
+	background: white;
+	width: 300px;
+	height: 360px;
+	
+	border-radius: 5px;
+	
+	padding: 10px;
+	
+	display: flex;
+	flex-direction: column;
+	
+	$triangle-size: 5px;
+	
+	&::before {
+		content: '';
+		position: absolute;
+	}
+	
+	.top & {
+		bottom: 20px;
+		right: -30px;
+		
+		&::before {
+			border-right: $triangle-size solid transparent;
+			border-left: $triangle-size solid transparent;
+			border-top: $triangle-size solid white;
+			
+			top: 100%;
+			right: calc(30px - $triangle-size);
+		}
+	}
+	
+	.bottom & {
+		top: 20px;
+		right: -30px;
+		
+		&::before {
+			border-right: $triangle-size solid transparent;
+			border-left: $triangle-size solid transparent;
+			border-bottom: $triangle-size solid white;
+			
+			bottom: 100%;
+			right: calc(30px - $triangle-size);
+		}
+	}
+}
+
+.preview {
+	padding: 5px;
+	display: flex;
+	justify-content: center;
+}
+
+.sounds {
+	flex: 1 0 0;
+	overflow-y: auto;
+	
+	.active {
+		background: #D4ECFF;
+	}
+}
+
+.sound {
+	display: flex;
+	align-items: center;
+	padding: 4px 0;
+	cursor: pointer;
+	
+	border-top: 1px solid #DEE2E6;
+}
+
+.thumbnail {
+	max-width: 48px;
+	max-height: 48px;
+	margin-right: 8px;
+}
+
+.description {
+	font-family: sans-serif;
+	font-size: 12px;
+}

@@ -1,19 +1,15 @@
-module.exports.getSoundUrls = (id) => (
-	process.env.NODE_ENV === 'production' ? [
-		`https://media.githubusercontent.com/media/hakatashi/iwashi/gh-pages/sound/${id}.ogg`,
-		`https://media.githubusercontent.com/media/hakatashi/iwashi/gh-pages/sound/${id}.wav`,
-	] : [
-		`sound/${id}.ogg`,
-		`sound/${id}.wav`,
-	]
-);
-
-module.exports.getResourceUrl = (path) => (
+const getResourceUrl = (path) => (
 	process.env.NODE_ENV === 'production'
 		? `https://media.githubusercontent.com/media/hakatashi/iwashi/gh-pages/${path}`
 		: path
-
 );
+
+module.exports.getResourceUrl = getResourceUrl;
+
+module.exports.getSoundUrls = (id) => [
+	getResourceUrl(`sound/${id}.ogg`),
+	getResourceUrl(`sound/${id}.wav`),
+];
 
 module.exports.Deferred = class Deferred {
 	constructor() {

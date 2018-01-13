@@ -21,6 +21,7 @@ const VoiceManager = class VoiceManager {
 		this.vocalName = initialVocal;
 		this.onReady = onReady;
 		this.vocalSounds = new Map();
+		this.isSoundPaused = new WeakMap();
 
 		// Load first vocal and call onReady after loading
 		this.isReady = false;
@@ -72,6 +73,25 @@ const VoiceManager = class VoiceManager {
 						vocalSound.seek(beat * TICK - start * TICK);
 					}
 				}
+			}
+		}
+	}
+
+	pause() {
+		for (const vocalSound of this.vocalSounds.values()) {
+			if (vocalSound.playing()) {
+				vocalSound.pause();
+				this.isSoundPaused.set(vocalSound, true);
+			} else {
+				this.isSoundPaused.set(vocalSound, false);
+			}
+		}
+	}
+
+	unpause() {
+		for (const vocalSound of this.vocalSounds.values()) {
+			if (this.isSoundPaused.get(vocalSound)) {
+				vocalSound.play();
 			}
 		}
 	}

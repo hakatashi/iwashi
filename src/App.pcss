@@ -53,14 +53,36 @@ body {
 	position: relative;
 }
 
-.tracks {
+.tracks-container {
 	height: 100%;
-	display: flex;
-	padding-bottom: 80px;
-	box-sizing: border-box;
+	position: relative;
 	overflow-y: auto;
+}
+
+.tracks {
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: 0;
+	
+	display: flex;
 	flex-wrap: wrap;
 	justify-content: center;
+	
+	padding-bottom: 80px;
+	box-sizing: border-box;
+}
+
+.backdrop {
+	position: sticky;
+	left: 0;
+	top: 0;
+
+	width: 100%;
+	height: 100%;
+	
+	background: rgba(0, 0, 0, 0.5);
+	cursor: pointer;
 }
 
 .lyric {
@@ -85,6 +107,35 @@ body {
 .character-image {
 	position: absolute;
 	bottom: 0;
+	
+	$distance: 5px;
+	transform: translateY($distance);
+	
+	&.animating {
+		animation-name: character-image-animation;
+		animation-timing-function: linear;
+		animation-duration: 0.4s;
+
+		@at-root {
+			@keyframes character-image-animation {
+				0% {
+					transform: translateY($distance);
+					animation-timing-function: ease-out;
+				}
+				50% {
+					transform: translateY(0);
+					animation-timing-function: ease-in;
+				}
+				100% {
+					transform: translateY($distance);
+				}
+			}
+		}
+	}
+	
+	&.paused {
+		animation-play-state: paused;
+	}
 }
 
 .lyric-text {
@@ -130,6 +181,7 @@ body {
 	color: white;
 	font-size: 24px;
 	line-height: 40px;
+	z-index: 0;
 }
 
 .playback {

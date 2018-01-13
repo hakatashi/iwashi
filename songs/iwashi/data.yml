@@ -5,7 +5,7 @@ titleComponents:
   - はえてくるんだ
 artist: ころんば
 bpm: 135
-resolution:  32
+resolution: 32
 lyrics: |
   =5.1.0
   なんねん　まえかの　ことでした
@@ -110,12 +110,12 @@ vocals:
       end: 28.3.25
     - source: '04'
       start: 28.3.25
-      end: 35.3.0
+      end: 35.3.25
     - source: '05'
-      start: 35.3.0
-      end: 45.1.0
+      start: 35.3.25
+      end: 45.1.25
     - source: '06'
-      start: 45.1.0
+      start: 45.1.25
       end: 48.1.0
     - source: '07'
       start: 48.4.25
