@@ -362,13 +362,13 @@ module.exports = class Track extends React.Component {
 		this.setState({isSolo});
 		this.props.onChangeSolo(this.props.name, isSolo);
 	}
-	
+
 	handleClickChange = (event) => {
 		if (this.changeNode) {
 			this.props.onClickChange(this.props.name, this.changeNode, event);
 		}
 	}
-	
+
 	handleChangeRef = (node) => {
 		this.changeNode = node;
 	}

@@ -3,8 +3,12 @@
 const React = require('react');
 const PropTypes = require('prop-types');
 const classNames = require('classnames');
+const {default: Player} = require('react-player');
+const {Howl} = require('howler');
+const invoke = require('lodash/invoke');
 
 const soundData = require('../sound/data.yml');
+const {getSoundUrls, wait} = require('./util.js');
 
 import './VoiceSelect.pcss';
 
@@ -21,9 +25,21 @@ module.exports = class VoiceSelect extends React.Component {
 
 		this.direction = this.props.top > 400 ? 'top' : 'bottom';
 
+		this.sound = new Howl({
+			src: getSoundUrls(this.props.sound),
+			volume: 1,
+			loop: this.props.type === 'instrument' || this.props.type === 'chord',
+			preload: true,
+		});
+
 		this.state = {
 			selectedSound: this.props.sound,
+			isPlaying: true,
 		};
+	}
+
+	get soundData() {
+		return soundData[this.state.selectedSound];
 	}
 
 	getThumbnailUrl = (url) => {
@@ -37,6 +53,24 @@ module.exports = class VoiceSelect extends React.Component {
 		return 'https://placehold.it/120x90';
 	}
 
+	handlePlayerReady = () => {
+		invoke(this.player, ['player', 'player', 'setPlaybackQuality'], 'tiny');
+		this.player.seekTo(this.soundData.video.start);
+	}
+
+	handlePlayerStart = () => {
+		this.sound.play();
+
+		// TODO: session
+		wait(this.soundData.video.duration * 1000).then(() => {
+			this.sound.stop();
+			this.setState({isPlaying: false});
+		});
+	}
+
+	handlePlayerError = () => {
+	}
+
 	render() {
 		return (
 			<div
@@ -47,6 +81,30 @@ module.exports = class VoiceSelect extends React.Component {
 				}}
 			>
 				<div styleName="content">
+					<div styleName="preview">
+						<Player
+							ref={(element) => {
+								this.player = element;
+							}}
+							url={this.soundData.video.url}
+							config={{
+								youtube: {
+									playerVars: {
+										start: Math.floor(this.soundData.video.start),
+										end: Math.ceil(this.soundData.video.start + this.soundData.video.duration),
+									},
+								},
+							}}
+							width={256}
+							height={144}
+							playing={this.state.isPlaying}
+							controls
+							muted
+							onReady={this.handlePlayerReady}
+							onStart={this.handlePlayerStart}
+							onError={this.handlePlayerError}
+						/>
+					</div>
 					<div styleName="sounds">
 						{Object.entries(soundData).filter(([name, sound]) => {
 							if (this.props.type === 'percussion') {
