@@ -28,9 +28,10 @@ module.exports = class Track extends React.Component {
 			volume: PropTypes.number.isRequired,
 		}).isRequired,
 		beat: PropTypes.number.isRequired,
-		onChangeStatus: PropTypes.func.isRequired,
 		onFlash: PropTypes.func.isRequired,
 		onChangeSolo: PropTypes.func.isRequired,
+		onChangeStatus: PropTypes.func.isRequired,
+		onClickChange: PropTypes.func.isRequired,
 		isReady: PropTypes.bool.isRequired,
 		isPaused: PropTypes.bool.isRequired,
 		isNoVideo: PropTypes.bool.isRequired,
@@ -361,6 +362,16 @@ module.exports = class Track extends React.Component {
 		this.setState({isSolo});
 		this.props.onChangeSolo(this.props.name, isSolo);
 	}
+	
+	handleClickChange = (event) => {
+		if (this.changeNode) {
+			this.props.onClickChange(this.props.name, this.changeNode, event);
+		}
+	}
+	
+	handleChangeRef = (node) => {
+		this.changeNode = node;
+	}
 
 	render() {
 		return (
@@ -369,7 +380,7 @@ module.exports = class Track extends React.Component {
 			>
 				<div styleName="name">
 					{this.props.name}
-					<div styleName="change">
+					<div styleName="change" onClick={this.handleClickChange} ref={this.handleChangeRef}>
 						<Refresh/> かえる
 					</div>
 				</div>

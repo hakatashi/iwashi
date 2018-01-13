@@ -17,6 +17,7 @@ const params = require('./params.js');
 const Track = require('./Track.jsx');
 const Loading = require('./Loading.jsx');
 const VolumeControls = require('./VolumeControls.jsx');
+const VoiceSelect = require('./VoiceSelect.jsx');
 
 import './App.pcss';
 
@@ -34,12 +35,27 @@ module.exports = class App extends React.Component {
 			lyric: '',
 			soloScore: null,
 			trackStatuses: new Map(this.tracks.map(([name]) => [name, 'loading'])),
+			voiceSelect: false,
+			voiceSelectTop: 0,
+			voiceSelectLeft: 0,
 			isFlashing: false,
 			isNoVideo: true,
 			isReady: false,
 			isPaused: false,
 			isCharacterAnimating: false,
 		};
+	}
+
+	pause = () => {
+		clearTimeout(this.handleBeatInterval);
+		this.vocalManager.pause();
+		this.setState({isPaused: true});
+	}
+
+	unpause = () => {
+		this.handleBeatInterval = setInterval(this.handleBeat, TICK * 1000);
+		this.vocalManager.unpause();
+		this.setState({isPaused: false});
 	}
 
 	handleBeat = () => {
@@ -125,14 +141,24 @@ module.exports = class App extends React.Component {
 
 	handleClickPause = () => {
 		if (this.state.isPaused) {
-			this.handleBeatInterval = setInterval(this.handleBeat, TICK * 1000);
-			this.vocalManager.unpause();
-			this.setState({isPaused: false});
+			this.unpause();
 		} else {
-			clearTimeout(this.handleBeatInterval);
-			this.vocalManager.pause();
-			this.setState({isPaused: true});
+			this.pause();
 		}
+	}
+
+	handleClickChange = (name, target) => {
+		this.setState({
+			voiceSelect: name,
+			voiceSelectTop: target.offsetTop + target.offsetHeight / 2,
+			voiceSelectLeft: target.offsetLeft + target.offsetWidth / 2,
+		});
+		this.pause();
+	}
+
+	handleClickBackdrop = () => {
+		this.setState({voiceSelect: false});
+		this.unpause();
 	}
 
 	render() {
@@ -145,22 +171,34 @@ module.exports = class App extends React.Component {
 					vanishing={this.state.isReady}
 				/>
 				<div styleName="main">
-					<div styleName="tracks">
-						{this.tracks.map(([name, track]) => (
-							<Track
-								key={name}
-								name={name}
-								{...track}
-								beat={this.state.beat}
-								onChangeStatus={this.handleSoundStatusChanged}
-								onFlash={this.handleFlash}
-								onChangeSolo={this.handleChangeSolo}
-								isReady={this.state.isReady}
-								isPaused={this.state.isPaused}
-								isNoVideo={this.state.isNoVideo}
-								isNotSolo={this.state.soloScore !== null && this.state.soloScore !== name}
-							/>
-						))}
+					<div styleName="tracks-container">
+						<div styleName="tracks">
+							{this.tracks.map(([name, track]) => (
+								<Track
+									key={name}
+									name={name}
+									{...track}
+									beat={this.state.beat}
+									onFlash={this.handleFlash}
+									onChangeSolo={this.handleChangeSolo}
+									onChangeStatus={this.handleSoundStatusChanged}
+									onClickChange={this.handleClickChange}
+									isReady={this.state.isReady}
+									isPaused={this.state.isPaused}
+									isNoVideo={this.state.isNoVideo}
+									isNotSolo={this.state.soloScore !== null && this.state.soloScore !== name}
+								/>
+							))}
+						</div>
+						{this.state.voiceSelect && (
+							<React.Fragment>
+								<div styleName="backdrop" onClick={this.handleClickBackdrop}/>
+								<VoiceSelect
+									top={this.state.voiceSelectTop}
+									left={this.state.voiceSelectLeft}
+								/>
+							</React.Fragment>
+						)}
 					</div>
 					<div styleName="lyric">
 						<div styleName="character">
