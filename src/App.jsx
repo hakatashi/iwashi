@@ -23,21 +23,21 @@ module.exports = class App extends React.Component {
 	constructor() {
 		super();
 
+		this.song = songs.iwashi;
+
+		this.voiceManagerPromise = VoiceManager.initialize(this.song.vocals, this.song.defaultVocal);
+		this.tracks = shuffle(Object.entries(this.song.tracks));
+
 		this.state = {
 			beat: null,
 			lyric: '',
 			soloScore: null,
-			readySounds: new Set(),
+			trackStatuses: new Map(this.tracks.map(([name]) => [name, 'loading'])),
 			isFlashing: false,
 			isNoVideo: true,
 			isReady: false,
 			isPaused: false,
 		};
-
-		this.song = songs.iwashi;
-
-		this.voiceManagerPromise = VoiceManager.initialize(this.song.vocals, this.song.defaultVocal);
-		this.tracks = shuffle(Object.entries(this.song.tracks));
 	}
 
 	handleBeat = () => {
@@ -56,11 +56,10 @@ module.exports = class App extends React.Component {
 		}
 	}
 
-	handleSoundReady = (score) => {
-		this.state.readySounds.add(score);
-		this.setState({readySounds: this.state.readySounds});
+	handleSoundStatusChanged = (name, status) => {
+		this.setState({trackStatuses: this.state.trackStatuses.set(name, status)});
 
-		if (this.state.readySounds.size === this.tracks.length) {
+		if (Array.from(this.state.trackStatuses.values()).every((s) => s === 'ready')) {
 			this.voiceManagerPromise.then((voiceManager) => {
 				this.voiceManager = voiceManager;
 				this.setState({isReady: true});
@@ -111,7 +110,7 @@ module.exports = class App extends React.Component {
 				<Loading
 					titleComponents={this.song.titleComponents}
 					artist={this.song.artist}
-					statuses={this.tracks.map(([name]) => this.state.readySounds.has(name) ? 'ready' : 'loading')}
+					statuses={this.tracks.map(([name]) => this.state.trackStatuses.get(name))}
 					name="iwashi"
 				/>
 				<div styleName="main">
@@ -122,7 +121,7 @@ module.exports = class App extends React.Component {
 								name={name}
 								{...track}
 								beat={this.state.beat}
-								onReady={this.handleSoundReady}
+								onChangeStatus={this.handleSoundStatusChanged}
 								onFlash={this.handleFlash}
 								onChangeSolo={this.handleChangeSolo}
 								isNoVideo={this.state.isReady && this.state.isNoVideo}

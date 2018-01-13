@@ -61,12 +61,14 @@ const Loading = (props) => (
 						return (
 							<rect
 								key={index}
-								styleName="progres-unit"
 								x={200 - width}
 								y={0}
 								width={width}
 								height={height}
 								fill={{loading: 'white', seeking: 'yellow', ready: 'red'}[status]}
+								style={{
+									transition: 'fill 0.3s',
+								}}
 								transform={`translate(${-x * (width + margin)}, ${y * (height + margin)})`}
 							/>
 						);
@@ -84,11 +86,15 @@ const Loading = (props) => (
 						return (
 							<rect
 								key={index}
+								transition="fill 0.3s"
 								x={0}
 								y={0}
 								width={width}
 								height={height}
 								fill={{loading: 'white', seeking: 'yellow', ready: 'red'}[status]}
+								style={{
+									transition: 'fill 0.3s',
+								}}
 								transform={`translate(${x * (width + margin)}, ${y * (height + margin)})`}
 							/>
 						);

@@ -6,6 +6,7 @@ const PropTypes = require('prop-types');
 const randomColor = require('randomcolor');
 const classNames = require('classnames');
 const Refresh = require('react-icons/lib/fa/refresh');
+const invoke = require('lodash/invoke');
 
 const soundData = require('../sound/data.yml');
 const {TICK} = require('./const.js');
@@ -27,7 +28,7 @@ module.exports = class Track extends React.Component {
 			volume: PropTypes.number.isRequired,
 		}).isRequired,
 		beat: PropTypes.number.isRequired,
-		onReady: PropTypes.func.isRequired,
+		onChangeStatus: PropTypes.func.isRequired,
 		onFlash: PropTypes.func.isRequired,
 		onChangeSolo: PropTypes.func.isRequired,
 		isNoVideo: PropTypes.bool.isRequired,
@@ -91,7 +92,7 @@ module.exports = class Track extends React.Component {
 			...(this.isDebug ? [] : [this.videoLoadDefer.promise]),
 			this.audioLoadDefer.promise,
 		]).then(() => {
-			this.props.onReady(this.props.name);
+			this.props.onChangeStatus(this.props.name, 'ready');
 		});
 	}
 
@@ -281,8 +282,10 @@ module.exports = class Track extends React.Component {
 	}
 
 	handlePlayerReady = () => {
-		this.player.player && this.player.player.player && this.player.player.player.setPlaybackQuality && this.player.player.player.setPlaybackQuality('tiny');
+		invoke(this.player, ['player', 'player', 'setPlaybackQuality'], 'tiny');
 		this.player.seekTo(this.soundData.video.start);
+
+		this.props.onChangeStatus(this.props.name, 'seeking');
 	}
 
 	handlePlayerStart = () => {
@@ -343,7 +346,7 @@ module.exports = class Track extends React.Component {
 						<Player
 							ref={(element) => {
 								this.player = element;
-								this.player && this.player.player && this.player.player.player && this.player.player.player.setPlaybackQuality && this.player.player.player.setPlaybackQuality('tiny');
+								invoke(this.player, ['player', 'player', 'setPlaybackQuality'], 'tiny');
 							}}
 							url={this.soundData.video.url}
 							config={{
