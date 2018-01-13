@@ -12,7 +12,7 @@ const StepForward = require('react-icons/lib/fa/step-forward');
 const Track = require('./Track.jsx');
 const Loading = require('./Loading.jsx');
 const {TICK} = require('./const.js');
-const VoiceManager = require('./VoiceManager.js');
+const VocalManager = require('./VocalManager.js');
 const {getResourceUrl, wait} = require('./util.js');
 const songs = require('../songs/index.js');
 const VolumeControls = require('./VolumeControls.jsx');
@@ -25,7 +25,7 @@ module.exports = class App extends React.Component {
 
 		this.song = songs.iwashi;
 
-		this.voiceManagerPromise = VoiceManager.initialize(this.song.vocals, this.song.defaultVocal);
+		this.vocalManagerPromise = VocalManager.initialize(this.song.vocals, this.song.defaultVocal);
 		this.tracks = shuffle(Object.entries(this.song.tracks));
 
 		this.state = {
@@ -44,7 +44,7 @@ module.exports = class App extends React.Component {
 		this.setState({beat: this.state.beat === null ? TICK * 0 : this.state.beat + TICK});
 
 		const beat = Math.floor(this.state.beat / TICK) % 2944;
-		this.voiceManager.handleBeat(beat);
+		this.vocalManager.handleBeat(beat);
 
 		const lyric = this.song.lyrics.find(({start, end}) => start <= beat && beat < end);
 		if (!lyric && this.state.lyric !== '') {
@@ -60,8 +60,8 @@ module.exports = class App extends React.Component {
 		this.setState({trackStatuses: this.state.trackStatuses.set(name, status)});
 
 		if (Array.from(this.state.trackStatuses.values()).every((s) => s === 'ready')) {
-			const voiceManager = await this.voiceManagerPromise;
-			this.voiceManager = voiceManager;
+			const vocalManager = await this.vocalManagerPromise;
+			this.vocalManager = vocalManager;
 
 			await wait(1000);
 			this.setState({isReady: true});
