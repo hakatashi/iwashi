@@ -106,7 +106,7 @@ module.exports = class VoiceSelect extends React.Component {
 						/>
 					</div>
 					<div styleName="sounds">
-						{Object.entries(soundData).filter(([name, sound]) => {
+						{Object.entries(soundData).filter(([, sound]) => {
 							if (this.props.type === 'percussion') {
 								return sound.type === 'percussion';
 							}
