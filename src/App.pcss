@@ -85,6 +85,31 @@ body {
 .character-image {
 	position: absolute;
 	bottom: 0;
+	
+	$distance: 5px;
+	transform: translateY($distance);
+	
+	&.animating {
+		animation-name: character-image-animation;
+		animation-timing-function: linear;
+		animation-duration: 0.4s;
+
+		@at-root {
+			@keyframes character-image-animation {
+				0% {
+					transform: translateY($distance);
+					animation-timing-function: ease-out;
+				}
+				50% {
+					transform: translateY(0);
+					animation-timing-function: ease-in;
+				}
+				100% {
+					transform: translateY($distance);
+				}
+			}
+		}
+	}
 }
 
 .lyric-text {
@@ -130,6 +155,7 @@ body {
 	color: white;
 	font-size: 24px;
 	line-height: 40px;
+	z-index: 0;
 }
 
 .playback {

@@ -37,6 +37,7 @@ module.exports = class App extends React.Component {
 			isNoVideo: true,
 			isReady: false,
 			isPaused: false,
+			isCharacterAnimating: false,
 		};
 	}
 
@@ -46,13 +47,31 @@ module.exports = class App extends React.Component {
 		const beat = Math.floor(this.state.beat / TICK) % 2944;
 		this.vocalManager.handleBeat(beat);
 
+		let {isCharacterAnimating} = this.state;
+
 		const lyric = this.song.lyrics.find(({start, end}) => start <= beat && beat < end);
 		if (!lyric && this.state.lyric !== '') {
-			this.setState({lyric: ''});
+			this.setState({
+				lyric: '',
+				isCharacterAnimating: false,
+			});
+			isCharacterAnimating = false;
 		}
 
 		if (lyric && this.state.lyric !== lyric.text) {
-			this.setState({lyric: lyric.text});
+			this.setState({
+				lyric: lyric.text,
+				isCharacterAnimating: true,
+			});
+			isCharacterAnimating = true;
+		}
+
+		if (beat % 8 === 0 && isCharacterAnimating) {
+			this.setState({isCharacterAnimating: false}, () => {
+				wait(0).then(() => {
+					this.setState({isCharacterAnimating: true});
+				});
+			});
 		}
 	}
 
@@ -133,7 +152,10 @@ module.exports = class App extends React.Component {
 					</div>
 					<div styleName="lyric">
 						<div styleName="character">
-							<img styleName="character-image" src={getResourceUrl('sound/vocal/yufu/character.png')}/>
+							<img
+								styleName={classNames('character-image', {animating: this.state.isCharacterAnimating})}
+								src={getResourceUrl('sound/vocal/yufu/character.png')}
+							/>
 							<div styleName="change">
 								<Refresh/> かえる
 							</div>
