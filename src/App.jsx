@@ -27,13 +27,12 @@ module.exports = class App extends React.Component {
 			beat: null,
 			lyric: '',
 			soloScore: null,
+			readySounds: new Set(),
 			isFlashing: false,
 			isNoVideo: true,
 			isReady: false,
 			isPaused: false,
 		};
-
-		this.readySounds = new Set();
 
 		this.song = songs.iwashi;
 
@@ -58,8 +57,10 @@ module.exports = class App extends React.Component {
 	}
 
 	handleSoundReady = (score) => {
-		this.readySounds.add(score);
-		if (this.readySounds.size === this.tracks.length) {
+		this.state.readySounds.add(score);
+		this.setState({readySounds: this.state.readySounds});
+
+		if (this.state.readySounds.size === this.tracks.length) {
 			this.voiceManagerPromise.then((voiceManager) => {
 				this.voiceManager = voiceManager;
 				this.setState({isReady: true});
@@ -110,6 +111,7 @@ module.exports = class App extends React.Component {
 				<Loading
 					titleComponents={this.song.titleComponents}
 					artist={this.song.artist}
+					statuses={this.tracks.map(([name]) => this.state.readySounds.has(name) ? 'ready' : 'loading')}
 					name="iwashi"
 				/>
 				<div styleName="main">

@@ -5,7 +5,7 @@
 	right: 0;
 	bottom: 0;
 	
-	background: rgba(0, 0, 0, 0.9);
+	background: rgba(0, 0, 0, 0.95);
 	color: white;
 	text-align: center;
 	
@@ -19,9 +19,24 @@
 	width: 100%;
 }
 
-.icon {
+.progress-area {
 	margin-bottom: 32px;
-	max-width: 30vmin;
+	
+	height: 128px;
+	max-height: 30vmin;
+}
+
+.icon {
+	height: 100%;
+}
+
+.progress {
+	height: 100%;
+	width: 200px;
+}
+
+.progress-unit {
+	transition: fill 0.3s;
 }
 
 .title {
@@ -34,6 +49,7 @@
 	font-size: 3vmin;
 }
 
-.progress {
-	width: 300px;
+.loading-text {
+	font-size: 3vmin;
+	margin-top: 6vmin;
 }
