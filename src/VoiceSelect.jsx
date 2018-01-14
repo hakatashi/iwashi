@@ -1,5 +1,6 @@
 /* eslint-disable no-implicit-coercion */
 
+const assert = require('assert');
 const React = require('react');
 const PropTypes = require('prop-types');
 const classNames = require('classnames');
@@ -24,6 +25,15 @@ const getThumbnailUrl = (url) => {
 };
 
 class Sound extends React.Component {
+	static propTypes = {
+		active: PropTypes.bool.isRequired,
+		name: PropTypes.string.isRequired,
+		videoUrl: PropTypes.string.isRequired,
+		resourceWork: PropTypes.string.isRequired,
+		resourceName: PropTypes.string.isRequired,
+		onClick: PropTypes.func.isRequired,
+	}
+
 	handleClick = (event) => {
 		this.props.onClick(event, this.props.name);
 	}
@@ -43,21 +53,13 @@ class Sound extends React.Component {
 	}
 }
 
-Sound.propTypes = {
-	active: PropTypes.bool.isRequired,
-	name: PropTypes.string.isRequired,
-	videoUrl: PropTypes.string.isRequired,
-	resourceWork: PropTypes.string.isRequired,
-	resourceName: PropTypes.string.isRequired,
-	onClick: PropTypes.func.isRequired,
-};
-
 module.exports = class VoiceSelect extends React.Component {
 	static propTypes = {
 		top: PropTypes.number.isRequired,
 		left: PropTypes.number.isRequired,
 		sound: PropTypes.string.isRequired,
 		type: PropTypes.string.isRequired,
+		onSelect: PropTypes.func.isRequired,
 	}
 
 	constructor(props, state) {
@@ -65,13 +67,7 @@ module.exports = class VoiceSelect extends React.Component {
 
 		this.direction = this.props.top > 400 ? 'top' : 'bottom';
 
-		this.sound = new Howl({
-			src: getSoundUrls(this.props.sound),
-			volume: 1,
-			loop: false,
-			preload: true,
-			onend: this.handleSoundEnd,
-		});
+		this.updateSound(this.props.sound);
 
 		this.state = {
 			selectedSound: this.props.sound,
@@ -83,6 +79,14 @@ module.exports = class VoiceSelect extends React.Component {
 
 	get soundData() {
 		return soundData[this.state.selectedSound];
+	}
+
+	updateSound = (name) => {
+		this.sound = new Howl({
+			src: getSoundUrls(name),
+			preload: true,
+			onend: this.handleSoundEnd,
+		});
 	}
 
 	handlePlayerReady = () => {
@@ -118,16 +122,29 @@ module.exports = class VoiceSelect extends React.Component {
 	}
 
 	handleClickSound = (event, name) => {
+		this.sound.stop();
+
 		if (name === this.state.selectedSound) {
 			if (this.playerState !== 'start') {
 				return;
 			}
 
-			this.sound.stop();
 			this.player.seekTo(this.soundData.video.start);
 			this.setState({isPlaying: true});
 
 			this.handlePlayerStart();
+		} else {
+			assert(name !== this.state.selectedSound);
+
+			this.updateSound(name);
+			this.playerStatus = 'loading';
+
+			this.setState({
+				selectedSound: name,
+				isPlaying: true,
+			});
+
+			this.props.onSelect(name);
 		}
 	}
 

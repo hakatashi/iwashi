@@ -24,9 +24,9 @@ module.exports = class Track extends React.Component {
 		start: PropTypes.number,
 		end: PropTypes.number,
 		default: PropTypes.shape({
-			sound: PropTypes.string.isRequired,
 			volume: PropTypes.number.isRequired,
 		}).isRequired,
+		sound: PropTypes.string.isRequired,
 		beat: PropTypes.number.isRequired,
 		onFlash: PropTypes.func.isRequired,
 		onChangeSolo: PropTypes.func.isRequired,
@@ -50,7 +50,6 @@ module.exports = class Track extends React.Component {
 
 		this.state = {
 			volume: this.props.default.volume,
-			sound: this.props.default.sound,
 			isPlaying: true,
 			isReverse: false,
 			isShown: true,
@@ -58,47 +57,13 @@ module.exports = class Track extends React.Component {
 			isSolo: false,
 		};
 
-		this.videoLoadDefer = new Deferred();
-		this.audioLoadDefer = new Deferred();
-
-		const soundLoadPromises = Array(this.props.type === 'chord' ? 5 : 1).fill().map(() => (
-			new Promise((resolve, reject) => {
-				const howl = new Howl({
-					src: getSoundUrls(this.state.sound),
-					volume: this.state.volume,
-					loop: this.props.type !== 'percussion',
-					html5: this.props.type === 'rap',
-					preload: true,
-					onload: () => {
-						resolve(howl);
-					},
-					onloaderror: (id, error) => {
-						reject(error);
-					},
-				});
-			})
-		));
-
-		Promise.all(soundLoadPromises).then((sounds) => {
-			this.sounds = sounds;
-			this.audioLoadDefer.resolve();
-		});
-
 		this.currentNoteIndex = null;
-		this.currentVelocity;
 		this.isError = false;
-
 		this.isDebug = Boolean(params.debug);
-
-		Promise.all([
-			...(this.isDebug ? [] : [this.videoLoadDefer.promise]),
-			this.audioLoadDefer.promise,
-		]).then(() => {
-			this.props.onChangeStatus(this.props.name, 'ready');
-		});
-
 		this.isSoundPaused = new WeakMap();
 		this.isVideoPaused = false;
+
+		this.updateSound(this.props.sound);
 	}
 
 	componentWillReceiveProps(nextProps) {
@@ -121,6 +86,10 @@ module.exports = class Track extends React.Component {
 		if (this.props.isPaused === true && nextProps.isPaused === false) {
 			this.handleUnpause();
 		}
+
+		if (this.props.sound !== nextProps.sound) {
+			this.updateSound(nextProps.sound);
+		}
 	}
 
 	componentDidUpdate(prevProps, prevState) {
@@ -132,7 +101,47 @@ module.exports = class Track extends React.Component {
 	}
 
 	get soundData() {
-		return soundData[this.state.sound];
+		return soundData[this.props.sound];
+	}
+
+	updateSound = (sound) => {
+		this.videoLoadDefer = new Deferred();
+		this.audioLoadDefer = new Deferred();
+
+		Promise.all(
+			Array(this.props.type === 'chord' ? 5 : 1).fill().map(() => (
+				new Promise((resolve, reject) => {
+					const howl = new Howl({
+						src: getSoundUrls(sound),
+						volume: this.state.volume,
+						loop: this.props.type !== 'percussion',
+						html5: this.props.type === 'rap',
+						preload: true,
+						onload: () => {
+							resolve(howl);
+						},
+						onloaderror: (id, error) => {
+							reject(error);
+						},
+					});
+				})
+			))
+		).then((sounds) => {
+			this.sounds = sounds;
+			this.audioLoadDefer.resolve();
+		});
+
+		Promise.all([
+			...(this.isDebug ? [] : [this.videoLoadDefer.promise]),
+			this.audioLoadDefer.promise,
+		]).then(() => {
+			// When playing and url props is updated simultaneously, react-player doesn't seem to stop video properly.
+			// Is this react-player bug?
+			if (this.props.isNoVideo) {
+				invoke(this.player, ['player', 'player', 'pauseVideo']);
+			}
+			this.props.onChangeStatus(this.props.name, 'ready');
+		});
 	}
 
 	handleBeat = (beat) => {
