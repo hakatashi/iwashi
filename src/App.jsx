@@ -11,7 +11,7 @@ const StepForward = require('react-icons/lib/fa/step-forward');
 
 const {TICK} = require('./const.js');
 const VocalManager = require('./VocalManager.js');
-const {getResourceUrl, wait} = require('./util.js');
+const {getResourceUrl, wait, Deferred} = require('./util.js');
 const songs = require('../songs/index.js');
 const params = require('./params.js');
 const Track = require('./Track.jsx');
@@ -30,11 +30,16 @@ module.exports = class App extends React.Component {
 		this.vocalManagerPromise = VocalManager.initialize(this.song.vocals, this.song.defaultVocal);
 		this.tracks = shuffle(Object.entries(this.song.tracks));
 
+		this.selectedSound = null;
+		this.isInitialized = false;
+		this.clearedIntervals = new Set();
+
 		this.state = {
 			beat: null,
 			lyric: '',
 			soloScore: null,
 			trackStatuses: new Map(this.tracks.map(([name]) => [name, 'loading'])),
+			sounds: new Map(this.tracks.map(([name, track]) => [name, track.default.sound])),
 			voiceSelect: false,
 			voiceSelectTop: 0,
 			voiceSelectLeft: 0,
@@ -47,13 +52,16 @@ module.exports = class App extends React.Component {
 	}
 
 	pause = () => {
-		clearTimeout(this.handleBeatInterval);
+		clearInterval(this.handleBeatInterval);
+		this.clearedIntervals.add(this.handleBeatInterval);
 		this.vocalManager.pause();
 		this.setState({isPaused: true});
 	}
 
 	unpause = () => {
-		this.handleBeatInterval = setInterval(this.handleBeat, TICK * 1000);
+		if (this.clearedIntervals.has(this.handleBeatInterval)) {
+			this.handleBeatInterval = setInterval(this.handleBeat, TICK * 1000);
+		}
 		this.vocalManager.unpause();
 		this.setState({isPaused: false});
 	}
@@ -95,7 +103,9 @@ module.exports = class App extends React.Component {
 	handleSoundStatusChanged = async (name, status) => {
 		this.setState({trackStatuses: this.state.trackStatuses.set(name, status)});
 
-		if (Array.from(this.state.trackStatuses.values()).every((s) => s === 'ready')) {
+		if (!this.isInitialized && Array.from(this.state.trackStatuses.values()).every((s) => s === 'ready')) {
+			this.isInitialized = true;
+
 			const vocalManager = await this.vocalManagerPromise;
 			this.vocalManager = vocalManager;
 
@@ -107,7 +117,12 @@ module.exports = class App extends React.Component {
 			if (!params.debug) {
 				await wait(3000);
 			}
+
 			this.handleBeatInterval = setInterval(this.handleBeat, TICK * 1000);
+		}
+
+		if (status === 'ready' && this.updateSoundDefer && !this.updateSoundDefer.isResolved) {
+			this.updateSoundDefer.resolve();
 		}
 	}
 
@@ -148,6 +163,7 @@ module.exports = class App extends React.Component {
 	}
 
 	handleClickChange = (name, target) => {
+		this.selectedSound = this.state.sounds.get(name);
 		this.setState({
 			voiceSelect: name,
 			voiceSelectTop: target.offsetTop + target.offsetHeight / 2,
@@ -156,9 +172,25 @@ module.exports = class App extends React.Component {
 		this.pause();
 	}
 
-	handleClickBackdrop = () => {
+	handleClickBackdrop = async () => {
+		const selectedTrack = this.state.voiceSelect;
+
 		this.setState({voiceSelect: false});
+
+		if (this.selectedSound !== this.state.sounds.get(selectedTrack)) {
+			this.setState({
+				sounds: this.state.sounds.set(selectedTrack, this.selectedSound),
+			});
+
+			this.updateSoundDefer = new Deferred();
+			await this.updateSoundDefer.promise;
+		}
+
 		this.unpause();
+	}
+
+	handleVoiceSelect = (name) => {
+		this.selectedSound = name;
 	}
 
 	render() {
@@ -178,6 +210,7 @@ module.exports = class App extends React.Component {
 									key={name}
 									name={name}
 									{...track}
+									sound={this.state.sounds.get(name)}
 									beat={this.state.beat}
 									onFlash={this.handleFlash}
 									onChangeSolo={this.handleChangeSolo}
@@ -197,7 +230,8 @@ module.exports = class App extends React.Component {
 									top={this.state.voiceSelectTop}
 									left={this.state.voiceSelectLeft}
 									type={this.song.tracks[this.state.voiceSelect].type}
-									sound={this.song.tracks[this.state.voiceSelect].default.sound}
+									sound={this.state.sounds.get(this.state.voiceSelect)}
+									onSelect={this.handleVoiceSelect}
 								/>
 							</React.Fragment>
 						)}
@@ -245,12 +279,16 @@ module.exports = class App extends React.Component {
 						</div>
 					</div>
 					<div styleName="title">♪イワシがつちからはえてくるんだ by ころんば</div>
-					<div styleName="play-video" onClick={this.handleChangeCheckbox}>
+					<div styleName={classNames('play-video', {active: !this.state.isNoVideo})} onClick={this.handleChangeCheckbox}>
 						{this.state.isNoVideo ? (
-							<VideocamOff/>
+							<React.Fragment>
+								<VideocamOff/> 動画OFF
+							</React.Fragment>
 						) : (
-							<Videocam/>
-						)} 動画再生
+							<React.Fragment>
+								<Videocam/> 動画ON
+							</React.Fragment>
+						)}
 					</div>
 				</div>
 			</div>

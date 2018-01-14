@@ -1,5 +1,6 @@
 /* eslint-disable no-implicit-coercion */
 
+const assert = require('assert');
 const React = require('react');
 const PropTypes = require('prop-types');
 const classNames = require('classnames');
@@ -12,12 +13,53 @@ const {getSoundUrls, wait} = require('./util.js');
 
 import './VoiceSelect.pcss';
 
+const getThumbnailUrl = (url) => {
+	let matches = null;
+
+	matches = url.match(/^https?:\/\/www\.youtube\.com\/watch\?v=(.+)$/);
+	if (matches) {
+		return `https://i.ytimg.com/vi/${matches[1]}/1.jpg`;
+	}
+
+	return 'https://placehold.it/120x90';
+};
+
+class Sound extends React.Component {
+	static propTypes = {
+		active: PropTypes.bool.isRequired,
+		name: PropTypes.string.isRequired,
+		videoUrl: PropTypes.string.isRequired,
+		resourceWork: PropTypes.string.isRequired,
+		resourceName: PropTypes.string.isRequired,
+		onClick: PropTypes.func.isRequired,
+	}
+
+	handleClick = (event) => {
+		this.props.onClick(event, this.props.name);
+	}
+
+	render() {
+		return (
+			<div
+				styleName={classNames('sound', {active: this.props.active})}
+				onClick={this.handleClick}
+			>
+				<img styleName="thumbnail" src={getThumbnailUrl(this.props.videoUrl)}/>
+				<div styleName="description">
+					<strong>{this.props.resourceWork}</strong>より<strong>{this.props.resourceName}</strong>
+				</div>
+			</div>
+		);
+	}
+}
+
 module.exports = class VoiceSelect extends React.Component {
 	static propTypes = {
 		top: PropTypes.number.isRequired,
 		left: PropTypes.number.isRequired,
 		sound: PropTypes.string.isRequired,
 		type: PropTypes.string.isRequired,
+		onSelect: PropTypes.func.isRequired,
 	}
 
 	constructor(props, state) {
@@ -25,50 +67,85 @@ module.exports = class VoiceSelect extends React.Component {
 
 		this.direction = this.props.top > 400 ? 'top' : 'bottom';
 
-		this.sound = new Howl({
-			src: getSoundUrls(this.props.sound),
-			volume: 1,
-			loop: this.props.type === 'instrument' || this.props.type === 'chord',
-			preload: true,
-		});
+		this.updateSound(this.props.sound);
 
 		this.state = {
 			selectedSound: this.props.sound,
 			isPlaying: true,
 		};
+
+		this.playerState = 'loading';
 	}
 
 	get soundData() {
 		return soundData[this.state.selectedSound];
 	}
 
-	getThumbnailUrl = (url) => {
-		let matches = null;
-
-		matches = url.match(/^https?:\/\/www\.youtube\.com\/watch\?v=(.+)$/);
-		if (matches) {
-			return `https://i.ytimg.com/vi/${matches[1]}/1.jpg`;
-		}
-
-		return 'https://placehold.it/120x90';
+	updateSound = (name) => {
+		this.sound = new Howl({
+			src: getSoundUrls(name),
+			preload: true,
+			onend: this.handleSoundEnd,
+		});
 	}
 
 	handlePlayerReady = () => {
+		this.playerState = 'ready';
+
 		invoke(this.player, ['player', 'player', 'setPlaybackQuality'], 'tiny');
 		this.player.seekTo(this.soundData.video.start);
 	}
 
 	handlePlayerStart = () => {
+		this.playerState = 'start';
+
 		this.sound.play();
 
-		// TODO: session
+		const session = Symbol('soundPlaySession');
+		this.soundPlaySession = session;
+
 		wait(this.soundData.video.duration * 1000).then(() => {
+			if (this.soundPlaySession !== session) {
+				return;
+			}
+
 			this.sound.stop();
 			this.setState({isPlaying: false});
 		});
 	}
 
+	handleSoundEnd = () => {
+		this.setState({isPlaying: false});
+	}
+
 	handlePlayerError = () => {
+	}
+
+	handleClickSound = (event, name) => {
+		this.sound.stop();
+
+		if (name === this.state.selectedSound) {
+			if (this.playerState !== 'start') {
+				return;
+			}
+
+			this.player.seekTo(this.soundData.video.start);
+			this.setState({isPlaying: true});
+
+			this.handlePlayerStart();
+		} else {
+			assert(name !== this.state.selectedSound);
+
+			this.updateSound(name);
+			this.playerStatus = 'loading';
+
+			this.setState({
+				selectedSound: name,
+				isPlaying: true,
+			});
+
+			this.props.onSelect(name);
+		}
 	}
 
 	render() {
@@ -117,12 +194,15 @@ module.exports = class VoiceSelect extends React.Component {
 
 							return sound.type === 'instrument';
 						}).map(([name, sound]) => (
-							<div key={name} styleName={classNames('sound', {active: this.state.selectedSound === name})}>
-								<img styleName="thumbnail" src={this.getThumbnailUrl(sound.video.url)}/>
-								<div styleName="description">
-									<strong>{sound.resource.work}</strong>より<strong>{sound.resource.name}</strong>
-								</div>
-							</div>
+							<Sound
+								key={name}
+								name={name}
+								active={this.state.selectedSound === name}
+								videoUrl={sound.video.url}
+								resourceWork={sound.resource.work}
+								resourceName={sound.resource.name}
+								onClick={this.handleClickSound}
+							/>
 						))}
 					</div>
 				</div>
