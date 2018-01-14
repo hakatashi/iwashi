@@ -11,7 +11,7 @@ karateka-kick:
   type: percussion
   resource:
     work: リズム天国
-    name: カラテ家のキック
+    name: カラテ家のパンチ
   video:
     url: https://www.youtube.com/watch?v=Cg6dlPZt-1g
     start: 32
@@ -188,3 +188,61 @@ bemybaby-intro:
     start: 5.3
     duration: 30
     rate: 1
+cheatbug-rakurai:
+  type: instrument
+  sourceNote: 48
+  resource:
+    work: チートバグ動画
+    name: 落雷フリーズ
+  video:
+    url: https://www.youtube.com/watch?v=5TVYvQqorxs
+    start: 28
+    duration: 1
+tennis-racket:
+  type: percussion
+  resource:
+    work: テニスの王子様ミュージカル
+    name: ラケット
+  video:
+    url: https://www.youtube.com/watch?v=YNZQDkbn9po
+    start: 63.2
+    duration: 1
+popute-asahi:
+  type: instrument
+  sourceNote: 28
+  resource:
+    work: ポプテピピック
+    name: ｱｻﾋｨｽｩﾊﾟｧﾄﾞｩﾙｧｧｧｧｲ
+  video:
+    url: https://www.youtube.com/watch?v=LTBfw_zR_EA
+    start: 17.5
+    duration: 1
+legalhigh-anobade:
+  type: instrument
+  sourceNote: 46
+  resource:
+    work: リーガルハイ
+    name: あの場で言えていたらな～
+  video:
+    url: https://www.youtube.com/watch?v=aWyzPaqwSrE
+    start: 26
+    duration: 1
+fgo-babbage:
+  type: percussion
+  resource:
+    work: Fate/GrandOrder
+    name: チャールズ・バベッジ コマンドカード2
+  video:
+    url: https://www.youtube.com/watch?v=FT8blrOw_Pg
+    start: 3.8
+    duration: 0.5
+kemomimi-yononaka:
+  type: instrument
+  sourceNote: 48
+  resource:
+    work: けもみみVRちゃんねる
+    name: 世の中世知辛いのじゃ～
+  video:
+    url: https://www.youtube.com/watch?v=DoVh4Fc43Bo
+    start: 75.5
+    duration: 1.5
