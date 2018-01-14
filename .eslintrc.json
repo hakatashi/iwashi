@@ -4,6 +4,7 @@
     "rules": {
         "camelcase": "off",
         "no-console": "off",
-        "max-len": "off"
+        "max-len": "off",
+        "react/no-multi-comp": "off"
     }
 }

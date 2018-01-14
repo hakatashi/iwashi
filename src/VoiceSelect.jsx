@@ -12,6 +12,46 @@ const {getSoundUrls, wait} = require('./util.js');
 
 import './VoiceSelect.pcss';
 
+const getThumbnailUrl = (url) => {
+	let matches = null;
+
+	matches = url.match(/^https?:\/\/www\.youtube\.com\/watch\?v=(.+)$/);
+	if (matches) {
+		return `https://i.ytimg.com/vi/${matches[1]}/1.jpg`;
+	}
+
+	return 'https://placehold.it/120x90';
+};
+
+class Sound extends React.Component {
+	handleClick = (event) => {
+		this.props.onClick(event, this.props.name);
+	}
+
+	render() {
+		return (
+			<div
+				styleName={classNames('sound', {active: this.props.active})}
+				onClick={this.handleClick}
+			>
+				<img styleName="thumbnail" src={getThumbnailUrl(this.props.videoUrl)}/>
+				<div styleName="description">
+					<strong>{this.props.resourceWork}</strong>より<strong>{this.props.resourceName}</strong>
+				</div>
+			</div>
+		);
+	}
+}
+
+Sound.propTypes = {
+	active: PropTypes.bool.isRequired,
+	name: PropTypes.string.isRequired,
+	videoUrl: PropTypes.string.isRequired,
+	resourceWork: PropTypes.string.isRequired,
+	resourceName: PropTypes.string.isRequired,
+	onClick: PropTypes.func.isRequired,
+};
+
 module.exports = class VoiceSelect extends React.Component {
 	static propTypes = {
 		top: PropTypes.number.isRequired,
@@ -37,33 +77,34 @@ module.exports = class VoiceSelect extends React.Component {
 			selectedSound: this.props.sound,
 			isPlaying: true,
 		};
+
+		this.playerState = 'loading';
 	}
 
 	get soundData() {
 		return soundData[this.state.selectedSound];
 	}
 
-	getThumbnailUrl = (url) => {
-		let matches = null;
-
-		matches = url.match(/^https?:\/\/www\.youtube\.com\/watch\?v=(.+)$/);
-		if (matches) {
-			return `https://i.ytimg.com/vi/${matches[1]}/1.jpg`;
-		}
-
-		return 'https://placehold.it/120x90';
-	}
-
 	handlePlayerReady = () => {
+		this.playerState = 'ready';
+
 		invoke(this.player, ['player', 'player', 'setPlaybackQuality'], 'tiny');
 		this.player.seekTo(this.soundData.video.start);
 	}
 
 	handlePlayerStart = () => {
+		this.playerState = 'start';
+
 		this.sound.play();
 
-		// TODO: session
+		const session = Symbol('soundPlaySession');
+		this.soundPlaySession = session;
+
 		wait(this.soundData.video.duration * 1000).then(() => {
+			if (this.soundPlaySession !== session) {
+				return;
+			}
+
 			this.sound.stop();
 			this.setState({isPlaying: false});
 		});
@@ -75,9 +116,19 @@ module.exports = class VoiceSelect extends React.Component {
 
 	handlePlayerError = () => {
 	}
-	
-	handleClickSound = (name) => {
-		
+
+	handleClickSound = (event, name) => {
+		if (name === this.state.selectedSound) {
+			if (this.playerState !== 'start') {
+				return;
+			}
+
+			this.sound.stop();
+			this.player.seekTo(this.soundData.video.start);
+			this.setState({isPlaying: true});
+
+			this.handlePlayerStart();
+		}
 	}
 
 	render() {
@@ -126,16 +177,15 @@ module.exports = class VoiceSelect extends React.Component {
 
 							return sound.type === 'instrument';
 						}).map(([name, sound]) => (
-							<div
+							<Sound
 								key={name}
-								styleName={classNames('sound', {active: this.state.selectedSound === name})}
-								onClick={this.handleClickSound.bind(name)}
-							>
-								<img styleName="thumbnail" src={this.getThumbnailUrl(sound.video.url)}/>
-								<div styleName="description">
-									<strong>{sound.resource.work}</strong>より<strong>{sound.resource.name}</strong>
-								</div>
-							</div>
+								name={name}
+								active={this.state.selectedSound === name}
+								videoUrl={sound.video.url}
+								resourceWork={sound.resource.work}
+								resourceName={sound.resource.name}
+								onClick={this.handleClickSound}
+							/>
 						))}
 					</div>
 				</div>
