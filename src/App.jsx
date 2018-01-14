@@ -245,12 +245,16 @@ module.exports = class App extends React.Component {
 						</div>
 					</div>
 					<div styleName="title">♪イワシがつちからはえてくるんだ by ころんば</div>
-					<div styleName="play-video" onClick={this.handleChangeCheckbox}>
+					<div styleName={classNames('play-video', {active: !this.state.isNoVideo})} onClick={this.handleChangeCheckbox}>
 						{this.state.isNoVideo ? (
-							<VideocamOff/>
+							<React.Fragment>
+								<VideocamOff/> 動画OFF
+							</React.Fragment>
 						) : (
-							<Videocam/>
-						)} 動画再生
+							<React.Fragment>
+								<Videocam/> 動画ON
+							</React.Fragment>
+						)}
 					</div>
 				</div>
 			</div>

@@ -207,8 +207,8 @@ module.exports = class Track extends React.Component {
 
 				if ((tick - this.props.start) % 4 === 0) {
 					const playbackTime = this.sounds[0].seek();
-					const targetTime = ((tick - this.props.start) % (32 * this.soundData.video.duration)) * TICK * 135 / this.soundData.tempo + TICK;
-					if (Math.abs(playbackTime + TICK - targetTime) > TICK) {
+					const targetTime = ((tick - this.props.start) % (32 * this.soundData.duration)) * TICK * 135 / this.soundData.tempo + TICK * 2;
+					if (Math.abs(playbackTime - targetTime) > TICK) {
 						this.sounds[0].seek(targetTime);
 					}
 				}

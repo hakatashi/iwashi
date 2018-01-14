@@ -1,3 +1,4 @@
+const mapValues = require('lodash/mapValues');
 const iwashi = require('./iwashi/data.yml');
 
 const parseTime = (timeText, resolution) => {
@@ -41,20 +42,18 @@ for (const [id, song] of Object.entries({iwashi})) {
 	module.exports[id] = {
 		...song,
 		lyrics: compileLyrics(song.lyrics, song.resolution),
-		vocals: Object.assign(...Object.entries(song.vocals).map(([name, vocals]) => ({
-			[name]: vocals.map((vocal) => ({
+		vocals: mapValues(song.vocals, (vocals) => (
+			vocals.map((vocal) => ({
 				...vocal,
 				start: parseTime(vocal.start, song.resolution),
 				end: parseTime(vocal.end, song.resolution),
-			})),
-		}))),
-		tracks: Object.assign(...Object.entries(song.tracks).map(([name, track]) => ({
-			[name]: {
-				...track,
-				...(track.start ? {start: parseTime(track.start, song.resolution)} : {}),
-				...(track.end ? {end: parseTime(track.end, song.resolution)} : {}),
-			},
-		}))),
+			}))
+		)),
+		tracks: mapValues(song.tracks, (track) => ({
+			...track,
+			...(track.start ? {start: parseTime(track.start, song.resolution)} : {}),
+			...(track.end ? {end: parseTime(track.end, song.resolution)} : {}),
+		})),
 		clearances: song.clearances.map((clearance) => (
 			parseTime(clearance, song.resolution)
 		)),

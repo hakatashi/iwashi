@@ -28,8 +28,9 @@ module.exports = class VoiceSelect extends React.Component {
 		this.sound = new Howl({
 			src: getSoundUrls(this.props.sound),
 			volume: 1,
-			loop: this.props.type === 'instrument' || this.props.type === 'chord',
+			loop: false,
 			preload: true,
+			onend: this.handleSoundEnd,
 		});
 
 		this.state = {
@@ -68,7 +69,15 @@ module.exports = class VoiceSelect extends React.Component {
 		});
 	}
 
+	handleSoundEnd = () => {
+		this.setState({isPlaying: false});
+	}
+
 	handlePlayerError = () => {
+	}
+	
+	handleClickSound = (name) => {
+		
 	}
 
 	render() {
@@ -117,7 +126,11 @@ module.exports = class VoiceSelect extends React.Component {
 
 							return sound.type === 'instrument';
 						}).map(([name, sound]) => (
-							<div key={name} styleName={classNames('sound', {active: this.state.selectedSound === name})}>
+							<div
+								key={name}
+								styleName={classNames('sound', {active: this.state.selectedSound === name})}
+								onClick={this.handleClickSound.bind(name)}
+							>
 								<img styleName="thumbnail" src={this.getThumbnailUrl(sound.video.url)}/>
 								<div styleName="description">
 									<strong>{sound.resource.work}</strong>より<strong>{sound.resource.name}</strong>
