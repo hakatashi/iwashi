@@ -246,3 +246,50 @@ kemomimi-yononaka:
     url: https://www.youtube.com/watch?v=DoVh4Fc43Bo
     start: 75.5
     duration: 1.5
+inoubattle-otama:
+  type: percussion
+  resource:
+    work: 異能バトルは日常系のなかで
+    name: おたま
+  video:
+    url: https://www.youtube.com/watch?v=S7-P61KBPuQ
+    start: 2
+    duration: 1
+inoubattle-gasstove:
+  type: percussion
+  resource:
+    work: 異能バトルは日常系のなかで
+    name: ガスコンロ
+  video:
+    url: https://www.youtube.com/watch?v=S7-P61KBPuQ
+    start: 11
+    duration: 1
+acchikocchi-sunoko:
+  type: percussion
+  resource:
+    work: あっちこっち
+    name: スノコ
+  video:
+    url: https://www.youtube.com/watch?v=ulRAqGoeOHc
+    start: 272
+    duration: 0.5
+cookie-marisa:
+  type: instrument
+  sourceNote: 64
+  resource:
+    work: 魔理沙とアリスのクッキーKiss
+    name: 魔理沙
+  video:
+    url: https://www.youtube.com/watch?v=amP2mCqqPlQ
+    start: 133.5
+    duration: 1.5
+lovelive-shittofire:
+  type: instrument
+  sourceNote: 53
+  resource:
+    work: ラブライブ！サンシャイン!!
+    name: 「嫉妬ファイヤ～～～」
+  video:
+    url: https://www.youtube.com/watch?v=wvXuLfpkARA
+    start: 18
+    duration: 1

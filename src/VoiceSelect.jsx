@@ -137,12 +137,17 @@ module.exports = class VoiceSelect extends React.Component {
 			assert(name !== this.state.selectedSound);
 
 			this.updateSound(name);
-			this.playerStatus = 'loading';
 
 			this.setState({
 				selectedSound: name,
 				isPlaying: true,
 			});
+
+			if (soundData[name].video.url === this.soundData.video.url) {
+				this.player.seekTo(soundData[name].video.start);
+			} else {
+				this.playerStatus = 'loading';
+			}
 
 			this.props.onSelect(name);
 		}
