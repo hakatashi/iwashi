@@ -189,8 +189,8 @@ tracks:
     type: percussion
     score: !require ./score/chime2.txt
     default:
-      sound: fireball-ring
-      volume: 0.5
+      sound: inoubattle-otama
+      volume: 0.4
   chorus1:
     type: instrument
     score: !require ./score/chorus1.txt
