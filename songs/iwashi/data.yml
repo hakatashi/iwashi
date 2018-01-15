@@ -189,8 +189,8 @@ tracks:
     type: percussion
     score: !require ./score/chime2.txt
     default:
-      sound: inoubattle-otama
-      volume: 0.4
+      sound: fireball-ring
+      volume: 0.5
   chorus1:
     type: instrument
     score: !require ./score/chorus1.txt
@@ -219,7 +219,7 @@ tracks:
     type: instrument
     score: !require ./score/chorus4.txt
     default:
-      sound: lovelive-shittofire
+      sound: zkai-eh
       volume: 0.4
   synth1:
     type: instrument
