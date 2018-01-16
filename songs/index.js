@@ -1,4 +1,6 @@
 const mapValues = require('lodash/mapValues');
+const MMLIterator = require('mml-iterator');
+
 const iwashi = require('./iwashi/data.yml');
 
 const parseTime = (timeText, resolution) => {
@@ -38,6 +40,12 @@ const compileLyrics = (lyricText, resolution) => {
 	return lyrics;
 };
 
+const compileMml = (text) => {
+	const iterator = new MMLIterator(text);
+	const notes = Array.from(iterator);
+	return notes;
+};
+
 for (const [id, song] of Object.entries({iwashi})) {
 	module.exports[id] = {
 		...song,
@@ -51,6 +59,7 @@ for (const [id, song] of Object.entries({iwashi})) {
 		)),
 		tracks: mapValues(song.tracks, (track) => ({
 			...track,
+			...(track.score ? {score: compileMml(track.score)} : {}),
 			...(track.start ? {start: parseTime(track.start, song.resolution)} : {}),
 			...(track.end ? {end: parseTime(track.end, song.resolution)} : {}),
 		})),

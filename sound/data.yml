@@ -36,6 +36,7 @@ ippon-crisp:
     duration: 1
 atsumori:
   type: instrument
+  loop: true
   sourceNote: 22
   prank: true
   resource:
@@ -47,6 +48,7 @@ atsumori:
     duration: 0.5
 aoba-zoi:
   type: instrument
+  loop: true
   sourceNote: 62
   resource:
     work: NEW GAME!
@@ -85,6 +87,7 @@ fireball-ring:
     duration: 3
 ai-virus:
   type: instrument
+  loop: true
   sourceNote: 53
   resource:
     work: A.I.Channel
@@ -95,6 +98,7 @@ ai-virus:
     duration: 3
 inazuma-pan:
   type: instrument
+  loop: false
   sourceNote: 64
   resource:
     work: アニメ艦これ
@@ -114,6 +118,7 @@ killme-cymbal:
     duration: 5
 oreo-oh:
   type: instrument
+  loop: true
   sourceNote: 50
   resource:
     work: ナビスコCM
@@ -124,6 +129,7 @@ oreo-oh:
     duration: 1
 zkai-eh:
   type: instrument
+  loop: true
   sourceNote: 54
   resource:
     work: Z会CM
@@ -134,6 +140,7 @@ zkai-eh:
     duration: 1
 washing-aegi:
   type: instrument
+  loop: true
   sourceNote: 69
   prank: true
   resource:
@@ -145,6 +152,7 @@ washing-aegi:
     duration: 1
 kemofure-toki:
   type: instrument
+  loop: true
   sourceNote: 97
   resource:
     work: けものフレンズ
@@ -155,6 +163,7 @@ kemofure-toki:
     duration: 1
 chargeman-hai:
   type: instrument
+  loop: true
   sourceNote: 59
   prank: true
   resource:
@@ -166,6 +175,7 @@ chargeman-hai:
     duration: 1
 deremasu-suimasen:
   type: instrument
+  loop: true
   sourceNote: 56
   prank: true
   resource:
@@ -190,6 +200,7 @@ bemybaby-intro:
     rate: 1
 cheatbug-rakurai:
   type: instrument
+  loop: true
   sourceNote: 48
   resource:
     work: チートバグ動画
@@ -209,6 +220,7 @@ tennis-racket:
     duration: 1
 popute-asahi:
   type: instrument
+  loop: true
   sourceNote: 40
   resource:
     work: ポプテピピック
@@ -219,6 +231,7 @@ popute-asahi:
     duration: 1
 legalhigh-anobade:
   type: instrument
+  loop: true
   sourceNote: 46
   resource:
     work: リーガルハイ
@@ -238,6 +251,7 @@ fgo-babbage:
     duration: 0.5
 kemomimi-yononaka:
   type: instrument
+  loop: true
   sourceNote: 48
   resource:
     work: けもみみVRちゃんねる
@@ -275,6 +289,7 @@ acchikocchi-sunoko:
     duration: 0.5
 cookie-marisa:
   type: instrument
+  loop: true
   sourceNote: 64
   resource:
     work: 魔理沙とアリスのクッキーKiss
@@ -285,6 +300,7 @@ cookie-marisa:
     duration: 1.5
 lovelive-shittofire:
   type: instrument
+  loop: true
   sourceNote: 53
   resource:
     work: ラブライブ！サンシャイン!!
@@ -292,4 +308,33 @@ lovelive-shittofire:
   video:
     url: https://www.youtube.com/watch?v=wvXuLfpkARA
     start: 18
+    duration: 1
+maguro-drum:
+  type: percussion
+  resource:
+    work: 「新春ドラマスペシャル・マグロ」番宣CM
+    name: 太鼓
+  video:
+    url: https://www.youtube.com/watch?v=VfWgE7D1pYY
+    start: 1
+    duration: 1
+minecraft-creeper:
+  type: percussion
+  resource:
+    work: Minecraft
+    name: クリーパー 爆発音
+  video:
+    url: https://www.youtube.com/watch?v=aFw9aE-FEE4
+    start: 226.3
+    duration: 1
+jaguarman-waito:
+  type: instrument
+  loop: false
+  sourceNote: 65
+  resource:
+    work: ジャガーマンシリーズ
+    name: ワイト
+  video:
+    url: https://www.youtube.com/watch?v=rFneHF1kgtk
+    start: 15.2
     duration: 1
