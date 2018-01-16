@@ -1,6 +1,6 @@
 package-lock.json binary
-index.js binary
-index.js.map binary
+/index.js binary
+/index.js.map binary
 *.wav filter=lfs diff=lfs merge=lfs -text
 *.ogg filter=lfs diff=lfs merge=lfs -text
 *.ust filter=lfs diff=lfs merge=lfs -text

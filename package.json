@@ -23,7 +23,6 @@
     "fontmin": "^0.9.6",
     "howler": "^2.0.5",
     "js-yaml": "^3.10.0",
-    "json-loader": "^0.5.7",
     "loader-utils": "^1.1.0",
     "mml-iterator": "^1.1.0",
     "napa": "^3.0.0",
@@ -31,6 +30,7 @@
     "precss": "^2.0.0",
     "prop-types": "^15.6.0",
     "randomcolor": "^0.5.3",
+    "raw-loader": "^0.5.1",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "react-icons": "^2.2.7",
@@ -45,9 +45,6 @@
   "napa": {
     "misaki-font": "http://www.geocities.jp/littlimi/arc/misaki/misaki_ttf_2015-04-10.zip"
   },
-  "bundledDependencies": [
-    "misaki-font"
-  ],
   "scripts": {
     "install": "napa",
     "test": "echo \"Error: no test specified\" && exit 1",
