@@ -1,4 +1,5 @@
 const webpack = require('webpack');
+const MinifyPlugin = require('babel-minify-webpack-plugin');
 
 module.exports = (env = {}) => ({
 	entry: './index.babel.js',
@@ -124,5 +125,8 @@ module.exports = (env = {}) => ({
 		new webpack.DefinePlugin({
 			'process.env.NODE_ENV': JSON.stringify(env.production ? 'production' : 'development'),
 		}),
+		...(env.production ? [
+			new MinifyPlugin(),
+		] : []),
 	],
 });
