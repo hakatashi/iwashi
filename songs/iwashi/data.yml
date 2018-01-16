@@ -254,5 +254,5 @@ tracks:
     start: 73.1.0
     end: 89.1.0
     default:
-      sound: bemybaby-intro
-      volume: 0.3
+      sound: gintama-katsurap
+      volume: 0.5
