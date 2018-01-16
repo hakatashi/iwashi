@@ -201,8 +201,8 @@ tracks:
     type: instrument
     score: !require ./score/chorus2.txt
     default:
-      sound: inazuma-pan
-      volume: 0.4
+      sound: jaguarman-waito
+      volume: 0.3
   cymbal:
     type: percussion
     score: !require ./score/cymbal.txt

@@ -114,7 +114,7 @@ module.exports = class Track extends React.Component {
 					const howl = new Howl({
 						src: getSoundUrls(sound),
 						volume: this.state.volume,
-						loop: this.props.type !== 'percussion',
+						loop: this.props.type === 'instrument' ? this.soundData.loop === true : this.props.type !== 'percussion',
 						html5: this.props.type === 'rap',
 						preload: true,
 						onload: () => {
