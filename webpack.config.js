@@ -21,6 +21,11 @@ module.exports = (env = {}) => ({
 							targets: {
 								browsers: [
 									'last 2 chrome versions',
+									...(env.production ? [
+										'last 2 firefox versions',
+										'safari >= 9',
+										'last 2 edge versions',
+									] : []),
 								],
 							},
 							useBuiltIns: 'entry',
