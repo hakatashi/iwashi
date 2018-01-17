@@ -25,6 +25,8 @@
     "js-yaml": "^3.10.0",
     "loader-utils": "^1.1.0",
     "mml-iterator": "^1.1.0",
+    "modernizr": "github:hakatashi/Modernizr#audio-autoplay",
+    "modernizr-loader": "^1.0.1",
     "napa": "^3.0.0",
     "postcss-loader": "^2.0.9",
     "precss": "^2.0.0",

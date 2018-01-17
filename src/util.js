@@ -40,3 +40,15 @@ module.exports.wait = (time) => (
 		}, time);
 	})
 );
+
+module.exports.isAndroid = () => (
+	navigator.userAgent.match(/android/i)
+);
+
+module.exports.isIos = () => (
+	navigator.userAgent.match(/(iPhone|iPad|iPod)/i)
+);
+
+module.exports.isMobile = () => (
+	module.exports.isAndroid() || module.exports.isIos()
+);

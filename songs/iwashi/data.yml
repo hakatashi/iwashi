@@ -202,7 +202,7 @@ tracks:
     score: !require ./score/chorus2.txt
     default:
       sound: jaguarman-waito
-      volume: 0.3
+      volume: 0.2
   cymbal:
     type: percussion
     score: !require ./score/cymbal.txt

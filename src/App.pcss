@@ -150,22 +150,32 @@ body {
 }
 
 .change {
-	position: absolute;
-	bottom: 0.5em;
-	left: 50%;
-	transform: translateX(-50%);
-
 	padding: 3px;
 
 	border-radius: 9999px;
 
-	background: #2196F3;
-
 	color: white;
 	font-weight: normal;
-	font-size: 14px;
 
 	cursor: pointer;
+	
+	.character & {
+		position: absolute;
+		bottom: 0.5em;
+		left: 50%;
+		transform: translateX(-50%);
+
+		background: #2196F3;
+		font-size: 14px;
+	}
+	
+	.title & {
+		display: inline;
+		margin-left: 0.5em;
+		
+		background: #555;
+		font-size: 12px;
+	}
 }
 
 .controls {

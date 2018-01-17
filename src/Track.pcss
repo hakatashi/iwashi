@@ -44,9 +44,6 @@
 }
 
 .video-area {
-	width: 320px;
-	height: 180px;
-
 	color: white;
 
 	display: flex;
@@ -56,6 +53,21 @@
 
 	font-size: 48px;
 	font-weight: bold;
+	
+	&.large {
+		width: 320px;
+		height: 180px;
+	}
+	
+	&.normal {
+		width: 256px;
+		height: 144px;
+	}
+	
+	&.small {
+		width: 192px;
+		height: 108px;
+	}
 }
 
 .controls {

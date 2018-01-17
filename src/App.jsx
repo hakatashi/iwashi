@@ -8,10 +8,11 @@ const Play = require('react-icons/lib/fa/play');
 const Pause = require('react-icons/lib/fa/pause');
 const StepBackward = require('react-icons/lib/fa/step-backward');
 const StepForward = require('react-icons/lib/fa/step-forward');
+const Modernizr = require('modernizr');
 
 const {TICK} = require('./const.js');
 const VocalManager = require('./VocalManager.js');
-const {getResourceUrl, wait, Deferred} = require('./util.js');
+const {getResourceUrl, wait, Deferred, isMobile} = require('./util.js');
 const songs = require('../songs/index.js');
 const params = require('./params.js');
 const Track = require('./Track.jsx');
@@ -34,12 +35,29 @@ module.exports = class App extends React.Component {
 		this.isInitialized = false;
 		this.clearedIntervals = new Set();
 
+		const size = (() => {
+			if (isMobile()) {
+				return 'small';
+			}
+
+			if (window.innerWidth < 1280) {
+				return 'small';
+			}
+
+			if (window.innerWidth < 1920) {
+				return 'normal';
+			}
+
+			return 'large';
+		})();
+
 		this.state = {
 			beat: null,
 			lyric: '',
 			soloScore: null,
 			trackStatuses: new Map(this.tracks.map(([name]) => [name, 'loading'])),
 			sounds: new Map(this.tracks.map(([name, track]) => [name, track.default.sound])),
+			size,
 			voiceSelect: false,
 			voiceSelectTop: 0,
 			voiceSelectLeft: 0,
@@ -91,12 +109,14 @@ module.exports = class App extends React.Component {
 			isCharacterAnimating = true;
 		}
 
-		if (beat % 8 === 0 && isCharacterAnimating) {
-			this.setState({isCharacterAnimating: false}, () => {
-				wait(0).then(() => {
-					this.setState({isCharacterAnimating: true});
+		if (!isMobile) {
+			if (beat % 8 === 0 && isCharacterAnimating) {
+				this.setState({isCharacterAnimating: false}, () => {
+					wait(0).then(() => {
+						this.setState({isCharacterAnimating: true});
+					});
 				});
-			});
+			}
 		}
 	}
 
@@ -212,6 +232,7 @@ module.exports = class App extends React.Component {
 									{...track}
 									sound={this.state.sounds.get(name)}
 									beat={this.state.beat}
+									size={this.state.size}
 									onFlash={this.handleFlash}
 									onChangeSolo={this.handleChangeSolo}
 									onChangeStatus={this.handleSoundStatusChanged}
@@ -278,7 +299,12 @@ module.exports = class App extends React.Component {
 							<StepForward/>
 						</div>
 					</div>
-					<div styleName="title">♪イワシがつちからはえてくるんだ by ころんば</div>
+					<div styleName="title">
+						♪イワシがつちからはえてくるんだ by ころんば
+						<div styleName="change">
+							<Refresh/> かえる
+						</div>
+					</div>
 					<div styleName={classNames('play-video', {active: !this.state.isNoVideo})} onClick={this.handleChangeCheckbox}>
 						{this.state.isNoVideo ? (
 							<React.Fragment>
