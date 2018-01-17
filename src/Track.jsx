@@ -37,6 +37,7 @@ module.exports = class Track extends React.Component {
 		isPaused: PropTypes.bool.isRequired,
 		isNoVideo: PropTypes.bool.isRequired,
 		isNotSolo: PropTypes.bool.isRequired,
+		isPlayReady: PropTypes.bool.isRequired,
 	}
 
 	static defaultProps = {
@@ -73,6 +74,7 @@ module.exports = class Track extends React.Component {
 		}
 
 		if (this.props.isReady === false && nextProps.isReady === true) {
+			this.player && this.player.seekTo(this.soundData.video.start);
 			this.setState({isShown: false});
 		}
 
@@ -338,7 +340,9 @@ module.exports = class Track extends React.Component {
 
 	handlePlayerReady = () => {
 		invoke(this.player, ['player', 'player', 'setPlaybackQuality'], 'tiny');
-		this.player.seekTo(this.soundData.video.start);
+		if (this.props.isPlayReady) {
+			this.player.seekTo(this.soundData.video.start);
+		}
 
 		this.props.onChangeStatus(this.props.name, 'seeking');
 	}
@@ -422,10 +426,10 @@ module.exports = class Track extends React.Component {
 									},
 								},
 							}}
-							width={this.props.size === 'small' ? 192 : 256}
-							height={this.props.size === 'small' ? 108 : 144}
-							playing={this.state.isPlaying && (!this.props.isNoVideo || !this.props.isReady)}
-							controls
+							width={{small: 192, normal: 256, large: 320}[this.props.size]}
+							height={{small: 108, normal: 144, large: 180}[this.props.size]}
+							playing={this.props.isPlayReady && this.state.isPlaying && (!this.props.isNoVideo || !this.props.isReady)}
+							controls={this.props.size !== 'small'}
 							muted
 							loop
 							onReady={this.handlePlayerReady}

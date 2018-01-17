@@ -21,6 +21,11 @@ module.exports = (env = {}) => ({
 							targets: {
 								browsers: [
 									'last 2 chrome versions',
+									...(env.production ? [
+										'last 2 firefox versions',
+										'safari >= 9',
+										'last 2 edge versions',
+									] : []),
 								],
 							},
 							useBuiltIns: 'entry',
@@ -76,8 +81,9 @@ module.exports = (env = {}) => ({
 							'♪',
 							'イワシがつちからはえてくるんだ',
 							'ころんば',
-							'～原曲不使用音声による自動演奏～',
+							'～原曲不使用音声による音MAD自動演奏～',
 							'0123456789% Loaded...',
+							'音量注意！',
 							'なんねん　まえかの　ことでした',
 							'だれかが　ハサミで',
 							'タイムラインを　ちょんぎった',
