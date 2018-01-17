@@ -35,12 +35,29 @@ module.exports = class App extends React.Component {
 		this.isInitialized = false;
 		this.clearedIntervals = new Set();
 
+		const size = (() => {
+			if (isMobile()) {
+				return 'small';
+			}
+
+			if (window.innerWidth < 1280) {
+				return 'small';
+			}
+
+			if (window.innerWidth < 1920) {
+				return 'normal';
+			}
+
+			return 'large';
+		})();
+
 		this.state = {
 			beat: null,
 			lyric: '',
 			soloScore: null,
 			trackStatuses: new Map(this.tracks.map(([name]) => [name, 'loading'])),
 			sounds: new Map(this.tracks.map(([name, track]) => [name, track.default.sound])),
+			size,
 			voiceSelect: false,
 			voiceSelectTop: 0,
 			voiceSelectLeft: 0,
@@ -215,7 +232,7 @@ module.exports = class App extends React.Component {
 									{...track}
 									sound={this.state.sounds.get(name)}
 									beat={this.state.beat}
-									size={isMobile() ? 'small' : 'normal'}
+									size={this.state.size}
 									onFlash={this.handleFlash}
 									onChangeSolo={this.handleChangeSolo}
 									onChangeStatus={this.handleSoundStatusChanged}
