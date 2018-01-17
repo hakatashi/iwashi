@@ -1,3 +1,4 @@
+const path = require('path');
 const webpack = require('webpack');
 const MinifyPlugin = require('babel-minify-webpack-plugin');
 
@@ -114,6 +115,9 @@ module.exports = (env = {}) => ({
 			test: /\.yml$/,
 			exclude: /node_modules/,
 			use: ['./lib/yaml-loader.js'],
+		}, {
+			test: /\.modernizrrc\.js$/,
+			use: ['modernizr-loader'],
 		}],
 	},
 	node: {
@@ -129,4 +133,9 @@ module.exports = (env = {}) => ({
 			new MinifyPlugin(),
 		] : []),
 	],
+	resolve: {
+		alias: {
+			modernizr$: path.resolve(__dirname, '.modernizrrc.js'),
+		},
+	},
 });

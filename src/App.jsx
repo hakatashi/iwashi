@@ -8,6 +8,7 @@ const Play = require('react-icons/lib/fa/play');
 const Pause = require('react-icons/lib/fa/pause');
 const StepBackward = require('react-icons/lib/fa/step-backward');
 const StepForward = require('react-icons/lib/fa/step-forward');
+const Modernizr = require('modernizr');
 
 const {TICK} = require('./const.js');
 const VocalManager = require('./VocalManager.js');
@@ -20,6 +21,8 @@ const VolumeControls = require('./VolumeControls.jsx');
 const VoiceSelect = require('./VoiceSelect.jsx');
 
 import './App.pcss';
+
+console.log(Modernizr);
 
 module.exports = class App extends React.Component {
 	constructor() {
