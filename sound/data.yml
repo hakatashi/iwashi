@@ -330,6 +330,7 @@ minecraft-creeper:
 jaguarman-waito:
   type: instrument
   loop: false
+  prank: true
   sourceNote: 65
   resource:
     work: ジャガーマンシリーズ

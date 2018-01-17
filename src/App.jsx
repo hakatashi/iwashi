@@ -278,7 +278,12 @@ module.exports = class App extends React.Component {
 							<StepForward/>
 						</div>
 					</div>
-					<div styleName="title">♪イワシがつちからはえてくるんだ by ころんば</div>
+					<div styleName="title">
+						♪イワシがつちからはえてくるんだ by ころんば
+						<div styleName="change">
+							<Refresh/> かえる
+						</div>
+					</div>
 					<div styleName={classNames('play-video', {active: !this.state.isNoVideo})} onClick={this.handleChangeCheckbox}>
 						{this.state.isNoVideo ? (
 							<React.Fragment>

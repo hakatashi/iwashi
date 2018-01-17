@@ -202,7 +202,7 @@ tracks:
     score: !require ./score/chorus2.txt
     default:
       sound: jaguarman-waito
-      volume: 0.3
+      volume: 0.2
   cymbal:
     type: percussion
     score: !require ./score/cymbal.txt
@@ -254,5 +254,5 @@ tracks:
     start: 73.1.0
     end: 89.1.0
     default:
-      sound: gintama-katsurap
-      volume: 0.5
+      sound: bemybaby-intro
+      volume: 0.3
