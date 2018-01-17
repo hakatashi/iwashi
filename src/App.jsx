@@ -66,7 +66,19 @@ module.exports = class App extends React.Component {
 			isReady: false,
 			isPaused: false,
 			isCharacterAnimating: false,
+			isPlayReady: false,
 		};
+
+		// Modernizr.audioautoplay is async check and we have to manually check if ready
+		const checkModernizrInterval = setInterval(() => {
+			if (Modernizr.audioautoplay !== undefined) {
+				clearInterval(checkModernizrInterval);
+
+				if (Modernizr.audioautoplay === true) {
+					this.setState({isPlayReady: true});
+				}
+			}
+		}, 100);
 	}
 
 	pause = () => {
@@ -213,6 +225,10 @@ module.exports = class App extends React.Component {
 		this.selectedSound = name;
 	}
 
+	handleClickOk = () => {
+		this.setState({isPlayReady: true});
+	}
+
 	render() {
 		return (
 			<div styleName={classNames('app', {flash: this.state.isFlashing})}>
@@ -221,6 +237,8 @@ module.exports = class App extends React.Component {
 					statuses={this.tracks.map(([name]) => this.state.trackStatuses.get(name))}
 					name="iwashi"
 					vanishing={this.state.isReady}
+					isPlayReady={this.state.isPlayReady}
+					onClickOk={this.handleClickOk}
 				/>
 				<div styleName="main">
 					<div styleName="tracks-container">
@@ -241,6 +259,7 @@ module.exports = class App extends React.Component {
 									isPaused={this.state.isPaused}
 									isNoVideo={this.state.isNoVideo}
 									isNotSolo={this.state.soloScore !== null && this.state.soloScore !== name}
+									isPlayReady={this.state.isPlayReady}
 								/>
 							))}
 						</div>

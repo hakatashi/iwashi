@@ -4,6 +4,7 @@ const React = require('react');
 const PropTypes = require('prop-types');
 const classNames = require('classnames');
 const sum = require('lodash/sum');
+const VolumeUp = require('react-icons/lib/md/volume-up');
 const {getResourceUrl} = require('./util.js');
 
 import './Loading.pcss';
@@ -45,6 +46,8 @@ module.exports = class Loading extends React.Component {
 		name: PropTypes.string.isRequired,
 		statuses: PropTypes.arrayOf(PropTypes.oneOf(['loading', 'seeking', 'ready']).isRequired).isRequired,
 		vanishing: PropTypes.bool.isRequired,
+		isPlayReady: PropTypes.bool.isRequired,
+		onClickOk: PropTypes.func.isRequired,
 	}
 
 	constructor(props, state) {
@@ -70,6 +73,10 @@ module.exports = class Loading extends React.Component {
 		if (event.target === this.root) {
 			this.setState({vanished: true});
 		}
+	}
+
+	handleClickOk = () => {
+		this.props.onClickOk();
 	}
 
 	render() {
@@ -140,9 +147,20 @@ module.exports = class Loading extends React.Component {
 							]))
 						}
 					</div>
-					<div styleName="artist">～原曲不使用音声による自動演奏～</div>
+					<div styleName="artist">～原曲不使用音声による音MAD自動演奏～</div>
 					<div styleName="loading-text">{Math.floor(this.getProgress() * 100)}% Loaded...</div>
 				</div>
+				{!this.props.isPlayReady && this.props.statuses.every((status) => status !== 'loading') && (
+					<div styleName="notice-area" onClick={this.handleClickOk}>
+						<div styleName="notice">
+							<div styleName="head"><VolumeUp/> 音量注意！</div>
+							<div styleName="body">
+								このページは<wbr/>音楽を<wbr/>自動演奏する<wbr/>サイトです。<wbr/>音量に<wbr/>注意して<wbr/>お楽しみください。
+							</div>
+							<div styleName="ok" onClick={this.handleClickOk}>OK</div>
+						</div>
+					</div>
+				)}
 			</div>
 		);
 	}
