@@ -28,6 +28,7 @@ module.exports = class Track extends React.Component {
 		}).isRequired,
 		sound: PropTypes.string.isRequired,
 		beat: PropTypes.number.isRequired,
+		size: PropTypes.string.isRequired,
 		onFlash: PropTypes.func.isRequired,
 		onChangeSolo: PropTypes.func.isRequired,
 		onChangeStatus: PropTypes.func.isRequired,
@@ -394,7 +395,7 @@ module.exports = class Track extends React.Component {
 					</div>
 				</div>
 				<div
-					styleName="video-area"
+					styleName={classNames('video-area', this.props.size)}
 					style={{
 						transform: this.state.isReverse ? 'scale(-1, 1)' : 'none',
 						visibility: this.state.isShown ? 'visible' : 'hidden',
@@ -421,8 +422,8 @@ module.exports = class Track extends React.Component {
 									},
 								},
 							}}
-							width={320}
-							height={180}
+							width={this.props.size === 'small' ? 192 : 256}
+							height={this.props.size === 'small' ? 108 : 144}
 							playing={this.state.isPlaying && (!this.props.isNoVideo || !this.props.isReady)}
 							controls
 							muted

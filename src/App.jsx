@@ -12,7 +12,7 @@ const Modernizr = require('modernizr');
 
 const {TICK} = require('./const.js');
 const VocalManager = require('./VocalManager.js');
-const {getResourceUrl, wait, Deferred} = require('./util.js');
+const {getResourceUrl, wait, Deferred, isMobile} = require('./util.js');
 const songs = require('../songs/index.js');
 const params = require('./params.js');
 const Track = require('./Track.jsx');
@@ -21,8 +21,6 @@ const VolumeControls = require('./VolumeControls.jsx');
 const VoiceSelect = require('./VoiceSelect.jsx');
 
 import './App.pcss';
-
-console.log(Modernizr);
 
 module.exports = class App extends React.Component {
 	constructor() {
@@ -94,12 +92,14 @@ module.exports = class App extends React.Component {
 			isCharacterAnimating = true;
 		}
 
-		if (beat % 8 === 0 && isCharacterAnimating) {
-			this.setState({isCharacterAnimating: false}, () => {
-				wait(0).then(() => {
-					this.setState({isCharacterAnimating: true});
+		if (!isMobile) {
+			if (beat % 8 === 0 && isCharacterAnimating) {
+				this.setState({isCharacterAnimating: false}, () => {
+					wait(0).then(() => {
+						this.setState({isCharacterAnimating: true});
+					});
 				});
-			});
+			}
 		}
 	}
 
@@ -215,6 +215,7 @@ module.exports = class App extends React.Component {
 									{...track}
 									sound={this.state.sounds.get(name)}
 									beat={this.state.beat}
+									size={isMobile() ? 'small' : 'normal'}
 									onFlash={this.handleFlash}
 									onChangeSolo={this.handleChangeSolo}
 									onChangeStatus={this.handleSoundStatusChanged}
