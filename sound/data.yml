@@ -187,7 +187,6 @@ deremasu-suimasen:
     duration: 1
 bemybaby-intro:
   type: rap
-  src: bemybaby-intro
   tempo: 127
   duration: 4
   resource:
@@ -341,7 +340,6 @@ jaguarman-waito:
     duration: 1
 gintama-katsurap:
   type: rap
-  src: gintama-katsurap
   tempo: 100
   duration: 4
   resource:
@@ -352,3 +350,107 @@ gintama-katsurap:
     start: 10.1
     duration: 30
     rate: 1
+badapple-intro:
+  type: percussion
+  resource:
+    work: BAD APPLE!!
+    name: イントロ
+  video:
+    url: https://www.youtube.com/watch?v=9lNZ_Rnr7Jc
+    start: 3
+    duration: 0.5
+jajamen-wotagei:
+  type: rap
+  tempo: 170
+  duration: 4
+  resource:
+    work: みっくす！じゃーじゃーめん
+    name: ヲタ芸
+  video:
+    url: https://www.youtube.com/watch?v=PF15X3SOr0E
+    start: 18
+    duration: 6
+    rate: 1
+kabuto-ketarosu:
+  type: instrument
+  loop: true
+  sourceNote: 55
+  resource:
+    work: 仮面ライダーカブト
+    name: ケタロス
+  video:
+    url: https://www.youtube.com/watch?v=1Qr3Eem2hb4
+    start: 4.2
+    duration: 0.5
+matao-crossing:
+  type: percussion
+  prank: true
+  resource:
+    work: 重大事故仮想再現ＶＴＲ
+    name: 踏切
+  video:
+    url: https://www.youtube.com/watch?v=YYkYwR3cosQ
+    start: 100
+    duration: 1
+nyancat-nya:
+  type: instrument
+  prank: true
+  sourceNote: 66
+  resource:
+    work: Nyan Cat
+    name: nya
+  video:
+    url: https://www.youtube.com/watch?v=QH2-TGUlwu4
+    start: 4
+    duration: 1
+nyanyanya-nya:
+  type: instrument
+  sourceNote: 66
+  resource:
+    work: Nyanyanyanyanyanyanya!
+    name: nya
+  video:
+    url: https://www.youtube.com/watch?v=Til6kcoY0Yk
+    start: 9
+    duration: 1
+shachiku-biku:
+  type: instrument
+  sourceNote: 38
+  prank: true
+  loop: true
+  resource:
+    work: いきのこれ！社畜ちゃん
+    name: 「ビクッ」
+  video:
+    url: https://www.youtube.com/watch?v=de_VGQ7cFc8
+    start: 89.8
+    duration: 1
+shintakarajima-intro:
+  type: instrument
+  prank: true
+  sourceNote: 55
+  resource:
+    work: 新宝島
+    name: イントロ
+  video:
+    url: https://www.youtube.com/watch?v=LIlZCmETvsY
+    start: 9.3
+    duration: 3
+shintakarajima-oh:
+  type: percussion
+  resource:
+    work: 新宝島
+    name: 「OH!」
+  video:
+    url: https://www.youtube.com/watch?v=LIlZCmETvsY
+    start: 62.5
+    duration: 1
+yukari-cowbell:
+  type: percussion
+  resource:
+    work: 何でも言うことを聞いてくれるアカネチャン
+    name: カウベル
+  video:
+    url: https://www.youtube.com/watch?v=OVuYIMa5XBw
+    start: 7.8
+    duration: 0.5
