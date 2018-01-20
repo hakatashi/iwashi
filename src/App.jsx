@@ -12,7 +12,7 @@ const Modernizr = require('modernizr');
 
 const {TICK} = require('./const.js');
 const VocalManager = require('./VocalManager.js');
-const {getResourceUrl, wait, Deferred, isMobile} = require('./util.js');
+const {getResourceUrl, wait, isMobile} = require('./util.js');
 const songs = require('../songs/index.js');
 const params = require('./params.js');
 const Track = require('./Track.jsx');
@@ -127,7 +127,7 @@ module.exports = class App extends React.Component {
 			isCharacterAnimating = true;
 		}
 
-		if (!isMobile) {
+		if (false) {
 			if (beat % 8 === 0 && isCharacterAnimating) {
 				this.setState({isCharacterAnimating: false}, () => {
 					wait(0).then(() => {
@@ -169,6 +169,10 @@ module.exports = class App extends React.Component {
 	}
 
 	handleFlash = async () => {
+		if (isMobile()) {
+			return;
+		}
+
 		await new Promise((resolve) => {
 			this.setState({
 				isFlashing: false,
@@ -324,7 +328,7 @@ module.exports = class App extends React.Component {
 						</div>
 					</div>
 					<div styleName="title">
-						♪イワシがつちからはえてくるんだ by ころんば
+						♪${this.song.title}／${this.song.artist}
 						<div styleName="change">
 							<Refresh/> かえる
 						</div>

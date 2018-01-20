@@ -118,9 +118,6 @@ module.exports = class VoiceSelect extends React.Component {
 		this.setState({isPlaying: false});
 	}
 
-	handlePlayerError = () => {
-	}
-
 	handleClickSound = (event, name) => {
 		this.sound.stop();
 
@@ -167,6 +164,7 @@ module.exports = class VoiceSelect extends React.Component {
 						<Player
 							ref={(element) => {
 								this.player = element;
+								invoke(this.player, ['player', 'player', 'setPlaybackQuality'], 'tiny');
 							}}
 							url={this.soundData.video.url}
 							config={{
@@ -184,7 +182,6 @@ module.exports = class VoiceSelect extends React.Component {
 							muted
 							onReady={this.handlePlayerReady}
 							onStart={this.handlePlayerStart}
-							onError={this.handlePlayerError}
 						/>
 					</div>
 					<div styleName="sounds">

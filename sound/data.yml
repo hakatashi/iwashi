@@ -1,5 +1,6 @@
 kinmoza-clap:
   type: percussion
+  category: clap
   resource:
     work: きんいろモザイク
     name: 山手線ゲーム
@@ -9,6 +10,7 @@ kinmoza-clap:
     duration: 3
 karateka-kick:
   type: percussion
+  category: snare
   resource:
     work: リズム天国
     name: カラテ家のパンチ
@@ -18,6 +20,7 @@ karateka-kick:
     duration: 0.3
 killme-pyonsuke:
   type: percussion
+  category: bass
   resource:
     work: キルミーベイベー
     name: ピョン助に無慈悲な一撃
@@ -27,6 +30,7 @@ killme-pyonsuke:
     duration: 0.5
 ippon-crisp:
   type: percussion
+  category: hihat
   resource:
     work: 一本満足バーCM
     name: 一本満足バー
@@ -36,6 +40,7 @@ ippon-crisp:
     duration: 1
 atsumori:
   type: instrument
+  category: base
   loop: true
   sourceNote: 22
   prank: true
@@ -48,6 +53,7 @@ atsumori:
     duration: 0.5
 aoba-zoi:
   type: instrument
+  category: chorus
   loop: true
   sourceNote: 62
   resource:
@@ -59,6 +65,7 @@ aoba-zoi:
     duration: 2
 zen-glass:
   type: percussion
+  category: bell
   resource:
     work: 膳
     name: グラスを置く音
@@ -69,6 +76,7 @@ zen-glass:
   volume: 1
 minecraft-blaze:
   type: percussion
+  category: chime
   resource:
     work: マインクラフト
     name: ブレイズ打撃音
@@ -78,6 +86,7 @@ minecraft-blaze:
     duration: 1
 fireball-ring:
   type: percussion
+  category: chime
   resource:
     work: ファイアボール
     name: ドロッセルお嬢様が床下よりご登場あそばされる時の音
@@ -87,6 +96,7 @@ fireball-ring:
     duration: 3
 ai-virus:
   type: instrument
+  category: chorus
   loop: true
   sourceNote: 53
   resource:
@@ -98,6 +108,7 @@ ai-virus:
     duration: 3
 inazuma-pan:
   type: instrument
+  category: chorus
   loop: false
   sourceNote: 64
   resource:
@@ -109,6 +120,7 @@ inazuma-pan:
     duration: 1
 killme-cymbal:
   type: percussion
+  category: cymbal
   resource:
     work: キルミーベイベー
     name: シンバル
@@ -118,6 +130,7 @@ killme-cymbal:
     duration: 5
 oreo-oh:
   type: instrument
+  category: chorus
   loop: true
   sourceNote: 50
   resource:
@@ -129,6 +142,7 @@ oreo-oh:
     duration: 1
 zkai-eh:
   type: instrument
+  category: chorus
   loop: true
   sourceNote: 54
   resource:
@@ -140,6 +154,7 @@ zkai-eh:
     duration: 1
 washing-aegi:
   type: instrument
+  category: synth
   loop: true
   sourceNote: 69
   prank: true
@@ -152,6 +167,7 @@ washing-aegi:
     duration: 1
 kemofure-toki:
   type: instrument
+  category: synth
   loop: true
   sourceNote: 97
   resource:
@@ -163,6 +179,7 @@ kemofure-toki:
     duration: 1
 chargeman-hai:
   type: instrument
+  category: chorus
   loop: true
   sourceNote: 59
   prank: true
@@ -175,6 +192,7 @@ chargeman-hai:
     duration: 1
 deremasu-suimasen:
   type: instrument
+  category: chorus
   loop: true
   sourceNote: 56
   prank: true
@@ -199,6 +217,7 @@ bemybaby-intro:
     rate: 1
 cheatbug-rakurai:
   type: instrument
+  category: none
   loop: true
   sourceNote: 48
   resource:
@@ -210,6 +229,7 @@ cheatbug-rakurai:
     duration: 1
 tennis-racket:
   type: percussion
+  category: snare
   resource:
     work: テニスの王子様ミュージカル
     name: ラケット
@@ -219,6 +239,7 @@ tennis-racket:
     duration: 1
 popute-asahi:
   type: instrument
+  category: chorus
   loop: true
   sourceNote: 40
   resource:
@@ -230,6 +251,7 @@ popute-asahi:
     duration: 1
 legalhigh-anobade:
   type: instrument
+  category: chorus
   loop: true
   sourceNote: 46
   resource:
@@ -241,6 +263,7 @@ legalhigh-anobade:
     duration: 1
 fgo-babbage:
   type: percussion
+  category: hihat
   resource:
     work: Fate/GrandOrder
     name: チャールズ・バベッジ コマンドカード2
@@ -250,6 +273,7 @@ fgo-babbage:
     duration: 0.5
 kemomimi-yononaka:
   type: instrument
+  category: chorus
   loop: true
   sourceNote: 48
   resource:
@@ -261,6 +285,7 @@ kemomimi-yononaka:
     duration: 1.5
 inoubattle-otama:
   type: percussion
+  category: chime
   resource:
     work: 異能バトルは日常系のなかで
     name: おたま
@@ -270,6 +295,7 @@ inoubattle-otama:
     duration: 1
 inoubattle-gasstove:
   type: percussion
+  category: cymbal
   resource:
     work: 異能バトルは日常系のなかで
     name: ガスコンロ
@@ -279,6 +305,7 @@ inoubattle-gasstove:
     duration: 1
 acchikocchi-sunoko:
   type: percussion
+  category: snare
   resource:
     work: あっちこっち
     name: スノコ
@@ -288,6 +315,7 @@ acchikocchi-sunoko:
     duration: 0.5
 cookie-marisa:
   type: instrument
+  category: chorus
   loop: true
   sourceNote: 64
   resource:
@@ -299,6 +327,7 @@ cookie-marisa:
     duration: 1.5
 lovelive-shittofire:
   type: instrument
+  category: chorus
   loop: true
   sourceNote: 53
   resource:
@@ -310,6 +339,7 @@ lovelive-shittofire:
     duration: 1
 maguro-drum:
   type: percussion
+  category: bass
   resource:
     work: 「新春ドラマスペシャル・マグロ」番宣CM
     name: 太鼓
@@ -319,6 +349,7 @@ maguro-drum:
     duration: 1
 minecraft-creeper:
   type: percussion
+  category: cymbal
   resource:
     work: Minecraft
     name: クリーパー 爆発音
@@ -328,7 +359,7 @@ minecraft-creeper:
     duration: 1
 jaguarman-waito:
   type: instrument
-  loop: false
+  category: chorus
   prank: true
   sourceNote: 65
   resource:
@@ -352,6 +383,7 @@ gintama-katsurap:
     rate: 1
 badapple-intro:
   type: percussion
+  category: bass
   resource:
     work: BAD APPLE!!
     name: イントロ
@@ -373,6 +405,7 @@ jajamen-wotagei:
     rate: 1
 kabuto-ketarosu:
   type: instrument
+  category: chorus
   loop: true
   sourceNote: 55
   resource:
@@ -384,6 +417,7 @@ kabuto-ketarosu:
     duration: 0.5
 matao-crossing:
   type: percussion
+  category: crossing
   prank: true
   resource:
     work: 重大事故仮想再現ＶＴＲ
@@ -394,6 +428,7 @@ matao-crossing:
     duration: 1
 nyancat-nya:
   type: instrument
+  category: synth
   prank: true
   sourceNote: 66
   resource:
@@ -405,6 +440,7 @@ nyancat-nya:
     duration: 1
 nyanyanya-nya:
   type: instrument
+  category: synth
   sourceNote: 66
   resource:
     work: Nyanyanyanyanyanyanya!
@@ -415,6 +451,7 @@ nyanyanya-nya:
     duration: 1
 shachiku-biku:
   type: instrument
+  category: chorus
   sourceNote: 38
   prank: true
   loop: true
@@ -427,6 +464,7 @@ shachiku-biku:
     duration: 1
 shintakarajima-intro:
   type: instrument
+  category: none
   prank: true
   sourceNote: 55
   resource:
@@ -438,6 +476,7 @@ shintakarajima-intro:
     duration: 3
 shintakarajima-oh:
   type: percussion
+  category: call
   resource:
     work: 新宝島
     name: 「OH!」
@@ -447,6 +486,7 @@ shintakarajima-oh:
     duration: 1
 yukari-cowbell:
   type: percussion
+  category: bell
   resource:
     work: 何でも言うことを聞いてくれるアカネチャン
     name: カウベル

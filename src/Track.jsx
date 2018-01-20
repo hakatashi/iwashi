@@ -20,6 +20,7 @@ module.exports = class Track extends React.Component {
 	static propTypes = {
 		name: PropTypes.string.isRequired,
 		type: PropTypes.oneOf(['percussion', 'instrument', 'chord', 'rap']).isRequired,
+		category: PropTypes.string,
 		score: PropTypes.array,
 		meanOfNotes: PropTypes.number,
 		prank: PropTypes.bool,
@@ -43,6 +44,7 @@ module.exports = class Track extends React.Component {
 	}
 
 	static defaultProps = {
+		category: null,
 		score: null,
 		meanOfNotes: null,
 		prank: false,
@@ -264,7 +266,7 @@ module.exports = class Track extends React.Component {
 			});
 		}
 
-		if (this.props.name === 'cymbal') {
+		if (this.props.category === 'cymbal') {
 			this.props.onFlash();
 		}
 

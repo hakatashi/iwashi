@@ -139,90 +139,105 @@ defaultVocal: yufu
 tracks:
   clap:
     type: percussion
+    category: clap
     score: !require ./score/clap.txt
     default:
       sound: kinmoza-clap
       volume: 1
   snare:
     type: percussion
+    category: snare
     score: !require ./score/snare.txt
     default:
       sound: karateka-kick
       volume: 0.5
   bass:
     type: percussion
+    category: bass
     score: !require ./score/bass.txt
     default:
       sound: killme-pyonsuke
       volume: 1
   closed-hihat:
     type: percussion
+    category: hihat
     score: !require ./score/closed-hihat.txt
     default:
       sound: ippon-crisp
       volume: 0.5
   base:
     type: instrument
+    category: base
     score: !require ./score/base.txt
     default:
       sound: atsumori
       volume: 0.3
   chord:
     type: chord
+    category: chorus
     score: !require ./score/chord.txt
     default:
       sound: aoba-zoi
       volume: 0.2
   cowbell:
     type: percussion
+    category: bell
     score: !require ./score/cowbell.txt
     default:
       sound: zen-glass
       volume: 1
   chime1:
     type: percussion
+    category: chime
     score: !require ./score/chime1.txt
     default:
       sound: minecraft-blaze
       volume: 0.5
   chime2:
     type: percussion
+    category: chime
     score: !require ./score/chime2.txt
     default:
       sound: inoubattle-otama
       volume: 0.4
   chorus1:
     type: instrument
+    category: chorus
     score: !require ./score/chorus1.txt
     default:
       sound: ai-virus
       volume: 0.2
   chorus2:
     type: instrument
+    category: chorus
     score: !require ./score/chorus2.txt
     default:
       sound: jaguarman-waito
       volume: 0.2
   cymbal:
     type: percussion
+    category: cymbal
     score: !require ./score/cymbal.txt
     default:
       sound: killme-cymbal
       volume: 0.2
   chorus3:
     type: instrument
+    category: chorus
     score: !require ./score/chorus3.txt
     default:
       sound: oreo-oh
       volume: 0.3
   chorus4:
     type: instrument
+    category: chorus
     score: !require ./score/chorus4.txt
     default:
       sound: zkai-eh
       volume: 0.4
   synth1:
     type: instrument
+    category: synth
     score: !require ./score/synth1.txt
     prank: true
     default:
@@ -230,6 +245,7 @@ tracks:
       volume: 0.3
   synth2:
     type: instrument
+    category: synth
     score: !require ./score/synth2.txt
     prank: true
     default:
@@ -237,6 +253,7 @@ tracks:
       volume: 0.12
   chorus5:
     type: instrument
+    category: chorus
     score: !require ./score/chorus5.txt
     prank: true
     default:
@@ -244,6 +261,7 @@ tracks:
       volume: 0.25
   chorus6:
     type: instrument
+    category: chorus
     score: !require ./score/chorus6.txt
     prank: true
     default:
