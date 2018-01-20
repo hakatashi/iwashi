@@ -5,6 +5,7 @@ const PropTypes = require('prop-types');
 const classNames = require('classnames');
 const sum = require('lodash/sum');
 const VolumeUp = require('react-icons/lib/md/volume-up');
+const Spinner = require('react-icons/lib/fa/spinner');
 const {getResourceUrl} = require('./util.js');
 
 import './Loading.pcss';
@@ -148,7 +149,12 @@ module.exports = class Loading extends React.Component {
 						}
 					</div>
 					<div styleName="artist">～原曲不使用音声による音MAD自動演奏～</div>
-					<div styleName="loading-text">{Math.floor(this.getProgress() * 100)}% Loaded...</div>
+					<div styleName="loading-text">
+						{this.getProgress() !== 1 && <div styleName="spinner"><Spinner/></div>}
+						{' '}
+						{Math.floor(this.getProgress() * 100)}% Loaded
+						{this.getProgress() !== 1 && '...'}
+					</div>
 				</div>
 				{!this.props.isPlayReady && this.props.statuses.every((status) => status !== 'loading') && (
 					<div styleName="notice-area" onClick={this.handleClickOk}>
