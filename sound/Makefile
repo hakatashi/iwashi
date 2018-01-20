@@ -3,6 +3,6 @@ OGG=$(WAV:.wav=.ogg)
 
 .SECONDEXPANSION:
 %.ogg: $$(wildcard %.wav)
-	ffmpeg -i "$*.wav" -b:a 96k -acodec libopus -f ogg "$@"
+	ffmpeg -i "$*.wav" -b:a 96k -acodec libopus -f ogg "$@" -y
 
 all: $(OGG)

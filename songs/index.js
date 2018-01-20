@@ -1,4 +1,5 @@
 const mapValues = require('lodash/mapValues');
+const sum = require('lodash/sum');
 const MMLIterator = require('mml-iterator');
 
 const iwashi = require('./iwashi/data.yml');
@@ -59,7 +60,14 @@ for (const [id, song] of Object.entries({iwashi})) {
 		)),
 		tracks: mapValues(song.tracks, (track) => ({
 			...track,
-			...(track.score ? {score: compileMml(track.score)} : {}),
+			...(track.score ? (() => {
+				const score = compileMml(track.score);
+				const noteNumbers = score.map((note) => note.noteNumber).filter((note) => note !== undefined);
+				return {
+					score,
+					meanOfNotes: sum(noteNumbers) / noteNumbers.length,
+				};
+			})() : {}),
 			...(track.start ? {start: parseTime(track.start, song.resolution)} : {}),
 			...(track.end ? {end: parseTime(track.end, song.resolution)} : {}),
 		})),

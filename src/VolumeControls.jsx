@@ -1,7 +1,7 @@
-const qs = require('querystring');
 const React = require('react');
 const PropTypes = require('prop-types');
 const classNames = require('classnames');
+const {default: Hammer} = require('react-hammerjs');
 const VolumeUp = require('react-icons/lib/md/volume-up');
 const VolumeOff = require('react-icons/lib/md/volume-off');
 
@@ -12,6 +12,7 @@ module.exports = class Track extends React.Component {
 		volume: PropTypes.number.isRequired,
 		isMuted: PropTypes.bool.isRequired,
 		isSolo: PropTypes.bool.isRequired,
+		onChangeVolume: PropTypes.func.isRequired,
 		onChangeMuted: PropTypes.func.isRequired,
 		onChangeSolo: PropTypes.func.isRequired,
 	}
@@ -23,6 +24,8 @@ module.exports = class Track extends React.Component {
 			isMuted: this.props.isMuted,
 			isSolo: this.props.isSolo,
 		};
+
+		this.previousVolume = this.props.volume;
 	}
 
 	componentWillReceiveProps(nextProps) {
@@ -53,6 +56,15 @@ module.exports = class Track extends React.Component {
 		this.props.onChangeSolo(newIsSolo);
 	}
 
+	handleKnobPan = (event) => {
+		const newVolume = Math.max(0, Math.min(this.previousVolume + event.deltaX / 100, 1));
+		this.props.onChangeVolume(newVolume);
+
+		if (event.isFinal) {
+			this.previousVolume = newVolume;
+		}
+	}
+
 	render() {
 		return (
 			<div styleName="controls">
@@ -79,21 +91,25 @@ module.exports = class Track extends React.Component {
 									rx={height / 2}
 									ry={height / 2}
 								/>
-								<path
+								<rect
 									styleName="volume-color"
-									d={`
-										M ${height / 2} ${height / 2}
-										L ${width + height / 2} 0
-										A ${height / 2} ${height / 2} 0 0 1 ${width + height / 2} ${height}
-										Z
-									`}
+									x="0"
+									y="0"
+									width={height + width * this.props.volume}
+									height={height}
+									rx={height / 2}
+									ry={height / 2}
 								/>
-								<circle
-									styleName="volume-pinch"
-									cx={height / 2 + width * this.props.volume}
-									cy={height / 2}
-									r={height * 0.4}
-								/>
+								<Hammer
+									onPan={this.handleKnobPan}
+								>
+									<circle
+										styleName="volume-knob"
+										cx={height / 2 + width * this.props.volume}
+										cy={height / 2}
+										r={height * 0.5}
+									/>
+								</Hammer>
 							</svg>
 						);
 					})()}

@@ -12,13 +12,13 @@ const Modernizr = require('modernizr');
 
 const {TICK} = require('./const.js');
 const VocalManager = require('./VocalManager.js');
-const {getResourceUrl, wait, Deferred, isMobile} = require('./util.js');
+const {getResourceUrl, wait, isMobile} = require('./util.js');
 const songs = require('../songs/index.js');
 const params = require('./params.js');
 const Track = require('./Track.jsx');
 const Loading = require('./Loading.jsx');
 const VolumeControls = require('./VolumeControls.jsx');
-const VoiceSelect = require('./VoiceSelect.jsx');
+const SoundSelect = require('./SoundSelect.jsx');
 
 import './App.pcss';
 
@@ -58,15 +58,17 @@ module.exports = class App extends React.Component {
 			trackStatuses: new Map(this.tracks.map(([name]) => [name, 'loading'])),
 			sounds: new Map(this.tracks.map(([name, track]) => [name, track.default.sound])),
 			size,
-			voiceSelect: false,
-			voiceSelectTop: 0,
-			voiceSelectLeft: 0,
+			soundSelect: false,
+			soundSelectTop: 0,
+			soundSelectLeft: 0,
+			vocalVolume: 1,
 			isFlashing: false,
 			isNoVideo: true,
 			isReady: false,
 			isPaused: false,
 			isCharacterAnimating: false,
 			isPlayReady: false,
+			isVocalDisabled: false,
 		};
 
 		// Modernizr.audioautoplay is async check and we have to manually check if ready
@@ -82,6 +84,9 @@ module.exports = class App extends React.Component {
 	}
 
 	pause = () => {
+		if (this.state.isPaused) {
+			return;
+		}
 		clearInterval(this.handleBeatInterval);
 		this.clearedIntervals.add(this.handleBeatInterval);
 		this.vocalManager.pause();
@@ -89,6 +94,9 @@ module.exports = class App extends React.Component {
 	}
 
 	unpause = () => {
+		if (!this.state.isPaused) {
+			return;
+		}
 		if (this.clearedIntervals.has(this.handleBeatInterval)) {
 			this.handleBeatInterval = setInterval(this.handleBeat, TICK * 1000);
 		}
@@ -121,7 +129,7 @@ module.exports = class App extends React.Component {
 			isCharacterAnimating = true;
 		}
 
-		if (!isMobile) {
+		if (false) {
 			if (beat % 8 === 0 && isCharacterAnimating) {
 				this.setState({isCharacterAnimating: false}, () => {
 					wait(0).then(() => {
@@ -135,26 +143,26 @@ module.exports = class App extends React.Component {
 	handleSoundStatusChanged = async (name, status) => {
 		this.setState({trackStatuses: this.state.trackStatuses.set(name, status)});
 
-		if (!this.isInitialized && Array.from(this.state.trackStatuses.values()).every((s) => s === 'ready')) {
-			this.isInitialized = true;
+		if (this.state.soundSelect === false && Array.from(this.state.trackStatuses.values()).every((s) => s === 'ready')) {
+			if (this.isInitialized) {
+				this.unpause();
+			} else {
+				this.isInitialized = true;
 
-			const vocalManager = await this.vocalManagerPromise;
-			this.vocalManager = vocalManager;
+				const vocalManager = await this.vocalManagerPromise;
+				this.vocalManager = vocalManager;
 
-			if (!params.debug) {
-				await wait(1000);
+				if (!params.debug) {
+					await wait(1000);
+				}
+				this.setState({isReady: true});
+
+				if (!params.debug) {
+					await wait(3000);
+				}
+
+				this.handleBeatInterval = setInterval(this.handleBeat, TICK * 1000);
 			}
-			this.setState({isReady: true});
-
-			if (!params.debug) {
-				await wait(3000);
-			}
-
-			this.handleBeatInterval = setInterval(this.handleBeat, TICK * 1000);
-		}
-
-		if (status === 'ready' && this.updateSoundDefer && !this.updateSoundDefer.isResolved) {
-			this.updateSoundDefer.resolve();
 		}
 	}
 
@@ -163,6 +171,10 @@ module.exports = class App extends React.Component {
 	}
 
 	handleFlash = async () => {
+		if (isMobile()) {
+			return;
+		}
+
 		await new Promise((resolve) => {
 			this.setState({
 				isFlashing: false,
@@ -177,13 +189,35 @@ module.exports = class App extends React.Component {
 	}
 
 	handleChangeSolo = (score, isSolo) => {
+		if (isSolo) {
+			this.vocalManager.enableNotSolo();
+		} else {
+			this.vocalManager.disableNotSolo();
+		}
+
 		this.setState({
 			soloScore: isSolo ? score : null,
+			isVocalDisabled: this.vocalManager.isNotSolo || this.vocalManager.isMuted,
 		});
 	}
 
-	handleChangeVoiceMuted = () => {
+	handleChangeVoiceMuted = (isMuted) => {
+		if (isMuted) {
+			this.vocalManager.mute();
+		} else {
+			this.vocalManager.unmute();
+		}
 
+		this.setState({
+			isVocalDisabled: this.vocalManager.isNotSolo || this.vocalManager.isMuted,
+		});
+	}
+
+	handleChangeVoiceVolume = (volume) => {
+		this.vocalManager.setVolume(volume);
+		this.setState({
+			vocalVolume: this.vocalManager.volume,
+		});
 	}
 
 	handleClickPause = () => {
@@ -197,31 +231,30 @@ module.exports = class App extends React.Component {
 	handleClickChange = (name, target) => {
 		this.selectedSound = this.state.sounds.get(name);
 		this.setState({
-			voiceSelect: name,
-			voiceSelectTop: target.offsetTop + target.offsetHeight / 2,
-			voiceSelectLeft: target.offsetLeft + target.offsetWidth / 2,
+			soundSelect: name,
+			soundSelectTop: target.offsetTop + target.offsetHeight / 2,
+			soundSelectLeft: target.offsetLeft + target.offsetWidth / 2,
 		});
 		this.pause();
 	}
 
-	handleClickBackdrop = async () => {
-		const selectedTrack = this.state.voiceSelect;
+	handleClickBackdrop = () => {
+		const selectedTrack = this.state.soundSelect;
 
-		this.setState({voiceSelect: false});
+		this.setState({soundSelect: false});
 
-		if (this.selectedSound !== this.state.sounds.get(selectedTrack)) {
+		if (this.selectedSound === this.state.sounds.get(selectedTrack)) {
+			if (Array.from(this.state.trackStatuses.values()).every((s) => s === 'ready')) {
+				this.unpause();
+			}
+		} else {
 			this.setState({
 				sounds: this.state.sounds.set(selectedTrack, this.selectedSound),
 			});
-
-			this.updateSoundDefer = new Deferred();
-			await this.updateSoundDefer.promise;
 		}
-
-		this.unpause();
 	}
 
-	handleVoiceSelect = (name) => {
+	handleSoundSelect = (name) => {
 		this.selectedSound = name;
 	}
 
@@ -263,15 +296,15 @@ module.exports = class App extends React.Component {
 								/>
 							))}
 						</div>
-						{this.state.voiceSelect && (
+						{this.state.soundSelect && (
 							<React.Fragment>
 								<div styleName="backdrop" onClick={this.handleClickBackdrop}/>
-								<VoiceSelect
-									top={this.state.voiceSelectTop}
-									left={this.state.voiceSelectLeft}
-									type={this.song.tracks[this.state.voiceSelect].type}
-									sound={this.state.sounds.get(this.state.voiceSelect)}
-									onSelect={this.handleVoiceSelect}
+								<SoundSelect
+									top={this.state.soundSelectTop}
+									left={this.state.soundSelectLeft}
+									type={this.song.tracks[this.state.soundSelect].type}
+									sound={this.state.sounds.get(this.state.soundSelect)}
+									onSelect={this.handleSoundSelect}
 								/>
 							</React.Fragment>
 						)}
@@ -282,6 +315,7 @@ module.exports = class App extends React.Component {
 								styleName={classNames('character-image', {
 									animating: this.state.isCharacterAnimating,
 									paused: this.state.isPaused,
+									disabled: this.state.isVocalDisabled,
 								})}
 								src={getResourceUrl('sound/vocal/yufu/character.png')}
 							/>
@@ -294,10 +328,11 @@ module.exports = class App extends React.Component {
 						</div>
 						<div styleName="lyric-controls">
 							<VolumeControls
-								volume={1}
+								volume={this.state.vocalVolume}
 								isMuted={false}
 								isSolo={false}
 								onChangeMuted={this.handleChangeVoiceMuted}
+								onChangeVolume={this.handleChangeVoiceVolume}
 							/>
 						</div>
 					</div>
@@ -319,7 +354,7 @@ module.exports = class App extends React.Component {
 						</div>
 					</div>
 					<div styleName="title">
-						♪イワシがつちからはえてくるんだ by ころんば
+						♪${this.song.title}／${this.song.artist}
 						<div styleName="change">
 							<Refresh/> かえる
 						</div>

@@ -5,3 +5,5 @@ package-lock.json binary
 *.ogg filter=lfs diff=lfs merge=lfs -text
 *.ust filter=lfs diff=lfs merge=lfs -text
 *.png filter=lfs diff=lfs merge=lfs -text
+favicon.png -filter=lfs -diff=lfs -merge=lfs -text
+ogimage.png -filter=lfs -diff=lfs -merge=lfs -text

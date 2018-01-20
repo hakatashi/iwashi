@@ -22,6 +22,9 @@ const VoiceManager = class VoiceManager {
 		this.onReady = onReady;
 		this.vocalSounds = new Map();
 		this.isSoundPaused = new WeakMap();
+		this.volume = 1;
+		this.isMuted = false;
+		this.isNotSolo = false;
 
 		// Load first vocal and call onReady after loading
 		this.isReady = false;
@@ -42,7 +45,7 @@ const VoiceManager = class VoiceManager {
 
 		const howl = new Howl({
 			src: getSoundUrls(this.getResourceName(vocal.source)),
-			volume: 1.3,
+			volume: this.getVolume(),
 			onload: () => {
 				if (!this.isReady) {
 					this.isReady = true;
@@ -94,6 +97,45 @@ const VoiceManager = class VoiceManager {
 				vocalSound.play();
 			}
 		}
+	}
+
+	getVolume = () => {
+		if (this.isMuted || this.isNotSolo) {
+			return 0;
+		}
+
+		return this.volume;
+	}
+
+	updateVolume = () => {
+		for (const vocalSound of this.vocalSounds.values()) {
+			vocalSound.volume(this.getVolume());
+		}
+	}
+
+	mute() {
+		this.isMuted = true;
+		this.updateVolume();
+	}
+
+	unmute() {
+		this.isMuted = false;
+		this.updateVolume();
+	}
+
+	enableNotSolo() {
+		this.isNotSolo = true;
+		this.updateVolume();
+	}
+
+	disableNotSolo() {
+		this.isNotSolo = false;
+		this.updateVolume();
+	}
+
+	setVolume(volume) {
+		this.volume = volume;
+		this.updateVolume();
 	}
 };
 
