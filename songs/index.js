@@ -1,8 +1,8 @@
 const mapValues = require('lodash/mapValues');
-const sum = require('lodash/sum');
 const MMLIterator = require('mml-iterator');
 
 const iwashi = require('./iwashi/data.yml');
+const {median} = require('../src/util.js');
 
 const parseTime = (timeText, resolution) => {
 	const components = timeText.split('.');
@@ -65,7 +65,7 @@ for (const [id, song] of Object.entries({iwashi})) {
 				const noteNumbers = score.map((note) => note.noteNumber).filter((note) => note !== undefined);
 				return {
 					score,
-					meanOfNotes: sum(noteNumbers) / noteNumbers.length,
+					meanOfNotes: median(noteNumbers),
 				};
 			})() : {}),
 			...(track.start ? {start: parseTime(track.start, song.resolution)} : {}),

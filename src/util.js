@@ -52,3 +52,14 @@ module.exports.isIos = () => (
 module.exports.isMobile = () => (
 	module.exports.isAndroid() || module.exports.isIos()
 );
+
+module.exports.median = (values) => {
+	const sortedValues = values.slice().sort((a, b) => a - b);
+	const med = Math.floor(sortedValues.length / 2);
+
+	if (values.length % 2 === 0) {
+		return (sortedValues[med - 1] + sortedValues[med]) / 2;
+	}
+
+	return sortedValues[med];
+};
