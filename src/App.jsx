@@ -18,7 +18,7 @@ const params = require('./params.js');
 const Track = require('./Track.jsx');
 const Loading = require('./Loading.jsx');
 const VolumeControls = require('./VolumeControls.jsx');
-const VoiceSelect = require('./VoiceSelect.jsx');
+const SoundSelect = require('./SoundSelect.jsx');
 
 import './App.pcss';
 
@@ -58,9 +58,9 @@ module.exports = class App extends React.Component {
 			trackStatuses: new Map(this.tracks.map(([name]) => [name, 'loading'])),
 			sounds: new Map(this.tracks.map(([name, track]) => [name, track.default.sound])),
 			size,
-			voiceSelect: false,
-			voiceSelectTop: 0,
-			voiceSelectLeft: 0,
+			soundSelect: false,
+			soundSelectTop: 0,
+			soundSelectLeft: 0,
 			isFlashing: false,
 			isNoVideo: true,
 			isReady: false,
@@ -141,7 +141,7 @@ module.exports = class App extends React.Component {
 	handleSoundStatusChanged = async (name, status) => {
 		this.setState({trackStatuses: this.state.trackStatuses.set(name, status)});
 
-		if (this.state.voiceSelect === false && Array.from(this.state.trackStatuses.values()).every((s) => s === 'ready')) {
+		if (this.state.soundSelect === false && Array.from(this.state.trackStatuses.values()).every((s) => s === 'ready')) {
 			if (this.isInitialized) {
 				this.unpause();
 			} else {
@@ -207,17 +207,17 @@ module.exports = class App extends React.Component {
 	handleClickChange = (name, target) => {
 		this.selectedSound = this.state.sounds.get(name);
 		this.setState({
-			voiceSelect: name,
-			voiceSelectTop: target.offsetTop + target.offsetHeight / 2,
-			voiceSelectLeft: target.offsetLeft + target.offsetWidth / 2,
+			soundSelect: name,
+			soundSelectTop: target.offsetTop + target.offsetHeight / 2,
+			soundSelectLeft: target.offsetLeft + target.offsetWidth / 2,
 		});
 		this.pause();
 	}
 
 	handleClickBackdrop = () => {
-		const selectedTrack = this.state.voiceSelect;
+		const selectedTrack = this.state.soundSelect;
 
-		this.setState({voiceSelect: false});
+		this.setState({soundSelect: false});
 
 		if (this.selectedSound === this.state.sounds.get(selectedTrack)) {
 			if (Array.from(this.state.trackStatuses.values()).every((s) => s === 'ready')) {
@@ -230,7 +230,7 @@ module.exports = class App extends React.Component {
 		}
 	}
 
-	handleVoiceSelect = (name) => {
+	handleSoundSelect = (name) => {
 		this.selectedSound = name;
 	}
 
@@ -272,15 +272,15 @@ module.exports = class App extends React.Component {
 								/>
 							))}
 						</div>
-						{this.state.voiceSelect && (
+						{this.state.soundSelect && (
 							<React.Fragment>
 								<div styleName="backdrop" onClick={this.handleClickBackdrop}/>
-								<VoiceSelect
-									top={this.state.voiceSelectTop}
-									left={this.state.voiceSelectLeft}
-									type={this.song.tracks[this.state.voiceSelect].type}
-									sound={this.state.sounds.get(this.state.voiceSelect)}
-									onSelect={this.handleVoiceSelect}
+								<SoundSelect
+									top={this.state.soundSelectTop}
+									left={this.state.soundSelectLeft}
+									type={this.song.tracks[this.state.soundSelect].type}
+									sound={this.state.sounds.get(this.state.soundSelect)}
+									onSelect={this.handleSoundSelect}
 								/>
 							</React.Fragment>
 						)}

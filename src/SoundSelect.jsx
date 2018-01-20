@@ -11,7 +11,7 @@ const invoke = require('lodash/invoke');
 const soundData = require('../sound/data.yml');
 const {getSoundUrls, wait} = require('./util.js');
 
-import './VoiceSelect.pcss';
+import './SoundSelect.pcss';
 
 const getThumbnailUrl = (url) => {
 	let matches = null;
@@ -53,7 +53,7 @@ class Sound extends React.Component {
 	}
 }
 
-module.exports = class VoiceSelect extends React.Component {
+module.exports = class SoundSelect extends React.Component {
 	static propTypes = {
 		top: PropTypes.number.isRequired,
 		left: PropTypes.number.isRequired,
@@ -153,7 +153,7 @@ module.exports = class VoiceSelect extends React.Component {
 	render() {
 		return (
 			<div
-				styleName={classNames('voice-select', this.direction)}
+				styleName={classNames('sound-select', this.direction)}
 				style={{
 					top: this.props.top,
 					left: this.props.left,
