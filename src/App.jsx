@@ -82,6 +82,9 @@ module.exports = class App extends React.Component {
 	}
 
 	pause = () => {
+		if (this.state.isPaused) {
+			return;
+		}
 		clearInterval(this.handleBeatInterval);
 		this.clearedIntervals.add(this.handleBeatInterval);
 		this.vocalManager.pause();
@@ -89,6 +92,9 @@ module.exports = class App extends React.Component {
 	}
 
 	unpause = () => {
+		if (!this.state.isPaused) {
+			return;
+		}
 		if (this.clearedIntervals.has(this.handleBeatInterval)) {
 			this.handleBeatInterval = setInterval(this.handleBeat, TICK * 1000);
 		}
@@ -135,26 +141,26 @@ module.exports = class App extends React.Component {
 	handleSoundStatusChanged = async (name, status) => {
 		this.setState({trackStatuses: this.state.trackStatuses.set(name, status)});
 
-		if (!this.isInitialized && Array.from(this.state.trackStatuses.values()).every((s) => s === 'ready')) {
-			this.isInitialized = true;
+		if (this.state.voiceSelect === false && Array.from(this.state.trackStatuses.values()).every((s) => s === 'ready')) {
+			if (this.isInitialized) {
+				this.unpause();
+			} else {
+				this.isInitialized = true;
 
-			const vocalManager = await this.vocalManagerPromise;
-			this.vocalManager = vocalManager;
+				const vocalManager = await this.vocalManagerPromise;
+				this.vocalManager = vocalManager;
 
-			if (!params.debug) {
-				await wait(1000);
+				if (!params.debug) {
+					await wait(1000);
+				}
+				this.setState({isReady: true});
+
+				if (!params.debug) {
+					await wait(3000);
+				}
+
+				this.handleBeatInterval = setInterval(this.handleBeat, TICK * 1000);
 			}
-			this.setState({isReady: true});
-
-			if (!params.debug) {
-				await wait(3000);
-			}
-
-			this.handleBeatInterval = setInterval(this.handleBeat, TICK * 1000);
-		}
-
-		if (status === 'ready' && this.updateSoundDefer && !this.updateSoundDefer.isResolved) {
-			this.updateSoundDefer.resolve();
 		}
 	}
 
@@ -204,21 +210,18 @@ module.exports = class App extends React.Component {
 		this.pause();
 	}
 
-	handleClickBackdrop = async () => {
+	handleClickBackdrop = () => {
 		const selectedTrack = this.state.voiceSelect;
 
 		this.setState({voiceSelect: false});
 
-		if (this.selectedSound !== this.state.sounds.get(selectedTrack)) {
+		if (this.selectedSound === this.state.sounds.get(selectedTrack)) {
+			this.unpause();
+		} else {
 			this.setState({
 				sounds: this.state.sounds.set(selectedTrack, this.selectedSound),
 			});
-
-			this.updateSoundDefer = new Deferred();
-			await this.updateSoundDefer.promise;
 		}
-
-		this.unpause();
 	}
 
 	handleVoiceSelect = (name) => {
