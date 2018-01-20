@@ -234,7 +234,7 @@ tracks:
     prank: true
     default:
       sound: kemofure-toki
-      volume: 0.2
+      volume: 0.1
   chorus5:
     type: instrument
     score: !require ./score/chorus5.txt

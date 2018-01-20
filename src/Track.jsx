@@ -4,6 +4,7 @@ const {Howl} = require('howler');
 const PropTypes = require('prop-types');
 const randomColor = require('randomcolor');
 const classNames = require('classnames');
+const assert = require('assert');
 const Refresh = require('react-icons/lib/fa/refresh');
 const invoke = require('lodash/invoke');
 
@@ -20,6 +21,7 @@ module.exports = class Track extends React.Component {
 		name: PropTypes.string.isRequired,
 		type: PropTypes.oneOf(['percussion', 'instrument', 'chord', 'rap']).isRequired,
 		score: PropTypes.array,
+		meanOfNotes: PropTypes.number,
 		prank: PropTypes.bool,
 		start: PropTypes.number,
 		end: PropTypes.number,
@@ -42,6 +44,7 @@ module.exports = class Track extends React.Component {
 
 	static defaultProps = {
 		score: null,
+		meanOfNotes: null,
 		prank: false,
 		start: null,
 		end: null,
@@ -247,8 +250,15 @@ module.exports = class Track extends React.Component {
 
 			this.currentNoteIndex = playNoteIndex;
 
+			// Select the best octave scale based on meanOfNotes and sourceNote
+			const noteDifference = this.props.meanOfNotes - this.soundData.sourceNote % 12;
+			const downerOctave = Math.floor(noteDifference / 12);
+			const upperOctave = Math.ceil(noteDifference / 12);
+			assert(downerOctave <= upperOctave);
+			const octave = (noteDifference - downerOctave * 12) > (upperOctave * 12 - noteDifference) ? upperOctave : downerOctave;
+
 			playNotes.forEach((note, index) => {
-				this.sounds[index].rate(2 ** ((note.noteNumber - this.soundData.sourceNote) / 12));
+				this.sounds[index].rate(2 ** ((note.noteNumber - octave * 12 - this.soundData.sourceNote % 12) / 12));
 				this.sounds[index].volume(this.getVolume());
 				this.sounds[index].play();
 			});
