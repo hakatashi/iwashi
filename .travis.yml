@@ -1,0 +1,14 @@
+language: node_js
+node_js:
+  - node
+dist: trusty
+sudo: false
+cache:
+  directories:
+    - node_modules
+branches:
+  except:
+    - /^v\d+\.\d+\.\d+$/
+    - gh-pages
+notifications:
+  webhooks: http://webhook.hakatashi.com/travis
