@@ -3,7 +3,6 @@ node_js:
   - node
 dist: trusty
 sudo: false
-install: npm install -ddd
 cache:
   directories:
     - node_modules
