@@ -384,6 +384,10 @@ module.exports = class Track extends React.Component {
 		this.setState({isMuted});
 	}
 
+	handleChangeVolume = (volume) => {
+		this.setState({volume});
+	}
+
 	handleChangeSolo = (isSolo) => {
 		this.setState({isSolo});
 		this.props.onChangeSolo(this.props.name, isSolo);
@@ -454,6 +458,7 @@ module.exports = class Track extends React.Component {
 					volume={this.state.volume}
 					isMuted={this.state.isMuted}
 					isSolo={this.state.isSolo}
+					onChangeVolume={this.handleChangeVolume}
 					onChangeMuted={this.handleChangeMuted}
 					onChangeSolo={this.handleChangeSolo}
 				/>

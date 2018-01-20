@@ -36,7 +36,7 @@
     "raw-loader": "^0.5.1",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
-    "react-hammer": "0.0.3",
+    "react-hammerjs": "^1.0.1",
     "react-icons": "^2.2.7",
     "react-player": "^0.25.3",
     "style-loader": "^0.19.1",
