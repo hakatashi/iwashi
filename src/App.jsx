@@ -61,12 +61,14 @@ module.exports = class App extends React.Component {
 			soundSelect: false,
 			soundSelectTop: 0,
 			soundSelectLeft: 0,
+			vocalVolume: 1,
 			isFlashing: false,
 			isNoVideo: true,
 			isReady: false,
 			isPaused: false,
 			isCharacterAnimating: false,
 			isPlayReady: false,
+			isVocalDisabled: false,
 		};
 
 		// Modernizr.audioautoplay is async check and we have to manually check if ready
@@ -187,13 +189,35 @@ module.exports = class App extends React.Component {
 	}
 
 	handleChangeSolo = (score, isSolo) => {
+		if (isSolo) {
+			this.vocalManager.enableNotSolo();
+		} else {
+			this.vocalManager.disableNotSolo();
+		}
+
 		this.setState({
 			soloScore: isSolo ? score : null,
+			isVocalDisabled: this.vocalManager.isNotSolo || this.vocalManager.isMuted,
 		});
 	}
 
-	handleChangeVoiceMuted = () => {
+	handleChangeVoiceMuted = (isMuted) => {
+		if (isMuted) {
+			this.vocalManager.mute();
+		} else {
+			this.vocalManager.unmute();
+		}
 
+		this.setState({
+			isVocalDisabled: this.vocalManager.isNotSolo || this.vocalManager.isMuted,
+		});
+	}
+
+	handleChangeVoiceVolume = (volume) => {
+		this.vocalManager.setVolume(volume);
+		this.setState({
+			vocalVolume: this.vocalManager.volume,
+		});
 	}
 
 	handleClickPause = () => {
@@ -291,6 +315,7 @@ module.exports = class App extends React.Component {
 								styleName={classNames('character-image', {
 									animating: this.state.isCharacterAnimating,
 									paused: this.state.isPaused,
+									disabled: this.state.isVocalDisabled,
 								})}
 								src={getResourceUrl('sound/vocal/yufu/character.png')}
 							/>
@@ -303,10 +328,11 @@ module.exports = class App extends React.Component {
 						</div>
 						<div styleName="lyric-controls">
 							<VolumeControls
-								volume={1}
+								volume={this.state.vocalVolume}
 								isMuted={false}
 								isSolo={false}
 								onChangeMuted={this.handleChangeVoiceMuted}
+								onChangeVolume={this.handleChangeVoiceVolume}
 							/>
 						</div>
 					</div>

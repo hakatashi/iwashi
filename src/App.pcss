@@ -64,11 +64,11 @@ body {
 	top: 0;
 	left: 0;
 	z-index: 0;
-	
+
 	display: flex;
 	flex-wrap: wrap;
 	justify-content: center;
-	
+
 	padding-bottom: 80px;
 	box-sizing: border-box;
 }
@@ -80,7 +80,7 @@ body {
 
 	width: 100%;
 	height: 100%;
-	
+
 	background: rgba(0, 0, 0, 0.5);
 	cursor: pointer;
 }
@@ -107,10 +107,12 @@ body {
 .character-image {
 	position: absolute;
 	bottom: 0;
-	
+
 	$distance: 5px;
 	transform: translateY($distance);
-	
+
+	transition: opacity 0.2s;
+
 	&.animating {
 		animation-name: character-image-animation;
 		animation-timing-function: linear;
@@ -132,15 +134,25 @@ body {
 			}
 		}
 	}
-	
+
 	&.paused {
 		animation-play-state: paused;
+	}
+
+	&.disabled {
+		opacity: 0.7;
 	}
 }
 
 .lyric-text {
 	line-height: 60px;
 	flex: 1 0 0;
+
+	@media (max-width: 600px) {
+		font-size: 0.5em;
+		line-height: 1.5em;
+		padding: 0.3em 0;
+	}
 }
 
 .lyric-controls {
@@ -158,7 +170,7 @@ body {
 	font-weight: normal;
 
 	cursor: pointer;
-	
+
 	.character & {
 		position: absolute;
 		bottom: 0.5em;
@@ -168,11 +180,11 @@ body {
 		background: #2196F3;
 		font-size: 14px;
 	}
-	
+
 	.title & {
 		display: inline;
 		margin-left: 0.5em;
-		
+
 		background: #555;
 		font-size: 12px;
 	}
@@ -218,7 +230,7 @@ body {
 
 .play-video {
 	cursor: pointer;
-	
+
 	&.active {
 		color: #F44336;
 	}
