@@ -1,5 +1,7 @@
 const path = require('path');
 const webpack = require('webpack');
+const cssnano = require('cssnano');
+const precss = require('precss');
 const MinifyPlugin = require('babel-minify-webpack-plugin');
 
 module.exports = (env = {}) => ({
@@ -62,7 +64,16 @@ module.exports = (env = {}) => ({
 						localIdentName: '[name]__[local]--[hash:base64:5]',
 					},
 				},
-				'postcss-loader',
+				{
+					loader: 'postcss-loader',
+					options: {
+						ident: 'postcss',
+						plugins: [
+							precss(),
+							...(env.production ? [cssnano()] : []),
+						],
+					},
+				},
 			],
 		}, {
 			test: /\.ttf$/,
