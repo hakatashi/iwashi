@@ -216,7 +216,9 @@ module.exports = class App extends React.Component {
 		this.setState({voiceSelect: false});
 
 		if (this.selectedSound === this.state.sounds.get(selectedTrack)) {
-			this.unpause();
+			if (Array.from(this.state.trackStatuses.values()).every((s) => s === 'ready')) {
+				this.unpause();
+			}
 		} else {
 			this.setState({
 				sounds: this.state.sounds.set(selectedTrack, this.selectedSound),
