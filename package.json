@@ -31,7 +31,7 @@
     "modernizr-loader": "^1.0.1",
     "napa": "^3.0.0",
     "postcss-loader": "^2.0.10",
-    "precss": "^3.0.0",
+    "precss": "2.0.0",
     "prop-types": "^15.6.0",
     "randomcolor": "^0.5.3",
     "raw-loader": "^0.5.1",
@@ -44,7 +44,7 @@
     "url-loader": "^0.6.2",
     "webpack": "^3.10.0",
     "webpack-dev-server": "^2.11.0",
-    "webpack-sources": "1.1.0"
+    "webpack-sources": "1.0.1"
   },
   "devDependencies": {},
   "napa": {
