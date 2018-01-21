@@ -203,6 +203,14 @@ module.exports = class App extends React.Component {
 		});
 	}
 
+	handleChangeVoiceSolo = (isSolo) => {
+		this.vocalManager.setVolume(volume);
+		this.setState({
+			soloScore: isSolo ? 'voice' : null,
+			isVocalDisabled: this.vocalManager.isNotSolo || this.vocalManager.isMuted,
+		});
+	}
+
 	handleClickPause = () => {
 		if (this.state.isPaused) {
 			this.unpause();
@@ -314,6 +322,7 @@ module.exports = class App extends React.Component {
 								isSolo={false}
 								onChangeMuted={this.handleChangeVoiceMuted}
 								onChangeVolume={this.handleChangeVoiceVolume}
+								onChangeSolo={this.handleChangeVoiceSolo}
 							/>
 						</div>
 					</div>
@@ -335,7 +344,7 @@ module.exports = class App extends React.Component {
 						</div>
 					</div>
 					<div styleName="title">
-						♪${this.song.title}／${this.song.artist}
+						♪{this.song.title}／{this.song.artist}
 						<div styleName="change">
 							<Refresh/> かえる
 						</div>

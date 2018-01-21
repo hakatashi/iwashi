@@ -229,7 +229,7 @@ cheatbug-rakurai:
     duration: 1
 tennis-racket:
   type: percussion
-  category: snare
+  category: bell
   resource:
     work: テニスの王子様ミュージカル
     name: ラケット
