@@ -6,7 +6,6 @@ const PropTypes = require('prop-types');
 const classNames = require('classnames');
 const {default: Player} = require('react-player');
 const {Howl} = require('howler');
-const invoke = require('lodash/invoke');
 
 const soundData = require('../sound/data.yml');
 const {getSoundUrls, wait} = require('./util.js');
@@ -88,11 +87,20 @@ module.exports = class SoundSelect extends React.Component {
 			onend: this.handleSoundEnd,
 		});
 	}
+	
+	updatePlaybackQuality = () => {
+		if (this.player) {
+			const internalPlayer = this.player.getInternalPlayer();
+			if (internalPlayer && internalPlayer.setPlaybackQuality) {
+				internalPlayer.setPlaybackQuality('tiny');
+			}
+		}
+	}
 
 	handlePlayerReady = () => {
 		this.playerState = 'ready';
 
-		invoke(this.player, ['player', 'player', 'setPlaybackQuality'], 'tiny');
+		this.updatePlaybackQuality();
 		this.player.seekTo(this.soundData.video.start);
 	}
 
@@ -164,7 +172,7 @@ module.exports = class SoundSelect extends React.Component {
 						<Player
 							ref={(element) => {
 								this.player = element;
-								invoke(this.player, ['player', 'player', 'setPlaybackQuality'], 'tiny');
+								this.updatePlaybackQuality();
 							}}
 							url={this.soundData.video.url}
 							config={{

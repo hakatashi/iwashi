@@ -6,7 +6,6 @@ const randomColor = require('randomcolor');
 const classNames = require('classnames');
 const assert = require('assert');
 const Refresh = require('react-icons/lib/fa/refresh');
-const invoke = require('lodash/invoke');
 
 const soundData = require('../sound/data.yml');
 const {TICK} = require('./const.js');
@@ -146,10 +145,19 @@ module.exports = class Track extends React.Component {
 			// When playing and url props is updated simultaneously, react-player doesn't seem to stop video properly.
 			// Is this react-player bug?
 			if (this.props.isNoVideo) {
-				invoke(this.player, ['player', 'player', 'pauseVideo']);
+				this.player.getInternalPlayer().pauseVideo();
 			}
 			this.props.onChangeStatus(this.props.name, 'ready');
 		});
+	}
+
+	updatePlaybackQuality = () => {
+		if (this.player) {
+			const internalPlayer = this.player.getInternalPlayer();
+			if (internalPlayer && internalPlayer.setPlaybackQuality) {
+				internalPlayer.setPlaybackQuality('tiny');
+			}
+		}
 	}
 
 	handleBeat = (beat) => {
@@ -351,7 +359,7 @@ module.exports = class Track extends React.Component {
 	}
 
 	handlePlayerReady = () => {
-		invoke(this.player, ['player', 'player', 'setPlaybackQuality'], 'tiny');
+		this.updatePlaybackQuality();
 		if (this.props.isPlayReady) {
 			this.player.seekTo(this.soundData.video.start);
 		}
@@ -359,7 +367,7 @@ module.exports = class Track extends React.Component {
 		this.props.onChangeStatus(this.props.name, 'seeking');
 	}
 
-	handlePlayerStart = () => {
+	handlePlayerPlay = () => {
 		if (!this.videoLoadDefer.isResolved) {
 			this.setState({
 				isPlaying: false,
@@ -431,7 +439,7 @@ module.exports = class Track extends React.Component {
 						<Player
 							ref={(element) => {
 								this.player = element;
-								invoke(this.player, ['player', 'player', 'setPlaybackQuality'], 'tiny');
+								this.updatePlaybackQuality();
 							}}
 							url={this.soundData.video.url}
 							config={{
@@ -449,7 +457,7 @@ module.exports = class Track extends React.Component {
 							muted
 							loop
 							onReady={this.handlePlayerReady}
-							onStart={this.handlePlayerStart}
+							onPlay={this.handlePlayerPlay}
 							onError={this.handlePlayerError}
 						/>
 					)}
