@@ -4,15 +4,15 @@
 	left: 0;
 	right: 0;
 	bottom: 0;
-	
+
 	background: rgba(0, 0, 0, 0.95);
 	color: white;
 	text-align: center;
-	
+
 	z-index: 1;
 	opacity: 1;
 	transition: opacity 2s linear;
-	
+
 	&.vanishing {
 		opacity: 0;
 		pointer-events: none;
@@ -28,7 +28,7 @@
 
 .progress-area {
 	margin-bottom: 32px;
-	
+
 	height: 128px;
 	max-height: 30vmin;
 }
@@ -61,13 +61,32 @@
 	margin-top: 6vmin;
 }
 
+.spinner {
+	display: inline-block;
+	animation-name: spinner-animation;
+	animation-timing-function: linear;
+	animation-duration: 0.5s;
+	animation-iteration-count: infinite;
+
+	@at-root {
+		@keyframes spinner-animation {
+			from {
+				transform: rotate(0deg);
+			}
+			to {
+				transform: rotate(360deg);
+			}
+		}
+	}
+}
+
 .notice-area {
 	position: absolute;
 	top: 0;
 	left: 0;
 	right: 0;
 	bottom: 0;
-	
+
 	cursor: pointer;
 }
 
@@ -77,12 +96,12 @@
 	left: 20px;
 	transform: translateY(-50%);
 	width: calc(100% - 40px);
-	
+
 	background: #555;
 	border-radius: 5px;
 	padding: 3vmin 0;
 	box-sizing: border-box;
-	
+
 	color: white;
 }
 
@@ -94,7 +113,7 @@
 
 .body {
 	margin: 0.5em 1em;
-	
+
 	font-family: sans-serif;
 	font-size: 5vmin;
 	text-align: left;
@@ -105,9 +124,9 @@
 	display: inline-block;
 	padding: 0 2em;
 	border-radius: 5px;
-	
+
 	background: #388E3C;
-	
+
 	font-size: 7vmin;
 	font-family: sans-serif;
 	line-height: 1.5em;

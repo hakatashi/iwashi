@@ -66,7 +66,6 @@ module.exports = class App extends React.Component {
 			isNoVideo: true,
 			isReady: false,
 			isPaused: false,
-			isCharacterAnimating: false,
 			isPlayReady: false,
 			isVocalDisabled: false,
 		};
@@ -110,33 +109,17 @@ module.exports = class App extends React.Component {
 		const beat = Math.floor(this.state.beat / TICK) % 2944;
 		this.vocalManager.handleBeat(beat);
 
-		let {isCharacterAnimating} = this.state;
-
 		const lyric = this.song.lyrics.find(({start, end}) => start <= beat && beat < end);
 		if (!lyric && this.state.lyric !== '') {
 			this.setState({
 				lyric: '',
-				isCharacterAnimating: false,
 			});
-			isCharacterAnimating = false;
 		}
 
 		if (lyric && this.state.lyric !== lyric.text) {
 			this.setState({
 				lyric: lyric.text,
-				isCharacterAnimating: true,
 			});
-			isCharacterAnimating = true;
-		}
-
-		if (false) {
-			if (beat % 8 === 0 && isCharacterAnimating) {
-				this.setState({isCharacterAnimating: false}, () => {
-					wait(0).then(() => {
-						this.setState({isCharacterAnimating: true});
-					});
-				});
-			}
 		}
 	}
 
@@ -313,8 +296,6 @@ module.exports = class App extends React.Component {
 						<div styleName="character">
 							<img
 								styleName={classNames('character-image', {
-									animating: this.state.isCharacterAnimating,
-									paused: this.state.isPaused,
 									disabled: this.state.isVocalDisabled,
 								})}
 								src={getResourceUrl('sound/vocal/yufu/character.png')}
@@ -354,7 +335,7 @@ module.exports = class App extends React.Component {
 						</div>
 					</div>
 					<div styleName="title">
-						♪${this.song.title}／${this.song.artist}
+						♪{this.song.title}／{this.song.artist}
 						<div styleName="change">
 							<Refresh/> かえる
 						</div>

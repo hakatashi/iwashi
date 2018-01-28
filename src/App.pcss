@@ -108,37 +108,8 @@ body {
 	position: absolute;
 	bottom: 0;
 
-	$distance: 5px;
-	transform: translateY($distance);
-
 	transition: opacity 0.2s;
-
-	&.animating {
-		animation-name: character-image-animation;
-		animation-timing-function: linear;
-		animation-duration: 0.4s;
-
-		@at-root {
-			@keyframes character-image-animation {
-				0% {
-					transform: translateY($distance);
-					animation-timing-function: ease-out;
-				}
-				50% {
-					transform: translateY(0);
-					animation-timing-function: ease-in;
-				}
-				100% {
-					transform: translateY($distance);
-				}
-			}
-		}
-	}
-
-	&.paused {
-		animation-play-state: paused;
-	}
-
+	
 	&.disabled {
 		opacity: 0.7;
 	}

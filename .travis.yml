@@ -1,0 +1,20 @@
+language: node_js
+node_js:
+  - node
+dist: trusty
+sudo: false
+cache:
+  directories:
+    - node_modules
+before_install: npm install -g greenkeeper-lockfile@1
+before_script: greenkeeper-lockfile-update
+script:
+  - npm test
+  - npm run build
+after_script: greenkeeper-lockfile-upload
+branches:
+  except:
+    - /^v\d+\.\d+\.\d+$/
+    - gh-pages
+notifications:
+  webhooks: http://webhook.hakatashi.com/travis

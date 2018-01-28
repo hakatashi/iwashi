@@ -31,7 +31,7 @@
     "modernizr-loader": "^1.0.1",
     "napa": "^3.0.0",
     "postcss-loader": "^2.0.10",
-    "precss": "^3.0.0",
+    "precss": "2.0.0",
     "prop-types": "^15.6.0",
     "randomcolor": "^0.5.3",
     "raw-loader": "^0.5.1",
@@ -39,7 +39,7 @@
     "react-dom": "^16.2.0",
     "react-hammerjs": "^1.0.1",
     "react-icons": "^2.2.7",
-    "react-player": "^0.25.3",
+    "react-player": "^1.1.1",
     "style-loader": "^0.19.1",
     "url-loader": "^0.6.2",
     "webpack": "^3.10.0",
@@ -52,7 +52,8 @@
   },
   "scripts": {
     "install": "napa",
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "npm run lint",
+    "lint": "eslint . --ext .jsx,.js --ignore-path .gitignore",
     "build": "webpack --env.production"
   },
   "repository": {
