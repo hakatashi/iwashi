@@ -512,7 +512,7 @@ nichijo-akabeko:
     name: 赤べこ
   video:
     url: https://www.youtube.com/watch?v=NnG1X8wBKww
-    start: 38
+    start: 38.2
     duration: 0.5
 nichijo-shake:
   type: instrument
@@ -595,7 +595,7 @@ chu2koi-au:
     name: 「あぅ」
   video:
     url: https://www.youtube.com/watch?v=ik0O_hrbN5E
-    start: 68
+    start: 67.8
     duration: 0.5
 chu2koi-stadiometer:
   type: percussion
@@ -657,7 +657,7 @@ prestar-yuupack:
     name: ゆうパック
   video:
     url: https://www.youtube.com/watch?v=IFUCYtKynL0
-    start: 18.5
+    start: 18.6
     duration: 0.5
 donkeykong-hammer:
   type: instrument
@@ -724,5 +724,5 @@ deremasu-mashumaro:
     name: マシュマロ砲
   video:
     url: https://www.youtube.com/watch?v=ExT9cr9hcWI
-    start: 21.3
+    start: 141.3
     duration: 0.5
