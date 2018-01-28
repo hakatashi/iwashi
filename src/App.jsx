@@ -301,7 +301,7 @@ module.exports = class App extends React.Component {
 								})}
 								src={getResourceUrl('sound/vocal/yufu/character.png')}
 							/>
-							<div styleName="change">
+							<div styleName="change unimplemented" title="未実装">
 								<Refresh/> かえる
 							</div>
 						</div>
@@ -321,7 +321,7 @@ module.exports = class App extends React.Component {
 				</div>
 				<div styleName="controls">
 					<div styleName="playback">
-						<div styleName="button">
+						<div styleName="button unimplemented" title="未実装">
 							<StepBackward/>
 						</div>
 						<div styleName="button" onClick={this.handleClickPause}>
@@ -331,13 +331,13 @@ module.exports = class App extends React.Component {
 								<Pause/>
 							)}
 						</div>
-						<div styleName="button">
+						<div styleName="button unimplemented" title="未実装">
 							<StepForward/>
 						</div>
 					</div>
 					<div styleName="title">
 						♪{this.song.title}／{this.song.artist}
-						<div styleName="change">
+						<div styleName="change unimplemented" title="未実装">
 							<Refresh/> かえる
 						</div>
 					</div>
