@@ -8,6 +8,7 @@ const Play = require('react-icons/lib/fa/play');
 const Pause = require('react-icons/lib/fa/pause');
 const StepBackward = require('react-icons/lib/fa/step-backward');
 const StepForward = require('react-icons/lib/fa/step-forward');
+const Github = require('react-icons/lib/fa/github');
 const Modernizr = require('modernizr');
 
 const {TICK} = require('./const.js');
@@ -351,6 +352,9 @@ module.exports = class App extends React.Component {
 							</React.Fragment>
 						)}
 					</div>
+					<a styleName="github button" href="https://github.com/hakatashi/iwashi" rel="noopener noreferrer" target="_blank">
+						<Github/>
+					</a>
 				</div>
 			</div>
 		);
