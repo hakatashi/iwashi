@@ -96,7 +96,7 @@ module.exports = class SoundSelect extends React.Component {
 		this.player.seekTo(this.soundData.video.start);
 	}
 
-	handlePlayerStart = () => {
+	handlePlayerPlay = () => {
 		this.playerState = 'start';
 
 		this.sound.play();
@@ -129,7 +129,7 @@ module.exports = class SoundSelect extends React.Component {
 			this.player.seekTo(this.soundData.video.start);
 			this.setState({isPlaying: true});
 
-			this.handlePlayerStart();
+			this.handlePlayerPlay();
 		} else {
 			assert(name !== this.state.selectedSound);
 
@@ -181,7 +181,7 @@ module.exports = class SoundSelect extends React.Component {
 							controls
 							muted
 							onReady={this.handlePlayerReady}
-							onStart={this.handlePlayerStart}
+							onPlay={this.handlePlayerPlay}
 						/>
 					</div>
 					<div styleName="sounds">
