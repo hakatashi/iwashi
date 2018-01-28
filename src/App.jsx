@@ -335,7 +335,7 @@ module.exports = class App extends React.Component {
 						</div>
 					</div>
 					<div styleName="title">
-						♪${this.song.title}／${this.song.artist}
+						♪{this.song.title}／{this.song.artist}
 						<div styleName="change">
 							<Refresh/> かえる
 						</div>
