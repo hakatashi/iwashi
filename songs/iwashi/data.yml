@@ -136,6 +136,103 @@ vocals:
       start: 88.3.25
       end: 91.3.875
 defaultVocal: yufu
+backgrounds:
+  - time: 0.1.0
+    url: null
+    workUrl: null
+    title: null
+    author: null
+    license: null
+    animation: null
+    transform: null
+  - time: 5.1.0
+    url: https://farm5.staticflickr.com/4568/37574526294_a1137ffda6_k.jpg
+    workUrl: https://flic.kr/p/ZfkgAf
+    title: nature
+    author: mouli choudari
+    license: CC BY
+    animation: left
+    transform: null
+  - time: 13.1.0
+    url: https://farm4.staticflickr.com/3671/11285730373_f3e33590b1_k.jpg
+    workUrl: https://flic.kr/p/ichjsa
+    title: City
+    author: reynermedia
+    license: CC BY
+    animation: right
+    transform: null
+  - time: 21.1.0
+    url: https://farm4.staticflickr.com/3671/11285730373_f3e33590b1_k.jpg
+    workUrl: https://flic.kr/p/ichjsa
+    title: City
+    author: reynermedia
+    license: CC BY
+    animation: left
+    transform: rotate(180deg)
+  - time: 29.1.0
+    url: https://farm5.staticflickr.com/4146/5441757600_31068a25e2_b.jpg
+    workUrl: https://flic.kr/p/9hSqWU
+    title: A bird and apricot flowers
+    author: bullets95
+    license: CC BY-SA
+    animation: right
+    transform: null
+  - time: 37.1.0
+    url: https://farm5.staticflickr.com/4758/25835425728_f4a92313ed_b.jpg
+    workUrl: https://flic.kr/p/FmZiYC
+    title: super moon gartocharn
+    author: Bob the Lomond
+    license: CC BY-NC
+    animation: left
+    transform: null
+  - time: 45.1.0
+    url: null
+    workUrl: null
+    title: null
+    author: null
+    license: null
+    animation: null
+    transform: null
+  - time: 49.1.0
+    url: https://farm5.staticflickr.com/4185/34571430632_eb91c0243f_b.jpg
+    workUrl: https://flic.kr/p/UEXBSQ
+    title: Nature
+    author: Bernard Lacotte
+    license: CC BY-NC-ND
+    animation: up
+    transform: null
+  - time: 57.1.0
+    url: https://farm4.staticflickr.com/3685/12708583543_7e491d6227_b.jpg
+    workUrl: https://flic.kr/p/kn1P8n
+    title: waiting for a train
+    author: Keromi Keroyama
+    license: CC BY
+    animation: left
+    transform: null
+  - time: 65.1.0
+    url: https://farm4.staticflickr.com/3685/12708583543_7e491d6227_b.jpg
+    workUrl: https://flic.kr/p/kn1P8n
+    title: waiting for a train
+    author: Keromi Keroyama
+    license: CC BY
+    animation: right
+    transform: rotate(180deg)
+  - time: 73.1.0
+    url: https://farm5.staticflickr.com/4119/4790098318_9d71f854ff_b.jpg
+    workUrl: https://flic.kr/p/8ihvm3
+    title: Diversify
+    author: Thomas Hawk
+    license: CC BY-NC
+    animation: rotate
+    transform: null
+  - time: 89.1.0
+    url: null
+    workUrl: null
+    title: null
+    author: null
+    license: null
+    animation: null
+    transform: null
 tracks:
   clap:
     type: percussion

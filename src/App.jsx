@@ -1,6 +1,8 @@
 const React = require('react');
 const classNames = require('classnames');
 const shuffle = require('lodash/shuffle');
+const Modernizr = require('modernizr');
+
 const Videocam = require('react-icons/lib/md/videocam');
 const VideocamOff = require('react-icons/lib/md/videocam-off');
 const Refresh = require('react-icons/lib/fa/refresh');
@@ -8,7 +10,7 @@ const Play = require('react-icons/lib/fa/play');
 const Pause = require('react-icons/lib/fa/pause');
 const StepBackward = require('react-icons/lib/fa/step-backward');
 const StepForward = require('react-icons/lib/fa/step-forward');
-const Modernizr = require('modernizr');
+const Github = require('react-icons/lib/fa/github');
 
 const {TICK} = require('./const.js');
 const VocalManager = require('./VocalManager.js');
@@ -19,6 +21,7 @@ const Track = require('./Track.jsx');
 const Loading = require('./Loading.jsx');
 const VolumeControls = require('./VolumeControls.jsx');
 const SoundSelect = require('./SoundSelect.jsx');
+const Tooltip = require('./Tooltip.jsx');
 
 import './App.pcss';
 
@@ -62,6 +65,9 @@ module.exports = class App extends React.Component {
 			soundSelectTop: 0,
 			soundSelectLeft: 0,
 			vocalVolume: 1,
+			background: this.song.backgrounds[0],
+			backgroundAnimation: null,
+			backgroundDuration: null,
 			isFlashing: false,
 			isNoVideo: true,
 			isReady: false,
@@ -120,6 +126,27 @@ module.exports = class App extends React.Component {
 			this.setState({
 				lyric: lyric.text,
 			});
+		}
+
+		if (!isMobile()) {
+			for (const [index, background] of this.song.backgrounds.entries()) {
+				if (background.time === beat) {
+					const nextBackground = this.song.backgrounds[index + 1];
+
+					new Promise((resolve) => {
+						this.setState({
+							background,
+							backgroundAnimation: null,
+							backgroundDuration: nextBackground && (nextBackground.time - background.time) / this.song.resolution * 4 / this.song.bpm * 60,
+						}, resolve);
+					})
+						.then(() => wait(0))
+						.then(() => {
+							this.setState({backgroundAnimation: background.animation});
+						});
+					break;
+				}
+			}
 		}
 	}
 
@@ -257,6 +284,20 @@ module.exports = class App extends React.Component {
 					onClickOk={this.handleClickOk}
 				/>
 				<div styleName="main">
+					<div
+						styleName={classNames('background', this.state.backgroundAnimation, {paused: this.state.isPaused})}
+						style={{
+							animationDuration: `${this.state.backgroundDuration}s`,
+						}}
+					>
+						<div
+							styleName="background-image"
+							style={{
+								backgroundImage: `url(${this.state.background.url})`,
+								transform: this.state.background.transform,
+							}}
+						/>
+					</div>
 					<div styleName="tracks-container">
 						<div styleName="tracks">
 							{this.tracks.map(([name, track]) => (
@@ -300,9 +341,14 @@ module.exports = class App extends React.Component {
 								})}
 								src={getResourceUrl('sound/vocal/yufu/character.png')}
 							/>
-							<div styleName="change">
+							<Tooltip
+								title="未実装"
+								position="top"
+								duration={100}
+								styleName="change unimplemented"
+							>
 								<Refresh/> かえる
-							</div>
+							</Tooltip>
 						</div>
 						<div styleName="lyric-text">
 							{this.state.lyric}
@@ -320,9 +366,12 @@ module.exports = class App extends React.Component {
 				</div>
 				<div styleName="controls">
 					<div styleName="playback">
-						<div styleName="button">
+						<Tooltip
+							title="未実装"
+							styleName="button unimplemented"
+						>
 							<StepBackward/>
-						</div>
+						</Tooltip>
 						<div styleName="button" onClick={this.handleClickPause}>
 							{this.state.isPaused ? (
 								<Play/>
@@ -330,27 +379,47 @@ module.exports = class App extends React.Component {
 								<Pause/>
 							)}
 						</div>
-						<div styleName="button">
+						<Tooltip
+							title="未実装"
+							styleName="button unimplemented"
+						>
 							<StepForward/>
-						</div>
+						</Tooltip>
 					</div>
 					<div styleName="title">
 						♪{this.song.title}／{this.song.artist}
-						<div styleName="change">
+						<Tooltip
+							title="未実装"
+							distance={-30}
+							styleName="change unimplemented"
+						>
 							<Refresh/> かえる
-						</div>
+						</Tooltip>
 					</div>
 					<div styleName={classNames('play-video', {active: !this.state.isNoVideo})} onClick={this.handleChangeCheckbox}>
-						{this.state.isNoVideo ? (
-							<React.Fragment>
-								<VideocamOff/> 動画OFF
-							</React.Fragment>
-						) : (
-							<React.Fragment>
-								<Videocam/> 動画ON
-							</React.Fragment>
-						)}
+						<Tooltip
+							title={this.state.isNoVideo ? '動画をONにする' : '動画をOFFにする'}
+							style={{width: '100%', height: '100%'}}
+						>
+							{this.state.isNoVideo ? (
+								<React.Fragment>
+									<VideocamOff/> 動画OFF
+								</React.Fragment>
+							) : (
+								<React.Fragment>
+									<Videocam/> 動画ON
+								</React.Fragment>
+							)}
+						</Tooltip>
 					</div>
+					<a styleName="github button" href="https://github.com/hakatashi/iwashi" rel="noopener noreferrer" target="_blank">
+						<Tooltip
+							title="Fork me on GitHub!"
+							style={{width: '100%', height: '100%'}}
+						>
+							<Github/>
+						</Tooltip>
+					</a>
 				</div>
 			</div>
 		);

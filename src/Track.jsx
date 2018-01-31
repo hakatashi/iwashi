@@ -144,7 +144,7 @@ module.exports = class Track extends React.Component {
 		]).then(() => {
 			// When playing and url props is updated simultaneously, react-player doesn't seem to stop video properly.
 			// Is this react-player bug?
-			if (this.props.isNoVideo) {
+			if (this.props.isNoVideo && this.player) {
 				this.player.getInternalPlayer().pauseVideo();
 			}
 			this.props.onChangeStatus(this.props.name, 'ready');
@@ -225,8 +225,8 @@ module.exports = class Track extends React.Component {
 				}
 
 				if ((tick - this.props.start) % (32 * this.props.end) === 0) {
-					if (!this.props.isNoVideo) {
-						this.player && this.player.seekTo(this.soundData.video.start);
+					if (!this.props.isNoVideo && this.player) {
+						this.player.seekTo(this.soundData.video.start);
 					}
 				}
 
@@ -278,8 +278,8 @@ module.exports = class Track extends React.Component {
 			this.props.onFlash();
 		}
 
-		if (!this.props.isNoVideo) {
-			this.player && this.player.seekTo(this.soundData.video.start);
+		if (!this.props.isNoVideo && this.player) {
+			this.player.seekTo(this.soundData.video.start);
 		}
 
 		if (!this.state.isShown || hidden) {

@@ -13,7 +13,7 @@ const parseTime = (timeText, resolution) => {
 
 	if (components.length === 3) {
 		const subtime = parseFloat(`${components[1]}.${components[2]}`);
-		return (parseInt(components[0]) - 1) * resolution + (subtime - 1) * resolution / 4;
+		return (parseInt(components[0]) - 1) * resolution + Math.floor((subtime - 1) * resolution) / 4;
 	}
 
 	throw new Error(`Invalid time: ${timeText}`);
@@ -58,6 +58,10 @@ for (const [id, song] of Object.entries({iwashi})) {
 				end: parseTime(vocal.end, song.resolution),
 			}))
 		)),
+		backgrounds: song.backgrounds.map((background) => ({
+			...background,
+			time: parseTime(background.time, song.resolution),
+		})),
 		tracks: mapValues(song.tracks, (track) => ({
 			...track,
 			...(track.score ? (() => {

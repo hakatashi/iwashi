@@ -64,7 +64,7 @@ module.exports = class SoundSelect extends React.Component {
 	constructor(props, state) {
 		super(props, state);
 
-		this.direction = this.props.top > 400 ? 'top' : 'bottom';
+		this.direction = this.props.top > 500 ? 'top' : 'bottom';
 
 		this.updateSound(this.props.sound);
 
@@ -87,7 +87,7 @@ module.exports = class SoundSelect extends React.Component {
 			onend: this.handleSoundEnd,
 		});
 	}
-	
+
 	updatePlaybackQuality = () => {
 		if (this.player) {
 			const internalPlayer = this.player.getInternalPlayer();
@@ -107,6 +107,7 @@ module.exports = class SoundSelect extends React.Component {
 	handlePlayerPlay = () => {
 		this.playerState = 'start';
 
+		this.sound.stop();
 		this.sound.play();
 
 		const session = Symbol('soundPlaySession');
@@ -136,8 +137,6 @@ module.exports = class SoundSelect extends React.Component {
 
 			this.player.seekTo(this.soundData.video.start);
 			this.setState({isPlaying: true});
-
-			this.handlePlayerPlay();
 		} else {
 			assert(name !== this.state.selectedSound);
 
@@ -167,7 +166,12 @@ module.exports = class SoundSelect extends React.Component {
 					left: this.props.left,
 				}}
 			>
-				<div styleName="content">
+				<div
+					styleName="content"
+					style={{
+						transform: `translateX(${Math.max(300, this.props.left) - this.props.left}px)`,
+					}}
+				>
 					<div styleName="preview">
 						<Player
 							ref={(element) => {

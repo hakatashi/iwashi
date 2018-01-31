@@ -76,6 +76,21 @@ module.exports = (env = {}) => ({
 				},
 			],
 		}, {
+			test: /\.css$/,
+			use: [
+				'style-loader',
+				'css-loader',
+				{
+					loader: 'postcss-loader',
+					options: {
+						ident: 'css',
+						plugins: [
+							...(env.production ? [cssnano()] : []),
+						],
+					},
+				},
+			],
+		}, {
 			test: /\.ttf$/,
 			use: [
 				{
