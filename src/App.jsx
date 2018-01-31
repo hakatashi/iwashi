@@ -11,6 +11,7 @@ const Pause = require('react-icons/lib/fa/pause');
 const StepBackward = require('react-icons/lib/fa/step-backward');
 const StepForward = require('react-icons/lib/fa/step-forward');
 const Github = require('react-icons/lib/fa/github');
+const RotateLeft = require('react-icons/lib/fa/rotate-left');
 
 const {TICK} = require('./const.js');
 const VocalManager = require('./VocalManager.js');
@@ -272,6 +273,13 @@ module.exports = class App extends React.Component {
 		this.setState({isPlayReady: true});
 	}
 
+	handleClickDefault = () => {
+		this.setState({
+			sounds: new Map(this.tracks.map(([name, track]) => [name, track.default.sound])),
+		});
+		this.pause();
+	}
+
 	render() {
 		return (
 			<div styleName={classNames('app', {flash: this.state.isFlashing})}>
@@ -327,6 +335,7 @@ module.exports = class App extends React.Component {
 									top={this.state.soundSelectTop}
 									left={this.state.soundSelectLeft}
 									type={this.song.tracks[this.state.soundSelect].type}
+									category={this.song.tracks[this.state.soundSelect].category}
 									sound={this.state.sounds.get(this.state.soundSelect)}
 									onSelect={this.handleSoundSelect}
 								/>
@@ -362,6 +371,11 @@ module.exports = class App extends React.Component {
 								onChangeVolume={this.handleChangeVoiceVolume}
 							/>
 						</div>
+						{this.state.background.author && (
+							<div styleName="background-info">
+								背景: <a href={this.state.background.workUrl} rel="noopener noreferrer" target="_blank">{this.state.background.title}</a> by {this.state.background.author}
+							</div>
+						)}
 					</div>
 				</div>
 				<div styleName="controls">
@@ -396,9 +410,17 @@ module.exports = class App extends React.Component {
 							<Refresh/> かえる
 						</Tooltip>
 					</div>
+					<div styleName="default button" onClick={this.handleClickDefault}>
+						<Tooltip
+							title="デフォルトに戻す"
+							style={{width: '100%', height: '100%'}}
+						>
+							<RotateLeft/>
+						</Tooltip>
+					</div>
 					<div styleName={classNames('play-video', {active: !this.state.isNoVideo})} onClick={this.handleChangeCheckbox}>
 						<Tooltip
-							title={this.state.isNoVideo ? '動画をONにする' : '動画をOFFにする'}
+							title={this.state.isNoVideo ? '動画再生をONにする' : '動画再生をOFFにする'}
 							style={{width: '100%', height: '100%'}}
 						>
 							{this.state.isNoVideo ? (

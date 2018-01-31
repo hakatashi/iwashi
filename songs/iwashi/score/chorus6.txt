@@ -11,33 +11,33 @@ t135 o3 l1
 
 l16
 r^^^ ^^^^ ^^^^ ^^^^
-r^^^ ^^^^ ^^ga >c^<a^
+r^^^ ^^^^ ^^ga <c^>a^
 l8
 gr^^ ^^^^
 r^da gfdf
 d^^r ^^^^
-r^^^ ^ga>c<
->dcd<a >efec<
->d<r^^ ^^^^
+r^^^ ^ga<c>
+<dcd>a <efec>
+<d>r^^ ^^^^
 
 l8 v40 o4
-<aa>cde^de fdfge^<fg>
-<a^ga>cc<a>c dcdfddcd16g16
-a^geddeg agfffr<a>c
+>aa<cde^de fdfge^>fg<
+>a^ga<cc>a<c dcdfddcd16g16
+a^geddeg agfffr>a<c
 d^cdedef e^^^r^dc
-<aa>cde^de fdfge^<fg>
-<a^ga>cd16c16<a>c dcdfddcd16g16
-a^geddeg agfffr<a>c
+>aa<cde^de fdfge^>fg<
+>a^ga<cd16c16>a<c dcdfddcd16g16
+a^geddeg agfffr>a<c
 d^cdedef f^^^r^dc
 
 l8 v40
-<aa>cde^de fdfge^<fg>
-<a^ga>cc<a>c dcdfddcd16g16
-a^geddeg agfffr<a>c
+>aa<cde^de fdfge^>fg<
+>a^ga<cc>a<c dcdfddcd16g16
+a^geddeg agfffr>a<c
 d^cdedef e^^^r^dc
-<aa>cde^de fdfge^<fg>
-<a^ga>cd16c16<a>c dcdfddcd16g16
-a^geddeg agfffr<a>c
+>aa<cde^de fdfge^>fg<
+>a^ga<cd16c16>a<c dcdfddcd16g16
+a^geddeg agfffr>a<c
 d^cdedef f^^^r^dc
 
 l1

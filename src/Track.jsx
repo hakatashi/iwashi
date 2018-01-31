@@ -116,7 +116,7 @@ module.exports = class Track extends React.Component {
 		this.audioLoadDefer = new Deferred();
 
 		Promise.all(
-			Array(this.props.type === 'chord' ? 5 : 1).fill().map(() => (
+			Array(this.props.type === 'chord' ? 3 : 1).fill().map(() => (
 				new Promise((resolve, reject) => {
 					const howl = new Howl({
 						src: getSoundUrls(sound),

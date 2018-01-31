@@ -23,7 +23,7 @@ l1
 
 o3 l8 v50
 /:
-a^^r g^>c^<
+a^^r g^<c^>
 a^^r a^e^
 f^^r g^fg
 a^r^ a^ef16g16
@@ -35,7 +35,7 @@ d^^^ r^^^
 
 o3 l8 v50
 /:
-a^^r g^>c^<
+a^^r g^<c^>
 a^^r a^e^
 f^^r g^fg
 a^r^ a^ef16g16
