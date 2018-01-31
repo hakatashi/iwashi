@@ -65,6 +65,9 @@ module.exports = class App extends React.Component {
 			soundSelectTop: 0,
 			soundSelectLeft: 0,
 			vocalVolume: 1,
+			background: this.song.backgrounds[0],
+			backgroundAnimation: null,
+			backgroundDuration: null,
 			isFlashing: false,
 			isNoVideo: true,
 			isReady: false,
@@ -123,6 +126,27 @@ module.exports = class App extends React.Component {
 			this.setState({
 				lyric: lyric.text,
 			});
+		}
+
+		if (!isMobile()) {
+			for (const [index, background] of this.song.backgrounds.entries()) {
+				if (background.time === beat) {
+					const nextBackground = this.song.backgrounds[index + 1];
+
+					new Promise((resolve) => {
+						this.setState({
+							background,
+							backgroundAnimation: null,
+							backgroundDuration: nextBackground && (nextBackground.time - background.time) / this.song.resolution * 4 / this.song.bpm * 60,
+						}, resolve);
+					})
+						.then(() => wait(0))
+						.then(() => {
+							this.setState({backgroundAnimation: background.animation});
+						});
+					break;
+				}
+			}
 		}
 	}
 
@@ -260,6 +284,20 @@ module.exports = class App extends React.Component {
 					onClickOk={this.handleClickOk}
 				/>
 				<div styleName="main">
+					<div
+						styleName={classNames('background', this.state.backgroundAnimation, {paused: this.state.isPaused})}
+						style={{
+							animationDuration: `${this.state.backgroundDuration}s`,
+						}}
+					>
+						<div
+							styleName="background-image"
+							style={{
+								backgroundImage: `url(${this.state.background.url})`,
+								transform: this.state.background.transform,
+							}}
+						/>
+					</div>
 					<div styleName="tracks-container">
 						<div styleName="tracks">
 							{this.tracks.map(([name, track]) => (

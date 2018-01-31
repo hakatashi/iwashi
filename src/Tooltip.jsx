@@ -11,7 +11,10 @@ const Tooltip = (props) => (
 );
 
 Tooltip.propTypes = {
-	children: PropTypes.arrayOf(PropTypes.element.isRequired).isRequired,
+	children: PropTypes.oneOfType([
+		PropTypes.arrayOf(PropTypes.node),
+		PropTypes.node,
+	]).isRequired,
 	// eslint-disable-next-line react/forbid-prop-types
 	style: PropTypes.object,
 	duration: PropTypes.number,

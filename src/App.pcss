@@ -12,9 +12,6 @@ html, body, .app {
 
 body {
 	font-family: misaki;
-	background-image: url(https://farm4.staticflickr.com/3671/11285730373_f3e33590b1_k.jpg);
-	background-attachment: fixed;
-	background-size: cover;
 }
 
 .app {
@@ -31,16 +28,21 @@ body {
 		left: 0;
 		right: 0;
 		bottom: 0;
+
+		background: white;
+		opacity: 0;
+
 		pointer-events: none;
 		animation: app-after-animation 0.6s linear;
+		will-change: opacity;
 
 		@at-root {
 			@keyframes app-after-animation {
 				from {
-					background: rgba(255, 255, 255, 0.6);
+					opacity: 0.6;
 				}
 				to {
-					background: rgba(255, 255, 255, 0);
+					opacity: 0;
 				}
 			}
 		}
@@ -51,6 +53,129 @@ body {
 	flex: 1 0 0;
 	height: 0;
 	position: relative;
+}
+
+.background{
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+
+	animation-timing-function: linear;
+	animation-fill-mode: both;
+	animation-duration: 5s;
+	will-change: transform;
+
+	$distance: 300px;
+
+	&.right {
+		top: 0;
+		left: -$distance;
+		right: 0;
+		bottom: 0;
+		animation-name: background-right-animation;
+
+		@at-root {
+			@keyframes background-right-animation {
+				from {
+					transform: translateX(0px);
+				}
+				to {
+					transform: translateX($distance);
+				}
+			}
+		}
+	}
+
+	&.left {
+		top: 0;
+		left: 0;
+		right: -$distance;
+		bottom: 0;
+		animation-name: background-left-animation;
+
+		@at-root {
+			@keyframes background-left-animation {
+				from {
+					transform: translateX(0px);
+				}
+				to {
+					transform: translateX(-$distance);
+				}
+			}
+		}
+	}
+
+	&.up {
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: -$distance;
+		animation-name: background-up-animation;
+
+		@at-root {
+			@keyframes background-up-animation {
+				from {
+					transform: translateY(0px);
+				}
+				to {
+					transform: translateY(-$distance);
+				}
+			}
+		}
+	}
+
+	&.down {
+		top: -$distance;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		animation-name: background-down-animation;
+
+		@at-root {
+			@keyframes background-down-animation {
+				from {
+					transform: translateY(0px);
+				}
+				to {
+					transform: translateY($distance);
+				}
+			}
+		}
+	}
+
+	&.rotate {
+		top: calc(-1 * (141.42vmax - 100%) / 2);
+		left: calc(-1 * (141.42vmax - 100%) / 2);
+		right: calc(-1 * (141.42vmax - 100%) / 2);
+		bottom: calc(-1 * (141.42vmax - 100%) / 2);
+		animation-name: background-rotate-animation;
+		animation-iteration-count: infinite;
+
+		@at-root {
+			@keyframes background-rotate-animation {
+				from {
+					transform: rotate(0deg);
+				}
+				to {
+					transform: rotate(360deg);
+				}
+			}
+		}
+	}
+
+	&.paused {
+		animation-play-state: paused;
+	}
+}
+
+.background-image {
+	width: 100%;
+	height: 100%;
+	background-color: black;
+	background-size: cover;
+	background-position: center;
 }
 
 .tracks-container {
@@ -109,7 +234,7 @@ body {
 	bottom: 0;
 
 	transition: opacity 0.2s;
-	
+
 	&.disabled {
 		opacity: 0.7;
 	}
