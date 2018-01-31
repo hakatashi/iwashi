@@ -370,6 +370,11 @@ module.exports = class App extends React.Component {
 								onChangeVolume={this.handleChangeVoiceVolume}
 							/>
 						</div>
+						{this.state.background.author && (
+							<div styleName="background-info">
+								背景: <a href={this.state.background.workUrl} rel="noopener noreferrer" target="_blank">{this.state.background.title}</a> by {this.state.background.author}
+							</div>
+						)}
 					</div>
 				</div>
 				<div styleName="controls">

@@ -53,6 +53,9 @@ body {
 	flex: 1 0 0;
 	height: 0;
 	position: relative;
+	
+	display: flex;
+	flex-direction: column;
 }
 
 .background{
@@ -66,6 +69,8 @@ body {
 	animation-fill-mode: both;
 	animation-duration: 5s;
 	will-change: transform;
+	
+	z-index: -1;
 
 	$distance: 300px;
 
@@ -194,7 +199,6 @@ body {
 	flex-wrap: wrap;
 	justify-content: center;
 
-	padding-bottom: 80px;
 	box-sizing: border-box;
 }
 
@@ -211,10 +215,9 @@ body {
 }
 
 .lyric {
-	position: absolute;
 	width: 100%;
 	height: 60px;
-	bottom: 0;
+	position: relative;
 
 	display: flex;
 
@@ -283,6 +286,23 @@ body {
 
 		background: #555;
 		font-size: 12px;
+	}
+}
+
+.background-info {
+	position: absolute;
+	right: 1.5em;
+	bottom: 100%;
+	
+	font-family: sans-serif;
+	font-size: 12px;
+	font-weight: bold;
+	color: white;
+	text-shadow: 0 0 3px black;
+	
+	a {
+		color: #81D4FA;
+		text-decoration: none;
 	}
 }
 
