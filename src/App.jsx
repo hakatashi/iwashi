@@ -335,6 +335,7 @@ module.exports = class App extends React.Component {
 									top={this.state.soundSelectTop}
 									left={this.state.soundSelectLeft}
 									type={this.song.tracks[this.state.soundSelect].type}
+									category={this.song.tracks[this.state.soundSelect].category}
 									sound={this.state.sounds.get(this.state.soundSelect)}
 									onSelect={this.handleSoundSelect}
 								/>
