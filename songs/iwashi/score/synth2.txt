@@ -10,9 +10,9 @@ o6
 l4
 r r r r
 l16
->d< g d <a> g d <a> f
-d r g <a> d g <a> f
-<a> f d g f r f a
+<d> g d >a< g d >a< f
+d r g >a< d g >a< f
+>a< f d g f r f a
 r r r r r r r r
 l4
 r r r r
@@ -27,31 +27,31 @@ l1
 l1
 /: r :/15 r2
 l16
-v10 <e> <g> v20 c e
-v35 <e> <g> v50 c e
+v10 >e< >g< v20 c e
+v35 >e< >g< v50 c e
 
 v60
 /:
-/: <a> d f a :/2
-/: <g> c e g :/2
-/: <a+> d f a :/2
-/: <a> c f a :/2
+/: >a< d f a :/2
+/: >g< c e g :/2
+/: >a+< d f a :/2
+/: >a< c f a :/2
 /: d f g a+ :/2
 /: c e g a+ :/2
-/: <a> c f a :/2
-/: <a> c f a :/2
-/: <a+> d f a :/2
-/: <a> c e g :/2
-/: <a> c f a :/2
-/: <g> c e g :/2
-/: <a+> d f g :/2
+/: >a< c f a :/2
+/: >a< c f a :/2
+/: >a+< d f a :/2
+/: >a< c e g :/2
+/: >a< c f a :/2
+/: >g< c e g :/2
+/: >a+< d f g :/2
 /: c e g a+ :/2
 |
-/: e g a+ >d< :/2
-/: e a >e< >c+< :/2
+/: e g a+ <d> :/2
+/: e a <e> <c+> :/2
 :/2
-/: <a> c f a :/2
-/: <g> c e g :/2
+/: >a< c f a :/2
+/: >g< c e g :/2
 
 l1
 /: r :/4
