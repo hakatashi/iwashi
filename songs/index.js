@@ -44,6 +44,7 @@ const compileLyrics = (lyricText, resolution) => {
 const compileMml = (text) => {
 	// Bug of mml-iterator?
 	const fixedText = text.replace(/[<>]/g, (char) => ({'<': '>', '>': '<'}[char]));
+
 	const iterator = new MMLIterator(fixedText);
 	const notes = Array.from(iterator);
 	return notes;
