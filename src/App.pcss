@@ -327,6 +327,11 @@ body {
 
 .play-video {
 	cursor: pointer;
+	padding: 0 0.2em;
+	
+	@media (max-width: 600px) {
+		display: none;
+	}
 
 	&:hover {
 		background: rgba(255, 255, 255, 0.3);
