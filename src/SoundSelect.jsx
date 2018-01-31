@@ -64,7 +64,7 @@ module.exports = class SoundSelect extends React.Component {
 	constructor(props, state) {
 		super(props, state);
 
-		this.direction = this.props.top > 400 ? 'top' : 'bottom';
+		this.direction = this.props.top > 500 ? 'top' : 'bottom';
 
 		this.updateSound(this.props.sound);
 
@@ -166,7 +166,12 @@ module.exports = class SoundSelect extends React.Component {
 					left: this.props.left,
 				}}
 			>
-				<div styleName="content">
+				<div
+					styleName="content"
+					style={{
+						transform: `translateX(${Math.max(300, this.props.left) - this.props.left}px)`,
+					}}
+				>
 					<div styleName="preview">
 						<Player
 							ref={(element) => {
