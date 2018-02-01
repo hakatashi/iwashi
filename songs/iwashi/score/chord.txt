@@ -90,4 +90,4 @@ r [cfa] r [cfa] r [ceg] r [ceg]
 
 l4
 /: r [dfa] r [ceg] :/3
-[dfa] [>a<c+e] [dfa]^
+[dfa] [>a<c+e] [dfa]

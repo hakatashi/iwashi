@@ -410,7 +410,7 @@ module.exports = class App extends React.Component {
 							<Refresh/> かえる
 						</Tooltip>
 					</div>
-					<div styleName="default button" onClick={this.handleClickDefault}>
+					<div styleName="button" onClick={this.handleClickDefault}>
 						<Tooltip
 							title="デフォルトに戻す"
 							style={{width: '100%', height: '100%'}}

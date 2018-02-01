@@ -89,7 +89,7 @@ module.exports = class Loading extends React.Component {
 			>
 				<div styleName="inner">
 					<div styleName="progress-area">
-						<svg styleName="progress left" viewBox={`0 0 200 ${(height + margin) * 3 - margin}`}>
+						<svg styleName="progress" viewBox={`0 0 200 ${(height + margin) * 3 - margin}`}>
 							{this.props.statuses.map((status, index) => {
 								const [rightOrLeft, x, y] = progressPositions[index];
 
@@ -114,7 +114,7 @@ module.exports = class Loading extends React.Component {
 							})}
 						</svg>
 						<img styleName="icon" src={getResourceUrl(`songs/${this.props.name}/icon.png`)}/>
-						<svg styleName="progress right" viewBox={`0 0 200 ${(height + margin) * 3 - margin}`}>
+						<svg styleName="progress" viewBox={`0 0 200 ${(height + margin) * 3 - margin}`}>
 							{this.props.statuses.map((status, index) => {
 								const [rightOrLeft, x, y] = progressPositions[index];
 
@@ -150,10 +150,15 @@ module.exports = class Loading extends React.Component {
 					</div>
 					<div styleName="artist">～原曲不使用音声による音MAD自動演奏～</div>
 					<div styleName="loading-text">
-						{this.getProgress() !== 1 && <div styleName="spinner"><Spinner/></div>}
-						{' '}
-						{Math.floor(this.getProgress() * 100)}% Loaded
-						{this.getProgress() !== 1 && '...'}
+						{this.getProgress === 1 ? (
+							<React.Fragment>
+								<div styleName="spinner"><Spinner/></div>
+								{' '}
+								{Math.floor(this.getProgress() * 100)}% Loaded...
+							</React.Fragment>
+						) : (
+							'Completed!'
+						)}
 					</div>
 				</div>
 				{!this.props.isPlayReady && this.props.statuses.every((status) => status !== 'loading') && (
