@@ -1,6 +1,7 @@
 const React = require('react');
 const classNames = require('classnames');
 const shuffle = require('lodash/shuffle');
+const get = require('lodash/get');
 const Modernizr = require('modernizr');
 
 const Videocam = require('react-icons/lib/md/videocam');
@@ -11,11 +12,11 @@ const Pause = require('react-icons/lib/fa/pause');
 const StepBackward = require('react-icons/lib/fa/step-backward');
 const StepForward = require('react-icons/lib/fa/step-forward');
 const Github = require('react-icons/lib/fa/github');
-const RotateLeft = require('react-icons/lib/fa/rotate-left');
+const Undo = require('react-icons/lib/md/undo');
 
 const {TICK} = require('./const.js');
 const VocalManager = require('./VocalManager.js');
-const {getResourceUrl, wait, isMobile} = require('./util.js');
+const {getResourceUrl, wait, isMobile, Deferred} = require('./util.js');
 const songs = require('../songs/index.js');
 const params = require('./params.js');
 const Track = require('./Track.jsx');
@@ -23,6 +24,7 @@ const Loading = require('./Loading.jsx');
 const VolumeControls = require('./VolumeControls.jsx');
 const SoundSelect = require('./SoundSelect.jsx');
 const Tooltip = require('./Tooltip.jsx');
+const gist = require('./gist.js');
 
 import './App.pcss';
 
@@ -33,7 +35,10 @@ module.exports = class App extends React.Component {
 		this.song = songs.iwashi;
 
 		this.vocalManagerPromise = VocalManager.initialize(this.song.vocals, this.song.defaultVocal);
+		this.gistDeferred = new Deferred();
 		this.tracks = shuffle(Object.entries(this.song.tracks));
+
+		this.initGist();
 
 		this.selectedSound = null;
 		this.isInitialized = false;
@@ -60,7 +65,12 @@ module.exports = class App extends React.Component {
 			lyric: '',
 			soloScore: null,
 			trackStatuses: new Map(this.tracks.map(([name]) => [name, 'loading'])),
-			sounds: new Map(this.tracks.map(([name, track]) => [name, track.default.sound])),
+			trackSounds: new Map(this.tracks.map(([name, track]) => [name, {
+				sound: track.default.sound,
+				volume: track.default.volume,
+				muted: false,
+				solo: false,
+			}])),
 			size,
 			soundSelect: false,
 			soundSelectTop: 0,
@@ -87,6 +97,31 @@ module.exports = class App extends React.Component {
 				}
 			}
 		}, 100);
+	}
+
+	initGist = async () => {
+		if (!params.gist || !params.gist.match(/^[\da-f]{20,}$/)) {
+			this.gistDeferred.resolve(null);
+			return;
+		}
+
+		const data = await gist.load(params.gist);
+		this.gistDeferred.resolve(data);
+	}
+
+	constructTrackSounds = () => {
+		if (!this.gistData) {
+			return;
+		}
+
+		this.setState({
+			trackSounds: new Map(this.tracks.map(([name, track]) => [name, {
+				sound: get(this.gistData, ['songs', 0, 'tracks', name, 'sound'], track.default.sound),
+				volume: get(this.gistData, ['songs', 0, 'tracks', name, 'volume'], track.default.volume),
+				muted: get(this.gistData, ['songs', 0, 'tracks', name, 'muted'], false),
+				solo: get(this.gistData, ['songs', 0, 'tracks', name, 'solo'], false),
+			}])),
+		});
 	}
 
 	pause = () => {
@@ -160,8 +195,15 @@ module.exports = class App extends React.Component {
 			} else {
 				this.isInitialized = true;
 
-				const vocalManager = await this.vocalManagerPromise;
+				const [vocalManager, gistData] = await Promise.all([
+					this.vocalManagerPromise,
+					this.gistDeferred.promise,
+				]);
+
 				this.vocalManager = vocalManager;
+				this.gistData = gistData;
+
+				this.constructTrackSounds();
 
 				if (!params.debug) {
 					await wait(1000);
@@ -240,7 +282,7 @@ module.exports = class App extends React.Component {
 	}
 
 	handleClickChange = (name, target) => {
-		this.selectedSound = this.state.sounds.get(name);
+		this.selectedSound = this.state.trackSounds.get(name).sound;
 		this.setState({
 			soundSelect: name,
 			soundSelectTop: target.offsetTop + target.offsetHeight / 2,
@@ -254,13 +296,16 @@ module.exports = class App extends React.Component {
 
 		this.setState({soundSelect: false});
 
-		if (this.selectedSound === this.state.sounds.get(selectedTrack)) {
+		if (this.selectedSound === this.state.trackSounds.get(selectedTrack).sound) {
 			if (Array.from(this.state.trackStatuses.values()).every((s) => s === 'ready')) {
 				this.unpause();
 			}
 		} else {
 			this.setState({
-				sounds: this.state.sounds.set(selectedTrack, this.selectedSound),
+				trackSounds: this.state.trackSounds.set(selectedTrack, {
+					...this.state.trackSounds.get(selectedTrack),
+					sound: this.selectedSound,
+				}),
 			});
 		}
 	}
@@ -275,9 +320,20 @@ module.exports = class App extends React.Component {
 
 	handleClickDefault = () => {
 		this.setState({
-			sounds: new Map(this.tracks.map(([name, track]) => [name, track.default.sound])),
+			trackSounds: new Map(this.tracks.map(([name, track]) => [name, {
+				sound: track.default.sound,
+				volume: track.default.volume,
+				muted: false,
+				solo: false,
+			}])),
 		});
 		this.pause();
+	}
+
+	handleUpdateTrack = (name, track) => {
+		this.setState({
+			trackSounds: this.state.trackSounds.set(name, track),
+		});
 	}
 
 	render() {
@@ -313,13 +369,15 @@ module.exports = class App extends React.Component {
 									key={name}
 									name={name}
 									{...track}
-									sound={this.state.sounds.get(name)}
+									sound={this.state.trackSounds.get(name).sound}
+									volume={this.state.trackSounds.get(name).volume}
 									beat={this.state.beat}
 									size={this.state.size}
 									onFlash={this.handleFlash}
 									onChangeSolo={this.handleChangeSolo}
 									onChangeStatus={this.handleSoundStatusChanged}
 									onClickChange={this.handleClickChange}
+									onUpdate={this.handleUpdateTrack}
 									isReady={this.state.isReady}
 									isPaused={this.state.isPaused}
 									isNoVideo={this.state.isNoVideo}
@@ -336,7 +394,7 @@ module.exports = class App extends React.Component {
 									left={this.state.soundSelectLeft}
 									type={this.song.tracks[this.state.soundSelect].type}
 									category={this.song.tracks[this.state.soundSelect].category}
-									sound={this.state.sounds.get(this.state.soundSelect)}
+									sound={this.state.trackSounds.get(this.state.soundSelect).sound}
 									onSelect={this.handleSoundSelect}
 								/>
 							</React.Fragment>
@@ -415,7 +473,7 @@ module.exports = class App extends React.Component {
 							title="デフォルトに戻す"
 							style={{width: '100%', height: '100%'}}
 						>
-							<RotateLeft/>
+							<Undo/>
 						</Tooltip>
 					</div>
 					<div styleName={classNames('play-video', {active: !this.state.isNoVideo})} onClick={this.handleChangeCheckbox}>

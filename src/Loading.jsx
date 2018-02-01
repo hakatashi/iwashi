@@ -150,14 +150,14 @@ module.exports = class Loading extends React.Component {
 					</div>
 					<div styleName="artist">～原曲不使用音声による音MAD自動演奏～</div>
 					<div styleName="loading-text">
-						{this.getProgress === 1 ? (
+						{this.getProgress() === 1 ? (
+							'Completed!'
+						) : (
 							<React.Fragment>
 								<div styleName="spinner"><Spinner/></div>
 								{' '}
 								{Math.floor(this.getProgress() * 100)}% Loaded...
 							</React.Fragment>
-						) : (
-							'Completed!'
 						)}
 					</div>
 				</div>
