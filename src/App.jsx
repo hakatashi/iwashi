@@ -131,10 +131,10 @@ module.exports = class App extends React.Component {
 
 		this.setState({
 			trackSounds: new Map(this.tracks.map(([name, track]) => [name, {
-				sound: get(this.gistData, ['songs', 0, 'tracks', name, 'sound'], track.default.sound),
-				volume: get(this.gistData, ['songs', 0, 'tracks', name, 'volume'], track.default.volume),
-				muted: get(this.gistData, ['songs', 0, 'tracks', name, 'muted'], false),
-				solo: get(this.gistData, ['songs', 0, 'tracks', name, 'solo'], false),
+				sound: String(get(this.gistData, ['songs', 0, 'tracks', name, 'sound'], track.default.sound)),
+				volume: Number(get(this.gistData, ['songs', 0, 'tracks', name, 'volume'], track.default.volume)),
+				muted: Boolean(get(this.gistData, ['songs', 0, 'tracks', name, 'muted'], false)),
+				solo: Boolean(get(this.gistData, ['songs', 0, 'tracks', name, 'solo'], false)),
 			}])),
 		});
 	}
