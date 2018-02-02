@@ -323,6 +323,7 @@ module.exports = class Track extends React.Component {
 			volume: this.state.volume,
 			muted: this.state.isMuted,
 			solo: this.state.isSolo,
+			pan: 0,
 		});
 	}
 

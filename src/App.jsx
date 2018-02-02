@@ -115,6 +115,7 @@ module.exports = class App extends React.Component {
 				volume: Number(get(this.props.gistData, ['songs', 0, 'tracks', name, 'volume'], track.default.volume)),
 				muted: Boolean(get(this.props.gistData, ['songs', 0, 'tracks', name, 'muted'], false)),
 				solo: Boolean(get(this.props.gistData, ['songs', 0, 'tracks', name, 'solo'], false)),
+				pan: 0,
 			}])),
 			size,
 			soundSelect: false,
@@ -355,6 +356,7 @@ module.exports = class App extends React.Component {
 				volume: track.default.volume,
 				muted: false,
 				solo: false,
+				pan: 0,
 			}])),
 		});
 		this.pause();
@@ -393,6 +395,9 @@ module.exports = class App extends React.Component {
 						vocal: {
 							sound: 'yufu',
 							volume: 1,
+							muted: false,
+							solo: false,
+							pan: 0,
 						},
 						tracks: Object.assign(...Array.from(this.state.trackSounds).map(([track, value]) => ({[track]: value}))),
 						jingles: [],
@@ -401,7 +406,7 @@ module.exports = class App extends React.Component {
 			};
 
 			const gistId = await gist.post({
-				description: '音MAD自動演奏サイト「iwashi」楽譜データ #iwashi https://hakatashi.github.io/iwashi/',
+				description: '音MAD自動演奏サイト「iwashi」アレンジデータ #iwashi https://hakatashi.github.io/iwashi/',
 				filename: 'iwashi-score.json',
 				content,
 			});
@@ -414,10 +419,10 @@ module.exports = class App extends React.Component {
 		const titleText = (() => {
 			if (isArrange) {
 				if (this.state.shareName) {
-					return `${this.state.shareName}さんが「${this.song.title}」のアレンジを作りました！`;
+					return `${this.state.shareName}さんが「${this.song.title}」をアレンジしました！`;
 				}
 
-				return `「${this.song.title}」のアレンジを作りました！`;
+				return `「${this.song.title}」をアレンジしました！`;
 			}
 
 			return '';
