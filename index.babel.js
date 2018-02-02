@@ -1,3 +1,5 @@
+require('babel-polyfill');
+
 const React = require('react');
 const ReactDOM = require('react-dom');
 const App = require('./src/App.jsx');
@@ -5,8 +7,6 @@ const gist = require('./src/gist.js');
 const params = require('./src/params.js');
 
 require('react-tippy/dist/tippy.css');
-
-require('babel-polyfill');
 
 process.on('unhandledRejection', (error) => {
 	throw error;
