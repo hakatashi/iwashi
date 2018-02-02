@@ -1,5 +1,6 @@
 const React = require('react');
 const classNames = require('classnames');
+const PropTypes = require('prop-types');
 const shuffle = require('lodash/shuffle');
 const get = require('lodash/get');
 const Modernizr = require('modernizr');
@@ -25,23 +26,29 @@ const Loading = require('./Loading.jsx');
 const VolumeControls = require('./VolumeControls.jsx');
 const SoundSelect = require('./SoundSelect.jsx');
 const Tooltip = require('./Tooltip.jsx');
-const gist = require('./gist.js');
 
 import './App.pcss';
 
 module.exports = class App extends React.Component {
-	constructor() {
-		super();
+	static propTypes = {
+		// eslint-disable-next-line react/forbid-prop-types
+		gistData: PropTypes.any,
+	}
+
+	static defaultProps = {
+		gistData: null,
+	}
+
+	constructor(props) {
+		super(props);
 
 		this.song = songs.iwashi;
 
 		this.vocalManagerPromise = VocalManager.initialize(this.song.vocals, this.song.defaultVocal);
-		this.gistDeferred = new Deferred();
 		this.backgroundDeferred = new Deferred();
 
 		this.tracks = shuffle(Object.entries(this.song.tracks));
 
-		this.initGist();
 		this.initBackground();
 
 		this.selectedSound = null;
@@ -70,10 +77,10 @@ module.exports = class App extends React.Component {
 			soloScore: null,
 			trackStatuses: new Map(this.tracks.map(([name]) => [name, 'loading'])),
 			trackSounds: new Map(this.tracks.map(([name, track]) => [name, {
-				sound: track.default.sound,
-				volume: track.default.volume,
-				muted: false,
-				solo: false,
+				sound: String(get(this.props.gistData, ['songs', 0, 'tracks', name, 'sound'], track.default.sound)),
+				volume: Number(get(this.props.gistData, ['songs', 0, 'tracks', name, 'volume'], track.default.volume)),
+				muted: Boolean(get(this.props.gistData, ['songs', 0, 'tracks', name, 'muted'], false)),
+				solo: Boolean(get(this.props.gistData, ['songs', 0, 'tracks', name, 'solo'], false)),
 			}])),
 			size,
 			soundSelect: false,
@@ -103,16 +110,6 @@ module.exports = class App extends React.Component {
 		}, 100);
 	}
 
-	initGist = async () => {
-		if (!params.gist || !params.gist.match(/^[\da-f]{20,}$/)) {
-			this.gistDeferred.resolve(null);
-			return;
-		}
-
-		const data = await gist.load(params.gist);
-		this.gistDeferred.resolve(data);
-	}
-
 	initBackground = () => {
 		const queue = new createjs.LoadQueue();
 		queue.loadManifest(this.song.backgrounds.map((b) => b.url).filter((url) => url !== null));
@@ -121,21 +118,6 @@ module.exports = class App extends React.Component {
 			if (!this.backgroundDeferred.isResolved) {
 				this.backgroundDeferred.resolve();
 			}
-		});
-	}
-
-	constructTrackSounds = () => {
-		if (!this.gistData) {
-			return;
-		}
-
-		this.setState({
-			trackSounds: new Map(this.tracks.map(([name, track]) => [name, {
-				sound: String(get(this.gistData, ['songs', 0, 'tracks', name, 'sound'], track.default.sound)),
-				volume: Number(get(this.gistData, ['songs', 0, 'tracks', name, 'volume'], track.default.volume)),
-				muted: Boolean(get(this.gistData, ['songs', 0, 'tracks', name, 'muted'], false)),
-				solo: Boolean(get(this.gistData, ['songs', 0, 'tracks', name, 'solo'], false)),
-			}])),
 		});
 	}
 
@@ -210,16 +192,12 @@ module.exports = class App extends React.Component {
 			} else {
 				this.isInitialized = true;
 
-				const [vocalManager, gistData] = await Promise.all([
+				const [vocalManager] = await Promise.all([
 					this.vocalManagerPromise,
-					this.gistDeferred.promise,
 					this.backgroundDeferred.promise,
 				]);
 
 				this.vocalManager = vocalManager;
-				this.gistData = gistData;
-
-				this.constructTrackSounds();
 
 				if (!params.debug) {
 					await wait(1000);
@@ -357,6 +335,7 @@ module.exports = class App extends React.Component {
 			<div styleName={classNames('app', {flash: this.state.isFlashing})}>
 				<Loading
 					titleComponents={this.song.titleComponents}
+					transcriber={this.props.gistData ? String(get(this.props.gistData, 'transcriber')) : '名無しさん'}
 					statuses={this.tracks.map(([name]) => this.state.trackStatuses.get(name))}
 					name="iwashi"
 					vanishing={this.state.isReady}
