@@ -465,7 +465,7 @@ module.exports = class App extends React.Component {
 			<div styleName={classNames('app', {flash: this.state.isFlashing})}>
 				<Loading
 					titleComponents={this.song.titleComponents}
-					transcriber={this.props.gistData ? String(get(this.props.gistData, 'transcriber')) : '名無しさん'}
+					transcriber={this.props.gistData ? String(get(this.props.gistData, 'transcriber', '名無し')) : null}
 					statuses={this.tracks.map(([name]) => this.state.trackStatuses.get(name))}
 					name="iwashi"
 					vanishing={this.state.isReady}

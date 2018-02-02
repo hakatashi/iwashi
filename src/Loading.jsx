@@ -44,12 +44,16 @@ const margin = 10;
 module.exports = class Loading extends React.Component {
 	static propTypes = {
 		titleComponents: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
-		transcriber: PropTypes.string.isRequired,
+		transcriber: PropTypes.string,
 		name: PropTypes.string.isRequired,
 		statuses: PropTypes.arrayOf(PropTypes.oneOf(['loading', 'seeking', 'ready']).isRequired).isRequired,
 		vanishing: PropTypes.bool.isRequired,
 		isPlayReady: PropTypes.bool.isRequired,
 		onClickOk: PropTypes.func.isRequired,
+	}
+
+	static defaultProps = {
+		transcriber: null,
 	}
 
 	constructor(props, state) {
