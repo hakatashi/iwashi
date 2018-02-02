@@ -1,3 +1,5 @@
+const assert = require('assert');
+const qs = require('querystring');
 const React = require('react');
 const classNames = require('classnames');
 const PropTypes = require('prop-types');
@@ -15,12 +17,17 @@ const StepBackward = require('react-icons/lib/fa/step-backward');
 const StepForward = require('react-icons/lib/fa/step-forward');
 const Github = require('react-icons/lib/fa/github');
 const Undo = require('react-icons/lib/md/undo');
+const Share = require('react-icons/lib/md/share');
+const Twitter = require('react-icons/lib/fa/twitter-square');
+const Facebook = require('react-icons/lib/fa/facebook-square');
+const {default: Hatena} = require('hatena-icon/hatenabookmark-logomark.svg');
 
 const {TICK} = require('./const.js');
 const VocalManager = require('./VocalManager.js');
 const {getResourceUrl, wait, isMobile, Deferred} = require('./util.js');
 const songs = require('../songs/index.js');
 const params = require('./params.js');
+const gist = require('./gist.js');
 const Track = require('./Track.jsx');
 const Loading = require('./Loading.jsx');
 const VolumeControls = require('./VolumeControls.jsx');
@@ -28,6 +35,33 @@ const SoundSelect = require('./SoundSelect.jsx');
 const Tooltip = require('./Tooltip.jsx');
 
 import './App.pcss';
+
+class ShareIcon extends React.Component {
+	static propTypes = {
+		name: PropTypes.oneOf(['twitter', 'hatena', 'facebook']).isRequired,
+		isArrange: PropTypes.bool.isRequired,
+		children: PropTypes.oneOfType([
+			PropTypes.arrayOf(PropTypes.node),
+			PropTypes.node,
+		]).isRequired,
+		onClick: PropTypes.func.isRequired,
+	}
+
+	handleClick = (event) => {
+		this.props.onClick(this.props.name, this.props.isArrange, event);
+	}
+
+	render() {
+		return (
+			<div
+				styleName={classNames('share-icon', this.props.name)}
+				onClick={this.handleClick}
+			>
+				{this.props.children}
+			</div>
+		);
+	}
+}
 
 module.exports = class App extends React.Component {
 	static propTypes = {
@@ -90,12 +124,14 @@ module.exports = class App extends React.Component {
 			background: this.song.backgrounds[0],
 			backgroundAnimation: null,
 			backgroundDuration: null,
+			shareName: '',
 			isFlashing: false,
 			isNoVideo: true,
 			isReady: false,
 			isPaused: false,
 			isPlayReady: false,
 			isVocalDisabled: false,
+			isShareOpen: false,
 		};
 
 		// Modernizr.audioautoplay is async check and we have to manually check if ready
@@ -330,6 +366,95 @@ module.exports = class App extends React.Component {
 		});
 	}
 
+	handleClickShare = () => {
+		this.setState({isShareOpen: !this.state.isShareOpen});
+	}
+
+	handleRequestCloseShare = () => {
+		this.setState({isShareOpen: false});
+	}
+
+	handleShareNameChange = (event) => {
+		this.setState({shareName: event.target.value});
+	}
+
+	handleClickShareIcon = async (name, isArrange) => {
+		const path = await (async () => {
+			if (isArrange === false) {
+				return '/';
+			}
+
+			const content = {
+				version: 1,
+				transcriber: this.state.shareName,
+				songs: [
+					{
+						song: 'iwashi',
+						vocal: {
+							sound: 'yufu',
+							volume: 1,
+						},
+						tracks: Object.assign(...Array.from(this.state.trackSounds).map(([track, value]) => ({[track]: value}))),
+						jingles: [],
+					},
+				],
+			};
+
+			const gistId = await gist.post({
+				description: '音MAD自動演奏サイト「iwashi」楽譜データ #iwashi https://hakatashi.github.io/iwashi/',
+				filename: 'iwashi-score.json',
+				content,
+			});
+
+			return `/?gist=${gistId}`;
+		})();
+
+		const url = `https://hakatashi.github.io/iwashi${path}`;
+
+		const titleText = (() => {
+			if (isArrange) {
+				if (this.state.shareName) {
+					return `${this.state.shareName}さんが「${this.song.title}」のアレンジを作りました！`;
+				}
+
+				return `「${this.song.title}」のアレンジを作りました！`;
+			}
+
+			return '';
+		})();
+
+		const title = titleText ? `${titleText} ${document.title}` : document.title;
+
+		const intent = (() => {
+			if (name === 'twitter') {
+				return `https://twitter.com/intent/tweet?${qs.encode({
+					text: title,
+					url,
+					hashtags: 'iwashi',
+				})}`;
+			}
+
+			if (name === 'facebook') {
+				return `https://www.facebook.com/sharer/sharer.php?${qs.encode({
+					u: url,
+				})}`;
+			}
+
+			assert(name === 'hatena');
+			return `http://b.hatena.ne.jp/add?${qs.encode({
+				mode: 'confirm',
+				url,
+				title,
+			})}`;
+		})();
+
+		open(intent, 'share', 'width=600,height=400');
+
+		if (isArrange) {
+			history.replaceState(null, null, path);
+		}
+	}
+
 	render() {
 		return (
 			<div styleName={classNames('app', {flash: this.state.isFlashing})}>
@@ -463,6 +588,49 @@ module.exports = class App extends React.Component {
 							<Refresh/> かえる
 						</Tooltip>
 					</div>
+					<div styleName="button" onClick={this.handleClickShare}>
+						<Tooltip
+							html={
+								<div styleName="share">
+									<div styleName="head">この<strong>サイト</strong>をシェアする</div>
+									<div styleName="share-icons">
+										<ShareIcon name="twitter" isArrange={false} onClick={this.handleClickShareIcon}>
+											<Twitter/>
+										</ShareIcon>
+										<ShareIcon name="facebook" isArrange={false} onClick={this.handleClickShareIcon}>
+											<Facebook/>
+										</ShareIcon>
+										<ShareIcon name="hatena" isArrange={false} onClick={this.handleClickShareIcon}>
+											<Hatena/>
+										</ShareIcon>
+									</div>
+									<div styleName="head">この<strong>アレンジ</strong>をシェアする</div>
+									<div styleName="share-name">
+										「
+										<input type="text" value={this.state.shareName} placeholder="名無し" onChange={this.handleShareNameChange}/>
+										さんによるアレンジ」
+									</div>
+									<div styleName="share-icons">
+										<ShareIcon name="twitter" isArrange onClick={this.handleClickShareIcon}>
+											<Twitter/>
+										</ShareIcon>
+										<ShareIcon name="facebook" isArrange onClick={this.handleClickShareIcon}>
+											<Facebook/>
+										</ShareIcon>
+									</div>
+								</div>
+							}
+							interaction
+							interactive
+							open={this.state.isShareOpen}
+							style={{width: '100%', height: '100%'}}
+							onRequestClose={this.handleRequestCloseShare}
+							arrow
+							animateFill={false}
+						>
+							<Share/>
+						</Tooltip>
+					</div>
 					<div styleName="button" onClick={this.handleClickDefault}>
 						<Tooltip
 							title="デフォルトに戻す"
@@ -476,15 +644,7 @@ module.exports = class App extends React.Component {
 							title={this.state.isNoVideo ? '動画再生をONにする' : '動画再生をOFFにする'}
 							style={{width: '100%', height: '100%'}}
 						>
-							{this.state.isNoVideo ? (
-								<React.Fragment>
-									<VideocamOff/> 動画OFF
-								</React.Fragment>
-							) : (
-								<React.Fragment>
-									<Videocam/> 動画ON
-								</React.Fragment>
-							)}
+							{this.state.isNoVideo ? <VideocamOff/> : <Videocam/>}
 						</Tooltip>
 					</div>
 					<a styleName="github button" href="https://github.com/hakatashi/iwashi" rel="noopener noreferrer" target="_blank">

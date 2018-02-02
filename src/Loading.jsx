@@ -150,7 +150,7 @@ module.exports = class Loading extends React.Component {
 						}
 					</div>
 					{this.props.transcriber && (
-						<div styleName="transcriber"><strong>{this.props.transcriber}</strong>によるアレンジ</div>
+						<div styleName="transcriber"><strong>{this.props.transcriber}</strong>さんによるアレンジ</div>
 					)}
 					<div styleName="artist">～原曲不使用音声による音MAD自動演奏～</div>
 					<div styleName="loading-text">

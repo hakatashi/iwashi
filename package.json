@@ -10,6 +10,7 @@
     "babel-loader": "^7.1.2",
     "babel-minify-webpack-plugin": "^0.2.0",
     "babel-plugin-react-css-modules": "^3.3.2",
+    "babel-plugin-react-svg": "^2.1.0",
     "babel-plugin-transform-class-properties": "^6.24.1",
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "babel-polyfill": "^6.26.0",
@@ -52,7 +53,8 @@
   },
   "devDependencies": {},
   "napa": {
-    "misaki-font": "http://www.geocities.jp/littlimi/arc/misaki/misaki_ttf_2015-04-10.zip"
+    "misaki-font": "http://www.geocities.jp/littlimi/arc/misaki/misaki_ttf_2015-04-10.zip",
+    "hatena-icon": "http://hatenacorp.jp/file/hatenaportal/company/Hatena-Bookmark-Logo.zip"
   },
   "scripts": {
     "install": "napa",

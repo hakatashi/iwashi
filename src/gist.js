@@ -6,7 +6,7 @@ module.exports.post = async ({description, filename, content}) => {
 		method: 'POST',
 		body: JSON.stringify({
 			description,
-			public: false,
+			public: true,
 			files: {
 				[filename]: {
 					content: JSON.stringify(content, null, '  '),

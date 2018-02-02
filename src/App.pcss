@@ -346,6 +346,85 @@ body {
 	overflow-x: auto;
 }
 
+.share {
+	width: 20em;
+	padding: 20px 0;
+}
+
+.head {
+	font-size: 20px;
+	
+	&:not(:first-child) {
+		margin-top: 1em;
+	}
+	
+	strong {
+		color: #FF9800;
+	}
+}
+
+.share-icons {
+	display: flex;
+	justify-content: center;
+}
+
+.share-icon {
+	width: 50px;
+	height: 50px;
+	font-size: 50px;
+	cursor: pointer;
+	
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	position: relative;
+	
+	margin: 0 10px;
+	
+	&::before {
+		content: '';
+		
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		
+		width: 40px;
+		height: 40px;
+		background: white;
+		border-radius: 10px;
+		z-index: -1;
+	}
+	
+	&.twitter {
+		color: #00ACED;
+	}
+	
+	&.facebook {
+		color: #3B5998;
+	}
+	
+	svg {
+		width: 48px;
+		height: 48px;
+		vertical-align: middle;
+	}
+	
+	&.hatena svg {
+		width: 42px;
+		height: 42px;
+	}
+}
+
+.share-name {
+	font-size: 12px;
+	
+	input {
+		font-size: 12px;
+		width: 10em;
+	}
+}
+
 .play-video {
 	cursor: pointer;
 	padding: 0 0.2em;
