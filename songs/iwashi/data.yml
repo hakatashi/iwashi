@@ -179,11 +179,11 @@ backgrounds:
     animation: right
     transform: null
   - time: 37.1.0
-    url: https://farm5.staticflickr.com/4758/25835425728_f4a92313ed_b.jpg
-    workUrl: https://flic.kr/p/FmZiYC
-    title: super moon gartocharn
-    author: Bob the Lomond
-    license: CC BY-NC
+    url: https://farm5.staticflickr.com/4543/38135163096_57b0b9b8f2_b.jpg
+    workUrl: https://flic.kr/p/216SFo1
+    title: Beaver Moon Rise from Austin Texas
+    author: Rob Pettengill
+    license: CC BY-NC-ND
     animation: left
     transform: null
   - time: 45.1.0

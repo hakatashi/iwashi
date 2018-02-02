@@ -25,16 +25,15 @@ module.exports = class Track extends React.Component {
 		prank: PropTypes.bool,
 		start: PropTypes.number,
 		end: PropTypes.number,
-		default: PropTypes.shape({
-			volume: PropTypes.number.isRequired,
-		}).isRequired,
 		sound: PropTypes.string.isRequired,
+		volume: PropTypes.number.isRequired,
 		beat: PropTypes.number.isRequired,
 		size: PropTypes.string.isRequired,
 		onFlash: PropTypes.func.isRequired,
 		onChangeSolo: PropTypes.func.isRequired,
 		onChangeStatus: PropTypes.func.isRequired,
 		onClickChange: PropTypes.func.isRequired,
+		onUpdate: PropTypes.func.isRequired,
 		isReady: PropTypes.bool.isRequired,
 		isPaused: PropTypes.bool.isRequired,
 		isNoVideo: PropTypes.bool.isRequired,
@@ -55,7 +54,7 @@ module.exports = class Track extends React.Component {
 		super(props, state);
 
 		this.state = {
-			volume: this.props.default.volume,
+			volume: this.props.volume,
 			isPlaying: true,
 			isReverse: false,
 			isShown: true,
@@ -97,6 +96,10 @@ module.exports = class Track extends React.Component {
 		if (this.props.sound !== nextProps.sound) {
 			this.updateSound(nextProps.sound);
 		}
+
+		if (this.props.volume !== nextProps.volume) {
+			this.setState({volume: nextProps.volume});
+		}
 	}
 
 	componentDidUpdate(prevProps, prevState) {
@@ -104,6 +107,16 @@ module.exports = class Track extends React.Component {
 			for (const sound of this.sounds) {
 				sound.volume(this.getVolume());
 			}
+
+			this.handleUpdate();
+		}
+
+		if (this.state.isSolo !== prevState.isSolo) {
+			this.handleUpdate();
+		}
+
+		if (this.state.isMuted !== prevState.isMuted) {
+			this.handleUpdate();
 		}
 	}
 
@@ -121,7 +134,7 @@ module.exports = class Track extends React.Component {
 					const howl = new Howl({
 						src: getSoundUrls(sound),
 						volume: this.state.volume,
-						loop: this.props.type === 'instrument' ? soundData[sound].loop === true : this.props.type !== 'percussion',
+						loop: (this.props.type === 'instrument' || this.props.type === 'chord') ? soundData[sound].loop === true : this.props.type !== 'percussion',
 						html5: this.props.type === 'rap',
 						preload: true,
 						onload: () => {
@@ -302,6 +315,16 @@ module.exports = class Track extends React.Component {
 				this.handleVideoSessionTimeout(session);
 			}, this.soundData.video.duration * 1000);
 		}
+	}
+
+	handleUpdate = () => {
+		this.props.onUpdate(this.props.name, {
+			sound: this.props.sound,
+			volume: this.state.volume,
+			muted: this.state.isMuted,
+			solo: this.state.isSolo,
+			pan: 0,
+		});
 	}
 
 	handlePause = () => {
