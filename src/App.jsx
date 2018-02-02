@@ -3,6 +3,7 @@ const classNames = require('classnames');
 const shuffle = require('lodash/shuffle');
 const get = require('lodash/get');
 const Modernizr = require('modernizr');
+const createjs = require('imports-loader?this=>window!exports-loader?window.createjs!preloadjs/lib/preloadjs');
 
 const Videocam = require('react-icons/lib/md/videocam');
 const VideocamOff = require('react-icons/lib/md/videocam-off');
@@ -36,9 +37,12 @@ module.exports = class App extends React.Component {
 
 		this.vocalManagerPromise = VocalManager.initialize(this.song.vocals, this.song.defaultVocal);
 		this.gistDeferred = new Deferred();
+		this.backgroundDeferred = new Deferred();
+
 		this.tracks = shuffle(Object.entries(this.song.tracks));
 
 		this.initGist();
+		this.initBackground();
 
 		this.selectedSound = null;
 		this.isInitialized = false;
@@ -107,6 +111,17 @@ module.exports = class App extends React.Component {
 
 		const data = await gist.load(params.gist);
 		this.gistDeferred.resolve(data);
+	}
+
+	initBackground = () => {
+		const queue = new createjs.LoadQueue();
+		queue.loadManifest(this.song.backgrounds.map((b) => b.url).filter((url) => url !== null));
+		queue.addEventListener('fileload', () => {
+			// Resolves when the first background image is preloaded
+			if (!this.backgroundDeferred.isResolved) {
+				this.backgroundDeferred.resolve();
+			}
+		});
 	}
 
 	constructTrackSounds = () => {
@@ -198,6 +213,7 @@ module.exports = class App extends React.Component {
 				const [vocalManager, gistData] = await Promise.all([
 					this.vocalManagerPromise,
 					this.gistDeferred.promise,
+					this.backgroundDeferred.promise,
 				]);
 
 				this.vocalManager = vocalManager;

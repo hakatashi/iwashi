@@ -15,5 +15,4 @@ window.addEventListener('unhandledrejection', (error) => {
 });
 
 const reactRoot = document.getElementById('react');
-
 ReactDOM.render(React.createElement(App), reactRoot);
