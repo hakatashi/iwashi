@@ -23,7 +23,7 @@
     "cssnano": "^3.10.0",
     "eslint": "^4.15.0",
     "eslint-plugin-react": "^7.5.1",
-    "exports-loader": "^0.6.4",
+    "exports-loader": "^0.7.0",
     "fontmin": "^0.9.6",
     "howler": "^2.0.7",
     "imports-loader": "^0.7.1",
