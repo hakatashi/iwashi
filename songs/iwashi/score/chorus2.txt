@@ -5,8 +5,8 @@ r r r r r r r l4 r r r d
 
 l2
 /:
-f e d c d e c <a>
-e d e <a> c d | a e
+f e d c d e c >a<
+e d e >a< c d | a e
 :/
 c g
 
@@ -16,22 +16,22 @@ l1
 l4
 /: f r e r :/3
 l16
-f^rfr^e^f^r^<f+^^^>
+f^rfr^e^f^r^>f+^^^<
 
 l1
 r r r r r r r l4 r r r d
 
 l2 v100
 /:
-f e d c d e c <a>
-e d e <a> c d | a e
+f e d c d e c >a<
+e d e >a< c d | a e
 :/
 c g
 
 l2 v100
 /:
-f e d c d e c <a>
-e d e <a> c d | a e
+f e d c d e c >a<
+e d e >a< c d | a e
 :/
 c g
 

@@ -7,17 +7,17 @@ t135 o4 l1
 
 /:
 o4 l32
-defgab>cdefga>cde^
-f^d^c^<a^g^f^^e^^
-d^<a>d<a>d<a>d<a>d<a>d<a>d<a>d
-<a^r^^^^^ ^^^^^^^^
-r^^^^^^^ <b>dfa<b>dfa
->dfc^d^f^ g^^f^^g^
+defgab<cdefga<cde^
+f^d^c^>a^g^f^^e^^
+d^>a<d>a<d>a<d>a<d>a<d>a<d>a<d
+>a^r^^^^^ ^^^^^^^^
+r^^^^^^^ >b<dfa>b<dfa
+<dfc^d^f^ g^^f^^g^
 afafafaf afafafaf
 |
->f^<a^>f^<a^ >a^c^a^c^<
+<f^>a^<f^>a^ <a^c^a^c^>
 :/4
->f^c^f^r^ f^^c^^g^
+<f^c^f^r^ f^^c^^g^
 
 l32
 fdfdfdfd fdfdfdfd
@@ -32,31 +32,31 @@ l1
 l1
 /: r :/15 r2
 l16
-v10 <e> <g> v20 c e
-v35 <e> <g> v50 c e
+v10 >e< >g< v20 c e
+v35 >e< >g< v50 c e
 
 v60
 /:
-/: <a> d f a :/2
-/: <g> c e g :/2
-/: <a+> d f a :/2
-/: <a> c f a :/2
+/: >a< d f a :/2
+/: >g< c e g :/2
+/: >a+< d f a :/2
+/: >a< c f a :/2
 /: d f g a+ :/2
 /: c e g a+ :/2
-/: <a> c f a :/2
-/: <a> c f a :/2
-/: <a+> d f a :/2
-/: <a> c e g :/2
-/: <a> c f a :/2
-/: <g> c e g :/2
-/: <a+> d f g :/2
+/: >a< c f a :/2
+/: >a< c f a :/2
+/: >a+< d f a :/2
+/: >a< c e g :/2
+/: >a< c f a :/2
+/: >g< c e g :/2
+/: >a+< d f g :/2
 /: c e g a+ :/2
 |
-/: e g a+ >d< :/2
-/: e a >e< >c+< :/2
+/: e g a+ <d> :/2
+/: e a <e> <c+> :/2
 :/2
-/: <a> c f a :/2
-/: <g> c e g :/2
+/: >a< c f a :/2
+/: >g< c e g :/2
 
 l1
 /: r :/4

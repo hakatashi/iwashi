@@ -2,25 +2,25 @@ t135 o1 l4
 r1 r1 r1 l16 c^^ c^^ c^ c^^ c c^ c^
 
 l16
-/: r^^ c c^ c^ r^^ c c^ c^ :/4
-/: r^^ c c^ c^ r^^ c c^ c^ :/3 c^^ c^^ c^ c^^ c c^ c^
+/: r^^ v60 c v100 c^ v60 c^ r^^ v100 c v60 c^ v100 c^ :/4
+/: r^^ v60 c v100 c^ v60 c^ r^^ v100 c v60 c^ v100 c^ :/3 c^^ c^^ c^ c^^ c c^ c^
 
-/: r^^ c c^ c^ r^^ c c^ c^ :/15 r^^ c c^ c^ r^^^^^^^
+/: r^^ v60 c v100 c^ v60 c^ r^^ v100 c v60 c^ v100 c^ :/15 r^^ c c^ c^ r^^^^^^^
 
 l1
 /: r :/16
 
 l16
-/: r^^ c c^ c^ r^^ c c^ c^ :/3 c^^ c^^ c^ c^^ c c^ c^
+/: r^^ v60 c v100 c^ v60 c^ r^^ v100 c v60 c^ v100 c^ :/3 c^^ c^^ c^ c^^ c c^ c^
 
 l16
-/: r^^ c c^ c^ r^^ c c^ c^ :/4
-/: r^^ c c^ c^ r^^ c c^ c^ :/3 c^^ c^^ c^ c^^ c c^ c^
+/: r^^ v60 c v100 c^ v60 c^ r^^ v100 c v60 c^ v100 c^ :/4
+/: r^^ v60 c v100 c^ v60 c^ r^^ v100 c v60 c^ v100 c^ :/3 c^^ c^^ c^ c^^ c c^ c^
 
 l16
-/: r^^ c c^ c^ r^^ c c^ c^ :/16
+/: r^^ v60 c v100 c^ v60 c^ r^^ v100 c v60 c^ v100 c^ :/16
 
 l16
-/: r^^ c c^ c^ r^^ c c^ c^ :/16
+/: r^^ v60 c v100 c^ v60 c^ r^^ v100 c v60 c^ v100 c^ :/16
 
-/: r^^ c c^ c^ | r^^ c c^ c^ :/4
+/: r^^ v60 c v100 c^ v60 c^ | r^^ v100 c v60 c^ v100 c^ :/4

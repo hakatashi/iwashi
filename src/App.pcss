@@ -12,9 +12,6 @@ html, body, .app {
 
 body {
 	font-family: misaki;
-	background-image: url(https://farm4.staticflickr.com/3671/11285730373_f3e33590b1_k.jpg);
-	background-attachment: fixed;
-	background-size: cover;
 }
 
 .app {
@@ -31,16 +28,21 @@ body {
 		left: 0;
 		right: 0;
 		bottom: 0;
+
+		background: white;
+		opacity: 0;
+
 		pointer-events: none;
 		animation: app-after-animation 0.6s linear;
+		will-change: opacity;
 
 		@at-root {
 			@keyframes app-after-animation {
 				from {
-					background: rgba(255, 255, 255, 0.6);
+					opacity: 0.6;
 				}
 				to {
-					background: rgba(255, 255, 255, 0);
+					opacity: 0;
 				}
 			}
 		}
@@ -51,6 +53,134 @@ body {
 	flex: 1 0 0;
 	height: 0;
 	position: relative;
+	
+	display: flex;
+	flex-direction: column;
+}
+
+.background{
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+
+	animation-timing-function: linear;
+	animation-fill-mode: both;
+	animation-duration: 5s;
+	will-change: transform;
+	
+	z-index: -1;
+
+	$distance: 300px;
+
+	&.right {
+		top: 0;
+		left: -$distance;
+		right: 0;
+		bottom: 0;
+		animation-name: background-right-animation;
+
+		@at-root {
+			@keyframes background-right-animation {
+				from {
+					transform: translateX(0px);
+				}
+				to {
+					transform: translateX($distance);
+				}
+			}
+		}
+	}
+
+	&.left {
+		top: 0;
+		left: 0;
+		right: -$distance;
+		bottom: 0;
+		animation-name: background-left-animation;
+
+		@at-root {
+			@keyframes background-left-animation {
+				from {
+					transform: translateX(0px);
+				}
+				to {
+					transform: translateX(-$distance);
+				}
+			}
+		}
+	}
+
+	&.up {
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: -$distance;
+		animation-name: background-up-animation;
+
+		@at-root {
+			@keyframes background-up-animation {
+				from {
+					transform: translateY(0px);
+				}
+				to {
+					transform: translateY(-$distance);
+				}
+			}
+		}
+	}
+
+	&.down {
+		top: -$distance;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		animation-name: background-down-animation;
+
+		@at-root {
+			@keyframes background-down-animation {
+				from {
+					transform: translateY(0px);
+				}
+				to {
+					transform: translateY($distance);
+				}
+			}
+		}
+	}
+
+	&.rotate {
+		top: calc(-1 * (141.42vmax - 100%) / 2);
+		left: calc(-1 * (141.42vmax - 100%) / 2);
+		right: calc(-1 * (141.42vmax - 100%) / 2);
+		bottom: calc(-1 * (141.42vmax - 100%) / 2);
+		animation-name: background-rotate-animation;
+		animation-iteration-count: infinite;
+
+		@at-root {
+			@keyframes background-rotate-animation {
+				from {
+					transform: rotate(0deg);
+				}
+				to {
+					transform: rotate(360deg);
+				}
+			}
+		}
+	}
+
+	&.paused {
+		animation-play-state: paused;
+	}
+}
+
+.background-image {
+	width: 100%;
+	height: 100%;
+	background-color: black;
+	background-size: cover;
+	background-position: center;
 }
 
 .tracks-container {
@@ -69,7 +199,6 @@ body {
 	flex-wrap: wrap;
 	justify-content: center;
 
-	padding-bottom: 80px;
 	box-sizing: border-box;
 }
 
@@ -86,10 +215,9 @@ body {
 }
 
 .lyric {
-	position: absolute;
 	width: 100%;
 	height: 60px;
-	bottom: 0;
+	position: relative;
 
 	display: flex;
 
@@ -109,7 +237,8 @@ body {
 	bottom: 0;
 
 	transition: opacity 0.2s;
-	
+	pointer-events: none;
+
 	&.disabled {
 		opacity: 0.7;
 	}
@@ -161,6 +290,23 @@ body {
 	}
 }
 
+.background-info {
+	position: absolute;
+	right: 1.5em;
+	bottom: 100%;
+	
+	font-family: sans-serif;
+	font-size: 12px;
+	font-weight: bold;
+	color: white;
+	text-shadow: 0 0 3px black;
+	
+	a {
+		color: #81D4FA;
+		text-decoration: none;
+	}
+}
+
 .controls {
 	flex: 0 0 40px;
 
@@ -179,17 +325,17 @@ body {
 
 .playback {
 	display: flex;
+}
 
-	.button {
-		height: 40px;
-		width: 40px;
-		color: white;
-		text-align: center;
-		cursor: pointer;
+.button {
+	height: 40px;
+	width: 40px;
+	color: white;
+	text-align: center;
+	cursor: pointer;
 
-		&:hover {
-			background: rgba(255, 255, 255, 0.3);
-		}
+	&:hover {
+		background: rgba(255, 255, 255, 0.3);
 	}
 }
 
@@ -197,12 +343,116 @@ body {
 	flex: 1 0 0;
 	font-size: 14px;
 	padding-left: 1em;
+	overflow-x: auto;
+}
+
+.share {
+	width: 20em;
+	padding: 20px 0;
+}
+
+.head {
+	font-size: 20px;
+	
+	&:not(:first-child) {
+		margin-top: 1em;
+	}
+	
+	strong {
+		color: #FF9800;
+	}
+}
+
+.share-icons {
+	display: flex;
+	justify-content: center;
+}
+
+.share-icon {
+	width: 50px;
+	height: 50px;
+	font-size: 50px;
+	cursor: pointer;
+	
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	position: relative;
+	
+	margin: 0 10px;
+	
+	&::before {
+		content: '';
+		
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		
+		width: 40px;
+		height: 40px;
+		background: white;
+		border-radius: 10px;
+		z-index: -1;
+	}
+	
+	&.twitter {
+		color: #00ACED;
+	}
+	
+	&.facebook {
+		color: #3B5998;
+	}
+	
+	svg {
+		width: 48px;
+		height: 48px;
+		vertical-align: middle;
+	}
+	
+	&.hatena svg {
+		width: 42px;
+		height: 42px;
+	}
+}
+
+.share-name {
+	font-size: 12px;
+	
+	input {
+		font-size: 12px;
+		width: 10em;
+	}
 }
 
 .play-video {
 	cursor: pointer;
+	padding: 0 0.2em;
+	
+	@media (max-width: 600px) {
+		display: none;
+	}
+
+	&:hover {
+		background: rgba(255, 255, 255, 0.3);
+	}
 
 	&.active {
 		color: #F44336;
 	}
+}
+
+.github {
+	font-size: 30px;
+}
+
+.unimplemented {
+	opacity: 0.2;
+	cursor: not-allowed;
+}
+
+.tooltip {
+	width: 100%;
+	height: 100%;
+	display: block;
 }

@@ -494,3 +494,235 @@ yukari-cowbell:
     url: https://www.youtube.com/watch?v=OVuYIMa5XBw
     start: 7.8
     duration: 0.5
+nichijo-kokeshi:
+  type: percussion
+  category: chime
+  resource:
+    work: 日常
+    name: こけし
+  video:
+    url: https://www.youtube.com/watch?v=NnG1X8wBKww
+    start: 22.3
+    duration: 0.5
+nichijo-akabeko:
+  type: percussion
+  category: snare
+  resource:
+    work: 日常
+    name: 赤べこ
+  video:
+    url: https://www.youtube.com/watch?v=NnG1X8wBKww
+    start: 38.2
+    duration: 0.5
+nichijo-shake:
+  type: instrument
+  category: chorus
+  prank: true
+  sourceNote: 39
+  resource:
+    work: 日常
+    name: 「シャケだああああ」
+  video:
+    url: https://www.youtube.com/watch?v=NnG1X8wBKww
+    start: 71.5
+    duration: 1.5
+nichijo-eh:
+  type: instrument
+  category: chorue
+  loop: true
+  prank: true
+  sourceNote: 35
+  resource:
+    work: 日常
+    name: 「ええー……」
+  video:
+    url: https://www.youtube.com/watch?v=x2ypDDYDl70
+    start: 172
+    duration: 1
+nanami-jaan:
+  type: instrument
+  category: chorus
+  prank: true
+  sourceNote: 40
+  resource:
+    work: 窓辺ななみ
+    name: 「じゃーん」
+  video:
+    url: https://www.youtube.com/watch?v=4blPBgc43cE
+    start: 1.3
+    duration: 1
+metan-ahoge:
+  type: instrument
+  category: chorus
+  prank: true
+  sourceNote: 41
+  resource:
+    work: ありがとう Me
+    name: Meたんのアホ毛
+  video:
+    url: https://www.youtube.com/watch?v=M7A6ZTOhHXw
+    start: 86
+    duration: 0.5
+jojo-iwashi:
+  type: instrument
+  category: base
+  loop: true
+  sourceNote: 15
+  resource:
+    work: ジョジョの奇妙な冒険 未来への遺産HD
+    name: 「イワシ」
+  video:
+    url: https://www.youtube.com/watch?v=RYZ3MuLXs98
+    start: 98.6
+    duration: 1
+enta-newwave:
+  type: instrument
+  category: chorus
+  sourceNote: 46
+  resource:
+    work: エンタの神様
+    name: 「次々と新しい仕掛けを生み出し続けるのは、この男～！」
+  video:
+    url: https://www.youtube.com/watch?v=cFhMmTnkpBA
+    start: 85
+    duration: 1
+chu2koi-au:
+  type: instrument
+  category: synth
+  sourceNote: 48
+  resource:
+    work: 中二病でも恋がしたい!
+    name: 「あぅ」
+  video:
+    url: https://www.youtube.com/watch?v=ik0O_hrbN5E
+    start: 67.8
+    duration: 0.5
+chu2koi-stadiometer:
+  type: percussion
+  category: cowbell
+  resource:
+    work: 中二病でも恋がしたい!
+    name: 身長計
+  video:
+    url: https://www.youtube.com/watch?v=ik0O_hrbN5E
+    start: 10
+    duration: 0.5
+saronshippu-ah:
+  type: instrument
+  category: chorus
+  sourceNote: 40
+  resource:
+    work: サロンシップCM
+    name: 竹中直人
+  video:
+    url: https://www.youtube.com/watch?v=kU8FUxmZvIQ
+    start: 8.3
+    duration: 0.5
+evangelion-crack:
+  type: percussion
+  category: hihat
+  resource:
+    work: 新世紀エヴァンゲリオン
+    name: ガラス
+  video:
+    url: https://www.youtube.com/watch?v=_uNNRs19EzQ
+    start: 6
+    duration: 0.5
+evangelion-clap:
+  type: percussion
+  category: clap
+  resource:
+    work: 新世紀エヴァンゲリオン
+    name: 拍手
+  video:
+    url: https://www.youtube.com/watch?v=_uNNRs19EzQ
+    start: 28.2
+    duration: 0.5
+kabikiller-rah:
+  type: instrument
+  category: chorus
+  sourceNote: 36
+  resource:
+    work: カビキラーCM
+    name: カビキラー
+  video:
+    url: https://www.youtube.com/watch?v=bjdStMwsiWY
+    start: 1.8
+    duration: 0.5
+prestar-yuupack:
+  type: percussion
+  category: cowbell
+  resource:
+    work: Prestar
+    name: ゆうパック
+  video:
+    url: https://www.youtube.com/watch?v=IFUCYtKynL0
+    start: 18.6
+    duration: 0.5
+donkeykong-hammer:
+  type: instrument
+  category: synth
+  sourceNote: 48
+  resource:
+    work: ドンキーコング
+    name: ハンマー状態
+  video:
+    url: https://www.youtube.com/watch?v=3tIC9Oftva4
+    start: 5
+    duration: 0.5
+seirogan-trumpet:
+  type: instrument
+  category: wind
+  sourceNote: 52
+  resource:
+    work: 正露丸CM
+    name: ラッパ
+  video:
+    url: https://www.youtube.com/watch?v=x6MK9pCWkG4
+    start: 6.8
+    duration: 1
+sakanakun-akyaa:
+  type: instrument
+  category: synth
+  sourceNote: 67
+  resource:
+    work: さかなクン
+    name: 「あきゃーっ」
+  video:
+    url: https://www.youtube.com/watch?v=pdJRY8Mv0kU
+    start: 79.8
+    duration: 1
+suntelevision-ossan:    
+  type: instrument
+  category: chorus
+  prank: true
+  sourceNote: 28
+  resource:
+    work: サンテレビCM
+    name: おっ!サンテレビ
+  video:
+    url: https://www.youtube.com/watch?v=jMCz1LQFP-w
+    start: 71.5
+    duration: 1
+aniplex-logo:
+  type: instrument
+  category: synth
+  loop: true
+  sourceNote: 48
+  resource:
+    work: アニプレックス
+    name: サウンドロゴ
+  video:
+    url: https://www.youtube.com/watch?v=LubTx0WpVFU
+    start: 2.2
+    duration: 1
+deremasu-mashumaro:
+  type: percussion
+  category: none
+  resource:
+    work: アニメ「アイドルマスターシンデレラガールズ」
+    name: マシュマロ砲
+  video:
+    url: https://www.youtube.com/watch?v=ExT9cr9hcWI
+    start: 141.3
+    duration: 0.5

@@ -23,25 +23,25 @@ l1
 
 o3 l8 v50
 /:
-a^^r g^>c^<
+a^^r g^<c^>
 a^^r a^e^
 f^^r g^f^
 a^r^ a^fg16a16
->c^<g^ e^fg
-f^f>c< a^r^
-a^ag aga>c<
+<c^>g^ e^fg
+f^f<c> a^r^
+a^ag aga<c>
 a^^^ r^^^
 :/2
 
 o3 l8 v50
 /:
-a^^r g^>c^<
+a^^r g^<c^>
 a^^r a^e^
 f^^r g^f^
 a^r^ a^fg16a16
->c^<g^ e^fg
-f^f>c< a^r^
-a^ag aga>c<
+<c^>g^ e^fg
+f^f<c> a^r^
+a^ag aga<c>
 a^^^ r^^^
 :/2
 

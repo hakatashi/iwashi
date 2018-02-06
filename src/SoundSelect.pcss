@@ -7,7 +7,7 @@
 	
 	background: white;
 	width: 300px;
-	height: 360px;
+	height: 460px;
 	
 	border-radius: 5px;
 	
@@ -58,10 +58,66 @@
 	justify-content: center;
 }
 
+.tabs {
+	display: flex;
+}
+
+.tab {
+	$height: 18px;
+	
+	height: $height;
+	line-height: $height;
+	position: relative;
+	
+	background: #9E9E9E;
+	font-size: 12px;
+	color: white;
+	
+	cursor: pointer;
+	
+	$size: 10px;
+	margin-left: $size;
+	padding: 0 0.5em;
+	
+	&::before {
+		content: '';
+		
+		position: absolute;
+		right: 100%;
+		top: 0;
+		border-bottom: $height solid #9E9E9E;
+		border-left: $size solid transparent;
+	}
+	
+	&::after {
+		content: '';
+		
+		position: absolute;
+		left: 100%;
+		top: 0;
+		border-bottom: $height solid #9E9E9E;
+		border-right: $size solid transparent;
+	}
+	
+	&.active {
+		background: #FF5722;
+		z-index: 1;
+		
+		&::before {
+			border-bottom-color: #FF5722;
+		}
+		
+		&::after {
+			border-bottom-color: #FF5722;
+		}
+	}
+}
+
 .sounds {
 	flex: 1 0 0;
 	overflow-y: auto;
 	user-select: none;
+	position: relative;
 	
 	.active {
 		background: #D4ECFF;

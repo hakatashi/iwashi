@@ -6,7 +6,6 @@ const randomColor = require('randomcolor');
 const classNames = require('classnames');
 const assert = require('assert');
 const Refresh = require('react-icons/lib/fa/refresh');
-const invoke = require('lodash/invoke');
 
 const soundData = require('../sound/data.yml');
 const {TICK} = require('./const.js');
@@ -26,16 +25,15 @@ module.exports = class Track extends React.Component {
 		prank: PropTypes.bool,
 		start: PropTypes.number,
 		end: PropTypes.number,
-		default: PropTypes.shape({
-			volume: PropTypes.number.isRequired,
-		}).isRequired,
 		sound: PropTypes.string.isRequired,
+		volume: PropTypes.number.isRequired,
 		beat: PropTypes.number.isRequired,
 		size: PropTypes.string.isRequired,
 		onFlash: PropTypes.func.isRequired,
 		onChangeSolo: PropTypes.func.isRequired,
 		onChangeStatus: PropTypes.func.isRequired,
 		onClickChange: PropTypes.func.isRequired,
+		onUpdate: PropTypes.func.isRequired,
 		isReady: PropTypes.bool.isRequired,
 		isPaused: PropTypes.bool.isRequired,
 		isNoVideo: PropTypes.bool.isRequired,
@@ -56,7 +54,7 @@ module.exports = class Track extends React.Component {
 		super(props, state);
 
 		this.state = {
-			volume: this.props.default.volume,
+			volume: this.props.volume,
 			isPlaying: true,
 			isReverse: false,
 			isShown: true,
@@ -98,6 +96,10 @@ module.exports = class Track extends React.Component {
 		if (this.props.sound !== nextProps.sound) {
 			this.updateSound(nextProps.sound);
 		}
+
+		if (this.props.volume !== nextProps.volume) {
+			this.setState({volume: nextProps.volume});
+		}
 	}
 
 	componentDidUpdate(prevProps, prevState) {
@@ -105,6 +107,16 @@ module.exports = class Track extends React.Component {
 			for (const sound of this.sounds) {
 				sound.volume(this.getVolume());
 			}
+
+			this.handleUpdate();
+		}
+
+		if (this.state.isSolo !== prevState.isSolo) {
+			this.handleUpdate();
+		}
+
+		if (this.state.isMuted !== prevState.isMuted) {
+			this.handleUpdate();
 		}
 	}
 
@@ -117,12 +129,12 @@ module.exports = class Track extends React.Component {
 		this.audioLoadDefer = new Deferred();
 
 		Promise.all(
-			Array(this.props.type === 'chord' ? 5 : 1).fill().map(() => (
+			Array(this.props.type === 'chord' ? 3 : 1).fill().map(() => (
 				new Promise((resolve, reject) => {
 					const howl = new Howl({
 						src: getSoundUrls(sound),
 						volume: this.state.volume,
-						loop: this.props.type === 'instrument' ? soundData[sound].loop === true : this.props.type !== 'percussion',
+						loop: (this.props.type === 'instrument' || this.props.type === 'chord') ? soundData[sound].loop === true : this.props.type !== 'percussion',
 						html5: this.props.type === 'rap',
 						preload: true,
 						onload: () => {
@@ -145,11 +157,20 @@ module.exports = class Track extends React.Component {
 		]).then(() => {
 			// When playing and url props is updated simultaneously, react-player doesn't seem to stop video properly.
 			// Is this react-player bug?
-			if (this.props.isNoVideo) {
-				invoke(this.player, ['player', 'player', 'pauseVideo']);
+			if (this.props.isNoVideo && this.player) {
+				this.player.getInternalPlayer().pauseVideo();
 			}
 			this.props.onChangeStatus(this.props.name, 'ready');
 		});
+	}
+
+	updatePlaybackQuality = () => {
+		if (this.player) {
+			const internalPlayer = this.player.getInternalPlayer();
+			if (internalPlayer && internalPlayer.setPlaybackQuality) {
+				internalPlayer.setPlaybackQuality('tiny');
+			}
+		}
 	}
 
 	handleBeat = (beat) => {
@@ -217,8 +238,8 @@ module.exports = class Track extends React.Component {
 				}
 
 				if ((tick - this.props.start) % (32 * this.props.end) === 0) {
-					if (!this.props.isNoVideo) {
-						this.player && this.player.seekTo(this.soundData.video.start);
+					if (!this.props.isNoVideo && this.player) {
+						this.player.seekTo(this.soundData.video.start);
 					}
 				}
 
@@ -270,8 +291,8 @@ module.exports = class Track extends React.Component {
 			this.props.onFlash();
 		}
 
-		if (!this.props.isNoVideo) {
-			this.player && this.player.seekTo(this.soundData.video.start);
+		if (!this.props.isNoVideo && this.player) {
+			this.player.seekTo(this.soundData.video.start);
 		}
 
 		if (!this.state.isShown || hidden) {
@@ -294,6 +315,16 @@ module.exports = class Track extends React.Component {
 				this.handleVideoSessionTimeout(session);
 			}, this.soundData.video.duration * 1000);
 		}
+	}
+
+	handleUpdate = () => {
+		this.props.onUpdate(this.props.name, {
+			sound: this.props.sound,
+			volume: this.state.volume,
+			muted: this.state.isMuted,
+			solo: this.state.isSolo,
+			pan: 0,
+		});
 	}
 
 	handlePause = () => {
@@ -351,7 +382,7 @@ module.exports = class Track extends React.Component {
 	}
 
 	handlePlayerReady = () => {
-		invoke(this.player, ['player', 'player', 'setPlaybackQuality'], 'tiny');
+		this.updatePlaybackQuality();
 		if (this.props.isPlayReady) {
 			this.player.seekTo(this.soundData.video.start);
 		}
@@ -359,7 +390,7 @@ module.exports = class Track extends React.Component {
 		this.props.onChangeStatus(this.props.name, 'seeking');
 	}
 
-	handlePlayerStart = () => {
+	handlePlayerPlay = () => {
 		if (!this.videoLoadDefer.isResolved) {
 			this.setState({
 				isPlaying: false,
@@ -431,7 +462,7 @@ module.exports = class Track extends React.Component {
 						<Player
 							ref={(element) => {
 								this.player = element;
-								invoke(this.player, ['player', 'player', 'setPlaybackQuality'], 'tiny');
+								this.updatePlaybackQuality();
 							}}
 							url={this.soundData.video.url}
 							config={{
@@ -449,7 +480,7 @@ module.exports = class Track extends React.Component {
 							muted
 							loop
 							onReady={this.handlePlayerReady}
-							onStart={this.handlePlayerStart}
+							onPlay={this.handlePlayerPlay}
 							onError={this.handlePlayerError}
 						/>
 					)}
