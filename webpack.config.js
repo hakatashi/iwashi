@@ -2,19 +2,22 @@ const path = require('path');
 const webpack = require('webpack');
 const cssnano = require('cssnano');
 const precss = require('precss');
+const autoprefixer = require('autoprefixer');
 const MinifyPlugin = require('babel-minify-webpack-plugin');
 
 module.exports = (env = {}) => {
+	const browsers = [
+		'last 2 chrome versions',
+		...(env.production ? [
+			'last 2 firefox versions',
+			'safari >= 9',
+			'last 2 edge versions',
+		] : []),
+	];
+
 	const envConfig = {
 		targets: {
-			browsers: [
-				'last 2 chrome versions',
-				...(env.production ? [
-					'last 2 firefox versions',
-					'safari >= 9',
-					'last 2 edge versions',
-				] : []),
-			],
+			browsers,
 		},
 		useBuiltIns: 'entry',
 		shippedProposals: true,
@@ -88,7 +91,7 @@ module.exports = (env = {}) => {
 							ident: 'postcss',
 							plugins: [
 								precss(),
-								...(env.production ? [cssnano()] : []),
+								...(env.production ? [autoprefixer({browsers}), cssnano()] : []),
 							],
 						},
 					},
