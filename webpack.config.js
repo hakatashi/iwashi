@@ -39,8 +39,8 @@ module.exports = (env = {}) => {
 					loader: 'babel-loader',
 					options: {
 						presets: [
-							['env', envConfig],
-							'react',
+							['@babel/preset-env', envConfig],
+							'@babel/preset-react',
 						],
 						plugins: [
 							['react-css-modules', {
@@ -52,8 +52,8 @@ module.exports = (env = {}) => {
 								handleMissingStyleName: 'warn',
 								generateScopedName: '[name]__[local]--[hash:base64:5]',
 							}],
-							'transform-class-properties',
-							'transform-object-rest-spread',
+							'@babel/plugin-proposal-class-properties',
+							'@babel/plugin-proposal-object-rest-spread',
 						],
 					},
 				},
@@ -63,12 +63,12 @@ module.exports = (env = {}) => {
 					loader: 'babel-loader',
 					options: {
 						presets: [
-							['env', envConfig],
-							'react',
+							['@babel/preset-env', envConfig],
+							'@babel/preset-react',
 						],
 						plugins: [
-							'react-svg',
-							'transform-object-rest-spread',
+							'@hakatashi/babel-plugin-react-svg',
+							'@babel/plugin-proposal-object-rest-spread',
 						],
 					},
 				},
