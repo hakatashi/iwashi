@@ -178,7 +178,9 @@ module.exports = class Track extends React.Component {
 
 		if (Math.abs((beat + TICK) % (TICK * 2944) - TICK) < TICK / 2) {
 			this.setState({isShown: false});
-			this.sounds.forEach((sound) => sound.stop());
+			for (const sound of this.sounds) {
+				sound.stop();
+			}
 		}
 
 		let hidden = false;
@@ -264,7 +266,9 @@ module.exports = class Track extends React.Component {
 			const playNotes = this.props.score.filter((note) => Math.abs(note.time - beat % (TICK * 2944)) < TICK / 2 && note.type === 'note');
 
 			if (playNotes.length !== 0 || (this.props.score[this.currentNoteIndex] && Math.abs(this.props.score[this.currentNoteIndex].time + this.props.score[this.currentNoteIndex].duration - beat % (TICK * 2944)) < TICK / 2)) {
-				this.sounds.forEach((sound) => sound.stop());
+				for (const sound of this.sounds) {
+					sound.stop();
+				}
 			}
 
 			if (playNotes.length === 0) {
@@ -304,7 +308,7 @@ module.exports = class Track extends React.Component {
 		}
 
 		if (this.props.prank || this.soundData.prank || this.props.isNoVideo) {
-			this.setState({isReverse: !this.state.isReverse});
+			this.setState(({isReverse}) => ({isReverse: !isReverse}));
 		}
 
 		const session = Symbol('videoPlaySession');

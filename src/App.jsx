@@ -6,6 +6,7 @@ const PropTypes = require('prop-types');
 const shuffle = require('lodash/shuffle');
 const get = require('lodash/get');
 const Modernizr = require('modernizr');
+// eslint-disable-next-line node/no-missing-require
 const createjs = require('imports-loader?this=>window!exports-loader?window.createjs!preloadjs/lib/preloadjs');
 
 const Videocam = require('react-icons/lib/md/videocam');
@@ -20,6 +21,7 @@ const Undo = require('react-icons/lib/md/undo');
 const Share = require('react-icons/lib/md/share');
 const Twitter = require('react-icons/lib/fa/twitter-square');
 const Facebook = require('react-icons/lib/fa/facebook-square');
+// eslint-disable-next-line node/no-extraneous-require,node/no-missing-require
 const {default: Hatena} = require('hatena-icon/hatenabookmark-logomark.svg');
 
 const {TICK} = require('./const.js');
@@ -180,10 +182,10 @@ module.exports = class App extends React.Component {
 	}
 
 	handleBeat = () => {
-		this.setState({beat: this.state.beat === null ? TICK * 0 : this.state.beat + TICK});
+		this.setState(({beat}) => ({beat: beat === null ? TICK * 0 : beat + TICK}));
 
 		const beat = Math.floor(this.state.beat / TICK) % 2944;
-		this.vocalManager.handleBeat(beat);
+		this.vocalManager.onBeat(beat);
 
 		const lyric = this.song.lyrics.find(({start, end}) => start <= beat && beat < end);
 		if (!lyric && this.state.lyric !== '') {
@@ -221,7 +223,7 @@ module.exports = class App extends React.Component {
 	}
 
 	handleSoundStatusChanged = async (name, status) => {
-		this.setState({trackStatuses: this.state.trackStatuses.set(name, status)});
+		this.setState(({trackStatuses}) => ({trackStatuses: trackStatuses.set(name, status)}));
 
 		if (this.state.soundSelect === false && Array.from(this.state.trackStatuses.values()).every((s) => s === 'ready')) {
 			if (this.isInitialized) {
@@ -251,7 +253,7 @@ module.exports = class App extends React.Component {
 	}
 
 	handleChangeCheckbox = () => {
-		this.setState({isNoVideo: !this.state.isNoVideo});
+		this.setState(({isNoVideo}) => ({isNoVideo: !isNoVideo}));
 	}
 
 	handleFlash = async () => {
@@ -332,12 +334,12 @@ module.exports = class App extends React.Component {
 				this.unpause();
 			}
 		} else {
-			this.setState({
-				trackSounds: this.state.trackSounds.set(selectedTrack, {
-					...this.state.trackSounds.get(selectedTrack),
+			this.setState(({trackSounds}) => ({
+				trackSounds: trackSounds.set(selectedTrack, {
+					...trackSounds.get(selectedTrack),
 					sound: this.selectedSound,
 				}),
-			});
+			}));
 		}
 	}
 
@@ -363,13 +365,13 @@ module.exports = class App extends React.Component {
 	}
 
 	handleUpdateTrack = (name, track) => {
-		this.setState({
-			trackSounds: this.state.trackSounds.set(name, track),
-		});
+		this.setState(({trackSounds}) => ({
+			trackSounds: trackSounds.set(name, track),
+		}));
 	}
 
 	handleClickShare = () => {
-		this.setState({isShareOpen: !this.state.isShareOpen});
+		this.setState(({isShareOpen}) => ({isShareOpen: !isShareOpen}));
 	}
 
 	handleRequestCloseShare = () => {

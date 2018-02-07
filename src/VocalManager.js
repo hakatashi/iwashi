@@ -59,7 +59,7 @@ const VoiceManager = class VoiceManager {
 		this.vocalSounds.set(this.getResourceName(vocal.source), howl);
 	}
 
-	handleBeat(beat) {
+	onBeat(beat) {
 		for (const {source, start, end} of this.vocals[this.vocalName]) {
 			if (this.vocalSounds.has(this.getResourceName(source))) {
 				const vocalSound = this.vocalSounds.get(this.getResourceName(source));
