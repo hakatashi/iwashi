@@ -43,17 +43,21 @@ module.exports = class Track extends React.Component {
 	}
 
 	handleClickMute = () => {
-		const newIsMuted = !this.state.isMuted;
+		this.setState(({isMuted}) => {
+			const newIsMuted = !isMuted;
 
-		this.setState({isMuted: newIsMuted});
-		this.props.onChangeMuted(newIsMuted);
+			this.props.onChangeMuted(newIsMuted);
+			return {isMuted: newIsMuted};
+		});
 	}
 
 	handleClickSolo = () => {
-		const newIsSolo = !this.state.isSolo;
+		this.setState(({isSolo}) => {
+			const newIsSolo = !isSolo;
 
-		this.setState({isSolo: newIsSolo});
-		this.props.onChangeSolo(newIsSolo);
+			this.props.onChangeSolo(newIsSolo);
+			return {isSolo: newIsSolo};
+		});
 	}
 
 	handleKnobPan = (event) => {

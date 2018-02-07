@@ -2,19 +2,22 @@ const path = require('path');
 const webpack = require('webpack');
 const cssnano = require('cssnano');
 const precss = require('precss');
+const autoprefixer = require('autoprefixer');
 const MinifyPlugin = require('babel-minify-webpack-plugin');
 
 module.exports = (env = {}) => {
+	const browsers = [
+		'last 2 chrome versions',
+		...(env.production ? [
+			'last 2 firefox versions',
+			'safari >= 9',
+			'last 2 edge versions',
+		] : []),
+	];
+
 	const envConfig = {
 		targets: {
-			browsers: [
-				'last 2 chrome versions',
-				...(env.production ? [
-					'last 2 firefox versions',
-					'safari >= 9',
-					'last 2 edge versions',
-				] : []),
-			],
+			browsers,
 		},
 		useBuiltIns: 'entry',
 		shippedProposals: true,
@@ -36,8 +39,8 @@ module.exports = (env = {}) => {
 					loader: 'babel-loader',
 					options: {
 						presets: [
-							['env', envConfig],
-							'react',
+							['@babel/preset-env', envConfig],
+							'@babel/preset-react',
 						],
 						plugins: [
 							['react-css-modules', {
@@ -49,8 +52,8 @@ module.exports = (env = {}) => {
 								handleMissingStyleName: 'warn',
 								generateScopedName: '[name]__[local]--[hash:base64:5]',
 							}],
-							'transform-class-properties',
-							'transform-object-rest-spread',
+							'@babel/plugin-proposal-class-properties',
+							'@babel/plugin-proposal-object-rest-spread',
 						],
 					},
 				},
@@ -60,12 +63,12 @@ module.exports = (env = {}) => {
 					loader: 'babel-loader',
 					options: {
 						presets: [
-							['env', envConfig],
-							'react',
+							['@babel/preset-env', envConfig],
+							'@babel/preset-react',
 						],
 						plugins: [
-							'react-svg',
-							'transform-object-rest-spread',
+							'@hakatashi/babel-plugin-react-svg',
+							'@babel/plugin-proposal-object-rest-spread',
 						],
 					},
 				},
@@ -88,7 +91,7 @@ module.exports = (env = {}) => {
 							ident: 'postcss',
 							plugins: [
 								precss(),
-								...(env.production ? [cssnano()] : []),
+								...(env.production ? [autoprefixer({browsers}), cssnano()] : []),
 							],
 						},
 					},
