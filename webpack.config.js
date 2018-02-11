@@ -8,11 +8,9 @@ const MinifyPlugin = require('babel-minify-webpack-plugin');
 module.exports = (env = {}) => {
 	const browsers = [
 		'last 2 chrome versions',
-		...(env.production ? [
-			'last 2 firefox versions',
-			'safari >= 9',
-			'last 2 edge versions',
-		] : []),
+		...(env.production
+			? ['last 2 firefox versions', 'safari >= 9', 'last 2 edge versions']
+			: []),
 	];
 
 	const envConfig = {
@@ -32,150 +30,162 @@ module.exports = (env = {}) => {
 		},
 		devtool: env.production ? 'source-map' : 'cheap-module-eval-source-map',
 		module: {
-			rules: [{
-				test: /\.jsx?$/,
-				exclude: /node_modules/,
-				use: {
-					loader: 'babel-loader',
-					options: {
-						presets: [
-							['@babel/preset-env', envConfig],
-							'@babel/preset-react',
-						],
-						plugins: [
-							['react-css-modules', {
-								filetypes: {
-									'.pcss': {
-										syntax: 'postcss',
+			rules: [
+				{
+					test: /\.jsx?$/,
+					exclude: /node_modules/,
+					use: {
+						loader: 'babel-loader',
+						options: {
+							presets: [
+								['@babel/preset-env', envConfig],
+								'@babel/preset-react',
+							],
+							plugins: [
+								[
+									'react-css-modules',
+									{
+										filetypes: {
+											'.pcss': {
+												syntax: 'postcss',
+											},
+										},
+										handleMissingStyleName: 'warn',
+										generateScopedName: '[name]__[local]--[hash:base64:5]',
 									},
-								},
-								handleMissingStyleName: 'warn',
-								generateScopedName: '[name]__[local]--[hash:base64:5]',
-							}],
-							'@babel/plugin-proposal-class-properties',
-							'@babel/plugin-proposal-object-rest-spread',
-						],
-					},
-				},
-			}, {
-				test: /\.svg$/,
-				use: {
-					loader: 'babel-loader',
-					options: {
-						presets: [
-							['@babel/preset-env', envConfig],
-							'@babel/preset-react',
-						],
-						plugins: [
-							'@hakatashi/babel-plugin-react-svg',
-							'@babel/plugin-proposal-object-rest-spread',
-						],
-					},
-				},
-			}, {
-				test: /\.pcss$/,
-				exclude: /node_modules/,
-				use: [
-					'style-loader',
-					{
-						loader: 'css-loader',
-						options: {
-							modules: true,
-							importLoaders: 1,
-							localIdentName: '[name]__[local]--[hash:base64:5]',
-						},
-					},
-					{
-						loader: 'postcss-loader',
-						options: {
-							ident: 'postcss',
-							plugins: [
-								precss(),
-								...(env.production ? [autoprefixer({browsers}), cssnano()] : []),
+								],
+								'@babel/plugin-proposal-class-properties',
+								'@babel/plugin-proposal-object-rest-spread',
 							],
 						},
 					},
-				],
-			}, {
-				test: /\.css$/,
-				use: [
-					'style-loader',
-					'css-loader',
-					{
-						loader: 'postcss-loader',
+				},
+				{
+					test: /\.svg$/,
+					use: {
+						loader: 'babel-loader',
 						options: {
-							ident: 'css',
+							presets: [
+								['@babel/preset-env', envConfig],
+								'@babel/preset-react',
+							],
 							plugins: [
-								...(env.production ? [cssnano()] : []),
+								'@hakatashi/babel-plugin-react-svg',
+								'@babel/plugin-proposal-object-rest-spread',
 							],
 						},
 					},
-				],
-			}, {
-				test: /\.ttf$/,
-				use: [
-					{
-						loader: 'url-loader',
-						options: {
-							limit: Infinity,
-							mimetype: 'application/font-woff',
+				},
+				{
+					test: /\.pcss$/,
+					exclude: /node_modules/,
+					use: [
+						'style-loader',
+						{
+							loader: 'css-loader',
+							options: {
+								modules: true,
+								importLoaders: 1,
+								localIdentName: '[name]__[local]--[hash:base64:5]',
+							},
 						},
-					},
-					{
-						loader: './lib/fontmin-loader.js',
-						options: {
-							text: [
-								'♪',
-								'イワシがつちからはえてくるんだ',
-								'／',
-								'ころんば',
-								'～原曲不使用音声による音MAD自動演奏～',
-								'0123456789% Loaded...',
-								'Completed!',
-								'音量注意！',
-								'なんねん　まえかの　ことでした',
-								'だれかが　ハサミで',
-								'タイムラインを　ちょんぎった',
-								'そして',
-								'あしたと　きのうが　つながった',
-								'あしたの　ことは　しっている',
-								'イワシが　つちから　はえてくるんだ',
-								'えきの　ホームに　あながあく',
-								'すのこが　きえるんだ',
-								'きのうの　きおくは　きえたけど',
-								'きえたってことも　よくわからないんだ',
-								'そらの　うえから　ビルがたつ',
-								'めが　みえなくなってきた',
-								'はな は かれず',
-								'とり は とばず ねむる',
-								'かぜ は とまり つめたく',
-								'つき は みちも かけも せず まわる',
-								'いままでと　これからが　つながって',
-								'いちにちを　とばして　わすれて',
-								'すすんでく',
-								'ここは',
-								'もとには　もどらなくなった',
-								'おすすめ',
-								'全部',
-								'動画ON',
-								'動画OFF',
-								'かえる',
-							].join(''),
+						{
+							loader: 'postcss-loader',
+							options: {
+								ident: 'postcss',
+								plugins: [
+									precss(),
+									...(env.production
+										? [autoprefixer({browsers}), cssnano()]
+										: []),
+								],
+							},
 						},
-					},
-				],
-			}, {
-				test: /\.txt$/,
-				exclude: /node_modules/,
-				use: ['raw-loader'],
-			}, {
-				test: /\.yml$/,
-				exclude: /node_modules/,
-				use: ['./lib/yaml-loader.js'],
-			}, {
-				test: /\.modernizrrc\.js$/,
-				use: ['modernizr-loader'],
-			}],
+					],
+				},
+				{
+					test: /\.css$/,
+					use: [
+						'style-loader',
+						'css-loader',
+						{
+							loader: 'postcss-loader',
+							options: {
+								ident: 'css',
+								plugins: [...(env.production ? [cssnano()] : [])],
+							},
+						},
+					],
+				},
+				{
+					test: /\.ttf$/,
+					use: [
+						{
+							loader: 'url-loader',
+							options: {
+								limit: Infinity,
+								mimetype: 'application/font-woff',
+							},
+						},
+						{
+							loader: './lib/fontmin-loader.js',
+							options: {
+								text: [
+									'♪',
+									'イワシがつちからはえてくるんだ',
+									'／',
+									'ころんば',
+									'～原曲不使用音声による音MAD自動演奏～',
+									'0123456789% Loaded...',
+									'Completed!',
+									'音量注意！',
+									'なんねん　まえかの　ことでした',
+									'だれかが　ハサミで',
+									'タイムラインを　ちょんぎった',
+									'そして',
+									'あしたと　きのうが　つながった',
+									'あしたの　ことは　しっている',
+									'イワシが　つちから　はえてくるんだ',
+									'えきの　ホームに　あながあく',
+									'すのこが　きえるんだ',
+									'きのうの　きおくは　きえたけど',
+									'きえたってことも　よくわからないんだ',
+									'そらの　うえから　ビルがたつ',
+									'めが　みえなくなってきた',
+									'はな は かれず',
+									'とり は とばず ねむる',
+									'かぜ は とまり つめたく',
+									'つき は みちも かけも せず まわる',
+									'いままでと　これからが　つながって',
+									'いちにちを　とばして　わすれて',
+									'すすんでく',
+									'ここは',
+									'もとには　もどらなくなった',
+									'おすすめ',
+									'全部',
+									'動画ON',
+									'動画OFF',
+									'かえる',
+								].join(''),
+							},
+						},
+					],
+				},
+				{
+					test: /\.txt$/,
+					exclude: /node_modules/,
+					use: ['raw-loader'],
+				},
+				{
+					test: /\.yml$/,
+					exclude: /node_modules/,
+					use: ['./lib/yaml-loader.js'],
+				},
+				{
+					test: /\.modernizrrc\.js$/,
+					use: ['modernizr-loader'],
+				},
+			],
 		},
 		node: {
 			fs: 'empty',
@@ -184,11 +194,11 @@ module.exports = (env = {}) => {
 		},
 		plugins: [
 			new webpack.DefinePlugin({
-				'process.env.NODE_ENV': JSON.stringify(env.production ? 'production' : 'development'),
+				'process.env.NODE_ENV': JSON.stringify(
+					env.production ? 'production' : 'development'
+				),
 			}),
-			...(env.production ? [
-				new MinifyPlugin(),
-			] : []),
+			...(env.production ? [new MinifyPlugin()] : []),
 		],
 		resolve: {
 			alias: {

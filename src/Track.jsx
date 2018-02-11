@@ -18,7 +18,8 @@ import './Track.pcss';
 module.exports = class Track extends React.Component {
 	static propTypes = {
 		name: PropTypes.string.isRequired,
-		type: PropTypes.oneOf(['percussion', 'instrument', 'chord', 'rap']).isRequired,
+		type: PropTypes.oneOf(['percussion', 'instrument', 'chord', 'rap'])
+			.isRequired,
 		category: PropTypes.string,
 		score: PropTypes.array,
 		meanOfNotes: PropTypes.number,
@@ -39,7 +40,7 @@ module.exports = class Track extends React.Component {
 		isNoVideo: PropTypes.bool.isRequired,
 		isNotSolo: PropTypes.bool.isRequired,
 		isPlayReady: PropTypes.bool.isRequired,
-	}
+	};
 
 	static defaultProps = {
 		category: null,
@@ -48,7 +49,7 @@ module.exports = class Track extends React.Component {
 		prank: false,
 		start: null,
 		end: null,
-	}
+	};
 
 	constructor(props, state) {
 		super(props, state);
@@ -81,7 +82,11 @@ module.exports = class Track extends React.Component {
 			this.setState({isShown: false});
 		}
 
-		if (this.props.isNotSolo === false && nextProps.isNotSolo === true && this.state.isSolo === true) {
+		if (
+			this.props.isNotSolo === false &&
+			nextProps.isNotSolo === true &&
+			this.state.isSolo === true
+		) {
 			this.setState({isSolo: false});
 		}
 
@@ -103,7 +108,11 @@ module.exports = class Track extends React.Component {
 	}
 
 	componentDidUpdate(prevProps, prevState) {
-		if (this.state.volume !== prevState.volume || this.state.isMuted !== prevState.isMuted || this.props.isNotSolo !== prevProps.isNotSolo) {
+		if (
+			this.state.volume !== prevState.volume ||
+			this.state.isMuted !== prevState.isMuted ||
+			this.props.isNotSolo !== prevProps.isNotSolo
+		) {
 			for (const sound of this.sounds) {
 				sound.volume(this.getVolume());
 			}
@@ -129,23 +138,29 @@ module.exports = class Track extends React.Component {
 		this.audioLoadDefer = new Deferred();
 
 		Promise.all(
-			Array(this.props.type === 'chord' ? 3 : 1).fill().map(() => (
-				new Promise((resolve, reject) => {
-					const howl = new Howl({
-						src: getSoundUrls(sound),
-						volume: this.state.volume,
-						loop: (this.props.type === 'instrument' || this.props.type === 'chord') ? soundData[sound].loop === true : this.props.type !== 'percussion',
-						html5: this.props.type === 'rap',
-						preload: true,
-						onload: () => {
-							resolve(howl);
-						},
-						onloaderror: (id, error) => {
-							reject(error);
-						},
-					});
-				})
-			))
+			Array(this.props.type === 'chord' ? 3 : 1)
+				.fill()
+				.map(
+					() => new Promise((resolve, reject) => {
+						const howl = new Howl({
+							src: getSoundUrls(sound),
+							volume: this.state.volume,
+							loop:
+									this.props.type === 'instrument' ||
+									this.props.type === 'chord'
+										? soundData[sound].loop === true
+										: this.props.type !== 'percussion',
+							html5: this.props.type === 'rap',
+							preload: true,
+							onload: () => {
+								resolve(howl);
+							},
+							onloaderror: (id, error) => {
+								reject(error);
+							},
+						});
+					})
+				)
 		).then((sounds) => {
 			this.sounds = sounds;
 			this.audioLoadDefer.resolve();
@@ -162,7 +177,7 @@ module.exports = class Track extends React.Component {
 			}
 			this.props.onChangeStatus(this.props.name, 'ready');
 		});
-	}
+	};
 
 	updatePlaybackQuality = () => {
 		if (this.player) {
@@ -171,7 +186,7 @@ module.exports = class Track extends React.Component {
 				internalPlayer.setPlaybackQuality('tiny');
 			}
 		}
-	}
+	};
 
 	handleBeat = (beat) => {
 		const tick = Math.floor((beat + TICK / 2) / TICK) % 2944;
@@ -206,7 +221,10 @@ module.exports = class Track extends React.Component {
 		}
 
 		if (this.props.type === 'percussion') {
-			const playNoteIndex = this.props.score.findIndex((note) => Math.abs(note.time - beat % (TICK * 2944)) < TICK / 2 && note.type === 'note');
+			const playNoteIndex = this.props.score.findIndex(
+				(note) => Math.abs(note.time - beat % (TICK * 2944)) < TICK / 2 &&
+					note.type === 'note'
+			);
 
 			if (playNoteIndex === -1) {
 				return;
@@ -247,7 +265,12 @@ module.exports = class Track extends React.Component {
 
 				if ((tick - this.props.start) % 4 === 0) {
 					const playbackTime = this.sounds[0].seek();
-					const targetTime = ((tick - this.props.start) % (32 * this.soundData.duration)) * TICK * 135 / this.soundData.tempo + TICK;
+					const targetTime =
+						((tick - this.props.start) % (32 * this.soundData.duration)) *
+							TICK *
+							135 /
+							this.soundData.tempo +
+						TICK;
 					if (Math.abs(playbackTime + TICK - targetTime) > TICK) {
 						this.sounds[0].seek(targetTime);
 					}
@@ -262,10 +285,25 @@ module.exports = class Track extends React.Component {
 
 			return;
 		} else {
-			const playNoteIndex = this.props.score.findIndex((note) => Math.abs(note.time - beat % (TICK * 2944)) < TICK / 2 && note.type === 'note');
-			const playNotes = this.props.score.filter((note) => Math.abs(note.time - beat % (TICK * 2944)) < TICK / 2 && note.type === 'note');
+			const playNoteIndex = this.props.score.findIndex(
+				(note) => Math.abs(note.time - beat % (TICK * 2944)) < TICK / 2 &&
+					note.type === 'note'
+			);
+			const playNotes = this.props.score.filter(
+				(note) => Math.abs(note.time - beat % (TICK * 2944)) < TICK / 2 &&
+					note.type === 'note'
+			);
 
-			if (playNotes.length !== 0 || (this.props.score[this.currentNoteIndex] && Math.abs(this.props.score[this.currentNoteIndex].time + this.props.score[this.currentNoteIndex].duration - beat % (TICK * 2944)) < TICK / 2)) {
+			if (
+				playNotes.length !== 0 ||
+				(this.props.score[this.currentNoteIndex] &&
+					Math.abs(
+						this.props.score[this.currentNoteIndex].time +
+							this.props.score[this.currentNoteIndex].duration -
+							beat % (TICK * 2944)
+					) <
+						TICK / 2)
+			) {
 				for (const sound of this.sounds) {
 					sound.stop();
 				}
@@ -278,14 +316,22 @@ module.exports = class Track extends React.Component {
 			this.currentNoteIndex = playNoteIndex;
 
 			// Select the best octave scale based on meanOfNotes and sourceNote
-			const noteDifference = this.props.meanOfNotes - this.soundData.sourceNote % 12;
+			const noteDifference =
+				this.props.meanOfNotes - this.soundData.sourceNote % 12;
 			const downerOctave = Math.floor(noteDifference / 12);
 			const upperOctave = Math.ceil(noteDifference / 12);
 			assert(downerOctave <= upperOctave);
-			const octave = (noteDifference - downerOctave * 12) > (upperOctave * 12 - noteDifference) ? upperOctave : downerOctave;
+			const octave =
+				noteDifference - downerOctave * 12 > upperOctave * 12 - noteDifference
+					? upperOctave
+					: downerOctave;
 
 			playNotes.forEach((note, index) => {
-				this.sounds[index].rate(2 ** ((note.noteNumber - octave * 12 - this.soundData.sourceNote % 12) / 12));
+				this.sounds[index].rate(
+					2 **
+						((note.noteNumber - octave * 12 - this.soundData.sourceNote % 12) /
+							12)
+				);
 				this.sounds[index].volume(this.getVolume());
 				this.sounds[index].play();
 			});
@@ -314,12 +360,15 @@ module.exports = class Track extends React.Component {
 		const session = Symbol('videoPlaySession');
 		this.videoPlaySession = session;
 
-		if (Number.isFinite(this.soundData.video.duration) && !this.props.isNoVideo) {
+		if (
+			Number.isFinite(this.soundData.video.duration) &&
+			!this.props.isNoVideo
+		) {
 			setTimeout(() => {
 				this.handleVideoSessionTimeout(session);
 			}, this.soundData.video.duration * 1000);
 		}
-	}
+	};
 
 	handleUpdate = () => {
 		this.props.onUpdate(this.props.name, {
@@ -329,7 +378,7 @@ module.exports = class Track extends React.Component {
 			solo: this.state.isSolo,
 			pan: 0,
 		});
-	}
+	};
 
 	handlePause = () => {
 		for (const sound of this.sounds) {
@@ -347,7 +396,7 @@ module.exports = class Track extends React.Component {
 		} else {
 			this.isVideoPaused = false;
 		}
-	}
+	};
 
 	handleUnpause = () => {
 		for (const sound of this.sounds) {
@@ -359,10 +408,15 @@ module.exports = class Track extends React.Component {
 		if (this.isVideoPaused) {
 			this.setState({isPlaying: true});
 		}
-	}
+	};
 
 	getVolume = () => {
-		if (this.state.isMuted || this.props.isNotSolo || this.isError || this.props.isPaused) {
+		if (
+			this.state.isMuted ||
+			this.props.isNotSolo ||
+			this.isError ||
+			this.props.isPaused
+		) {
 			return 0;
 		}
 
@@ -377,13 +431,13 @@ module.exports = class Track extends React.Component {
 		const playNote = this.props.score[this.currentNoteIndex];
 
 		return playNote.velocity / 100 * this.state.volume;
-	}
+	};
 
 	handleVideoSessionTimeout = (session) => {
 		if (this.videoPlaySession === session && this.state.isPlaying) {
 			this.setState({isPlaying: false});
 		}
-	}
+	};
 
 	handlePlayerReady = () => {
 		this.updatePlaybackQuality();
@@ -392,7 +446,7 @@ module.exports = class Track extends React.Component {
 		}
 
 		this.props.onChangeStatus(this.props.name, 'seeking');
-	}
+	};
 
 	handlePlayerPlay = () => {
 		if (!this.videoLoadDefer.isResolved) {
@@ -402,7 +456,7 @@ module.exports = class Track extends React.Component {
 			this.player.seekTo(this.soundData.video.start);
 			this.videoLoadDefer.resolve();
 		}
-	}
+	};
 
 	handlePlayerError = () => {
 		this.isError = true;
@@ -413,39 +467,45 @@ module.exports = class Track extends React.Component {
 		if (!this.videoLoadDefer.isResolved) {
 			this.videoLoadDefer.resolve();
 		}
-	}
+	};
 
 	handleChangeMuted = (isMuted) => {
 		this.setState({isMuted});
-	}
+	};
 
 	handleChangeVolume = (volume) => {
 		this.setState({volume});
-	}
+	};
 
 	handleChangeSolo = (isSolo) => {
 		this.setState({isSolo});
 		this.props.onChangeSolo(this.props.name, isSolo);
-	}
+	};
 
 	handleClickChange = (event) => {
 		if (this.changeNode) {
 			this.props.onClickChange(this.props.name, this.changeNode, event);
 		}
-	}
+	};
 
 	handleChangeRef = (node) => {
 		this.changeNode = node;
-	}
+	};
 
 	render() {
 		return (
 			<div
-				styleName={classNames('track', {muted: this.state.isMuted || this.props.isNotSolo})}
+				styleName={classNames('track', {
+					muted: this.state.isMuted || this.props.isNotSolo,
+				})}
 			>
 				<div styleName="name">
 					{this.props.name}
-					<div styleName="change" onClick={this.handleClickChange} ref={this.handleChangeRef}>
+					<div
+						styleName="change"
+						onClick={this.handleClickChange}
+						ref={this.handleChangeRef}
+					>
 						<Refresh/> かえる
 					</div>
 				</div>
@@ -473,13 +533,19 @@ module.exports = class Track extends React.Component {
 								youtube: {
 									playerVars: {
 										start: Math.floor(this.soundData.video.start),
-										end: Math.ceil(this.soundData.video.start + this.soundData.video.duration),
+										end: Math.ceil(
+											this.soundData.video.start + this.soundData.video.duration
+										),
 									},
 								},
 							}}
 							width={{small: 192, normal: 256, large: 320}[this.props.size]}
 							height={{small: 108, normal: 144, large: 180}[this.props.size]}
-							playing={this.props.isPlayReady && this.state.isPlaying && (!this.props.isNoVideo || !this.props.isReady)}
+							playing={
+								this.props.isPlayReady &&
+								this.state.isPlaying &&
+								(!this.props.isNoVideo || !this.props.isReady)
+							}
 							controls={this.props.size !== 'small'}
 							muted
 							loop

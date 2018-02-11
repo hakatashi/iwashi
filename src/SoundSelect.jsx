@@ -32,17 +32,17 @@ class Sound extends React.Component {
 		resourceName: PropTypes.string.isRequired,
 		onClick: PropTypes.func.isRequired,
 		onRefActiveSound: PropTypes.func.isRequired,
-	}
+	};
 
 	handleClick = (event) => {
 		this.props.onClick(event, this.props.name);
-	}
+	};
 
 	handleRef = (event) => {
 		if (this.props.active) {
 			this.props.onRefActiveSound(event);
 		}
-	}
+	};
 
 	render() {
 		return (
@@ -53,7 +53,9 @@ class Sound extends React.Component {
 			>
 				<img styleName="thumbnail" src={getThumbnailUrl(this.props.videoUrl)}/>
 				<div styleName="description">
-					<strong>{this.props.resourceWork}</strong>より<strong>{this.props.resourceName}</strong>
+					<strong>{this.props.resourceWork}</strong>
+					より
+					<strong>{this.props.resourceName}</strong>
 				</div>
 			</div>
 		);
@@ -69,16 +71,18 @@ class Tab extends React.Component {
 			PropTypes.node,
 		]).isRequired,
 		onClick: PropTypes.func.isRequired,
-	}
+	};
 
 	handleClick = (event) => {
 		this.props.onClick(event, this.props.name);
-	}
+	};
 
 	render() {
 		return (
 			<div
-				styleName={classNames('tab', {active: this.props.mode === this.props.name})}
+				styleName={classNames('tab', {
+					active: this.props.mode === this.props.name,
+				})}
 				onClick={this.handleClick}
 			>
 				{this.props.children}
@@ -95,7 +99,7 @@ module.exports = class SoundSelect extends React.Component {
 		type: PropTypes.string.isRequired,
 		category: PropTypes.string.isRequired,
 		onSelect: PropTypes.func.isRequired,
-	}
+	};
 
 	constructor(props, state) {
 		super(props, state);
@@ -107,7 +111,10 @@ module.exports = class SoundSelect extends React.Component {
 
 		this.state = {
 			selectedSound: this.props.sound,
-			mode: this.props.category === soundData[this.props.sound].category ? 'recommended' : 'all',
+			mode:
+				this.props.category === soundData[this.props.sound].category
+					? 'recommended'
+					: 'all',
 			isPlaying: true,
 		};
 
@@ -125,7 +132,7 @@ module.exports = class SoundSelect extends React.Component {
 			preload: true,
 			onend: this.handleSoundEnd,
 		});
-	}
+	};
 
 	updatePlaybackQuality = () => {
 		if (this.player) {
@@ -134,14 +141,14 @@ module.exports = class SoundSelect extends React.Component {
 				internalPlayer.setPlaybackQuality('tiny');
 			}
 		}
-	}
+	};
 
 	handlePlayerReady = () => {
 		this.playerState = 'ready';
 
 		this.updatePlaybackQuality();
 		this.player.seekTo(this.soundData.video.start);
-	}
+	};
 
 	handlePlayerPlay = () => {
 		this.playerState = 'start';
@@ -160,11 +167,11 @@ module.exports = class SoundSelect extends React.Component {
 			this.sound.stop();
 			this.setState({isPlaying: false});
 		});
-	}
+	};
 
 	handleSoundEnd = () => {
 		this.setState({isPlaying: false});
-	}
+	};
 
 	handleClickSound = (event, name) => {
 		this.sound.stop();
@@ -194,13 +201,13 @@ module.exports = class SoundSelect extends React.Component {
 
 			this.props.onSelect(name);
 		}
-	}
+	};
 
 	handleClickTab = (event, mode) => {
 		if (this.state.mode !== mode) {
 			this.setState({mode});
 		}
-	}
+	};
 
 	handleRefSounds = (node) => {
 		if (!node) {
@@ -209,7 +216,7 @@ module.exports = class SoundSelect extends React.Component {
 
 		this.soundsNode = node;
 		this.scrollToActiveSound();
-	}
+	};
 
 	handleRefActiveSound = (node) => {
 		if (!node) {
@@ -218,14 +225,14 @@ module.exports = class SoundSelect extends React.Component {
 
 		this.activeSoundOffsetTop = node.offsetTop;
 		this.scrollToActiveSound();
-	}
+	};
 
 	scrollToActiveSound = () => {
 		if (!this.hasScrolled && this.soundsNode) {
 			this.soundsNode.scrollTop = this.activeSoundOffsetTop - 20;
 			this.hasScrolled = true;
 		}
-	}
+	};
 
 	render() {
 		return (
@@ -239,7 +246,8 @@ module.exports = class SoundSelect extends React.Component {
 				<div
 					styleName="content"
 					style={{
-						transform: `translateX(${Math.max(300, this.props.left) - this.props.left}px)`,
+						transform: `translateX(${Math.max(300, this.props.left) -
+							this.props.left}px)`,
 					}}
 				>
 					<div styleName="preview">
@@ -253,7 +261,9 @@ module.exports = class SoundSelect extends React.Component {
 								youtube: {
 									playerVars: {
 										start: Math.floor(this.soundData.video.start),
-										end: Math.ceil(this.soundData.video.start + this.soundData.video.duration),
+										end: Math.ceil(
+											this.soundData.video.start + this.soundData.video.duration
+										),
 									},
 								},
 							}}
@@ -267,34 +277,50 @@ module.exports = class SoundSelect extends React.Component {
 						/>
 					</div>
 					<div styleName="tabs">
-						<Tab name="recommended" mode={this.state.mode} onClick={this.handleClickTab}>おすすめ</Tab>
-						<Tab name="all" mode={this.state.mode} onClick={this.handleClickTab}>全部</Tab>
+						<Tab
+							name="recommended"
+							mode={this.state.mode}
+							onClick={this.handleClickTab}
+						>
+							おすすめ
+						</Tab>
+						<Tab
+							name="all"
+							mode={this.state.mode}
+							onClick={this.handleClickTab}
+						>
+							全部
+						</Tab>
 					</div>
 					<div styleName="sounds" ref={this.handleRefSounds}>
-						{Object.entries(soundData).filter(([, sound]) => {
-							if (this.props.type === 'percussion') {
-								return sound.type === 'percussion';
-							}
+						{Object.entries(soundData)
+							.filter(([, sound]) => {
+								if (this.props.type === 'percussion') {
+									return sound.type === 'percussion';
+								}
 
-							if (this.props.type === 'rap') {
-								return sound.type === 'rap';
-							}
+								if (this.props.type === 'rap') {
+									return sound.type === 'rap';
+								}
 
-							return sound.type === 'instrument';
-						}).filter(([, sound]) => (
-							this.state.mode === 'all' || sound.category === this.props.category
-						)).map(([name, sound]) => (
-							<Sound
-								key={name}
-								name={name}
-								active={this.state.selectedSound === name}
-								videoUrl={sound.video.url}
-								resourceWork={sound.resource.work}
-								resourceName={sound.resource.name}
-								onClick={this.handleClickSound}
-								onRefActiveSound={this.handleRefActiveSound}
-							/>
-						))}
+								return sound.type === 'instrument';
+							})
+							.filter(
+								([, sound]) => this.state.mode === 'all' ||
+									sound.category === this.props.category
+							)
+							.map(([name, sound]) => (
+								<Sound
+									key={name}
+									name={name}
+									active={this.state.selectedSound === name}
+									videoUrl={sound.video.url}
+									resourceWork={sound.resource.work}
+									resourceName={sound.resource.name}
+									onClick={this.handleClickSound}
+									onRefActiveSound={this.handleRefActiveSound}
+								/>
+							))}
 					</div>
 				</div>
 			</div>

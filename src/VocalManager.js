@@ -4,17 +4,15 @@ const {getSoundUrls} = require('./util.js');
 const {TICK} = require('./const.js');
 
 const VoiceManager = class VoiceManager {
-	static initialize = (vocals, initialVocal) => (
-		new Promise((resolve) => {
-			const voiceManager = new VoiceManager({
-				vocals,
-				initialVocal,
-				onReady: () => {
-					resolve(voiceManager);
-				},
-			});
-		})
-	)
+	static initialize = (vocals, initialVocal) => new Promise((resolve) => {
+		const voiceManager = new VoiceManager({
+			vocals,
+			initialVocal,
+			onReady: () => {
+				resolve(voiceManager);
+			},
+		});
+	});
 
 	constructor({vocals, initialVocal, onReady}) {
 		this.vocals = vocals;
@@ -31,13 +29,13 @@ const VoiceManager = class VoiceManager {
 		this.loadVocal();
 	}
 
-	getResourceName = (source) => (
-		`vocal/${this.vocalName}/${source}`
-	)
+	getResourceName = (source) => `vocal/${this.vocalName}/${source}`;
 
 	loadVocal = () => {
 		const vocals = this.vocals[this.vocalName];
-		const vocal = vocals.find((v) => !this.vocalSounds.has(this.getResourceName(v.source)));
+		const vocal = vocals.find(
+			(v) => !this.vocalSounds.has(this.getResourceName(v.source))
+		);
 
 		if (!vocal) {
 			return;
@@ -57,7 +55,7 @@ const VoiceManager = class VoiceManager {
 		});
 
 		this.vocalSounds.set(this.getResourceName(vocal.source), howl);
-	}
+	};
 
 	onBeat(beat) {
 		for (const {source, start, end} of this.vocals[this.vocalName]) {
@@ -72,7 +70,7 @@ const VoiceManager = class VoiceManager {
 
 				if (beat % 16 === 0 && start <= beat && beat <= end) {
 					const playbackTime = vocalSound.seek();
-					if (Math.abs((playbackTime + start * TICK) - beat * TICK) > TICK) {
+					if (Math.abs(playbackTime + start * TICK - beat * TICK) > TICK) {
 						vocalSound.seek(beat * TICK - start * TICK);
 					}
 				}
@@ -105,13 +103,13 @@ const VoiceManager = class VoiceManager {
 		}
 
 		return this.volume;
-	}
+	};
 
 	updateVolume = () => {
 		for (const vocalSound of this.vocalSounds.values()) {
 			vocalSound.volume(this.getVolume());
 		}
-	}
+	};
 
 	mute() {
 		this.isMuted = true;

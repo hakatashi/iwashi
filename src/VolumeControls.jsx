@@ -15,7 +15,7 @@ module.exports = class Track extends React.Component {
 		onChangeVolume: PropTypes.func.isRequired,
 		onChangeMuted: PropTypes.func.isRequired,
 		onChangeSolo: PropTypes.func.isRequired,
-	}
+	};
 
 	constructor(props, state) {
 		super(props, state);
@@ -49,7 +49,7 @@ module.exports = class Track extends React.Component {
 			this.props.onChangeMuted(newIsMuted);
 			return {isMuted: newIsMuted};
 		});
-	}
+	};
 
 	handleClickSolo = () => {
 		this.setState(({isSolo}) => {
@@ -58,26 +58,25 @@ module.exports = class Track extends React.Component {
 			this.props.onChangeSolo(newIsSolo);
 			return {isSolo: newIsSolo};
 		});
-	}
+	};
 
 	handleKnobPan = (event) => {
-		const newVolume = Math.max(0, Math.min(this.previousVolume + event.deltaX / 100, 1));
+		const newVolume = Math.max(
+			0,
+			Math.min(this.previousVolume + event.deltaX / 100, 1)
+		);
 		this.props.onChangeVolume(newVolume);
 
 		if (event.isFinal) {
 			this.previousVolume = newVolume;
 		}
-	}
+	};
 
 	render() {
 		return (
 			<div styleName="controls">
 				<div styleName="mute" onClick={this.handleClickMute}>
-					{this.state.isMuted ? (
-						<VolumeOff/>
-					) : (
-						<VolumeUp/>
-					)}
+					{this.state.isMuted ? <VolumeOff/> : <VolumeUp/>}
 				</div>
 				<div styleName="volume">
 					{(() => {
@@ -104,9 +103,7 @@ module.exports = class Track extends React.Component {
 									rx={height / 2}
 									ry={height / 2}
 								/>
-								<Hammer
-									onPan={this.handleKnobPan}
-								>
+								<Hammer onPan={this.handleKnobPan}>
 									<circle
 										styleName="volume-knob"
 										cx={height / 2 + width * this.props.volume}
@@ -118,7 +115,10 @@ module.exports = class Track extends React.Component {
 						);
 					})()}
 				</div>
-				<div styleName={classNames('solo', {active: this.state.isSolo})} onClick={this.handleClickSolo}>
+				<div
+					styleName={classNames('solo', {active: this.state.isSolo})}
+					onClick={this.handleClickSolo}
+				>
 					SOLO
 				</div>
 			</div>
