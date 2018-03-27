@@ -46,15 +46,17 @@ module.exports = class Loading extends React.Component {
 		titleComponents: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
 		transcriber: PropTypes.string,
 		name: PropTypes.string.isRequired,
-		statuses: PropTypes.arrayOf(PropTypes.oneOf(['loading', 'seeking', 'ready']).isRequired).isRequired,
+		statuses: PropTypes.arrayOf(
+			PropTypes.oneOf(['loading', 'seeking', 'ready']).isRequired
+		).isRequired,
 		vanishing: PropTypes.bool.isRequired,
 		isPlayReady: PropTypes.bool.isRequired,
 		onClickOk: PropTypes.func.isRequired,
-	}
+	};
 
 	static defaultProps = {
 		transcriber: null,
-	}
+	};
 
 	constructor(props, state) {
 		super(props, state);
@@ -63,124 +65,156 @@ module.exports = class Loading extends React.Component {
 		};
 	}
 
-	getProgress = () => (
-		sum(this.props.statuses.map((status) => ({
-			loading: 0,
-			seeking: 1,
-			ready: 2,
-		}[status]))) / (this.props.statuses.length * 2)
-	);
+	getProgress = () => sum(
+		this.props.statuses.map(
+			(status) => ({
+				loading: 0,
+				seeking: 1,
+				ready: 2,
+			}[status])
+		)
+	) /
+		(this.props.statuses.length * 2);
 
 	handleRef = (root) => {
 		this.root = root;
-	}
+	};
 
 	handleTransitionEnd = (event) => {
 		if (event.target === this.root) {
 			this.setState({vanished: true});
 		}
-	}
+	};
 
 	handleClickOk = () => {
 		this.props.onClickOk();
-	}
+	};
 
 	render() {
-		return !this.state.vanished && (
-			<div
-				styleName={classNames('loading', {vanishing: this.props.vanishing})}
-				onTransitionEnd={this.handleTransitionEnd}
-				ref={this.handleRef}
-			>
-				<div styleName="inner">
-					<div styleName="progress-area">
-						<svg styleName="progress" viewBox={`0 0 200 ${(height + margin) * 3 - margin}`}>
-							{this.props.statuses.map((status, index) => {
-								const [rightOrLeft, x, y] = progressPositions[index];
+		return (
+			!this.state.vanished && (
+				<div
+					styleName={classNames('loading', {vanishing: this.props.vanishing})}
+					onTransitionEnd={this.handleTransitionEnd}
+					ref={this.handleRef}
+				>
+					<div styleName="inner">
+						<div styleName="progress-area">
+							<svg
+								styleName="progress"
+								viewBox={`0 0 200 ${(height + margin) * 3 - margin}`}
+							>
+								{this.props.statuses.map((status, index) => {
+									const [rightOrLeft, x, y] = progressPositions[index];
 
-								if (rightOrLeft !== L) {
-									return null;
-								}
+									if (rightOrLeft !== L) {
+										return null;
+									}
 
-								return (
-									<rect
-										key={index}
-										x={200 - width}
-										y={0}
-										width={width}
-										height={height}
-										fill={{loading: 'white', seeking: 'yellow', ready: 'red'}[status]}
-										style={{
-											transition: 'fill 0.3s',
-										}}
-										transform={`translate(${-x * (width + margin)}, ${y * (height + margin)})`}
-									/>
-								);
-							})}
-						</svg>
-						<img styleName="icon" src={getResourceUrl(`songs/${this.props.name}/icon.png`)}/>
-						<svg styleName="progress" viewBox={`0 0 200 ${(height + margin) * 3 - margin}`}>
-							{this.props.statuses.map((status, index) => {
-								const [rightOrLeft, x, y] = progressPositions[index];
+									return (
+										<rect
+											key={index}
+											x={200 - width}
+											y={0}
+											width={width}
+											height={height}
+											fill={
+												{loading: 'white', seeking: 'yellow', ready: 'red'}[
+													status
+												]
+											}
+											style={{
+												transition: 'fill 0.3s',
+											}}
+											transform={`translate(${-x * (width + margin)}, ${y *
+												(height + margin)})`}
+										/>
+									);
+								})}
+							</svg>
+							<img
+								styleName="icon"
+								src={getResourceUrl(`songs/${this.props.name}/icon.png`)}
+							/>
+							<svg
+								styleName="progress"
+								viewBox={`0 0 200 ${(height + margin) * 3 - margin}`}
+							>
+								{this.props.statuses.map((status, index) => {
+									const [rightOrLeft, x, y] = progressPositions[index];
 
-								if (rightOrLeft !== R) {
-									return null;
-								}
+									if (rightOrLeft !== R) {
+										return null;
+									}
 
-								return (
-									<rect
-										key={index}
-										transition="fill 0.3s"
-										x={0}
-										y={0}
-										width={width}
-										height={height}
-										fill={{loading: 'white', seeking: 'yellow', ready: 'red'}[status]}
-										style={{
-											transition: 'fill 0.3s',
-										}}
-										transform={`translate(${x * (width + margin)}, ${y * (height + margin)})`}
-									/>
-								);
-							})}
-						</svg>
-					</div>
-					<div styleName="title">
-						{
-							this.props.titleComponents.map((component, index) => ([
+									return (
+										<rect
+											key={index}
+											transition="fill 0.3s"
+											x={0}
+											y={0}
+											width={width}
+											height={height}
+											fill={
+												{loading: 'white', seeking: 'yellow', ready: 'red'}[
+													status
+												]
+											}
+											style={{
+												transition: 'fill 0.3s',
+											}}
+											transform={`translate(${x * (width + margin)}, ${y *
+												(height + margin)})`}
+										/>
+									);
+								})}
+							</svg>
+						</div>
+						<div styleName="title">
+							{this.props.titleComponents.map((component, index) => [
 								component,
-								...(this.props.titleComponents.length - 1 === index ? [] : [<wbr key={index}/>]),
-							]))
-						}
-					</div>
-					{this.props.transcriber && (
-						<div styleName="transcriber"><strong>{this.props.transcriber}</strong>さんによるアレンジ</div>
-					)}
-					<div styleName="artist">～原曲不使用音声による音MAD自動演奏～</div>
-					<div styleName="loading-text">
-						{this.getProgress() === 1 ? (
-							'Completed!'
-						) : (
-							<React.Fragment>
-								<div styleName="spinner"><Spinner/></div>
-								{' '}
-								{Math.floor(this.getProgress() * 100)}% Loaded...
-							</React.Fragment>
-						)}
-					</div>
-				</div>
-				{!this.props.isPlayReady && this.props.statuses.every((status) => status !== 'loading') && (
-					<div styleName="notice-area" onClick={this.handleClickOk}>
-						<div styleName="notice">
-							<div styleName="head"><VolumeUp/> 音量注意！</div>
-							<div styleName="body">
-								このページは<wbr/>音楽を<wbr/>自動演奏する<wbr/>サイトです。<wbr/>音量に<wbr/>注意して<wbr/>お楽しみください。
+								...(this.props.titleComponents.length - 1 === index
+									? []
+									: [<wbr key={index}/>]),
+							])}
+						</div>
+						{this.props.transcriber && (
+							<div styleName="transcriber">
+								<strong>{this.props.transcriber}</strong>さんによるアレンジ
 							</div>
-							<div styleName="ok" onClick={this.handleClickOk}>OK</div>
+						)}
+						<div styleName="artist">～原曲不使用音声による音MAD自動演奏～</div>
+						<div styleName="loading-text">
+							{this.getProgress() === 1 ? (
+								'Completed!'
+							) : (
+								<React.Fragment>
+									<div styleName="spinner">
+										<Spinner/>
+									</div>{' '}
+									{Math.floor(this.getProgress() * 100)}% Loaded...
+								</React.Fragment>
+							)}
 						</div>
 					</div>
-				)}
-			</div>
+					{!this.props.isPlayReady &&
+						this.props.statuses.every((status) => status !== 'loading') && (
+							<div styleName="notice-area" onClick={this.handleClickOk}>
+								<div styleName="notice">
+									<div styleName="head">
+										<VolumeUp/> 音量注意！
+									</div>
+									<div styleName="body">
+										このページは<wbr/>音楽を<wbr/>自動演奏する<wbr/>サイトです。<wbr/>音量に<wbr/>注意して<wbr/>お楽しみください。
+									</div>
+									<div styleName="ok" onClick={this.handleClickOk}>
+										OK
+									</div>
+								</div>
+							</div>
+						)}
+				</div>
+			)
 		);
 	}
 };

@@ -21,7 +21,7 @@ const Undo = require('react-icons/lib/md/undo');
 const Share = require('react-icons/lib/md/share');
 const Twitter = require('react-icons/lib/fa/twitter-square');
 const Facebook = require('react-icons/lib/fa/facebook-square');
-// eslint-disable-next-line node/no-extraneous-require,node/no-missing-require
+// eslint-disable-next-line node/no-extraneous-require
 const {default: Hatena} = require('hatena-icon/hatenabookmark-logomark.svg');
 
 const {TICK} = require('./const.js');
@@ -47,11 +47,11 @@ class ShareIcon extends React.Component {
 			PropTypes.node,
 		]).isRequired,
 		onClick: PropTypes.func.isRequired,
-	}
+	};
 
 	handleClick = (event) => {
 		this.props.onClick(this.props.name, this.props.isArrange, event);
-	}
+	};
 
 	render() {
 		return (
@@ -69,18 +69,21 @@ module.exports = class App extends React.Component {
 	static propTypes = {
 		// eslint-disable-next-line react/forbid-prop-types
 		gistData: PropTypes.any,
-	}
+	};
 
 	static defaultProps = {
 		gistData: null,
-	}
+	};
 
 	constructor(props) {
 		super(props);
 
 		this.song = songs.iwashi;
 
-		this.vocalManagerPromise = VocalManager.initialize(this.song.vocals, this.song.defaultVocal);
+		this.vocalManagerPromise = VocalManager.initialize(
+			this.song.vocals,
+			this.song.defaultVocal
+		);
 		this.backgroundDeferred = new Deferred();
 
 		this.tracks = shuffle(Object.entries(this.song.tracks));
@@ -112,13 +115,42 @@ module.exports = class App extends React.Component {
 			lyric: '',
 			soloScore: null,
 			trackStatuses: new Map(this.tracks.map(([name]) => [name, 'loading'])),
-			trackSounds: new Map(this.tracks.map(([name, track]) => [name, {
-				sound: String(get(this.props.gistData, ['songs', 0, 'tracks', name, 'sound'], track.default.sound)),
-				volume: Number(get(this.props.gistData, ['songs', 0, 'tracks', name, 'volume'], track.default.volume)),
-				muted: Boolean(get(this.props.gistData, ['songs', 0, 'tracks', name, 'muted'], false)),
-				solo: Boolean(get(this.props.gistData, ['songs', 0, 'tracks', name, 'solo'], false)),
-				pan: 0,
-			}])),
+			trackSounds: new Map(
+				this.tracks.map(([name, track]) => [
+					name,
+					{
+						sound: String(
+							get(
+								this.props.gistData,
+								['songs', 0, 'tracks', name, 'sound'],
+								track.default.sound
+							)
+						),
+						volume: Number(
+							get(
+								this.props.gistData,
+								['songs', 0, 'tracks', name, 'volume'],
+								track.default.volume
+							)
+						),
+						muted: Boolean(
+							get(
+								this.props.gistData,
+								['songs', 0, 'tracks', name, 'muted'],
+								false
+							)
+						),
+						solo: Boolean(
+							get(
+								this.props.gistData,
+								['songs', 0, 'tracks', name, 'solo'],
+								false
+							)
+						),
+						pan: 0,
+					},
+				])
+			),
 			size,
 			soundSelect: false,
 			soundSelectTop: 0,
@@ -151,14 +183,16 @@ module.exports = class App extends React.Component {
 
 	initBackground = () => {
 		const queue = new createjs.LoadQueue();
-		queue.loadManifest(this.song.backgrounds.map((b) => b.url).filter((url) => url !== null));
+		queue.loadManifest(
+			this.song.backgrounds.map((b) => b.url).filter((url) => url !== null)
+		);
 		queue.addEventListener('fileload', () => {
 			// Resolves when the first background image is preloaded
 			if (!this.backgroundDeferred.isResolved) {
 				this.backgroundDeferred.resolve();
 			}
 		});
-	}
+	};
 
 	pause = () => {
 		if (this.state.isPaused) {
@@ -168,7 +202,7 @@ module.exports = class App extends React.Component {
 		this.clearedIntervals.add(this.handleBeatInterval);
 		this.vocalManager.pause();
 		this.setState({isPaused: true});
-	}
+	};
 
 	unpause = () => {
 		if (!this.state.isPaused) {
@@ -179,7 +213,7 @@ module.exports = class App extends React.Component {
 		}
 		this.vocalManager.unpause();
 		this.setState({isPaused: false});
-	}
+	};
 
 	handleBeat = () => {
 		this.setState(({beat}) => ({beat: beat === null ? TICK * 0 : beat + TICK}));
@@ -187,7 +221,9 @@ module.exports = class App extends React.Component {
 		const beat = Math.floor(this.state.beat / TICK) % 2944;
 		this.vocalManager.onBeat(beat);
 
-		const lyric = this.song.lyrics.find(({start, end}) => start <= beat && beat < end);
+		const lyric = this.song.lyrics.find(
+			({start, end}) => start <= beat && beat < end
+		);
 		if (!lyric && this.state.lyric !== '') {
 			this.setState({
 				lyric: '',
@@ -206,11 +242,20 @@ module.exports = class App extends React.Component {
 					const nextBackground = this.song.backgrounds[index + 1];
 
 					new Promise((resolve) => {
-						this.setState({
-							background,
-							backgroundAnimation: null,
-							backgroundDuration: nextBackground && (nextBackground.time - background.time) / this.song.resolution * 4 / this.song.bpm * 60,
-						}, resolve);
+						this.setState(
+							{
+								background,
+								backgroundAnimation: null,
+								backgroundDuration:
+									nextBackground &&
+									(nextBackground.time - background.time) /
+										this.song.resolution *
+										4 /
+										this.song.bpm *
+										60,
+							},
+							resolve
+						);
 					})
 						.then(() => wait(0))
 						.then(() => {
@@ -220,12 +265,17 @@ module.exports = class App extends React.Component {
 				}
 			}
 		}
-	}
+	};
 
 	handleSoundStatusChanged = async (name, status) => {
-		this.setState(({trackStatuses}) => ({trackStatuses: trackStatuses.set(name, status)}));
+		this.setState(({trackStatuses}) => ({
+			trackStatuses: trackStatuses.set(name, status),
+		}));
 
-		if (this.state.soundSelect === false && Array.from(this.state.trackStatuses.values()).every((s) => s === 'ready')) {
+		if (
+			this.state.soundSelect === false &&
+			Array.from(this.state.trackStatuses.values()).every((s) => s === 'ready')
+		) {
 			if (this.isInitialized) {
 				this.unpause();
 			} else {
@@ -250,11 +300,11 @@ module.exports = class App extends React.Component {
 				this.handleBeatInterval = setInterval(this.handleBeat, TICK * 1000);
 			}
 		}
-	}
+	};
 
 	handleChangeCheckbox = () => {
 		this.setState(({isNoVideo}) => ({isNoVideo: !isNoVideo}));
-	}
+	};
 
 	handleFlash = async () => {
 		if (isMobile()) {
@@ -262,9 +312,12 @@ module.exports = class App extends React.Component {
 		}
 
 		await new Promise((resolve) => {
-			this.setState({
-				isFlashing: false,
-			}, resolve);
+			this.setState(
+				{
+					isFlashing: false,
+				},
+				resolve
+			);
 		});
 
 		await wait(0);
@@ -272,7 +325,7 @@ module.exports = class App extends React.Component {
 		this.setState({
 			isFlashing: true,
 		});
-	}
+	};
 
 	handleChangeSolo = (score, isSolo) => {
 		if (isSolo) {
@@ -285,7 +338,7 @@ module.exports = class App extends React.Component {
 			soloScore: isSolo ? score : null,
 			isVocalDisabled: this.vocalManager.isNotSolo || this.vocalManager.isMuted,
 		});
-	}
+	};
 
 	handleChangeVoiceMuted = (isMuted) => {
 		if (isMuted) {
@@ -297,14 +350,14 @@ module.exports = class App extends React.Component {
 		this.setState({
 			isVocalDisabled: this.vocalManager.isNotSolo || this.vocalManager.isMuted,
 		});
-	}
+	};
 
 	handleChangeVoiceVolume = (volume) => {
 		this.vocalManager.setVolume(volume);
 		this.setState({
 			vocalVolume: this.vocalManager.volume,
 		});
-	}
+	};
 
 	handleClickPause = () => {
 		if (this.state.isPaused) {
@@ -312,7 +365,7 @@ module.exports = class App extends React.Component {
 		} else {
 			this.pause();
 		}
-	}
+	};
 
 	handleClickChange = (name, target) => {
 		this.selectedSound = this.state.trackSounds.get(name).sound;
@@ -322,15 +375,21 @@ module.exports = class App extends React.Component {
 			soundSelectLeft: target.offsetLeft + target.offsetWidth / 2,
 		});
 		this.pause();
-	}
+	};
 
 	handleClickBackdrop = () => {
 		const selectedTrack = this.state.soundSelect;
 
 		this.setState({soundSelect: false});
 
-		if (this.selectedSound === this.state.trackSounds.get(selectedTrack).sound) {
-			if (Array.from(this.state.trackStatuses.values()).every((s) => s === 'ready')) {
+		if (
+			this.selectedSound === this.state.trackSounds.get(selectedTrack).sound
+		) {
+			if (
+				Array.from(this.state.trackStatuses.values()).every(
+					(s) => s === 'ready'
+				)
+			) {
 				this.unpause();
 			}
 		} else {
@@ -341,46 +400,51 @@ module.exports = class App extends React.Component {
 				}),
 			}));
 		}
-	}
+	};
 
 	handleSoundSelect = (name) => {
 		this.selectedSound = name;
-	}
+	};
 
 	handleClickOk = () => {
 		this.setState({isPlayReady: true});
-	}
+	};
 
 	handleClickDefault = () => {
 		this.setState({
-			trackSounds: new Map(this.tracks.map(([name, track]) => [name, {
-				sound: track.default.sound,
-				volume: track.default.volume,
-				muted: false,
-				solo: false,
-				pan: 0,
-			}])),
+			trackSounds: new Map(
+				this.tracks.map(([name, track]) => [
+					name,
+					{
+						sound: track.default.sound,
+						volume: track.default.volume,
+						muted: false,
+						solo: false,
+						pan: 0,
+					},
+				])
+			),
 		});
 		this.pause();
-	}
+	};
 
 	handleUpdateTrack = (name, track) => {
 		this.setState(({trackSounds}) => ({
 			trackSounds: trackSounds.set(name, track),
 		}));
-	}
+	};
 
 	handleClickShare = () => {
 		this.setState(({isShareOpen}) => ({isShareOpen: !isShareOpen}));
-	}
+	};
 
 	handleRequestCloseShare = () => {
 		this.setState({isShareOpen: false});
-	}
+	};
 
 	handleShareNameChange = (event) => {
 		this.setState({shareName: event.target.value});
-	}
+	};
 
 	handleClickShareIcon = async (name, isArrange) => {
 		const path = await (async () => {
@@ -401,14 +465,19 @@ module.exports = class App extends React.Component {
 							solo: false,
 							pan: 0,
 						},
-						tracks: Object.assign(...Array.from(this.state.trackSounds).map(([track, value]) => ({[track]: value}))),
+						tracks: Object.assign(
+							...Array.from(this.state.trackSounds).map(([track, value]) => ({
+								[track]: value,
+							}))
+						),
 						jingles: [],
 					},
 				],
 			};
 
 			const gistId = await gist.post({
-				description: '音MAD自動演奏サイト「iwashi」アレンジデータ #iwashi https://hakatashi.github.io/iwashi/',
+				description:
+					'音MAD自動演奏サイト「iwashi」アレンジデータ #iwashi https://hakatashi.github.io/iwashi/',
 				filename: 'iwashi-score.json',
 				content,
 			});
@@ -421,7 +490,9 @@ module.exports = class App extends React.Component {
 		const titleText = (() => {
 			if (isArrange) {
 				if (this.state.shareName) {
-					return `${this.state.shareName}さんが「${this.song.title}」をアレンジしました！`;
+					return `${this.state.shareName}さんが「${
+						this.song.title
+					}」をアレンジしました！`;
 				}
 
 				return `「${this.song.title}」をアレンジしました！`;
@@ -460,14 +531,18 @@ module.exports = class App extends React.Component {
 		if (isArrange) {
 			history.replaceState(null, null, path);
 		}
-	}
+	};
 
 	render() {
 		return (
 			<div styleName={classNames('app', {flash: this.state.isFlashing})}>
 				<Loading
 					titleComponents={this.song.titleComponents}
-					transcriber={this.props.gistData ? String(get(this.props.gistData, 'transcriber', '名無し')) : null}
+					transcriber={
+						this.props.gistData
+							? String(get(this.props.gistData, 'transcriber', '名無し'))
+							: null
+					}
 					statuses={this.tracks.map(([name]) => this.state.trackStatuses.get(name))}
 					name="iwashi"
 					vanishing={this.state.isReady}
@@ -476,7 +551,11 @@ module.exports = class App extends React.Component {
 				/>
 				<div styleName="main">
 					<div
-						styleName={classNames('background', this.state.backgroundAnimation, {paused: this.state.isPaused})}
+						styleName={classNames(
+							'background',
+							this.state.backgroundAnimation,
+							{paused: this.state.isPaused}
+						)}
 						style={{
 							animationDuration: `${this.state.backgroundDuration}s`,
 						}}
@@ -508,7 +587,10 @@ module.exports = class App extends React.Component {
 									isReady={this.state.isReady}
 									isPaused={this.state.isPaused}
 									isNoVideo={this.state.isNoVideo}
-									isNotSolo={this.state.soloScore !== null && this.state.soloScore !== name}
+									isNotSolo={
+										this.state.soloScore !== null &&
+										this.state.soloScore !== name
+									}
 									isPlayReady={this.state.isPlayReady}
 								/>
 							))}
@@ -521,7 +603,9 @@ module.exports = class App extends React.Component {
 									left={this.state.soundSelectLeft}
 									type={this.song.tracks[this.state.soundSelect].type}
 									category={this.song.tracks[this.state.soundSelect].category}
-									sound={this.state.trackSounds.get(this.state.soundSelect).sound}
+									sound={
+										this.state.trackSounds.get(this.state.soundSelect).sound
+									}
 									onSelect={this.handleSoundSelect}
 								/>
 							</React.Fragment>
@@ -544,9 +628,7 @@ module.exports = class App extends React.Component {
 								<Refresh/> かえる
 							</Tooltip>
 						</div>
-						<div styleName="lyric-text">
-							{this.state.lyric}
-						</div>
+						<div styleName="lyric-text">{this.state.lyric}</div>
 						<div styleName="lyric-controls">
 							<VolumeControls
 								volume={this.state.vocalVolume}
@@ -558,30 +640,28 @@ module.exports = class App extends React.Component {
 						</div>
 						{this.state.background.author && (
 							<div styleName="background-info">
-								背景: <a href={this.state.background.workUrl} rel="noopener noreferrer" target="_blank">{this.state.background.title}</a> by {this.state.background.author}
+								背景:{' '}
+								<a
+									href={this.state.background.workUrl}
+									rel="noopener noreferrer"
+									target="_blank"
+								>
+									{this.state.background.title}
+								</a>{' '}
+								by {this.state.background.author}
 							</div>
 						)}
 					</div>
 				</div>
 				<div styleName="controls">
 					<div styleName="playback">
-						<Tooltip
-							title="未実装"
-							styleName="button unimplemented"
-						>
+						<Tooltip title="未実装" styleName="button unimplemented">
 							<StepBackward/>
 						</Tooltip>
 						<div styleName="button" onClick={this.handleClickPause}>
-							{this.state.isPaused ? (
-								<Play/>
-							) : (
-								<Pause/>
-							)}
+							{this.state.isPaused ? <Play/> : <Pause/>}
 						</div>
-						<Tooltip
-							title="未実装"
-							styleName="button unimplemented"
-						>
+						<Tooltip title="未実装" styleName="button unimplemented">
 							<StepForward/>
 						</Tooltip>
 					</div>
@@ -599,29 +679,58 @@ module.exports = class App extends React.Component {
 						<Tooltip
 							html={
 								<div styleName="share">
-									<div styleName="head">この<strong>サイト</strong>をシェアする</div>
+									<div styleName="head">
+										この<strong>サイト</strong>をシェアする
+									</div>
 									<div styleName="share-icons">
-										<ShareIcon name="twitter" isArrange={false} onClick={this.handleClickShareIcon}>
+										<ShareIcon
+											name="twitter"
+											isArrange={false}
+											onClick={this.handleClickShareIcon}
+										>
 											<Twitter/>
 										</ShareIcon>
-										<ShareIcon name="facebook" isArrange={false} onClick={this.handleClickShareIcon}>
+										<ShareIcon
+											name="facebook"
+											isArrange={false}
+											onClick={this.handleClickShareIcon}
+										>
 											<Facebook/>
 										</ShareIcon>
-										<ShareIcon name="hatena" isArrange={false} onClick={this.handleClickShareIcon}>
+										<ShareIcon
+											name="hatena"
+											isArrange={false}
+											onClick={this.handleClickShareIcon}
+										>
 											<Hatena/>
 										</ShareIcon>
 									</div>
-									<div styleName="head">この<strong>アレンジ</strong>をシェアする</div>
+									<div styleName="head">
+										この<strong>アレンジ</strong>をシェアする
+									</div>
 									<div styleName="share-name">
 										「
-										<input type="text" value={this.state.shareName} placeholder="名無し" onChange={this.handleShareNameChange}/>
+										<input
+											type="text"
+											value={this.state.shareName}
+											placeholder="名無し"
+											onChange={this.handleShareNameChange}
+										/>
 										さんによるアレンジ」
 									</div>
 									<div styleName="share-icons">
-										<ShareIcon name="twitter" isArrange onClick={this.handleClickShareIcon}>
+										<ShareIcon
+											name="twitter"
+											isArrange
+											onClick={this.handleClickShareIcon}
+										>
 											<Twitter/>
 										</ShareIcon>
-										<ShareIcon name="facebook" isArrange onClick={this.handleClickShareIcon}>
+										<ShareIcon
+											name="facebook"
+											isArrange
+											onClick={this.handleClickShareIcon}
+										>
 											<Facebook/>
 										</ShareIcon>
 									</div>
@@ -646,15 +755,29 @@ module.exports = class App extends React.Component {
 							<Undo/>
 						</Tooltip>
 					</div>
-					<div styleName={classNames('play-video', {active: !this.state.isNoVideo})} onClick={this.handleChangeCheckbox}>
+					<div
+						styleName={classNames('play-video', {
+							active: !this.state.isNoVideo,
+						})}
+						onClick={this.handleChangeCheckbox}
+					>
 						<Tooltip
-							title={this.state.isNoVideo ? '動画再生をONにする' : '動画再生をOFFにする'}
+							title={
+								this.state.isNoVideo
+									? '動画再生をONにする'
+									: '動画再生をOFFにする'
+							}
 							style={{width: '100%', height: '100%'}}
 						>
 							{this.state.isNoVideo ? <VideocamOff/> : <Videocam/>}
 						</Tooltip>
 					</div>
-					<a styleName="github button" href="https://github.com/hakatashi/iwashi" rel="noopener noreferrer" target="_blank">
+					<a
+						styleName="github button"
+						href="https://github.com/hakatashi/iwashi"
+						rel="noopener noreferrer"
+						target="_blank"
+					>
 						<Tooltip
 							title="Fork me on GitHub!"
 							style={{width: '100%', height: '100%'}}

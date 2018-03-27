@@ -254,8 +254,8 @@ tracks:
     category: bass
     score: !require ./score/bass.txt
     default:
-      sound: killme-pyonsuke
-      volume: 1
+      sound: badapple-intro
+      volume: 0.6
   closed-hihat:
     type: percussion
     category: hihat
@@ -317,8 +317,8 @@ tracks:
     category: cymbal
     score: !require ./score/cymbal.txt
     default:
-      sound: killme-cymbal
-      volume: 0.2
+      sound: minecraft-creeper
+      volume: 0.4
   chorus3:
     type: instrument
     category: chorus

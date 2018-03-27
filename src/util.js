@@ -1,8 +1,6 @@
-const getResourceUrl = (path) => (
-	process.env.NODE_ENV === 'production'
-		? `https://media.githubusercontent.com/media/hakatashi/iwashi/gh-pages/${path}`
-		: path
-);
+const getResourceUrl = (path) => process.env.NODE_ENV === 'production'
+	? `https://media.githubusercontent.com/media/hakatashi/iwashi/gh-pages/${path}`
+	: path;
 
 module.exports.getResourceUrl = getResourceUrl;
 
@@ -33,25 +31,17 @@ module.exports.Deferred = class Deferred {
 	}
 };
 
-module.exports.wait = (time) => (
-	new Promise((resolve) => {
-		setTimeout(() => {
-			resolve();
-		}, time);
-	})
-);
+module.exports.wait = (time) => new Promise((resolve) => {
+	setTimeout(() => {
+		resolve();
+	}, time);
+});
 
-module.exports.isAndroid = () => (
-	navigator.userAgent.match(/android/i)
-);
+module.exports.isAndroid = () => navigator.userAgent.match(/android/i);
 
-module.exports.isIos = () => (
-	navigator.userAgent.match(/(iPhone|iPad|iPod)/i)
-);
+module.exports.isIos = () => navigator.userAgent.match(/(iPhone|iPad|iPod)/i);
 
-module.exports.isMobile = () => (
-	module.exports.isAndroid() || module.exports.isIos()
-);
+module.exports.isMobile = () => module.exports.isAndroid() || module.exports.isIos();
 
 module.exports.median = (values) => {
 	const sortedValues = values.slice().sort((a, b) => a - b);
