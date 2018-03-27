@@ -174,7 +174,7 @@ kemofure-toki:
     work: けものフレンズ
     name: トキの歌声
   video:
-    url: https://www.youtube.com/watch?v=xOE6qlXqw7s
+    url: https://www.youtube.com/watch?v=jKo9p5VFMSE
     start: 24
     duration: 1
 chargeman-hai:
@@ -354,8 +354,8 @@ minecraft-creeper:
     work: Minecraft
     name: クリーパー 爆発音
   video:
-    url: https://www.youtube.com/watch?v=aFw9aE-FEE4
-    start: 226.3
+    url: https://www.youtube.com/watch?v=8lndCdsxYCs
+    start: 32.5
     duration: 1
 jaguarman-waito:
   type: instrument
@@ -692,7 +692,7 @@ sakanakun-akyaa:
     url: https://www.youtube.com/watch?v=pdJRY8Mv0kU
     start: 79.8
     duration: 1
-suntelevision-ossan:    
+suntelevision-ossan:
   type: instrument
   category: chorus
   prank: true

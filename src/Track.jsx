@@ -136,6 +136,7 @@ module.exports = class Track extends React.Component {
 	updateSound = (sound) => {
 		this.videoLoadDefer = new Deferred();
 		this.audioLoadDefer = new Deferred();
+		this.isError = false;
 
 		Promise.all(
 			Array(this.props.type === 'chord' ? 3 : 1)

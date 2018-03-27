@@ -96,7 +96,9 @@ module.exports = (env = {}) => {
 								plugins: [
 									precss(),
 									...(env.production
-										? [autoprefixer({browsers}), cssnano()]
+										? [autoprefixer({
+											browsers: modulableBrowsers,
+										}), cssnano()]
 										: []),
 								],
 							},

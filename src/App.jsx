@@ -21,7 +21,7 @@ const Undo = require('react-icons/lib/md/undo');
 const Share = require('react-icons/lib/md/share');
 const Twitter = require('react-icons/lib/fa/twitter-square');
 const Facebook = require('react-icons/lib/fa/facebook-square');
-// eslint-disable-next-line node/no-extraneous-require,node/no-missing-require
+// eslint-disable-next-line node/no-extraneous-require
 const {default: Hatena} = require('hatena-icon/hatenabookmark-logomark.svg');
 
 const {TICK} = require('./const.js');
