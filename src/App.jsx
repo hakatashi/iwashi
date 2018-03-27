@@ -709,14 +709,14 @@ module.exports = class App extends React.Component {
 										この<strong>アレンジ</strong>をシェアする
 									</div>
 									<div styleName="share-name">
-										「
+										{'「'}
 										<input
 											type="text"
 											value={this.state.shareName}
 											placeholder="名無し"
 											onChange={this.handleShareNameChange}
 										/>
-										さんによるアレンジ」
+										{'さんによるアレンジ」'}
 									</div>
 									<div styleName="share-icons">
 										<ShareIcon

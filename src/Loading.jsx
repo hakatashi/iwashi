@@ -199,20 +199,20 @@ module.exports = class Loading extends React.Component {
 					</div>
 					{!this.props.isPlayReady &&
 						this.props.statuses.every((status) => status !== 'loading') && (
-							<div styleName="notice-area" onClick={this.handleClickOk}>
-								<div styleName="notice">
-									<div styleName="head">
-										<VolumeUp/> 音量注意！
-									</div>
-									<div styleName="body">
+						<div styleName="notice-area" onClick={this.handleClickOk}>
+							<div styleName="notice">
+								<div styleName="head">
+									<VolumeUp/> 音量注意！
+								</div>
+								<div styleName="body">
 										このページは<wbr/>音楽を<wbr/>自動演奏する<wbr/>サイトです。<wbr/>音量に<wbr/>注意して<wbr/>お楽しみください。
-									</div>
-									<div styleName="ok" onClick={this.handleClickOk}>
+								</div>
+								<div styleName="ok" onClick={this.handleClickOk}>
 										OK
-									</div>
 								</div>
 							</div>
-						)}
+						</div>
+					)}
 				</div>
 			)
 		);

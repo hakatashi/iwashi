@@ -54,7 +54,7 @@ class Sound extends React.Component {
 				<img styleName="thumbnail" src={getThumbnailUrl(this.props.videoUrl)}/>
 				<div styleName="description">
 					<strong>{this.props.resourceWork}</strong>
-					より
+					{'より'}
 					<strong>{this.props.resourceName}</strong>
 				</div>
 			</div>
