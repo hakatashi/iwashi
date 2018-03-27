@@ -540,8 +540,8 @@ module.exports = class Track extends React.Component {
 									},
 								},
 							}}
-							width={{small: 192, normal: 256, large: 320}[this.props.size]}
-							height={{small: 108, normal: 144, large: 180}[this.props.size]}
+							width={{small: 192, normal: 192, large: 298}[this.props.size]}
+							height={{small: 108, normal: 108, large: 162}[this.props.size]}
 							playing={
 								this.props.isPlayReady &&
 								this.state.isPlaying &&
