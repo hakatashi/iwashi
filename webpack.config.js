@@ -5,10 +5,10 @@ const precss = require('precss');
 const autoprefixer = require('autoprefixer');
 const MinifyPlugin = require('babel-minify-webpack-plugin');
 
-module.exports = (env = {}) => {
+module.exports = (env, argv = {}) => {
 	const browsers = [
 		'last 2 chrome versions',
-		...(env.production
+		...(argv.mode === 'production'
 			? ['last 2 firefox versions', 'safari >= 9', 'last 2 edge versions']
 			: []),
 	];
@@ -24,11 +24,12 @@ module.exports = (env = {}) => {
 
 	return {
 		entry: './index.babel.js',
+		mode: argv.mode || 'development',
 		output: {
 			path: __dirname,
 			filename: 'index.js',
 		},
-		devtool: env.production ? 'source-map' : 'cheap-module-eval-source-map',
+		devtool: argv.mode === 'production' ? 'source-map' : 'cheap-module-eval-source-map',
 		module: {
 			rules: [
 				{
@@ -95,9 +96,9 @@ module.exports = (env = {}) => {
 								ident: 'postcss',
 								plugins: [
 									precss(),
-									...(env.production
+									...(argv.mode === 'production'
 										? [autoprefixer({
-											browsers: modulableBrowsers,
+											browsers,
 										}), cssnano()]
 										: []),
 								],
@@ -114,7 +115,7 @@ module.exports = (env = {}) => {
 							loader: 'postcss-loader',
 							options: {
 								ident: 'css',
-								plugins: [...(env.production ? [cssnano()] : [])],
+								plugins: [...(argv.mode === 'production' ? [cssnano()] : [])],
 							},
 						},
 					],
@@ -196,11 +197,9 @@ module.exports = (env = {}) => {
 		},
 		plugins: [
 			new webpack.DefinePlugin({
-				'process.env.NODE_ENV': JSON.stringify(
-					env.production ? 'production' : 'development'
-				),
+				'process.env.NODE_ENV': JSON.stringify(argv.mode),
 			}),
-			...(env.production ? [new MinifyPlugin()] : []),
+			...(argv.mode === 'production' ? [new MinifyPlugin()] : []),
 		],
 		resolve: {
 			alias: {
