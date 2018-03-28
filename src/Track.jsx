@@ -537,6 +537,7 @@ module.exports = class Track extends React.Component {
 										end: Math.ceil(
 											this.soundData.video.start + this.soundData.video.duration
 										),
+										modestbranding: 1,
 									},
 								},
 							}}
@@ -547,7 +548,7 @@ module.exports = class Track extends React.Component {
 								this.state.isPlaying &&
 								(!this.props.isNoVideo || !this.props.isReady)
 							}
-							controls={this.props.size !== 'small'}
+							controls={this.props.size === 'large'}
 							muted
 							loop
 							onReady={this.handlePlayerReady}

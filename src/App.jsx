@@ -166,6 +166,7 @@ module.exports = class App extends React.Component {
 			isPaused: false,
 			isPlayReady: false,
 			isVocalDisabled: false,
+			isVocalSolo: false,
 			isShareOpen: false,
 		};
 
@@ -337,6 +338,7 @@ module.exports = class App extends React.Component {
 		this.setState({
 			soloScore: isSolo ? score : null,
 			isVocalDisabled: this.vocalManager.isNotSolo || this.vocalManager.isMuted,
+			...(isSolo ? {isVocalSolo: false} : {}),
 		});
 	};
 
@@ -358,6 +360,21 @@ module.exports = class App extends React.Component {
 			vocalVolume: this.vocalManager.volume,
 		});
 	};
+
+	handleChangeVoiceSolo = (isSolo) => {
+		if (isSolo && this.state.isVocalDisabled) {
+			this.vocalManager.unmute();
+			this.vocalManager.disableNotSolo();
+		}
+
+		this.setState({
+			isVocalSolo: isSolo,
+			...(isSolo ? {
+				isVocalDisabled: false,
+				soloScore: null,
+			} : {}),
+		});
+	}
 
 	handleClickPause = () => {
 		if (this.state.isPaused) {
@@ -588,8 +605,8 @@ module.exports = class App extends React.Component {
 									isPaused={this.state.isPaused}
 									isNoVideo={this.state.isNoVideo}
 									isNotSolo={
-										this.state.soloScore !== null &&
-										this.state.soloScore !== name
+										this.state.isVocalSolo || (this.state.soloScore !== null &&
+										this.state.soloScore !== name)
 									}
 									isPlayReady={this.state.isPlayReady}
 								/>
@@ -632,10 +649,11 @@ module.exports = class App extends React.Component {
 						<div styleName="lyric-controls">
 							<VolumeControls
 								volume={this.state.vocalVolume}
-								isMuted={false}
-								isSolo={false}
+								isMuted={this.vocalManager && this.vocalManager.isMuted}
+								isSolo={this.state.isVocalSolo}
 								onChangeMuted={this.handleChangeVoiceMuted}
 								onChangeVolume={this.handleChangeVoiceVolume}
+								onChangeSolo={this.handleChangeVoiceSolo}
 							/>
 						</div>
 						{this.state.background.author && (
