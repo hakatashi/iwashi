@@ -29,7 +29,10 @@ module.exports = (env, argv = {}) => {
 			path: __dirname,
 			filename: 'index.js',
 		},
-		devtool: argv.mode === 'production' ? 'source-map' : 'cheap-module-eval-source-map',
+		devtool:
+			argv.mode === 'production'
+				? 'source-map'
+				: 'cheap-module-eval-source-map',
 		module: {
 			rules: [
 				{
@@ -97,9 +100,12 @@ module.exports = (env, argv = {}) => {
 								plugins: [
 									precss(),
 									...(argv.mode === 'production'
-										? [autoprefixer({
-											browsers,
-										}), cssnano()]
+										? [
+											autoprefixer({
+												browsers,
+											}),
+											cssnano(),
+										  ]
 										: []),
 								],
 							},

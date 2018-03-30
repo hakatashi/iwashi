@@ -84,7 +84,7 @@ for (const [id, song] of Object.entries({iwashi})) {
 						score,
 						meanOfNotes: median(noteNumbers),
 					};
-				})()
+				  })()
 				: {}),
 			...(track.start ? {start: parseTime(track.start, song.resolution)} : {}),
 			...(track.end ? {end: parseTime(track.end, song.resolution)} : {}),

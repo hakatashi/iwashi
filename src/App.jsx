@@ -155,7 +155,7 @@ module.exports = class App extends React.Component {
 			soundSelect: false,
 			soundSelectTop: 0,
 			soundSelectLeft: 0,
-			vocalVolume: 1,
+			vocalVolume: 0.6,
 			background: this.song.backgrounds[0],
 			backgroundAnimation: null,
 			backgroundDuration: null,
@@ -369,12 +369,14 @@ module.exports = class App extends React.Component {
 
 		this.setState({
 			isVocalSolo: isSolo,
-			...(isSolo ? {
-				isVocalDisabled: false,
-				soloScore: null,
-			} : {}),
+			...(isSolo
+				? {
+					isVocalDisabled: false,
+					soloScore: null,
+				  }
+				: {}),
 		});
-	}
+	};
 
 	handleClickPause = () => {
 		if (this.state.isPaused) {
@@ -605,8 +607,9 @@ module.exports = class App extends React.Component {
 									isPaused={this.state.isPaused}
 									isNoVideo={this.state.isNoVideo}
 									isNotSolo={
-										this.state.isVocalSolo || (this.state.soloScore !== null &&
-										this.state.soloScore !== name)
+										this.state.isVocalSolo ||
+										(this.state.soloScore !== null &&
+											this.state.soloScore !== name)
 									}
 									isPlayReady={this.state.isPlayReady}
 								/>
