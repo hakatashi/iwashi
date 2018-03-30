@@ -276,7 +276,7 @@ tracks:
     score: !require ./score/chord.txt
     default:
       sound: aoba-zoi
-      volume: 0.2
+      volume: 0.4
   cowbell:
     type: percussion
     category: bell
@@ -289,15 +289,15 @@ tracks:
     category: chime
     score: !require ./score/chime1.txt
     default:
-      sound: minecraft-blaze
-      volume: 0.5
+      sound: tennis-racket
+      volume: 0.6
   chime2:
     type: percussion
     category: chime
     score: !require ./score/chime2.txt
     default:
-      sound: inoubattle-otama
-      volume: 0.4
+      sound: yukari-cowbell
+      volume: 0.8
   chorus1:
     type: instrument
     category: chorus
@@ -340,7 +340,7 @@ tracks:
     prank: true
     default:
       sound: washing-aegi
-      volume: 0.3
+      volume: 0.4
   synth2:
     type: instrument
     category: synth
@@ -348,7 +348,7 @@ tracks:
     prank: true
     default:
       sound: kemofure-toki
-      volume: 0.12
+      volume: 0.2
   chorus5:
     type: instrument
     category: chorus
