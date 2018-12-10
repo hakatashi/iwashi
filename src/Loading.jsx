@@ -5,10 +5,10 @@ const PropTypes = require('prop-types');
 const classNames = require('classnames');
 const sum = require('lodash/sum');
 const {getResourceUrl} = require('./util.js');
-import {FaSpinner} from 'react-icons/fa';
-import {MdVolumeUp} from 'react-icons/md';
 
 import './Loading.pcss';
+import {FaSpinner} from 'react-icons/fa';
+import {MdVolumeUp} from 'react-icons/md';
 
 const R = 'right';
 const L = 'left';

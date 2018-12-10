@@ -5,7 +5,6 @@ const PropTypes = require('prop-types');
 const randomColor = require('randomcolor');
 const classNames = require('classnames');
 const assert = require('assert');
-import {MdRefresh} from 'react-icons/md';
 
 const soundData = require('../sound/data.yml');
 const {TICK} = require('./const.js');
@@ -14,6 +13,7 @@ const params = require('./params.js');
 const VolumeControls = require('./VolumeControls.jsx');
 
 import './Track.pcss';
+import {MdRefresh} from 'react-icons/md';
 
 module.exports = class Track extends React.Component {
 	static propTypes = {

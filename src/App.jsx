@@ -9,7 +9,7 @@ const Modernizr = require('modernizr');
 // eslint-disable-next-line node/no-missing-require
 const createjs = require('imports-loader?this=>window!exports-loader?window.createjs!preloadjs/lib/preloadjs');
 
-// Tree-shaking
+import './App.pcss';
 import {
 	FaFacebook,
 	FaGithub,
@@ -40,8 +40,6 @@ const Loading = require('./Loading.jsx');
 const VolumeControls = require('./VolumeControls.jsx');
 const SoundSelect = require('./SoundSelect.jsx');
 const Tooltip = require('./Tooltip.jsx');
-
-import './App.pcss';
 
 class ShareIcon extends React.Component {
 	static propTypes = {

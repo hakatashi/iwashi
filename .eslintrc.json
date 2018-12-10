@@ -7,8 +7,10 @@
         "camelcase": "off",
         "no-console": "off",
         "max-len": "off",
-        "node/no-unsupported-features": "off",
         "react/no-multi-comp": "off",
-        "react/forbid-component-props": "off"
+        "react/forbid-component-props": "off",
+        "node/no-unsupported-features": "off",
+        "node/no-unsupported-features/es-syntax": "off",
+        "node/no-unsupported-features/es-builtins": "off"
     }
 }
