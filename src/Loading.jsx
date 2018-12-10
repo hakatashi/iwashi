@@ -4,9 +4,9 @@ const React = require('react');
 const PropTypes = require('prop-types');
 const classNames = require('classnames');
 const sum = require('lodash/sum');
-const VolumeUp = require('react-icons/lib/md/volume-up');
-const Spinner = require('react-icons/lib/fa/spinner');
 const {getResourceUrl} = require('./util.js');
+import {FaSpinner} from 'react-icons/fa';
+import {MdVolumeUp} from 'react-icons/md';
 
 import './Loading.pcss';
 
@@ -190,7 +190,7 @@ module.exports = class Loading extends React.Component {
 							) : (
 								<React.Fragment>
 									<div styleName="spinner">
-										<Spinner/>
+										<FaSpinner/>
 									</div>{' '}
 									{Math.floor(this.getProgress() * 100)}% Loaded...
 								</React.Fragment>
@@ -202,10 +202,22 @@ module.exports = class Loading extends React.Component {
 						<div styleName="notice-area" onClick={this.handleClickOk}>
 							<div styleName="notice">
 								<div styleName="head">
-									<VolumeUp/> 音量注意！
+									<MdVolumeUp/> 音量注意！
 								</div>
 								<div styleName="body">
-										このページは<wbr/>音楽を<wbr/>自動演奏する<wbr/>サイトです。<wbr/>音量に<wbr/>注意して<wbr/>お楽しみください。
+										このページは
+									<wbr/>
+										音楽を
+									<wbr/>
+										自動演奏する
+									<wbr/>
+										サイトです。
+									<wbr/>
+										音量に
+									<wbr/>
+										注意して
+									<wbr/>
+										お楽しみください。
 								</div>
 								<div styleName="ok" onClick={this.handleClickOk}>
 										OK

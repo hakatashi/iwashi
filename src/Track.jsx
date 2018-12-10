@@ -5,7 +5,7 @@ const PropTypes = require('prop-types');
 const randomColor = require('randomcolor');
 const classNames = require('classnames');
 const assert = require('assert');
-const Refresh = require('react-icons/lib/fa/refresh');
+import {MdRefresh} from 'react-icons/md';
 
 const soundData = require('../sound/data.yml');
 const {TICK} = require('./const.js');
@@ -192,7 +192,7 @@ module.exports = class Track extends React.Component {
 	handleBeat = (beat) => {
 		const tick = Math.floor((beat + TICK / 2) / TICK) % 2944;
 
-		if (Math.abs((beat + TICK) % (TICK * 2944) - TICK) < TICK / 2) {
+		if (Math.abs(((beat + TICK) % (TICK * 2944)) - TICK) < TICK / 2) {
 			this.setState({isShown: false});
 			for (const sound of this.sounds) {
 				sound.stop();
@@ -201,29 +201,29 @@ module.exports = class Track extends React.Component {
 
 		let hidden = false;
 
-		if (Math.abs(beat % (TICK * 2944) - TICK * 892) < TICK / 2) {
+		if (Math.abs((beat % (TICK * 2944)) - TICK * 892) < TICK / 2) {
 			this.setState({isShown: false});
 			hidden = true;
 		}
 
-		if (Math.abs(beat % (TICK * 2944) - TICK * 1408) < TICK / 2) {
+		if (Math.abs((beat % (TICK * 2944)) - TICK * 1408) < TICK / 2) {
 			this.setState({isShown: false});
 			hidden = true;
 		}
 
-		if (Math.abs(beat % (TICK * 2944) - TICK * 1792) < TICK / 2) {
+		if (Math.abs((beat % (TICK * 2944)) - TICK * 1792) < TICK / 2) {
 			this.setState({isShown: false});
 			hidden = true;
 		}
 
-		if (Math.abs(beat % (TICK * 2944) - TICK * 2816) < TICK / 2) {
+		if (Math.abs((beat % (TICK * 2944)) - TICK * 2816) < TICK / 2) {
 			this.setState({isShown: false});
 			hidden = true;
 		}
 
 		if (this.props.type === 'percussion') {
 			const playNoteIndex = this.props.score.findIndex(
-				(note) => Math.abs(note.time - beat % (TICK * 2944)) < TICK / 2 &&
+				(note) => Math.abs(note.time - (beat % (TICK * 2944))) < TICK / 2 &&
 					note.type === 'note'
 			);
 
@@ -267,9 +267,9 @@ module.exports = class Track extends React.Component {
 				if ((tick - this.props.start) % 4 === 0) {
 					const playbackTime = this.sounds[0].seek();
 					const targetTime =
-						((tick - this.props.start) % (32 * this.soundData.duration)) *
+						(((tick - this.props.start) % (32 * this.soundData.duration)) *
 							TICK *
-							135 /
+							135) /
 							this.soundData.tempo +
 						TICK;
 					if (Math.abs(playbackTime + TICK - targetTime) > TICK) {
@@ -287,11 +287,11 @@ module.exports = class Track extends React.Component {
 			return;
 		} else {
 			const playNoteIndex = this.props.score.findIndex(
-				(note) => Math.abs(note.time - beat % (TICK * 2944)) < TICK / 2 &&
+				(note) => Math.abs(note.time - (beat % (TICK * 2944))) < TICK / 2 &&
 					note.type === 'note'
 			);
 			const playNotes = this.props.score.filter(
-				(note) => Math.abs(note.time - beat % (TICK * 2944)) < TICK / 2 &&
+				(note) => Math.abs(note.time - (beat % (TICK * 2944))) < TICK / 2 &&
 					note.type === 'note'
 			);
 
@@ -301,7 +301,7 @@ module.exports = class Track extends React.Component {
 					Math.abs(
 						this.props.score[this.currentNoteIndex].time +
 							this.props.score[this.currentNoteIndex].duration -
-							beat % (TICK * 2944)
+							(beat % (TICK * 2944))
 					) <
 						TICK / 2)
 			) {
@@ -318,7 +318,7 @@ module.exports = class Track extends React.Component {
 
 			// Select the best octave scale based on meanOfNotes and sourceNote
 			const noteDifference =
-				this.props.meanOfNotes - this.soundData.sourceNote % 12;
+				this.props.meanOfNotes - (this.soundData.sourceNote % 12);
 			const downerOctave = Math.floor(noteDifference / 12);
 			const upperOctave = Math.ceil(noteDifference / 12);
 			assert(downerOctave <= upperOctave);
@@ -330,7 +330,9 @@ module.exports = class Track extends React.Component {
 			playNotes.forEach((note, index) => {
 				this.sounds[index].rate(
 					2 **
-						((note.noteNumber - octave * 12 - this.soundData.sourceNote % 12) /
+						((note.noteNumber -
+							octave * 12 -
+							(this.soundData.sourceNote % 12)) /
 							12)
 				);
 				this.sounds[index].volume(this.getVolume());
@@ -431,7 +433,7 @@ module.exports = class Track extends React.Component {
 
 		const playNote = this.props.score[this.currentNoteIndex];
 
-		return playNote.velocity / 100 * this.state.volume;
+		return (playNote.velocity / 100) * this.state.volume;
 	};
 
 	handleVideoSessionTimeout = (session) => {
@@ -507,7 +509,7 @@ module.exports = class Track extends React.Component {
 						onClick={this.handleClickChange}
 						ref={this.handleChangeRef}
 					>
-						<Refresh/> かえる
+						<MdRefresh/> かえる
 					</div>
 				</div>
 				<div

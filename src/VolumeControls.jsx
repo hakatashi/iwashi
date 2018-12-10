@@ -2,8 +2,7 @@ const React = require('react');
 const PropTypes = require('prop-types');
 const classNames = require('classnames');
 const {default: Hammer} = require('react-hammerjs');
-const VolumeUp = require('react-icons/lib/md/volume-up');
-const VolumeOff = require('react-icons/lib/md/volume-off');
+import {MdVolumeOff, MdVolumeUp} from 'react-icons/md';
 
 import './VolumeControls.pcss';
 
@@ -76,7 +75,7 @@ module.exports = class Track extends React.Component {
 		return (
 			<div styleName="controls">
 				<div styleName="mute" onClick={this.handleClickMute}>
-					{this.state.isMuted ? <VolumeOff/> : <VolumeUp/>}
+					{this.state.isMuted ? <MdVolumeOff/> : <MdVolumeUp/>}
 				</div>
 				<div styleName="volume">
 					{(() => {

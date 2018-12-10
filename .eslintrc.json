@@ -1,6 +1,8 @@
 {
     "extends": "@hakatashi",
-    "parser": "babel-eslint",
+    "parserOptions": {
+        "parser": "babel-eslint"
+    },
     "rules": {
         "camelcase": "off",
         "no-console": "off",

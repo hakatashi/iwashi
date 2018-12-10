@@ -20,6 +20,7 @@ module.exports = (env, argv = {}) => {
 		useBuiltIns: 'entry',
 		shippedProposals: true,
 		debug: true,
+		modules: 'commonjs',
 	};
 
 	return {

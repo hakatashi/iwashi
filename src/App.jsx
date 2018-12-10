@@ -9,18 +9,23 @@ const Modernizr = require('modernizr');
 // eslint-disable-next-line node/no-missing-require
 const createjs = require('imports-loader?this=>window!exports-loader?window.createjs!preloadjs/lib/preloadjs');
 
-const Videocam = require('react-icons/lib/md/videocam');
-const VideocamOff = require('react-icons/lib/md/videocam-off');
-const Refresh = require('react-icons/lib/fa/refresh');
-const Play = require('react-icons/lib/fa/play');
-const Pause = require('react-icons/lib/fa/pause');
-const StepBackward = require('react-icons/lib/fa/step-backward');
-const StepForward = require('react-icons/lib/fa/step-forward');
-const Github = require('react-icons/lib/fa/github');
-const Undo = require('react-icons/lib/md/undo');
-const Share = require('react-icons/lib/md/share');
-const Twitter = require('react-icons/lib/fa/twitter-square');
-const Facebook = require('react-icons/lib/fa/facebook-square');
+// Tree-shaking
+import {
+	FaFacebook,
+	FaGithub,
+	FaPause,
+	FaPlay,
+	FaStepBackward,
+	FaStepForward,
+	FaTwitter,
+} from 'react-icons/fa';
+import {
+	MdRefresh,
+	MdShare,
+	MdUndo,
+	MdVideocam,
+	MdVideocamOff,
+} from 'react-icons/md';
 // eslint-disable-next-line node/no-extraneous-require
 const {default: Hatena} = require('hatena-icon/hatenabookmark-logomark.svg');
 
@@ -249,10 +254,10 @@ module.exports = class App extends React.Component {
 								backgroundAnimation: null,
 								backgroundDuration:
 									nextBackground &&
-									(nextBackground.time - background.time) /
-										this.song.resolution *
-										4 /
-										this.song.bpm *
+									((((nextBackground.time - background.time) /
+										this.song.resolution) *
+										4) /
+										this.song.bpm) *
 										60,
 							},
 							resolve
@@ -645,7 +650,7 @@ module.exports = class App extends React.Component {
 								duration={100}
 								styleName="change unimplemented"
 							>
-								<Refresh/> かえる
+								<MdRefresh/> かえる
 							</Tooltip>
 						</div>
 						<div styleName="lyric-text">{this.state.lyric}</div>
@@ -677,13 +682,13 @@ module.exports = class App extends React.Component {
 				<div styleName="controls">
 					<div styleName="playback">
 						<Tooltip title="未実装" styleName="button unimplemented">
-							<StepBackward/>
+							<FaStepBackward/>
 						</Tooltip>
 						<div styleName="button" onClick={this.handleClickPause}>
-							{this.state.isPaused ? <Play/> : <Pause/>}
+							{this.state.isPaused ? <FaPlay/> : <FaPause/>}
 						</div>
 						<Tooltip title="未実装" styleName="button unimplemented">
-							<StepForward/>
+							<FaStepForward/>
 						</Tooltip>
 					</div>
 					<div styleName="title">
@@ -693,7 +698,7 @@ module.exports = class App extends React.Component {
 							distance={-30}
 							styleName="change unimplemented"
 						>
-							<Refresh/> かえる
+							<MdRefresh/> かえる
 						</Tooltip>
 					</div>
 					<div styleName="button" onClick={this.handleClickShare}>
@@ -709,14 +714,14 @@ module.exports = class App extends React.Component {
 											isArrange={false}
 											onClick={this.handleClickShareIcon}
 										>
-											<Twitter/>
+											<FaTwitter/>
 										</ShareIcon>
 										<ShareIcon
 											name="facebook"
 											isArrange={false}
 											onClick={this.handleClickShareIcon}
 										>
-											<Facebook/>
+											<FaFacebook/>
 										</ShareIcon>
 										<ShareIcon
 											name="hatena"
@@ -745,14 +750,14 @@ module.exports = class App extends React.Component {
 											isArrange
 											onClick={this.handleClickShareIcon}
 										>
-											<Twitter/>
+											<FaTwitter/>
 										</ShareIcon>
 										<ShareIcon
 											name="facebook"
 											isArrange
 											onClick={this.handleClickShareIcon}
 										>
-											<Facebook/>
+											<FaFacebook/>
 										</ShareIcon>
 									</div>
 								</div>
@@ -765,7 +770,7 @@ module.exports = class App extends React.Component {
 							arrow
 							animateFill={false}
 						>
-							<Share/>
+							<MdShare/>
 						</Tooltip>
 					</div>
 					<div styleName="button" onClick={this.handleClickDefault}>
@@ -773,7 +778,7 @@ module.exports = class App extends React.Component {
 							title="デフォルトに戻す"
 							style={{width: '100%', height: '100%'}}
 						>
-							<Undo/>
+							<MdUndo/>
 						</Tooltip>
 					</div>
 					<div
@@ -790,7 +795,7 @@ module.exports = class App extends React.Component {
 							}
 							style={{width: '100%', height: '100%'}}
 						>
-							{this.state.isNoVideo ? <VideocamOff/> : <Videocam/>}
+							{this.state.isNoVideo ? <MdVideocamOff/> : <MdVideocam/>}
 						</Tooltip>
 					</div>
 					<a
@@ -803,7 +808,7 @@ module.exports = class App extends React.Component {
 							title="Fork me on GitHub!"
 							style={{width: '100%', height: '100%'}}
 						>
-							<Github/>
+							<FaGithub/>
 						</Tooltip>
 					</a>
 				</div>
