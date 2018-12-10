@@ -10,7 +10,7 @@ const parseTime = (timeText, resolution) => {
 	if (components.length === 2) {
 		return (
 			(parseInt(components[0]) - 1) * resolution +
-			(parseInt(components[1]) - 1) * resolution / 4
+			((parseInt(components[1]) - 1) * resolution) / 4
 		);
 	}
 
