@@ -43,7 +43,7 @@
     "prettier-eslint-cli": "^4.7.1",
     "prop-types": "^15.6.2",
     "randomcolor": "^0.5.3",
-    "raw-loader": "^0.5.1",
+    "raw-loader": "^1.0.0",
     "react": "^16.6.3",
     "react-dom": "^16.6.3",
     "react-hammerjs": "^1.0.1",
