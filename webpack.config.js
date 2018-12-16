@@ -32,7 +32,7 @@ module.exports = (env, argv = {}) => {
 		},
 		devtool:
 			argv.mode === 'production'
-				? 'source-map'
+				? false // https://github.com/webpack-contrib/babel-minify-webpack-plugin/issues/68
 				: 'cheap-module-eval-source-map',
 		module: {
 			rules: [

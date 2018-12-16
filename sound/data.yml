@@ -211,9 +211,9 @@ bemybaby-intro:
     work: BE MY BABY
     name: イントロ
   video:
-    url: https://www.youtube.com/watch?v=jGWFDZ33UCU
-    start: 5.3
-    duration: 30
+    url: https://www.youtube.com/watch?v=WCIA678ybz8
+    start: 3
+    duration: 15
     rate: 1
 cheatbug-rakurai:
   type: instrument

@@ -263,7 +263,7 @@ module.exports = class App extends React.Component {
 					})
 						.then(() => wait(0))
 						.then(() => {
-							this.setState({backgroundAnimation: background.animation});
+							// this.setState({backgroundAnimation: background.animation});
 						});
 					break;
 				}

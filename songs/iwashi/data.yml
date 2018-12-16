@@ -289,7 +289,7 @@ tracks:
     category: chime
     score: !require ./score/chime1.txt
     default:
-      sound: tennis-racket
+      sound: inoubattle-otama
       volume: 0.6
   chime2:
     type: percussion
