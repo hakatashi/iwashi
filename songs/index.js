@@ -10,7 +10,7 @@ const parseTime = (timeText, resolution) => {
 	if (components.length === 2) {
 		return (
 			(parseInt(components[0]) - 1) * resolution +
-			(parseInt(components[1]) - 1) * resolution / 4
+			((parseInt(components[1]) - 1) * resolution) / 4
 		);
 	}
 
@@ -84,7 +84,7 @@ for (const [id, song] of Object.entries({iwashi})) {
 						score,
 						meanOfNotes: median(noteNumbers),
 					};
-				})()
+				  })()
 				: {}),
 			...(track.start ? {start: parseTime(track.start, song.resolution)} : {}),
 			...(track.end ? {end: parseTime(track.end, song.resolution)} : {}),

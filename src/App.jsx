@@ -9,18 +9,23 @@ const Modernizr = require('modernizr');
 // eslint-disable-next-line node/no-missing-require
 const createjs = require('imports-loader?this=>window!exports-loader?window.createjs!preloadjs/lib/preloadjs');
 
-const Videocam = require('react-icons/lib/md/videocam');
-const VideocamOff = require('react-icons/lib/md/videocam-off');
-const Refresh = require('react-icons/lib/fa/refresh');
-const Play = require('react-icons/lib/fa/play');
-const Pause = require('react-icons/lib/fa/pause');
-const StepBackward = require('react-icons/lib/fa/step-backward');
-const StepForward = require('react-icons/lib/fa/step-forward');
-const Github = require('react-icons/lib/fa/github');
-const Undo = require('react-icons/lib/md/undo');
-const Share = require('react-icons/lib/md/share');
-const Twitter = require('react-icons/lib/fa/twitter-square');
-const Facebook = require('react-icons/lib/fa/facebook-square');
+import './App.pcss';
+import {
+	FaFacebook,
+	FaGithub,
+	FaPause,
+	FaPlay,
+	FaStepBackward,
+	FaStepForward,
+	FaTwitter,
+} from 'react-icons/fa';
+import {
+	MdRefresh,
+	MdShare,
+	MdUndo,
+	MdVideocam,
+	MdVideocamOff,
+} from 'react-icons/md';
 // eslint-disable-next-line node/no-extraneous-require
 const {default: Hatena} = require('hatena-icon/hatenabookmark-logomark.svg');
 
@@ -35,8 +40,6 @@ const Loading = require('./Loading.jsx');
 const VolumeControls = require('./VolumeControls.jsx');
 const SoundSelect = require('./SoundSelect.jsx');
 const Tooltip = require('./Tooltip.jsx');
-
-import './App.pcss';
 
 class ShareIcon extends React.Component {
 	static propTypes = {
@@ -155,7 +158,7 @@ module.exports = class App extends React.Component {
 			soundSelect: false,
 			soundSelectTop: 0,
 			soundSelectLeft: 0,
-			vocalVolume: 1,
+			vocalVolume: 0.6,
 			background: this.song.backgrounds[0],
 			backgroundAnimation: null,
 			backgroundDuration: null,
@@ -166,6 +169,7 @@ module.exports = class App extends React.Component {
 			isPaused: false,
 			isPlayReady: false,
 			isVocalDisabled: false,
+			isVocalSolo: false,
 			isShareOpen: false,
 		};
 
@@ -248,10 +252,10 @@ module.exports = class App extends React.Component {
 								backgroundAnimation: null,
 								backgroundDuration:
 									nextBackground &&
-									(nextBackground.time - background.time) /
-										this.song.resolution *
-										4 /
-										this.song.bpm *
+									((((nextBackground.time - background.time) /
+										this.song.resolution) *
+										4) /
+										this.song.bpm) *
 										60,
 							},
 							resolve
@@ -259,7 +263,7 @@ module.exports = class App extends React.Component {
 					})
 						.then(() => wait(0))
 						.then(() => {
-							this.setState({backgroundAnimation: background.animation});
+							// this.setState({backgroundAnimation: background.animation});
 						});
 					break;
 				}
@@ -337,6 +341,7 @@ module.exports = class App extends React.Component {
 		this.setState({
 			soloScore: isSolo ? score : null,
 			isVocalDisabled: this.vocalManager.isNotSolo || this.vocalManager.isMuted,
+			...(isSolo ? {isVocalSolo: false} : {}),
 		});
 	};
 
@@ -356,6 +361,23 @@ module.exports = class App extends React.Component {
 		this.vocalManager.setVolume(volume);
 		this.setState({
 			vocalVolume: this.vocalManager.volume,
+		});
+	};
+
+	handleChangeVoiceSolo = (isSolo) => {
+		if (isSolo && this.state.isVocalDisabled) {
+			this.vocalManager.unmute();
+			this.vocalManager.disableNotSolo();
+		}
+
+		this.setState({
+			isVocalSolo: isSolo,
+			...(isSolo
+				? {
+					isVocalDisabled: false,
+					soloScore: null,
+				  }
+				: {}),
 		});
 	};
 
@@ -588,8 +610,9 @@ module.exports = class App extends React.Component {
 									isPaused={this.state.isPaused}
 									isNoVideo={this.state.isNoVideo}
 									isNotSolo={
-										this.state.soloScore !== null &&
-										this.state.soloScore !== name
+										this.state.isVocalSolo ||
+										(this.state.soloScore !== null &&
+											this.state.soloScore !== name)
 									}
 									isPlayReady={this.state.isPlayReady}
 								/>
@@ -625,17 +648,18 @@ module.exports = class App extends React.Component {
 								duration={100}
 								styleName="change unimplemented"
 							>
-								<Refresh/> かえる
+								<MdRefresh/> かえる
 							</Tooltip>
 						</div>
 						<div styleName="lyric-text">{this.state.lyric}</div>
 						<div styleName="lyric-controls">
 							<VolumeControls
 								volume={this.state.vocalVolume}
-								isMuted={false}
-								isSolo={false}
+								isMuted={this.vocalManager && this.vocalManager.isMuted}
+								isSolo={this.state.isVocalSolo}
 								onChangeMuted={this.handleChangeVoiceMuted}
 								onChangeVolume={this.handleChangeVoiceVolume}
+								onChangeSolo={this.handleChangeVoiceSolo}
 							/>
 						</div>
 						{this.state.background.author && (
@@ -656,13 +680,13 @@ module.exports = class App extends React.Component {
 				<div styleName="controls">
 					<div styleName="playback">
 						<Tooltip title="未実装" styleName="button unimplemented">
-							<StepBackward/>
+							<FaStepBackward/>
 						</Tooltip>
 						<div styleName="button" onClick={this.handleClickPause}>
-							{this.state.isPaused ? <Play/> : <Pause/>}
+							{this.state.isPaused ? <FaPlay/> : <FaPause/>}
 						</div>
 						<Tooltip title="未実装" styleName="button unimplemented">
-							<StepForward/>
+							<FaStepForward/>
 						</Tooltip>
 					</div>
 					<div styleName="title">
@@ -672,7 +696,7 @@ module.exports = class App extends React.Component {
 							distance={-30}
 							styleName="change unimplemented"
 						>
-							<Refresh/> かえる
+							<MdRefresh/> かえる
 						</Tooltip>
 					</div>
 					<div styleName="button" onClick={this.handleClickShare}>
@@ -688,14 +712,14 @@ module.exports = class App extends React.Component {
 											isArrange={false}
 											onClick={this.handleClickShareIcon}
 										>
-											<Twitter/>
+											<FaTwitter/>
 										</ShareIcon>
 										<ShareIcon
 											name="facebook"
 											isArrange={false}
 											onClick={this.handleClickShareIcon}
 										>
-											<Facebook/>
+											<FaFacebook/>
 										</ShareIcon>
 										<ShareIcon
 											name="hatena"
@@ -709,14 +733,14 @@ module.exports = class App extends React.Component {
 										この<strong>アレンジ</strong>をシェアする
 									</div>
 									<div styleName="share-name">
-										「
+										{'「'}
 										<input
 											type="text"
 											value={this.state.shareName}
 											placeholder="名無し"
 											onChange={this.handleShareNameChange}
 										/>
-										さんによるアレンジ」
+										{'さんによるアレンジ」'}
 									</div>
 									<div styleName="share-icons">
 										<ShareIcon
@@ -724,14 +748,14 @@ module.exports = class App extends React.Component {
 											isArrange
 											onClick={this.handleClickShareIcon}
 										>
-											<Twitter/>
+											<FaTwitter/>
 										</ShareIcon>
 										<ShareIcon
 											name="facebook"
 											isArrange
 											onClick={this.handleClickShareIcon}
 										>
-											<Facebook/>
+											<FaFacebook/>
 										</ShareIcon>
 									</div>
 								</div>
@@ -744,7 +768,7 @@ module.exports = class App extends React.Component {
 							arrow
 							animateFill={false}
 						>
-							<Share/>
+							<MdShare/>
 						</Tooltip>
 					</div>
 					<div styleName="button" onClick={this.handleClickDefault}>
@@ -752,7 +776,7 @@ module.exports = class App extends React.Component {
 							title="デフォルトに戻す"
 							style={{width: '100%', height: '100%'}}
 						>
-							<Undo/>
+							<MdUndo/>
 						</Tooltip>
 					</div>
 					<div
@@ -769,7 +793,7 @@ module.exports = class App extends React.Component {
 							}
 							style={{width: '100%', height: '100%'}}
 						>
-							{this.state.isNoVideo ? <VideocamOff/> : <Videocam/>}
+							{this.state.isNoVideo ? <MdVideocamOff/> : <MdVideocam/>}
 						</Tooltip>
 					</div>
 					<a
@@ -782,7 +806,7 @@ module.exports = class App extends React.Component {
 							title="Fork me on GitHub!"
 							style={{width: '100%', height: '100%'}}
 						>
-							<Github/>
+							<FaGithub/>
 						</Tooltip>
 					</a>
 				</div>

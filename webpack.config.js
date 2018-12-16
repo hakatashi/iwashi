@@ -20,6 +20,7 @@ module.exports = (env, argv = {}) => {
 		useBuiltIns: 'entry',
 		shippedProposals: true,
 		debug: true,
+		modules: 'commonjs',
 	};
 
 	return {
@@ -29,7 +30,10 @@ module.exports = (env, argv = {}) => {
 			path: __dirname,
 			filename: 'index.js',
 		},
-		devtool: argv.mode === 'production' ? 'source-map' : 'cheap-module-eval-source-map',
+		devtool:
+			argv.mode === 'production'
+				? false // https://github.com/webpack-contrib/babel-minify-webpack-plugin/issues/68
+				: 'cheap-module-eval-source-map',
 		module: {
 			rules: [
 				{
@@ -97,9 +101,12 @@ module.exports = (env, argv = {}) => {
 								plugins: [
 									precss(),
 									...(argv.mode === 'production'
-										? [autoprefixer({
-											browsers,
-										}), cssnano()]
+										? [
+											autoprefixer({
+												browsers,
+											}),
+											cssnano(),
+										  ]
 										: []),
 								],
 							},
