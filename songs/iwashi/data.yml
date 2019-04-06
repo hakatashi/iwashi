@@ -303,6 +303,7 @@ tracks:
     type: instrument
     category: chorus
     score: !require ./score/chorus1.txt
+    intro: true
     default:
       sound: ai-virus
       volume: 0.2

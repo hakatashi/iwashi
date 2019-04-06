@@ -166,6 +166,7 @@ module.exports = class App extends React.Component {
 			isFlashing: false,
 			isNoVideo: true,
 			isReady: false,
+			isIntro: false,
 			isPaused: false,
 			isPlayReady: false,
 			isVocalDisabled: false,
@@ -295,13 +296,15 @@ module.exports = class App extends React.Component {
 				if (!params.debug) {
 					await wait(1000);
 				}
-				this.setState({isReady: true});
 
-				if (!params.debug) {
-					await wait(3000);
+				this.setState({
+					isReady: true,
+					isIntro: true,
+				});
+
+				if (params.debug) {
+					this.handleIntroEnded();
 				}
-
-				this.handleBeatInterval = setInterval(this.handleBeat, TICK * 1000);
 			}
 		}
 	};
@@ -328,6 +331,7 @@ module.exports = class App extends React.Component {
 
 		this.setState({
 			isFlashing: true,
+			isIntro: false,
 		});
 	};
 
@@ -456,6 +460,11 @@ module.exports = class App extends React.Component {
 		}));
 	};
 
+	handleIntroEnded = () => {
+		assert(this.state.isIntro === true);
+		this.handleBeatInterval = setInterval(this.handleBeat, TICK * 1000);
+	};
+
 	handleClickShare = () => {
 		this.setState(({isShareOpen}) => ({isShareOpen: !isShareOpen}));
 	};
@@ -557,7 +566,12 @@ module.exports = class App extends React.Component {
 
 	render() {
 		return (
-			<div styleName={classNames('app', {flash: this.state.isFlashing})}>
+			<div
+				styleName={classNames('app', {
+					flash: this.state.isFlashing,
+					intro: this.state.isIntro,
+				})}
+			>
 				<Loading
 					titleComponents={this.song.titleComponents}
 					transcriber={
@@ -606,7 +620,9 @@ module.exports = class App extends React.Component {
 									onChangeStatus={this.handleSoundStatusChanged}
 									onClickChange={this.handleClickChange}
 									onUpdate={this.handleUpdateTrack}
+									onIntroEnded={this.handleIntroEnded}
 									isReady={this.state.isReady}
+									isIntro={this.state.isIntro}
 									isPaused={this.state.isPaused}
 									isNoVideo={this.state.isNoVideo}
 									isNotSolo={
