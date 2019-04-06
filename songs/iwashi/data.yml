@@ -6,137 +6,138 @@ titleComponents:
 artist: ころんば
 bpm: 135
 resolution: 32
+length: 3.1.0
 lyrics: |
-  =6.1.0
+  =7.1.0
   なんねん　まえかの　ことでした
-  =7.4.0
+  =8.4.0
   だれかが　ハサミで
-  =9.1.0
+  =10.1.0
   タイムラインを　ちょんぎった
-  =10.4.5
+  =11.4.5
   そして
-  =11.3.0
+  =12.3.0
   あしたと　きのうが　つながった
-  =13.1.0
-
   =14.1.0
+
+  =15.1.0
   あしたの　ことは　しっている
-  =15.4.0
+  =16.4.0
   イワシが　つちから　はえてくるんだ
-  =18.1.0
+  =19.1.0
   えきの　ホームに　あながあく
-  =19.4.0
+  =20.4.0
   すのこが　きえるんだ
-  =22.1.0
+  =23.1.0
   きのうの　きおくは　きえたけど
-  =23.4.0
+  =24.4.0
   きえたってことも　よくわからないんだ
-  =26.1.0
+  =27.1.0
   そらの　うえから　ビルがたつ
-  =27.4.0
+  =28.4.0
   めが　みえなくなってきた
 
-  =29.4.0
+  =30.4.0
   はな　は　かれず
-  =32.4.0
+  =33.4.0
   とり　は　とばず　ねむる
-  =36.4.0
+  =37.4.0
   かぜ　は　とまり　つめたく
-  =40.4.0
+  =41.4.0
   つき　は　みちも　かけも　せず　まわる
-  =46.1.0
+  =47.1.0
 
-  =50.1.0
+  =51.1.0
   いままでと　これからが　つながって
-  =52.2.5
+  =53.2.5
   いちにちを　とばして　わすれて
-  =54.1.0
+  =55.1.0
   すすんでく
-  =54.4.5
+  =55.4.5
   ここは
-  =55.3.0
+  =56.3.0
   もとには　もどらなくなった
-  =57.1.0
-
   =58.1.0
+
+  =59.1.0
   あしたの　ことは　しっている
-  =59.4.0
+  =60.4.0
   イワシが　つちから　はえてくるんだ
-  =62.1.0
+  =63.1.0
   えきの　ホームに　あながあく
-  =63.4.0
+  =64.4.0
   すのこが　きえるんだ
-  =66.1.0
+  =67.1.0
   きのうの　きおくは　きえたけど
-  =67.4.0
+  =68.4.0
   きえたってことも　よくわからないんだ
-  =70.1.0
+  =71.1.0
   そらの　うえから　ビルがたつ
-  =71.4.0
+  =72.4.0
   めが　みえなくなってきた
 
-  =74.1.0
+  =75.1.0
   あしたの　ことは　しっている
-  =75.4.0
+  =76.4.0
   イワシが　つちから　はえてくるんだ
-  =78.1.0
+  =79.1.0
   えきの　ホームに　あながあく
-  =79.4.0
+  =80.4.0
   すのこが　きえるんだ
-  =82.1.0
+  =83.1.0
   きのうの　きおくは　きえたけど
-  =83.4.0
+  =84.4.0
   きえたってことも　よくわからないんだ
-  =86.1.0
+  =87.1.0
   そらの　うえから　ビルがたつ
-  =87.4.0
+  =88.4.0
   めが　みえなくなってきた
-  =90.1.0
+  =91.1.0
 clearances:
-  - 6.1.0
-  - 30.1.0
-  - 46.1.0
-  - 50.1.0
-  - 58.1.0
-  - 90.1.0
+  - 7.1.0
+  - 31.1.0
+  - 47.1.0
+  - 51.1.0
+  - 59.1.0
+  - 91.1.0
 vocals:
   yufu:
     - source: '01'
-      start: 5.4.25
-      end: 13.3.25
+      start: 6.4.25
+      end: 14.3.25
     - source: '02'
-      start: 13.3.25
-      end: 21.3.25
+      start: 14.3.25
+      end: 22.3.25
     - source: '03'
-      start: 21.3.25
-      end: 29.3.25
+      start: 22.3.25
+      end: 30.3.25
     - source: '04'
-      start: 29.3.25
-      end: 36.3.25
+      start: 30.3.25
+      end: 37.3.25
     - source: '05'
-      start: 36.3.25
-      end: 46.1.25
+      start: 37.3.25
+      end: 47.1.25
     - source: '06'
-      start: 46.1.25
-      end: 49.1.0
+      start: 47.1.25
+      end: 50.1.0
     - source: '07'
-      start: 49.4.25
-      end: 57.3.25
+      start: 50.4.25
+      end: 58.3.25
     - source: '02'
-      start: 57.3.25
-      end: 65.3.25
+      start: 58.3.25
+      end: 66.3.25
     - source: '03'
-      start: 65.3.25
-      end: 73.3.25
+      start: 66.3.25
+      end: 74.3.25
     - source: '02'
-      start: 73.3.25
-      end: 81.3.25
+      start: 74.3.25
+      end: 82.3.25
     - source: '03'
-      start: 81.3.25
-      end: 89.3.25
+      start: 82.3.25
+      end: 90.3.25
     - source: '08'
-      start: 89.3.25
-      end: 92.3.875
+      start: 90.3.25
+      end: 93.3.875
 defaultVocal: yufu
 backgrounds:
   - time: 0.1.0
@@ -147,7 +148,7 @@ backgrounds:
     license: null
     animation: null
     transform: null
-  - time: 6.1.0
+  - time: 7.1.0
     url: https://farm5.staticflickr.com/4568/37574526294_a1137ffda6_k.jpg
     workUrl: https://flic.kr/p/ZfkgAf
     title: nature
@@ -155,7 +156,7 @@ backgrounds:
     license: CC BY
     animation: left
     transform: null
-  - time: 14.1.0
+  - time: 15.1.0
     url: https://farm4.staticflickr.com/3671/11285730373_f3e33590b1_k.jpg
     workUrl: https://flic.kr/p/ichjsa
     title: City
@@ -163,7 +164,7 @@ backgrounds:
     license: CC BY
     animation: right
     transform: null
-  - time: 22.1.0
+  - time: 23.1.0
     url: https://farm4.staticflickr.com/3671/11285730373_f3e33590b1_k.jpg
     workUrl: https://flic.kr/p/ichjsa
     title: City
@@ -171,7 +172,7 @@ backgrounds:
     license: CC BY
     animation: left
     transform: rotate(180deg)
-  - time: 30.1.0
+  - time: 31.1.0
     url: https://farm5.staticflickr.com/4146/5441757600_31068a25e2_b.jpg
     workUrl: https://flic.kr/p/9hSqWU
     title: A bird and apricot flowers
@@ -179,7 +180,7 @@ backgrounds:
     license: CC BY-SA
     animation: right
     transform: null
-  - time: 38.1.0
+  - time: 39.1.0
     url: https://farm5.staticflickr.com/4543/38135163096_57b0b9b8f2_b.jpg
     workUrl: https://flic.kr/p/216SFo1
     title: Beaver Moon Rise from Austin Texas
@@ -187,7 +188,7 @@ backgrounds:
     license: CC BY-NC-ND
     animation: left
     transform: null
-  - time: 47.1.0
+  - time: 48.1.0
     url: null
     workUrl: null
     title: null
@@ -195,7 +196,7 @@ backgrounds:
     license: null
     animation: null
     transform: null
-  - time: 50.1.0
+  - time: 51.1.0
     url: https://farm5.staticflickr.com/4185/34571430632_eb91c0243f_b.jpg
     workUrl: https://flic.kr/p/UEXBSQ
     title: Nature
@@ -203,7 +204,7 @@ backgrounds:
     license: CC BY-NC-ND
     animation: up
     transform: null
-  - time: 58.1.0
+  - time: 59.1.0
     url: https://farm4.staticflickr.com/3685/12708583543_7e491d6227_b.jpg
     workUrl: https://flic.kr/p/kn1P8n
     title: waiting for a train
@@ -211,7 +212,7 @@ backgrounds:
     license: CC BY
     animation: left
     transform: null
-  - time: 66.1.0
+  - time: 67.1.0
     url: https://farm4.staticflickr.com/3685/12708583543_7e491d6227_b.jpg
     workUrl: https://flic.kr/p/kn1P8n
     title: waiting for a train
@@ -219,7 +220,7 @@ backgrounds:
     license: CC BY
     animation: right
     transform: rotate(180deg)
-  - time: 74.1.0
+  - time: 75.1.0
     url: https://farm5.staticflickr.com/4119/4790098318_9d71f854ff_b.jpg
     workUrl: https://flic.kr/p/8ihvm3
     title: Diversify
@@ -227,7 +228,7 @@ backgrounds:
     license: CC BY-NC
     animation: rotate
     transform: null
-  - time: 90.1.0
+  - time: 91.1.0
     url: null
     workUrl: null
     title: null
@@ -369,8 +370,8 @@ tracks:
       volume: 0.4
   rap:
     type: rap
-    start: 73.1.0
-    end: 89.1.0
+    start: 75.1.0
+    end: 91.1.0
     default:
       sound: bemybaby-intro
       volume: 0.3

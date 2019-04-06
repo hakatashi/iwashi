@@ -163,6 +163,7 @@ module.exports = class App extends React.Component {
 			backgroundAnimation: null,
 			backgroundDuration: null,
 			shareName: '',
+			flashCount: 0,
 			isFlashing: false,
 			isNoVideo: true,
 			isReady: false,
@@ -223,7 +224,11 @@ module.exports = class App extends React.Component {
 	handleBeat = () => {
 		this.setState(({beat}) => ({beat: beat === null ? TICK * 0 : beat + TICK}));
 
-		const beat = Math.floor(this.state.beat / TICK) % 2944;
+		const beat = Math.floor(this.state.beat / TICK);
+		if (beat >= this.song.length) {
+			clearInterval(this.handleBeatInterval);
+			return;
+		}
 		this.vocalManager.onBeat(beat);
 
 		const lyric = this.song.lyrics.find(
@@ -320,9 +325,10 @@ module.exports = class App extends React.Component {
 
 		await new Promise((resolve) => {
 			this.setState(
-				{
+				({flashCount}) => ({
 					isFlashing: false,
-				},
+					flashCount: flashCount + 1,
+				}),
 				resolve
 			);
 		});
@@ -615,6 +621,8 @@ module.exports = class App extends React.Component {
 									volume={this.state.trackSounds.get(name).volume}
 									beat={this.state.beat}
 									size={this.state.size}
+									flashCount={this.state.flashCount}
+									clearances={this.song.clearances}
 									onFlash={this.handleFlash}
 									onChangeSolo={this.handleChangeSolo}
 									onChangeStatus={this.handleSoundStatusChanged}
