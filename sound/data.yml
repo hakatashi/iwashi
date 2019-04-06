@@ -23,10 +23,10 @@ killme-pyonsuke:
   category: bass
   resource:
     work: キルミーベイベー
-    name: ピョン助に無慈悲な一撃
+    name: ピョン助
   video:
-    url: https://www.youtube.com/watch?v=vXBO_W5l6uY
-    start: 247.7
+    url: https://www.youtube.com/watch?v=WGecTmaeqjc
+    start: 1100.5
     duration: 0.5
 ippon-crisp:
   type: percussion

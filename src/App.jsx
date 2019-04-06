@@ -102,7 +102,7 @@ module.exports = class App extends React.Component {
 				return 'small';
 			}
 
-			if (window.innerWidth < 1280) {
+			if (window.innerWidth <= 1366) {
 				return 'small';
 			}
 

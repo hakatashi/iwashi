@@ -344,7 +344,7 @@ module.exports = class Track extends React.Component {
 			this.props.onFlash();
 		}
 
-		if (!this.props.isNoVideo && this.player) {
+		if (this.player) {
 			this.player.seekTo(this.soundData.video.start);
 		}
 
@@ -543,8 +543,8 @@ module.exports = class Track extends React.Component {
 									},
 								},
 							}}
-							width={{small: 192, normal: 192, large: 298}[this.props.size]}
-							height={{small: 108, normal: 108, large: 162}[this.props.size]}
+							width={{small: 192, normal: 224, large: 288}[this.props.size]}
+							height={{small: 108, normal: 126, large: 162}[this.props.size]}
 							playing={
 								this.props.isPlayReady &&
 								this.state.isPlaying &&
