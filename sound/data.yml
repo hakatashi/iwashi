@@ -726,3 +726,29 @@ deremasu-mashumaro:
     url: https://www.youtube.com/watch?v=ExT9cr9hcWI
     start: 141.3
     duration: 0.5
+kokoro-bookoff:
+  type: instrument
+  category: synth
+  loop: false
+  prank: true
+  sourceNote: 75
+  resource:
+    work: BOOKOFF CM「心を読める心くん」
+    name: 「ブックオフなのに本ねえじゃん」
+  video:
+    url: https://www.youtube.com/watch?v=JH1Ns-FTTVQ
+    start: 5.5
+    duration: 1
+gochiusa-tippy-no:
+  type: instrument
+  category: base
+  loop: false
+  prank: true
+  sourceNote: 77
+  resource:
+    work: アニメ「ご注文はうさぎですか？」
+    name: ティッピー「ノー！」
+  video:
+    url: https://www.youtube.com/watch?v=Eg2uYxL7NVk
+    start: 106.5
+    duration: 2

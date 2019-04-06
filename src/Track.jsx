@@ -26,6 +26,7 @@ module.exports = class Track extends React.Component {
 		prank: PropTypes.bool,
 		start: PropTypes.number,
 		end: PropTypes.number,
+		intro: PropTypes.number,
 		sound: PropTypes.string.isRequired,
 		volume: PropTypes.number.isRequired,
 		beat: PropTypes.number.isRequired,
@@ -35,7 +36,9 @@ module.exports = class Track extends React.Component {
 		onChangeStatus: PropTypes.func.isRequired,
 		onClickChange: PropTypes.func.isRequired,
 		onUpdate: PropTypes.func.isRequired,
+		onIntroEnded: PropTypes.func.isRequired,
 		isReady: PropTypes.bool.isRequired,
+		isIntro: PropTypes.bool.isRequired,
 		isPaused: PropTypes.bool.isRequired,
 		isNoVideo: PropTypes.bool.isRequired,
 		isNotSolo: PropTypes.bool.isRequired,
@@ -49,6 +52,7 @@ module.exports = class Track extends React.Component {
 		prank: false,
 		start: null,
 		end: null,
+		intro: false,
 	};
 
 	constructor(props, state) {
@@ -61,6 +65,7 @@ module.exports = class Track extends React.Component {
 			isShown: true,
 			isMuted: false,
 			isSolo: false,
+			isIntroPlaying: false,
 		};
 
 		this.currentNoteIndex = null;
@@ -122,6 +127,10 @@ module.exports = class Track extends React.Component {
 
 		if (this.state.isSolo !== prevState.isSolo) {
 			this.handleUpdate();
+		}
+
+		if (!prevProps.isIntro && this.props.isIntro && this.props.intro) {
+			this.handleStartIntro();
 		}
 
 		if (this.state.isMuted !== prevState.isMuted) {
@@ -187,6 +196,36 @@ module.exports = class Track extends React.Component {
 				internalPlayer.setPlaybackQuality('tiny');
 			}
 		}
+	};
+
+	handleStartIntro = async () => {
+		this.player.seekTo(25);
+		await new Promise((resolve) => this.setState(
+			{
+				isIntroPlaying: true,
+				isPlaying: true,
+				isShown: true,
+			},
+			resolve
+		));
+		await new Promise((resolve) => {
+			const interval = setInterval(() => {
+				const seconds = this.player.getCurrentTime();
+				if (seconds >= 32) {
+					clearInterval(interval);
+					resolve();
+				}
+			}, 100);
+		});
+		await new Promise((resolve) => this.setState(
+			{
+				isIntroPlaying: false,
+				isPlaying: false,
+				isShown: false,
+			},
+			resolve
+		));
+		this.props.onIntroEnded();
 	};
 
 	handleBeat = (beat) => {
@@ -461,6 +500,12 @@ module.exports = class Track extends React.Component {
 		}
 	};
 
+	handlePlayerEnded = (event) => {
+		if (typeof this.onPlayerEnded === 'function') {
+			this.onPlayerEnded(event);
+		}
+	};
+
 	handlePlayerError = () => {
 		this.isError = true;
 		for (const sound of this.sounds) {
@@ -548,13 +593,16 @@ module.exports = class Track extends React.Component {
 							playing={
 								this.props.isPlayReady &&
 								this.state.isPlaying &&
-								(!this.props.isNoVideo || !this.props.isReady)
+								(!this.props.isNoVideo ||
+									!this.props.isReady ||
+									this.state.isIntroPlaying)
 							}
 							controls={this.props.size === 'large'}
-							muted
-							loop
+							muted={!this.state.isIntroPlaying}
+							loop={!this.state.isIntroPlaying}
 							onReady={this.handlePlayerReady}
 							onPlay={this.handlePlayerPlay}
+							onEnded={this.handlePlayerEnded}
 							onError={this.handlePlayerError}
 						/>
 					)}
