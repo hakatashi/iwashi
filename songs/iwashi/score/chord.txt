@@ -1,5 +1,5 @@
 t135 o4 l4
-r1
+r1 r1
 
 /: r [dfa] r [ceg] :/3
 l8

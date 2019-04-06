@@ -163,6 +163,7 @@ module.exports = class App extends React.Component {
 			backgroundAnimation: null,
 			backgroundDuration: null,
 			shareName: '',
+			flashCount: 0,
 			isFlashing: false,
 			isNoVideo: true,
 			isReady: false,
@@ -320,9 +321,10 @@ module.exports = class App extends React.Component {
 
 		await new Promise((resolve) => {
 			this.setState(
-				{
+				({flashCount}) => ({
 					isFlashing: false,
-				},
+					flashCount: flashCount + 1,
+				}),
 				resolve
 			);
 		});
@@ -615,6 +617,7 @@ module.exports = class App extends React.Component {
 									volume={this.state.trackSounds.get(name).volume}
 									beat={this.state.beat}
 									size={this.state.size}
+									flashCount={this.state.flashCount}
 									onFlash={this.handleFlash}
 									onChangeSolo={this.handleChangeSolo}
 									onChangeStatus={this.handleSoundStatusChanged}

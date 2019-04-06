@@ -31,6 +31,7 @@ module.exports = class Track extends React.Component {
 		volume: PropTypes.number.isRequired,
 		beat: PropTypes.number.isRequired,
 		size: PropTypes.string.isRequired,
+		flashCount: PropTypes.number.isRequired,
 		onFlash: PropTypes.func.isRequired,
 		onChangeSolo: PropTypes.func.isRequired,
 		onChangeStatus: PropTypes.func.isRequired,
@@ -66,6 +67,7 @@ module.exports = class Track extends React.Component {
 			isMuted: false,
 			isSolo: false,
 			isIntroPlaying: false,
+			isForcePlaying: false,
 		};
 
 		this.currentNoteIndex = null;
@@ -110,6 +112,14 @@ module.exports = class Track extends React.Component {
 		if (this.props.volume !== nextProps.volume) {
 			this.setState({volume: nextProps.volume});
 		}
+
+		if (!this.props.isIntro && nextProps.isIntro && this.props.intro) {
+			this.handleStartIntro();
+		}
+
+		if (this.props.flashCount !== nextProps.flashCount) {
+			this.handleFlash();
+		}
 	}
 
 	componentDidUpdate(prevProps, prevState) {
@@ -127,10 +137,6 @@ module.exports = class Track extends React.Component {
 
 		if (this.state.isSolo !== prevState.isSolo) {
 			this.handleUpdate();
-		}
-
-		if (!prevProps.isIntro && this.props.isIntro && this.props.intro) {
-			this.handleStartIntro();
 		}
 
 		if (this.state.isMuted !== prevState.isMuted) {
@@ -203,6 +209,7 @@ module.exports = class Track extends React.Component {
 		await new Promise((resolve) => this.setState(
 			{
 				isIntroPlaying: true,
+				isForcePlaying: true,
 				isPlaying: true,
 				isShown: true,
 			},
@@ -226,6 +233,12 @@ module.exports = class Track extends React.Component {
 			resolve
 		));
 		this.props.onIntroEnded();
+	};
+
+	handleFlash = () => {
+		this.setState({
+			isForcePlaying: !this.props.isNoVideo,
+		});
 	};
 
 	handleBeat = (beat) => {
@@ -595,7 +608,8 @@ module.exports = class Track extends React.Component {
 								this.state.isPlaying &&
 								(!this.props.isNoVideo ||
 									!this.props.isReady ||
-									this.state.isIntroPlaying)
+									this.state.isIntroPlaying ||
+									this.state.isForcePlaying)
 							}
 							controls={this.props.size === 'large'}
 							muted={!this.state.isIntroPlaying}
