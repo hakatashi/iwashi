@@ -21,6 +21,7 @@ module.exports = (env, argv = {}) => {
 		shippedProposals: true,
 		debug: true,
 		modules: 'commonjs',
+		corejs: 3,
 	};
 
 	return {
