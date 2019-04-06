@@ -618,6 +618,7 @@ module.exports = class App extends React.Component {
 									beat={this.state.beat}
 									size={this.state.size}
 									flashCount={this.state.flashCount}
+									clearances={this.song.clearances}
 									onFlash={this.handleFlash}
 									onChangeSolo={this.handleChangeSolo}
 									onChangeStatus={this.handleSoundStatusChanged}

@@ -32,6 +32,7 @@ module.exports = class Track extends React.Component {
 		beat: PropTypes.number.isRequired,
 		size: PropTypes.string.isRequired,
 		flashCount: PropTypes.number.isRequired,
+		clearances: PropTypes.arrayOf(PropTypes.number).isRequired,
 		onFlash: PropTypes.func.isRequired,
 		onChangeSolo: PropTypes.func.isRequired,
 		onChangeStatus: PropTypes.func.isRequired,
@@ -77,6 +78,7 @@ module.exports = class Track extends React.Component {
 		this.isVideoPaused = false;
 
 		this.updateSound(this.props.sound);
+		console.log(props.clearances);
 	}
 
 	componentWillReceiveProps(nextProps) {
@@ -253,24 +255,11 @@ module.exports = class Track extends React.Component {
 
 		let hidden = false;
 
-		if (Math.abs((beat % (TICK * 2944)) - TICK * 892) < TICK / 2) {
-			this.setState({isShown: false});
-			hidden = true;
-		}
-
-		if (Math.abs((beat % (TICK * 2944)) - TICK * 1408) < TICK / 2) {
-			this.setState({isShown: false});
-			hidden = true;
-		}
-
-		if (Math.abs((beat % (TICK * 2944)) - TICK * 1792) < TICK / 2) {
-			this.setState({isShown: false});
-			hidden = true;
-		}
-
-		if (Math.abs((beat % (TICK * 2944)) - TICK * 2816) < TICK / 2) {
-			this.setState({isShown: false});
-			hidden = true;
+		for (const clearance of this.props.clearances) {
+			if (Math.abs((beat % (TICK * 2944)) - TICK * clearance) < TICK / 2) {
+				this.setState({isShown: false});
+				hidden = true;
+			}
 		}
 
 		if (this.props.type === 'percussion') {
