@@ -254,7 +254,7 @@ tracks:
     category: bass
     score: !require ./score/bass.txt
     default:
-      sound: badapple-intro
+      sound: killme-pyonsuke
       volume: 0.6
   closed-hihat:
     type: percussion
