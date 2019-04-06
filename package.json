@@ -59,7 +59,7 @@
   },
   "devDependencies": {},
   "napa": {
-    "misaki-font": "http://www.geocities.jp/littlimi/arc/misaki/misaki_ttf_2015-04-10.zip",
+    "misaki-font": "http://littlelimit.net/arc/misaki/misaki_ttf_2019-02-03a.zip",
     "hatena-icon": "http://hatenacorp.jp/file/hatenaportal/company/Hatena-Bookmark-Logo.zip"
   },
   "scripts": {
