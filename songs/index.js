@@ -62,6 +62,7 @@ const compileMml = (text) => {
 for (const [id, song] of Object.entries({iwashi})) {
 	module.exports[id] = {
 		...song,
+		length: parseTime(song.length, song.resolution),
 		lyrics: compileLyrics(song.lyrics, song.resolution),
 		vocals: mapValues(song.vocals, (vocals) => vocals.map((vocal) => ({
 			...vocal,

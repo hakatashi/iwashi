@@ -224,7 +224,11 @@ module.exports = class App extends React.Component {
 	handleBeat = () => {
 		this.setState(({beat}) => ({beat: beat === null ? TICK * 0 : beat + TICK}));
 
-		const beat = Math.floor(this.state.beat / TICK) % 2944;
+		const beat = Math.floor(this.state.beat / TICK);
+		if (beat >= this.song.length) {
+			clearInterval(this.handleBeatInterval);
+			return;
+		}
 		this.vocalManager.onBeat(beat);
 
 		const lyric = this.song.lyrics.find(
