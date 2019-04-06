@@ -344,7 +344,7 @@ module.exports = class Track extends React.Component {
 			this.props.onFlash();
 		}
 
-		if (!this.props.isNoVideo && this.player) {
+		if (this.player) {
 			this.player.seekTo(this.soundData.video.start);
 		}
 
