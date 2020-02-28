@@ -9,7 +9,7 @@
     "@babel/plugin-proposal-object-rest-spread": "^7.8.3",
     "@babel/polyfill": "^7.8.3",
     "@babel/preset-env": "^7.8.6",
-    "@babel/preset-react": "^7.0.0",
+    "@babel/preset-react": "^7.8.3",
     "@hakatashi/babel-plugin-react-svg": "^2.1.0-1",
     "@hakatashi/eslint-config": "^1.8.4",
     "autoprefixer": "^9.5.0",
