@@ -48,7 +48,7 @@
     "react-dom": "^16.8.6",
     "react-hammerjs": "^1.0.1",
     "react-icons": "^3.5.0",
-    "react-player": "^1.10.0",
+    "react-player": "^2.1.0",
     "react-tippy": "^1.2.3",
     "style-loader": "^0.23.1",
     "url-loader": "^1.1.2",
