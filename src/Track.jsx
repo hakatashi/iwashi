@@ -78,6 +78,7 @@ module.exports = class Track extends React.Component {
 		this.isVideoPaused = false;
 
 		this.updateSound(this.props.sound);
+		console.log(props.clearances);
 	}
 
 	componentWillReceiveProps(nextProps) {

@@ -6,7 +6,7 @@ titleComponents:
 artist: ころんば
 bpm: 135
 resolution: 32
-length: 3.1.0
+length: 95.1.0
 lyrics: |
   =7.1.0
   なんねん　まえかの　ことでした
@@ -370,8 +370,8 @@ tracks:
       volume: 0.4
   rap:
     type: rap
-    start: 75.1.0
-    end: 91.1.0
+    start: 73.1.0
+    end: 89.1.0
     default:
       sound: bemybaby-intro
       volume: 0.3

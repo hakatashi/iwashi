@@ -27,7 +27,6 @@ import {
 	MdVideocamOff,
 } from 'react-icons/md';
 // eslint-disable-next-line node/no-extraneous-require
-const {default: Hatena} = require('hatena-icon/hatenabookmark-logomark.svg');
 
 const {TICK} = require('./const.js');
 const VocalManager = require('./VocalManager.js');
@@ -224,11 +223,7 @@ module.exports = class App extends React.Component {
 	handleBeat = () => {
 		this.setState(({beat}) => ({beat: beat === null ? TICK * 0 : beat + TICK}));
 
-		const beat = Math.floor(this.state.beat / TICK);
-		if (beat >= this.song.length) {
-			clearInterval(this.handleBeatInterval);
-			return;
-		}
+		const beat = Math.floor(this.state.beat / TICK) % 2944;
 		this.vocalManager.onBeat(beat);
 
 		const lyric = this.song.lyrics.find(
@@ -749,9 +744,7 @@ module.exports = class App extends React.Component {
 											name="hatena"
 											isArrange={false}
 											onClick={this.handleClickShareIcon}
-										>
-											<Hatena/>
-										</ShareIcon>
+										/>
 									</div>
 									<div styleName="head">
 										この<strong>アレンジ</strong>をシェアする
